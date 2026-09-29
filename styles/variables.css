@@ -1,0 +1,6 @@
+/* Design tokens only — colours, spacing, radii, shadows, z-index scale.
+   Nothing in this file should paint anything on its own. */
+
+:root {
+  /* TODO: define the palette and spacing scale */
+}
