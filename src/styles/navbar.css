@@ -1,0 +1,70 @@
+.sidebar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 232px;
+  height: 100vh;
+  padding: 64px 0;
+  background-color: var(--colorPrimary);
+}
+
+.sidebarLogo {
+  display: flex;
+  align-self: center;
+}
+
+.sidebarLogoImg {
+  width: 100px;
+  height: 122px;
+}
+
+.navMain {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 112px;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 46px;
+  padding-left: 56px;
+  color: var(--colorGreyLight);
+  text-decoration: none;
+}
+
+.navLink:hover {
+  background-color: var(--colorPrimaryLight);
+}
+
+.navLinkActive,
+.navLinkActive:hover {
+  background-color: var(--colorPrimaryDark);
+  color: var(--colorWhite);
+}
+
+.navIcon {
+  width: 26px;
+  height: 26px;
+}
+
+.navLegal {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: auto;
+  padding-left: 56px;
+}
+
+.legalLink {
+  color: var(--colorGrey);
+  text-decoration: none;
+}
+
+.legalLink:hover {
+  color: var(--colorWhite);
+}
