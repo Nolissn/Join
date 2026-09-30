@@ -1,0 +1,7 @@
+@font-face {
+  font-family: "Inter";
+  font-weight: 100 900;
+  font-style: normal;
+  src: url(../../assets/fonts/inter_variable_font.woff2) format("woff2");
+  font-display: swap;
+}
