@@ -15,6 +15,7 @@ function sidebarTemplate(iconPath) {
 
 function headerTemplate(iconPath, initials) {
   return `
+    <a class="headerLogo" href="summary.html"><img class="headerLogoImg" src="${iconPath}join_icon_dark.svg" alt="Join Logo"></a>
     <p class="headerTitle">Kanban Project Management Tool</p>
     <div class="headerActions">
       <a class="headerHelp" href="help.html"><img class="headerHelpIcon" src="${iconPath}help.svg" alt="Help"></a>

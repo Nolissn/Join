@@ -11,6 +11,15 @@
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
+.headerLogo {
+  display: none;
+}
+
+.headerLogoImg {
+  width: 32px;
+  height: 39px;
+}
+
 .headerTitle {
   margin: 0;
   font-size: 20px;
@@ -42,4 +51,27 @@
   font-size: 20px;
   font-weight: 700;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .header {
+    height: 80px;
+    padding: 0 16px;
+  }
+
+  .headerLogo {
+    display: flex;
+  }
+
+  .headerTitle,
+  .headerHelp {
+    display: none;
+  }
+
+  .headerAvatar {
+    width: 40px;
+    height: 40px;
+    border-width: 2px;
+    font-size: 14px;
+  }
 }
