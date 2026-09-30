@@ -15,7 +15,66 @@
     <aside class="sidebar"></aside>
     <div class="pageColumn">
         <header class="header"></header>
-        <main></main>
+        <main>
+            <h1>Add Task</h1>
+
+            <form>
+                <section>
+                    <div class="add-task-input-container">
+                        <label for="title">Title</label>
+                        <input class="add-task-input" type="text" name="title" id="title" placeholder="Enter a title">
+                    </div>
+                    <div class="add-task-input-container">
+                        <label for="description">Description</label>
+                        <textarea class="add-task-input" name="description" id="description" placeholder="Enter a description"></textarea>
+                    </div>
+                    <div class="add-task-input-container">
+                        <label for="dueDate">Due Date</label>
+                        <input class="add-task-input" type="date" name="dueDate" id="dueDate">
+                    </div>
+                </section>
+
+                <div class="seperator"></div>
+
+                <section>
+                    <div class="add-task-input-container">
+                        <label for="priority">Priority</label>
+                        <div id="priority">
+                            <button>Urgent</button>
+                            <button>Medium</button>
+                            <button>Low</button>
+                        </div>
+                    </div>
+                    <div class="add-task-input-container">
+                        <label for="assigned">Assigned To</label>
+                        <select class="add-task-input" name="assigned" id="assigned">
+                            <option value="" disabled selected>Select contacts to assign</option>
+                            <option value="user1">User 1</option>
+                            <option value="user2">User 2</option>
+                            <option value="user3">User 3</option>
+                        </select>
+                    </div>
+                    <div class="add-task-input-container">
+                        <label for="category">Category</label>
+                        <select class="add-task-input" name="category" id="category">
+                            <option value="" disabled selected>Select task category</option>
+                            <option value="work">Work</option>
+                            <option value="personal">Personal</option>
+                            <option value="shopping">Shopping</option>
+                        </select>
+                    </div>
+                    <div class="add-task-input-container">
+                        <label for="subtasks">Subtasks</label>
+                        <input class="add-task-input" type="text" name="subtasks" id="subtasks" placeholder="Add new subtask">
+                    </div>
+                </section>
+            </form>
+
+            <div>
+                <button>Clear</button>
+                <button>Create Task</button>
+            </div>
+        </main>
     </div>
 </body>
 </html>
