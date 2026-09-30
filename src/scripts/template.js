@@ -20,5 +20,11 @@ function headerTemplate(iconPath, initials) {
     <div class="headerActions">
       <a class="headerHelp" href="help.html"><img class="headerHelpIcon" src="${iconPath}help.svg" alt="Help"></a>
       <button class="headerAvatar" type="button">${initials}</button>
+      <nav class="headerMenu">
+        <a class="headerMenuLink headerMenuLinkMobile" href="help.html">Help</a>
+        <a class="headerMenuLink" href="legalNotice.html">Legal Notice</a>
+        <a class="headerMenuLink" href="privacyPolicy.html">Privacy Policy</a>
+        <a class="headerMenuLink" href="../../index.html">Log out</a>
+      </nav>
     </div>`;
 }

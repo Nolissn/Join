@@ -13,6 +13,7 @@
 .sidebarLogo {
   display: flex;
   align-self: center;
+  cursor: default;
 }
 
 .sidebarLogoImg {
@@ -37,12 +38,7 @@
   text-decoration: none;
 }
 
-.navLink:hover {
-  background-color: var(--colorPrimaryLight);
-}
-
-.navLinkActive,
-.navLinkActive:hover {
+.navLinkActive {
   background-color: var(--colorPrimaryDark);
   color: var(--colorWhite);
 }
@@ -65,8 +61,18 @@
   text-decoration: none;
 }
 
-.legalLink:hover {
-  color: var(--colorWhite);
+@media (min-width: 769px) {
+  .navLink:hover {
+    background-color: var(--colorPrimaryLight);
+  }
+
+  .navLinkActive:hover {
+    background-color: var(--colorPrimaryDark);
+  }
+
+  .legalLink:hover {
+    color: var(--colorPrimaryGreyTone);
+  }
 }
 
 @media (max-width: 768px) {

@@ -13,6 +13,7 @@
 
 .headerLogo {
   display: none;
+  cursor: default;
 }
 
 .headerLogoImg {
@@ -53,6 +54,46 @@
   cursor: pointer;
 }
 
+.headerMenu {
+  position: absolute;
+  top: 100%;
+  right: 16px;
+  display: none;
+  flex-direction: column;
+  width: 150px;
+  padding: 10px;
+  border-radius: 20px 0 20px 20px;
+  background-color: var(--colorPrimary);
+}
+
+.headerMenuOpen {
+  display: flex;
+}
+
+.headerMenuLink {
+  display: flex;
+  align-items: center;
+  height: 46px;
+  padding-left: 16px;
+  color: var(--colorGreyLight);
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.headerMenuLinkMobile {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  .headerHelpIcon:hover {
+    transform: scale(1.2);
+  }
+
+  .headerAvatar:hover {
+    background-color: var(--colorBgHover);
+  }
+}
+
 @media (max-width: 768px) {
   .header {
     height: 80px;
@@ -73,5 +114,13 @@
     height: 40px;
     border-width: 2px;
     font-size: 14px;
+  }
+
+  .headerMenu {
+    right: 8px;
+  }
+
+  .headerMenuLinkMobile {
+    display: flex;
   }
 }

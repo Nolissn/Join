@@ -12,4 +12,14 @@ function markActiveNavLink() {
   document.querySelector(`.navLink[href="${currentPage}"]`)?.classList.add('navLinkActive');
 }
 
+function handleHeaderMenuClick(event) {
+  const headerMenu = document.querySelector('.headerMenu');
+  if (event.target.closest('.headerAvatar')) {
+    headerMenu.classList.toggle('headerMenuOpen');
+  } else if (!event.target.closest('.headerMenu')) {
+    headerMenu.classList.remove('headerMenuOpen');
+  }
+}
+
 document.addEventListener('DOMContentLoaded', renderLayout);
+document.addEventListener('click', handleHeaderMenuClick);
