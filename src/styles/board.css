@@ -85,10 +85,11 @@
 
 .boardColumn {
   display: flex;
+  flex: 1;
   flex-direction: column;
-  flex-shrink: 0;
   gap: 16px;
-  width: 252px;
+  min-width: 0;
+  max-width: 252px;
 }
 
 .columnHeader {
@@ -283,5 +284,105 @@
 
   .taskCard:hover {
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.16);
+  }
+}
+
+@media (max-width: 1439px) {
+  .board {
+    padding: 80px 32px 64px;
+  }
+}
+
+@media (max-width: 1250px) {
+  .boardColumns {
+    flex-direction: column;
+  }
+
+  .boardColumn {
+    flex: none;
+    gap: 8px;
+    max-width: none;
+  }
+
+  .columnTasks {
+    flex-direction: row;
+    margin: 0 -32px -16px;
+    padding: 8px 32px 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .columnTasks::-webkit-scrollbar {
+    display: none;
+  }
+
+  .taskPlaceholder {
+    flex: 1;
+  }
+
+  .taskCard,
+  .columnTasksHighlight::after {
+    flex: 0 0 252px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .boardHeader {
+    flex-wrap: wrap;
+    row-gap: 40px;
+  }
+
+  .boardActions {
+    display: contents;
+  }
+
+  .boardSearch {
+    order: 1;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .board {
+    gap: 24px;
+    padding: 48px 16px 24px;
+  }
+
+  .boardTitle {
+    font-size: 47px;
+  }
+
+  .boardAddButton {
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+  }
+
+  .boardAddButtonText {
+    display: none;
+  }
+
+  .boardColumn {
+    gap: 4px;
+  }
+
+  .columnHeader {
+    height: auto;
+  }
+
+  .columnTitle {
+    color: var(--colorPrimary);
+    font-size: 27px;
+  }
+
+  .columnAddIcon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .columnTasks {
+    margin: 0 -16px -16px;
+    padding: 8px 16px 16px;
   }
 }

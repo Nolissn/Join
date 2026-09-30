@@ -9,6 +9,7 @@
   padding: 0 40px 0 96px;
   background-color: var(--colorWhite);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  container-type: inline-size;
 }
 
 .headerLogo {
@@ -23,7 +24,8 @@
 
 .headerTitle {
   margin: 0;
-  font-size: 20px;
+  font-size: clamp(16px, calc((100cqw - 112px) / 15.6), 20px);
+  white-space: nowrap;
 }
 
 .headerActions {

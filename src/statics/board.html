@@ -26,7 +26,7 @@
                         <input class="boardSearchInput" type="text" id="findTask" placeholder="Find Task">
                         <button class="boardSearchButton" type="button"><img src="../../assets/icons/search.svg" alt="Search"></button>
                     </div>
-                    <button class="boardAddButton" type="button">Add task<img src="../../assets/icons/plus_white.svg" alt=""></button>
+                    <button class="boardAddButton" type="button" aria-label="Add task"><span class="boardAddButtonText">Add task</span><img src="../../assets/icons/plus_white.svg" alt=""></button>
                 </div>
             </div>
 
@@ -34,7 +34,7 @@
                 <section class="boardColumn">
                     <div class="columnHeader">
                         <h2 class="columnTitle">To do</h2>
-                        <button class="columnAddButton" type="button"><img src="../../assets/icons/plus_box.svg" alt="Add task to To do"></button>
+                        <button class="columnAddButton" type="button"><img class="columnAddIcon" src="../../assets/icons/plus_box.svg" alt="Add task to To do"></button>
                     </div>
                     <div class="columnTasks" id="todoTasks">
                         <p class="taskPlaceholder">No tasks To do</p>
@@ -44,7 +44,7 @@
                 <section class="boardColumn">
                     <div class="columnHeader">
                         <h2 class="columnTitle">In progress</h2>
-                        <button class="columnAddButton" type="button"><img src="../../assets/icons/plus_box.svg" alt="Add task to In progress"></button>
+                        <button class="columnAddButton" type="button"><img class="columnAddIcon" src="../../assets/icons/plus_box.svg" alt="Add task to In progress"></button>
                     </div>
                     <div class="columnTasks" id="inProgressTasks">
                         <p class="taskPlaceholder">No tasks In progress</p>
@@ -73,7 +73,7 @@
                 <section class="boardColumn">
                     <div class="columnHeader">
                         <h2 class="columnTitle">Await feedback</h2>
-                        <button class="columnAddButton" type="button"><img src="../../assets/icons/plus_box.svg" alt="Add task to Await feedback"></button>
+                        <button class="columnAddButton" type="button"><img class="columnAddIcon" src="../../assets/icons/plus_box.svg" alt="Add task to Await feedback"></button>
                     </div>
                     <div class="columnTasks" id="awaitFeedbackTasks">
                         <p class="taskPlaceholder">No tasks Await feedback</p>
