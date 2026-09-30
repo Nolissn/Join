@@ -1,0 +1,55 @@
+.header_auth_screen {
+  width: 100%;
+  max-width: 1440px;
+  height: 120.78px;
+  margin-top: 64px;
+  margin-bottom: 86px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--colorBgPage);
+}
+
+.header_auth_screen_icon_dark {
+  width: 100px;
+  height: 120.78px;
+}
+
+.header_auth_screen_content_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header_auth_screen_content_text {
+  font-family: "Inter";
+  font-style: regular;
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--colorBlack);
+  margin-right: 35px;
+}
+
+.header_auth_screen_content_sign_up_button {
+  width: 91px;
+  height: 49px;
+  cursor: pointer;
+  padding: 0px;
+  border: none;
+  border-radius: 16px;
+  background-color: var(--colorPrimary);
+  color: var(--colorWhite);
+  font-family: "Inter";
+  font-style: bold;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 16px;
+}
+
+.header_auth_screen_content_sign_up_button:hover {
+  background-color: var(--colorPrimaryGreyTone);
+}
+
+.header_auth_screen_content_sign_up_button:active {
+  background-color: var(--colorPrimaryDark);
+}
