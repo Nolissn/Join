@@ -26,13 +26,20 @@
         <div class="log_in_card">
           <h1 class="log_in_card_title">Log in</h1>
           <hr class="log_in_card_divider"/>
-          <form>
-            <input type="email" id="email" name="email" placeholder="Email">
-            <input type="password" id="password" name="password" placeholder="Password">
+          <form class="log_in_card_form">
+            <input class="general_log_in_card_input_style log_in_card_input_email" type="text" id="email" name="email" placeholder="Email">
+            <input class="general_log_in_card_input_style log_in_card_input_password" type="password" id="password" name="password" placeholder="Password">
           </form>
+          <div class="log_in_card_button_container">
+            <button class="log_in_card_log_in_button">Log in</button>
+            <button class="log_in_card_guest_log_in_button">Guest Log in</button>
+          </div>
         </div>
     </main>
-    <footer></footer>
+    <footer class="footer_auth_screen">
+        <a href="#" class="footer_auth_screen_link">Privacy Policy</a>
+        <a href="#" class="footer_auth_screen_link">Legal Notice</a>
+    </footer>
     <script src="./scripts.js" defer></script>
   </body>
 </html>

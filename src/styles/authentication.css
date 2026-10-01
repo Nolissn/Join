@@ -37,7 +37,7 @@
   cursor: pointer;
   padding: 0px;
   border: none;
-  border-radius: 16px;
+  border-radius: 10px;
   background-color: var(--colorPrimary);
   color: var(--colorWhite);
   font-family: "Inter";
@@ -49,45 +49,168 @@
 
 .header_auth_screen_content_sign_up_button:hover {
   background-color: var(--colorPrimaryGreyTone);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .header_auth_screen_content_sign_up_button:active {
   background-color: var(--colorPrimaryDark);
 }
 
-.main_content_container{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    height: auto;
+.main_content_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: auto;
 }
 
-.log_in_card{
-    width: 652px;
-    height: 449px;
-    border-radius: 30px;
-    background-color: var(--colorWhite);
-    box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+.log_in_card {
+  width: 652px;
+  height: 449px;
+  border-radius: 30px;
+  background-color: var(--colorWhite);
+  box-shadow: 0px 0px 14px 3px #00000024;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-.log_in_card_title{
-    font-family: "Inter";
-    font-style: bold;
-    font-weight: 700;
-    font-size: 61px;
-    color: var(--colorBlack);
-    margin-top: 48px;
+.log_in_card_title {
+  font-family: "Inter";
+  font-style: bold;
+  font-weight: 700;
+  font-size: 61px;
+  color: var(--colorBlack);
+  margin-top: 48px;
 }
 
-.log_in_card_divider{
-    width: 150px;
-    height: 3px;
-    border-radius: 3px;
-    background-color: var(--colorBlue);
-    margin-top: 14px;
-    margin-bottom: 30px;
+.log_in_card_divider {
+  width: 150px;
+  height: 3px;
+  border-radius: 3px;
+  background-color: var(--colorBlue);
+  margin-top: 14px;
+  margin-bottom: 30px;
+}
+
+.log_in_card_form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.general_log_in_card_input_style {
+  width: 422px;
+  height: 48px;
+  box-sizing: border-box;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: 1px solid var(--colorUnfocusedInputTag);
+  font-family: "Inter";
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.general_log_in_card_input_style:focus {
+  outline: none;
+  border-color: var(--colorPrimaryGreyTone);
+}
+
+.general_log_in_card_input_style::placeholder {
+  color: var(--colorUnfocusedInputTag);
+}
+
+.log_in_card_input_email {
+  padding-right: 52px;
+  background-image: url("../../assets/icons/mail.svg");
+  background-repeat: no-repeat;
+  background-position: right 21px center;
+  background-size: 20px 16px;
+}
+
+.log_in_card_input_password {
+  padding-right: 52px;
+  background-image: url("../../assets/icons/lock.svg");
+  background-repeat: no-repeat;
+  background-position: right 23px center;
+  background-size: 16px 21px;
+}
+
+.log_in_card_button_container {
+  display: flex;
+  justify-content: space-between;
+  width: 322px;
+  margin-top: 56px;
+}
+
+.log_in_card_log_in_button {
+  width: 110px;
+  height: 48px;
+  cursor: pointer;
+  padding: 0px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--colorPrimary);
+  color: var(--colorWhite);
+  font-family: "Inter";
+  font-weight: 700;
+  font-size: 21px;
+}
+
+.log_in_card_log_in_button:hover {
+  background-color: var(--colorPrimaryGreyTone);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.log_in_card_log_in_button:active {
+  background-color: var(--colorPrimaryDark);
+}
+
+.log_in_card_guest_log_in_button {
+  width: 177px;
+  height: 48px;
+  cursor: pointer;
+  padding: 0px;
+  border: 1px solid var(--colorPrimary);
+  border-radius: 10px;
+  background-color: var(--colorWhite);
+  color: var(--colorPrimary);
+  font-family: "Inter";
+  font-weight: 700;
+  font-size: 21px;
+  font-style: Bold;
+}
+
+.log_in_card_guest_log_in_button:hover {
+  border: 2px solid var(--colorPrimaryGreyTone);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.log_in_card_guest_log_in_button:active {
+  border: 1px solid var(--colorPrimaryDark);
+}
+
+.footer_auth_screen {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  margin-bottom: 38px;
+  gap: 16px;
+}
+
+.footer_auth_screen_link {
+  font-family: "Inter";
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 16px;
+  color: var(--colorTextGrey);
+  text-decoration: none;
+}
+
+.footer_auth_screen_link:hover {
+  font-family: "Inter";
+  font-weight: 700;
+  font-style: Bold;
+  color: var(--colorPrimaryDark);
 }
