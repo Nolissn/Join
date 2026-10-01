@@ -8,6 +8,8 @@
   justify-content: space-between;
   align-items: center;
   background-color: var(--colorBgPage);
+  padding-left: clamp(0px, calc(77px - (100vw - 1440px) / 2), 77px);
+  padding-right: clamp(0px, calc(122px - (100vw - 1440px) / 2), 122px);
 }
 
 .header_auth_screen_icon_dark {
