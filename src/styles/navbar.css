@@ -13,6 +13,7 @@
 .sidebarLogo {
   display: flex;
   align-self: center;
+  cursor: default;
 }
 
 .sidebarLogoImg {
@@ -37,12 +38,7 @@
   text-decoration: none;
 }
 
-.navLink:hover {
-  background-color: var(--colorPrimaryLight);
-}
-
-.navLinkActive,
-.navLinkActive:hover {
+.navLinkActive {
   background-color: var(--colorPrimaryDark);
   color: var(--colorWhite);
 }
@@ -65,6 +61,54 @@
   text-decoration: none;
 }
 
-.legalLink:hover {
-  color: var(--colorWhite);
+@media (min-width: 769px) {
+  .navLink:hover {
+    background-color: var(--colorPrimaryLight);
+  }
+
+  .navLinkActive:hover {
+    background-color: var(--colorPrimaryDark);
+  }
+
+  .legalLink:hover {
+    color: var(--colorPrimaryGreyTone);
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 80px;
+    padding: 0 16px;
+  }
+
+  .sidebarLogo,
+  .navLegal {
+    display: none;
+  }
+
+  .navMain {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    margin-top: 0;
+  }
+
+  .navLink {
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    gap: 4px;
+    max-width: 80px;
+    height: 76px;
+    padding: 0;
+    border-radius: 16px;
+    font-size: 14px;
+  }
 }

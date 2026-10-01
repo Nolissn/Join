@@ -19,3 +19,9 @@ body {
   flex: 1;
   min-width: 0;
 }
+
+@media (max-width: 768px) {
+  .pageColumn {
+    padding-bottom: 80px;
+  }
+}

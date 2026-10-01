@@ -1,0 +1,388 @@
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding: 80px 64px 64px;
+}
+
+.boardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.boardTitle {
+  font-size: 61px;
+  font-weight: 700;
+}
+
+.boardActions {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.boardSearch {
+  display: flex;
+  align-items: center;
+  width: 312px;
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--colorGrey);
+  border-radius: 10px;
+  background-color: var(--colorWhite);
+}
+
+.boardSearch:focus-within {
+  border-color: var(--colorAccent);
+}
+
+.boardSearchInput {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  color: var(--colorBlack);
+  font-family: inherit;
+  font-size: 20px;
+}
+
+.boardSearchInput::placeholder {
+  color: var(--colorGrey);
+}
+
+.boardSearchButton {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 0 0 16px;
+  border: none;
+  border-left: 1px solid var(--colorGrey);
+  background: none;
+  cursor: pointer;
+}
+
+.boardAddButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--colorPrimary);
+  color: var(--colorWhite);
+  font-family: inherit;
+  font-size: 21px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.boardColumns {
+  display: flex;
+  gap: 24px;
+}
+
+.boardColumn {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  max-width: 252px;
+}
+
+.columnHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 24px;
+}
+
+.columnTitle {
+  color: var(--colorColumnTitle);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.columnAddButton {
+  display: flex;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.columnTasks {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.columnTasksHighlight::after {
+  content: '';
+  height: 160px;
+  border: 1px dashed var(--colorGrey);
+  border-radius: 24px;
+  background-color: var(--colorPlaceholderBg);
+}
+
+.columnTasks:has(.taskCard) .taskPlaceholder,
+.columnTasksHighlight .taskPlaceholder {
+  display: none;
+}
+
+.taskPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  border: 1px dotted var(--colorGrey);
+  border-radius: 10px;
+  background-color: var(--colorPlaceholderBg);
+  color: var(--colorTextGrey);
+  font-size: 16px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.16);
+}
+
+.taskCard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px;
+  border-radius: 24px;
+  background-color: var(--colorWhite);
+  box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+.taskCardDragging {
+  opacity: 0.4;
+}
+
+.taskCategory {
+  align-self: flex-start;
+  padding: 4px 16px;
+  border-radius: 8px;
+  color: var(--colorWhite);
+  font-size: 16px;
+}
+
+.categoryUserStory {
+  background-color: var(--colorUserStory);
+}
+
+.categoryTechnicalTask {
+  background-color: var(--colorTechnicalTask);
+}
+
+.taskText {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.taskTitle {
+  color: var(--colorPrimary);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.taskDescription {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: var(--colorTextGrey);
+  font-size: 16px;
+}
+
+.taskProgress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.taskProgressBar {
+  flex: 1;
+  height: 8px;
+  border: none;
+  border-radius: 16px;
+  background-color: var(--colorProgressTrack);
+  appearance: none;
+  overflow: hidden;
+}
+
+.taskProgressBar::-webkit-progress-bar {
+  background-color: var(--colorProgressTrack);
+}
+
+.taskProgressBar::-webkit-progress-value {
+  border-radius: 16px;
+  background-color: var(--colorProgress);
+}
+
+.taskProgressBar::-moz-progress-bar {
+  border-radius: 16px;
+  background-color: var(--colorProgress);
+}
+
+.taskProgressText {
+  color: var(--colorBlack);
+  font-size: 16px;
+}
+
+.taskFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.taskAssignees {
+  display: flex;
+}
+
+.taskAvatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--colorWhite);
+  border-radius: 50%;
+  color: var(--colorWhite);
+  font-size: 12px;
+}
+
+.taskAvatar + .taskAvatar {
+  margin-left: -8px;
+}
+
+.taskPriority {
+  pointer-events: none;
+}
+
+.avatarOrange {
+  background-color: var(--colorAvatarOrange);
+}
+
+.avatarTurquoise {
+  background-color: var(--colorAvatarTurquoise);
+}
+
+.avatarPurple {
+  background-color: var(--colorAvatarPurple);
+}
+
+@media (min-width: 769px) {
+  .boardAddButton:hover {
+    background-color: var(--colorAccent);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .taskCard:hover {
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.16);
+  }
+}
+
+@media (max-width: 1439px) {
+  .board {
+    padding: 80px 32px 64px;
+  }
+}
+
+@media (max-width: 1250px) {
+  .boardColumns {
+    flex-direction: column;
+  }
+
+  .boardColumn {
+    flex: none;
+    gap: 8px;
+    max-width: none;
+  }
+
+  .columnTasks {
+    flex-direction: row;
+    margin: 0 -32px -16px;
+    padding: 8px 32px 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .columnTasks::-webkit-scrollbar {
+    display: none;
+  }
+
+  .taskPlaceholder {
+    flex: 1;
+  }
+
+  .taskCard,
+  .columnTasksHighlight::after {
+    flex: 0 0 252px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .boardHeader {
+    flex-wrap: wrap;
+    row-gap: 40px;
+  }
+
+  .boardActions {
+    display: contents;
+  }
+
+  .boardSearch {
+    order: 1;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .board {
+    gap: 24px;
+    padding: 48px 16px 24px;
+  }
+
+  .boardTitle {
+    font-size: 47px;
+  }
+
+  .boardAddButton {
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+  }
+
+  .boardAddButtonText {
+    display: none;
+  }
+
+  .boardColumn {
+    gap: 4px;
+  }
+
+  .columnHeader {
+    height: auto;
+  }
+
+  .columnTitle {
+    color: var(--colorPrimary);
+    font-size: 27px;
+  }
+
+  .columnAddIcon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .columnTasks {
+    margin: 0 -16px -16px;
+    padding: 8px 16px 16px;
+  }
+}
