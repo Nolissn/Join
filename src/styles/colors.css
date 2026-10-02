@@ -22,4 +22,7 @@
   --colorAvatarTurquoise: #1FD7C1;
   --colorAvatarPurple: #462F8A;
   --colorUnfocusedInputTag: #D1D1D1;
+  --priorityMediumYellow: #FFA800;
+  --priorityLowGreen: #7AE229;
+  --priorityUrgentRed: #FF3D00;
 }
