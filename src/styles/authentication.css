@@ -101,7 +101,7 @@
   box-sizing: border-box;
   padding: 0 16px;
   border-radius: 10px;
-  border: 1px solid var(--colorUnfocusedInputTag);
+  border: 1px solid var(--colorTextGrey);
   font-size: 20px;
   font-weight: 400;
 }
@@ -112,7 +112,7 @@
 }
 
 .general_log_in_card_input_style::placeholder {
-  color: var(--colorUnfocusedInputTag);
+  color: var(--colorTextGrey);
 }
 
 .log_in_card_input_email {
