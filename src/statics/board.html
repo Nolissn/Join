@@ -139,6 +139,43 @@
                     </div>
                 </section>
             </div>
+            <dialog class="taskDialog" id="taskDialog">
+                <div class="taskDetail" tabindex="-1" autofocus>
+                    <div class="taskDetailHeader">
+                        <span class="taskCategory taskDetailCategory categoryUserStory">User Story</span>
+                        <button class="taskDetailClose" type="button"><img src="../../assets/icons/cancel.svg" alt="Close"></button>
+                    </div>
+                    <h2 class="taskDetailTitle">Kochwelt Page &amp; Recipe Recommender</h2>
+                    <p class="taskDetailDescription">Build start page with recipe recommendation.</p>
+                    <div class="taskDetailRow">
+                        <span class="taskDetailLabel">Due date:</span>
+                        <span>10/05/2023</span>
+                    </div>
+                    <div class="taskDetailRow">
+                        <span class="taskDetailLabel">Priority:</span>
+                        <span class="taskDetailPriority">Medium<img src="../../assets/icons/medium_orange.svg" alt=""></span>
+                    </div>
+                    <div class="taskDetailSection">
+                        <span class="taskDetailLabel">Assigned To:</span>
+                        <ul class="taskDetailList">
+                            <li class="taskDetailAssignee"><span class="taskAvatar taskDetailAvatar avatarTurquoise">EM</span>Emmanuel Mauer</li>
+                            <li class="taskDetailAssignee"><span class="taskAvatar taskDetailAvatar avatarPurple">MB</span>Marcel Bauer</li>
+                            <li class="taskDetailAssignee"><span class="taskAvatar taskDetailAvatar avatarOrange">AM</span>Anton Mayer</li>
+                        </ul>
+                    </div>
+                    <div class="taskDetailSection">
+                        <span class="taskDetailLabel">Subtasks</span>
+                        <ul class="taskDetailList">
+                            <li><label class="taskDetailSubtask"><input class="taskDetailCheckbox" type="checkbox" checked>Implement Recipe Recommendation</label></li>
+                            <li><label class="taskDetailSubtask"><input class="taskDetailCheckbox" type="checkbox">Start Page Layout</label></li>
+                        </ul>
+                    </div>
+                    <div class="taskDetailActions">
+                        <button class="taskDetailAction" type="button"><img src="../../assets/icons/delete.svg" alt="">Delete</button>
+                        <button class="taskDetailAction" type="button"><img src="../../assets/icons/edit.svg" alt="">Edit</button>
+                    </div>
+                </div>
+            </dialog>
         </main>
     </div>
 </body>

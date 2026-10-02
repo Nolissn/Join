@@ -48,4 +48,41 @@ function moveTask(event) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', initBoardDragAndDrop);
+function initTaskDialog() {
+  const taskDialog = document.getElementById('taskDialog');
+  document.querySelector('.boardColumns').addEventListener('click', handleTaskCardClick);
+  taskDialog.addEventListener('click', handleTaskDialogClick);
+  taskDialog.addEventListener('cancel', handleTaskDialogCancel);
+}
+
+function handleTaskCardClick(event) {
+  if (event.target.closest('.taskCard')) openTaskDialog();
+}
+
+function handleTaskDialogClick(event) {
+  if (event.target === event.currentTarget || event.target.closest('.taskDetailClose')) closeTaskDialog();
+}
+
+function handleTaskDialogCancel(event) {
+  event.preventDefault();
+  closeTaskDialog();
+}
+
+function openTaskDialog() {
+  const taskDialog = document.getElementById('taskDialog');
+  taskDialog.classList.add('taskDialogOpen');
+  taskDialog.showModal();
+}
+
+function closeTaskDialog() {
+  const taskDialog = document.getElementById('taskDialog');
+  taskDialog.addEventListener('transitionend', () => taskDialog.close(), { once: true });
+  taskDialog.classList.remove('taskDialogOpen');
+}
+
+function initBoard() {
+  initBoardDragAndDrop();
+  initTaskDialog();
+}
+
+document.addEventListener('DOMContentLoaded', initBoard);
