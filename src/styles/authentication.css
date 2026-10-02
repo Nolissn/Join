@@ -3,7 +3,6 @@
   max-width: 1440px;
   height: 120.78px;
   margin-top: 64px;
-  margin-bottom: 86px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,8 +12,8 @@
 }
 
 .header_auth_screen_icon_dark {
-  width: 100px;
-  height: 120.78px;
+  width: clamp(64px, calc(10.588vw + 18.682px), 100px);
+  height: auto;
 }
 
 .header_auth_screen_content_container {
@@ -25,8 +24,6 @@
 }
 
 .header_auth_screen_content_text {
-  font-family: "Inter";
-  font-style: regular;
   font-weight: 400;
   font-size: 20px;
   color: var(--colorBlack);
@@ -42,10 +39,7 @@
   border-radius: 10px;
   background-color: var(--colorPrimary);
   color: var(--colorWhite);
-  font-family: "Inter";
-  font-style: bold;
   font-weight: 700;
-  font-style: Bold;
   font-size: 16px;
 }
 
@@ -59,10 +53,12 @@
 }
 
 .main_content_container {
+  flex: 1;
   width: 100%;
   display: flex;
   justify-content: center;
-  height: auto;
+  align-items: center;
+  padding: 24px 0;
 }
 
 .log_in_card {
@@ -78,8 +74,6 @@
 }
 
 .log_in_card_title {
-  font-family: "Inter";
-  font-style: bold;
   font-weight: 700;
   font-size: 61px;
   color: var(--colorBlack);
@@ -88,7 +82,7 @@
 
 .log_in_card_divider {
   width: 150px;
-  height: 3px;
+  height: 4px;
   border-radius: 3px;
   background-color: var(--colorBlue);
   margin-top: 14px;
@@ -108,7 +102,6 @@
   padding: 0 16px;
   border-radius: 10px;
   border: 1px solid var(--colorUnfocusedInputTag);
-  font-family: "Inter";
   font-size: 20px;
   font-weight: 400;
 }
@@ -154,7 +147,6 @@
   border-radius: 10px;
   background-color: var(--colorPrimary);
   color: var(--colorWhite);
-  font-family: "Inter";
   font-weight: 700;
   font-size: 21px;
 }
@@ -177,10 +169,8 @@
   border-radius: 10px;
   background-color: var(--colorWhite);
   color: var(--colorPrimary);
-  font-family: "Inter";
   font-weight: 700;
   font-size: 21px;
-  font-style: Bold;
 }
 
 .log_in_card_guest_log_in_button:hover {
@@ -202,17 +192,110 @@
 }
 
 .footer_auth_screen_link {
-  font-family: "Inter";
   font-weight: 400;
-  font-style: Regular;
   font-size: 16px;
   color: var(--colorTextGrey);
   text-decoration: none;
 }
 
 .footer_auth_screen_link:hover {
-  font-family: "Inter";
   font-weight: 700;
-  font-style: Bold;
   color: var(--colorPrimaryDark);
+}
+
+@media (max-width: 768px) {
+  .header_auth_screen {
+    display: contents;
+  }
+
+  .header_auth_screen_icon_dark {
+    align-self: flex-start;
+    margin-top: clamp(38px, calc(7.6471vw + 5.2706px), 64px);
+    margin-left: clamp(38px, calc(11.471vw - 11.094px), 77px);
+  }
+
+  .header_auth_screen_content_container {
+    order: 1;
+    align-self: center;
+    margin-bottom: 40px;
+  }
+
+  .footer_auth_screen {
+    order: 2;
+  }
+
+  .log_in_card {
+    width: clamp(396px, calc(75.294vw + 73.741px), 652px);
+    height: 475px;
+  }
+
+  .log_in_card_title {
+    margin-top: clamp(32px, calc(4.7059vw + 11.859px), 48px);
+    font-size: clamp(47px, calc(4.1176vw + 29.376px), 61px);
+  }
+
+  .log_in_card_divider {
+    width: clamp(88px, calc(18.235vw + 9.9529px), 150px);
+  }
+
+  .general_log_in_card_input_style {
+    width: clamp(364px, calc(17.059vw + 290.99px), 422px);
+  }
+
+  .log_in_card_button_container {
+    flex-direction: column;
+    align-items: center;
+    gap: 21px;
+    width: 180px;
+    height: 123px;
+    margin-top: clamp(32px, calc(-7.0588vw + 86.212px), 56px);
+  }
+
+  .log_in_card_log_in_button {
+    width: 180px;
+    height: 51px;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  .log_in_card_guest_log_in_button {
+    width: 180px;
+    height: 51px;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  .header_auth_screen_content_sign_up_button {
+    width: 104px;
+    height: 49px;
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 428px) {
+  .header_auth_screen_icon_dark {
+    margin-top: clamp(24px, calc(12.963vw - 17.481px), 38px);
+    margin-left: clamp(24px, calc(12.963vw - 17.481px), 38px);
+  }
+
+  .header_auth_screen_content_text {
+    margin-right: clamp(16px, calc(17.593vw - 40.296px), 35px);
+  }
+
+  .log_in_card {
+    width: clamp(288px, calc(100vw - 32px), 396px);
+  }
+
+  .log_in_card_title {
+    margin-top: clamp(24px, calc(7.4074vw + 0.2963px), 32px);
+    font-size: clamp(40px, calc(6.4815vw + 19.259px), 47px);
+  }
+
+  .log_in_card_divider {
+    width: clamp(72px, calc(14.815vw + 24.593px), 88px);
+  }
+
+  .general_log_in_card_input_style {
+    width: clamp(256px, calc(100vw - 64px), 364px);
+  }
 }
