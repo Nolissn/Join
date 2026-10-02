@@ -1,0 +1,126 @@
+main {
+    padding: 100px 152px 0 152px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+h1 {
+    font-size: 61px;
+    font-weight: 700;
+    padding-bottom: 50px;
+}
+
+.form-task-input {
+    display: flex;
+    gap: 52px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+}
+
+.seperator {
+    background-color: var(--colorGrey);
+    width: 2px;
+    height: 400px;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+label {
+    font-size: 20px;
+    padding-bottom: 4px;
+    color: var(--colorTextGrey);
+}
+
+.add-task-input-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-task-input {
+    width: 400px;
+    height: 48px;
+    font-size: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--colorGrey);
+    padding-left: 16px;
+}
+
+textarea {
+    height: 120px !important;
+    padding: 16px;
+}
+
+.priority-btn-container {
+    display: flex;
+    gap: 16px;
+}
+
+.priority-btn {
+    height: 55px;
+    background-color: var(--colorWhite);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 8px;
+    border: 0;
+    width: 122px;
+    font-size: 19px;
+}
+.priority-btn:hover {
+    cursor: pointer;
+}
+
+.priority-btn-icon {
+    height: 13px;
+    width: 20px;
+}
+
+.btn-active {
+    background-color: var(--priorityMediumYellow);
+    color: var(--colorWhite);
+}
+
+.add-task-btn-container {
+    display: flex;
+    justify-content: end;
+    gap: 24px;
+}
+
+.add-task-btn {
+    height: 48px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+}
+.add-task-btn:hover {
+    cursor: pointer;
+}
+
+.clear-task-btn {
+    border: 1px solid var(--colorPrimaryDark);
+    padding-left: 16px;
+}
+
+.create-task-btn {
+    width: 161px;
+    color: var(--colorWhite);
+    background-color: var(--colorPrimary);
+    border: 0;
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width:1440px) {
+    main {
+        padding: 100px 144px 0 144px;
+    }
+}
