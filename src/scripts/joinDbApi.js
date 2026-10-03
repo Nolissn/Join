@@ -22,3 +22,12 @@ export async function getTasks() {
         throw error;
     }
 }
+
+export async function updateTask(taskId, taskModell) {
+    try {
+        await setDoc(doc(db, "tasks", taskId), taskModell);
+    } catch (error) {
+        console.error("updateTask fehlgeschlagen:", error);
+        throw error;
+    }
+}
