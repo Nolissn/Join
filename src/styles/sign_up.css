@@ -97,3 +97,33 @@
   border-radius: 6px;
   font-size: 21px;
 }
+
+@media (max-width: 768px) {
+  .sign_up_card {
+    width: clamp(396px, calc(59.412vw + 141.718px), 598px);
+  }
+
+  .auth_screen_card_header_container {
+    padding: 0 clamp(24px, calc(7.0588vw - 6.212px), 48px);
+    margin-top: clamp(32px, calc(4.7059vw + 11.859px), 48px);
+  }
+
+  .sign_up_card_title {
+    font-size: clamp(47px, calc(4.1176vw + 29.376px), 61px);
+  }
+}
+
+@media (max-width: 428px) {
+  .sign_up_card {
+    width: clamp(288px, calc(100vw - 32px), 396px);
+  }
+
+  .auth_screen_card_header_container {
+    padding: 0 clamp(16px, calc(7.4074vw - 7.704px), 24px);
+    margin-top: clamp(24px, calc(7.4074vw + 0.2963px), 32px);
+  }
+
+  .sign_up_card_title {
+    font-size: clamp(40px, calc(6.4815vw + 19.259px), 47px);
+  }
+}
