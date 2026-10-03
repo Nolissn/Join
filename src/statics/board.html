@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="../styles/board.css">
     <script src="../scripts/template.js" defer></script>
     <script src="../scripts/layout.js" defer></script>
+    <script src="../scripts/templates/boardTemplates.js" defer></script>
+    <script src="../scripts/localStorage.js" defer></script>
     <script src="../scripts/board.js" defer></script>
 </head>
 <body>
@@ -30,151 +32,9 @@
                 </div>
             </div>
 
-            <div class="boardColumns">
-                <section class="boardColumn">
-                    <div class="columnHeader">
-                        <h2 class="columnTitle">To do</h2>
-                        <button class="columnAddButton" type="button"><img class="columnAddIcon" src="../../assets/icons/plus_box.svg" alt="Add task to To do"></button>
-                    </div>
-                    <div class="columnTasks" id="todoTasks">
-                        <p class="taskPlaceholder">No tasks To do</p>
-                    </div>
-                </section>
-
-                <section class="boardColumn">
-                    <div class="columnHeader">
-                        <h2 class="columnTitle">In progress</h2>
-                        <button class="columnAddButton" type="button"><img class="columnAddIcon" src="../../assets/icons/plus_box.svg" alt="Add task to In progress"></button>
-                    </div>
-                    <div class="columnTasks" id="inProgressTasks">
-                        <p class="taskPlaceholder">No tasks In progress</p>
-                        <article class="taskCard" id="task1" draggable="true">
-                            <span class="taskCategory categoryUserStory">User Story</span>
-                            <div class="taskText">
-                                <h3 class="taskTitle">Kochwelt Page &amp; Recipe Recommender</h3>
-                                <p class="taskDescription">Build start page with recipe recommendation...</p>
-                            </div>
-                            <div class="taskProgress">
-                                <progress class="taskProgressBar" value="1" max="2"></progress>
-                                <span class="taskProgressText">1/2 Subtasks</span>
-                            </div>
-                            <div class="taskFooter">
-                                <div class="taskAssignees">
-                                    <span class="taskAvatar avatarOrange">AM</span>
-                                    <span class="taskAvatar avatarTurquoise">EM</span>
-                                    <span class="taskAvatar avatarPurple">MB</span>
-                                </div>
-                                <img class="taskPriority" src="../../assets/icons/medium_orange.svg" alt="Medium">
-                            </div>
-                        </article>
-                    </div>
-                </section>
-
-                <section class="boardColumn">
-                    <div class="columnHeader">
-                        <h2 class="columnTitle">Await feedback</h2>
-                        <button class="columnAddButton" type="button"><img class="columnAddIcon" src="../../assets/icons/plus_box.svg" alt="Add task to Await feedback"></button>
-                    </div>
-                    <div class="columnTasks" id="awaitFeedbackTasks">
-                        <p class="taskPlaceholder">No tasks Await feedback</p>
-                        <article class="taskCard" id="task2" draggable="true">
-                            <span class="taskCategory categoryTechnicalTask">Technical Task</span>
-                            <div class="taskText">
-                                <h3 class="taskTitle">HTML Base Template Creation</h3>
-                                <p class="taskDescription">Create reusable HTML base templates...</p>
-                            </div>
-                            <div class="taskFooter">
-                                <div class="taskAssignees">
-                                    <span class="taskAvatar avatarOrange">AM</span>
-                                    <span class="taskAvatar avatarTurquoise">EM</span>
-                                    <span class="taskAvatar avatarPurple">MB</span>
-                                </div>
-                                <img class="taskPriority" src="../../assets/icons/low.svg" alt="Low">
-                            </div>
-                        </article>
-
-                        <article class="taskCard" id="task3" draggable="true">
-                            <span class="taskCategory categoryUserStory">User Story</span>
-                            <div class="taskText">
-                                <h3 class="taskTitle">Daily Kochwelt Recipe</h3>
-                                <p class="taskDescription">Implement daily recipe and portion calculator....</p>
-                            </div>
-                            <div class="taskFooter">
-                                <div class="taskAssignees">
-                                    <span class="taskAvatar avatarOrange">AM</span>
-                                    <span class="taskAvatar avatarTurquoise">EM</span>
-                                    <span class="taskAvatar avatarPurple">MB</span>
-                                </div>
-                                <img class="taskPriority" src="../../assets/icons/medium_orange.svg" alt="Medium">
-                            </div>
-                        </article>
-                    </div>
-                </section>
-
-                <section class="boardColumn">
-                    <div class="columnHeader">
-                        <h2 class="columnTitle">Done</h2>
-                    </div>
-                    <div class="columnTasks" id="doneTasks">
-                        <p class="taskPlaceholder">No tasks Done</p>
-                        <article class="taskCard" id="task4" draggable="true">
-                            <span class="taskCategory categoryTechnicalTask">Technical Task</span>
-                            <div class="taskText">
-                                <h3 class="taskTitle">CSS Architecture Planning</h3>
-                                <p class="taskDescription">Define CSS naming conventions and structure...</p>
-                            </div>
-                            <div class="taskProgress">
-                                <progress class="taskProgressBar" value="2" max="2"></progress>
-                                <span class="taskProgressText">2/2 Subtasks</span>
-                            </div>
-                            <div class="taskFooter">
-                                <div class="taskAssignees">
-                                    <span class="taskAvatar avatarOrange">AM</span>
-                                    <span class="taskAvatar avatarTurquoise">EM</span>
-                                    <span class="taskAvatar avatarPurple">MB</span>
-                                </div>
-                                <img class="taskPriority" src="../../assets/icons/urgent.svg" alt="Urgent">
-                            </div>
-                        </article>
-                    </div>
-                </section>
-            </div>
+            <div class="boardColumns"></div>
             <dialog class="taskDialog" id="taskDialog">
-                <div class="taskDetail" tabindex="-1" autofocus>
-                    <div class="taskDetailHeader">
-                        <span class="taskCategory taskDetailCategory categoryUserStory">User Story</span>
-                        <button class="taskDetailClose" type="button"><img src="../../assets/icons/cancel.svg" alt="Close"></button>
-                    </div>
-                    <h2 class="taskDetailTitle">Kochwelt Page &amp; Recipe Recommender</h2>
-                    <p class="taskDetailDescription">Build start page with recipe recommendation.</p>
-                    <div class="taskDetailRow">
-                        <span class="taskDetailLabel">Due date:</span>
-                        <span>10/05/2023</span>
-                    </div>
-                    <div class="taskDetailRow">
-                        <span class="taskDetailLabel">Priority:</span>
-                        <span class="taskDetailPriority">Medium<img src="../../assets/icons/medium_orange.svg" alt=""></span>
-                    </div>
-                    <div class="taskDetailSection">
-                        <span class="taskDetailLabel">Assigned To:</span>
-                        <ul class="taskDetailList">
-                            <li class="taskDetailAssignee"><span class="taskAvatar taskDetailAvatar avatarTurquoise">EM</span>Emmanuel Mauer</li>
-                            <li class="taskDetailAssignee"><span class="taskAvatar taskDetailAvatar avatarPurple">MB</span>Marcel Bauer</li>
-                            <li class="taskDetailAssignee"><span class="taskAvatar taskDetailAvatar avatarOrange">AM</span>Anton Mayer</li>
-                        </ul>
-                    </div>
-                    <div class="taskDetailSection">
-                        <span class="taskDetailLabel">Subtasks</span>
-                        <ul class="taskDetailList">
-                            <li><label class="taskDetailSubtask"><input class="taskDetailCheckbox" type="checkbox" checked>Implement Recipe Recommendation</label></li>
-                            <li><label class="taskDetailSubtask"><input class="taskDetailCheckbox" type="checkbox">Start Page Layout</label></li>
-                        </ul>
-                    </div>
-                    <div class="taskDetailActions">
-                        <button class="taskDetailAction" type="button"><img src="../../assets/icons/delete.svg" alt="">Delete</button>
-                        <button class="taskDetailAction" type="button"><img src="../../assets/icons/edit.svg" alt="">Edit</button>
-                    </div>
-                </div>
+                <div class="taskDetail" tabindex="-1" autofocus></div>
             </dialog>
         </main>
     </div>

@@ -114,6 +114,10 @@
   cursor: pointer;
 }
 
+.boardColumn[data-status="done"] .columnAddButton {
+  display: none;
+}
+
 .columnTasks {
   display: flex;
   flex: 1;
