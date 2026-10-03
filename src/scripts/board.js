@@ -33,20 +33,36 @@ function initBoardEvents() {
   boardElement.addEventListener('drop', moveTask);
   boardElement.addEventListener('dragend', renderBoard);
   boardElement.addEventListener('click', openTaskDialog);
+  document.getElementById('findTask').addEventListener('input', renderBoard);
+  document.querySelector('.boardSearchClear').addEventListener('click', clearSearch);
   taskDialog.addEventListener('click', handleDialogClick);
   taskDialog.addEventListener('cancel', closeTaskDialog);
 }
 
 function renderBoard() {
+  const searchText = document.getElementById('findTask').value.trim().toLowerCase();
   let boardHtml = '';
   for (const column of boardColumns) {
     let tasksHtml = '';
     for (const task of storedTasks) {
-      if (task.status === column.status) tasksHtml += taskCardTemplate(task);
+      if (task.status === column.status && matchesSearch(task, searchText)) tasksHtml += taskCardTemplate(task);
     }
     boardHtml += boardColumnTemplate(column, tasksHtml);
   }
   document.querySelector('.boardColumns').innerHTML = boardHtml;
+}
+
+function matchesSearch(task, searchText) {
+  const title = task.title.toLowerCase();
+  const description = task.description.toLowerCase();
+  return title.includes(searchText) || description.includes(searchText);
+}
+
+function clearSearch() {
+  const searchInput = document.getElementById('findTask');
+  searchInput.value = '';
+  searchInput.focus();
+  renderBoard();
 }
 
 function startDragging(event) {

@@ -51,6 +51,19 @@
   color: var(--colorGrey);
 }
 
+.boardSearchClear {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.boardSearchInput:placeholder-shown + .boardSearchClear {
+  display: none;
+}
+
 .boardSearchButton {
   display: flex;
   align-items: center;
