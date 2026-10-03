@@ -3,14 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join</title>
+    <title>Join | Log in</title>
     <link rel="stylesheet" href="./src/styles/colors.css" />
     <link rel="stylesheet" href="./src/styles/fonts.css" />
     <link rel="stylesheet" href="./src/styles/standard.css" />
-    <link rel="stylesheet" href="./src/styles/authentication.css" />
+    <link rel="stylesheet" href="./src/styles/auth.css" />
+    <link rel="stylesheet" href="./src/styles/login.css" />
     <link rel="stylesheet" href="./style.css" />
   </head>
-  <body class="auth_screen_body">
+  <body>
     <header class="header_auth_screen">
       <img
         class="header_auth_screen_icon_dark"
@@ -19,19 +20,19 @@
       />
       <div class="header_auth_screen_content_container">
         <p class="header_auth_screen_content_text">Not a Join user?</p>
-        <button class="header_auth_screen_content_sign_up_button">Sign up</button>
+        <button class="auth_primary_button header_auth_screen_content_sign_up_button">Sign up</button>
       </div>
     </header>
     <main class="main_content_container">
-        <div class="log_in_card">
-          <h1 class="log_in_card_title">Log in</h1>
-          <hr class="log_in_card_divider"/>
+        <div class="auth_card log_in_card">
+          <h1 class="auth_card_title log_in_card_title">Log in</h1>
+          <hr class="auth_card_divider"/>
           <form class="log_in_card_form">
-            <input class="general_log_in_card_input_style log_in_card_input_email" type="text" id="email" name="email" placeholder="Email" aria-label="Email">
-            <input class="general_log_in_card_input_style log_in_card_input_password" type="password" id="password" name="password" placeholder="Password" aria-label="Password">
+            <input class="general_auth_card_input_style auth_card_input_email" type="text" id="email" name="email" placeholder="Email" aria-label="Email">
+            <input class="general_auth_card_input_style auth_card_input_password" type="password" id="password" name="password" placeholder="Password" aria-label="Password">
           </form>
           <div class="log_in_card_button_container">
-            <button class="log_in_card_log_in_button">Log in</button>
+            <button class="auth_primary_button log_in_card_log_in_button">Log in</button>
             <button class="log_in_card_guest_log_in_button">Guest Log in</button>
           </div>
         </div>

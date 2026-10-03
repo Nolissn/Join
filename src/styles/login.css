@@ -1,0 +1,132 @@
+.header_auth_screen_content_container {
+  display: flex;
+  align-items: center;
+  margin-bottom: auto;
+}
+
+.header_auth_screen_content_text {
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--colorBlack);
+  margin-right: 35px;
+}
+
+.header_auth_screen_content_sign_up_button {
+  width: 91px;
+  height: 49px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.log_in_card {
+  width: 652px;
+  height: 449px;
+}
+
+.log_in_card_title {
+  margin-top: 48px;
+}
+
+.log_in_card_form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.log_in_card_button_container {
+  display: flex;
+  justify-content: space-between;
+  width: 322px;
+  margin-top: 56px;
+}
+
+.log_in_card_log_in_button {
+  width: 110px;
+  height: 48px;
+  border-radius: 10px;
+  font-size: 21px;
+}
+
+.log_in_card_guest_log_in_button {
+  width: 177px;
+  height: 48px;
+  cursor: pointer;
+  padding: 0;
+  border: 1px solid var(--colorPrimary);
+  border-radius: 10px;
+  background-color: var(--colorWhite);
+  color: var(--colorPrimary);
+  font-weight: 700;
+  font-size: 21px;
+}
+
+.log_in_card_guest_log_in_button:hover {
+  border: 2px solid var(--colorPrimaryGreyTone);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.log_in_card_guest_log_in_button:active {
+  border: 1px solid var(--colorPrimaryDark);
+}
+
+@media (max-width: 768px) {
+  .header_auth_screen_content_container {
+    order: 1;
+    align-self: center;
+    margin-bottom: 40px;
+  }
+
+  .log_in_card {
+    width: clamp(396px, calc(75.294vw + 73.741px), 652px);
+    height: 475px;
+  }
+
+  .log_in_card_title {
+    margin-top: clamp(32px, calc(4.7059vw + 11.859px), 48px);
+    font-size: clamp(47px, calc(4.1176vw + 29.376px), 61px);
+  }
+
+  .log_in_card_button_container {
+    flex-direction: column;
+    align-items: center;
+    gap: 21px;
+    width: 180px;
+    height: 123px;
+    margin-top: clamp(32px, calc(-7.0588vw + 86.212px), 56px);
+  }
+
+  .log_in_card_log_in_button {
+    width: 180px;
+    height: 51px;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  .log_in_card_guest_log_in_button {
+    width: 180px;
+    height: 51px;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  .header_auth_screen_content_sign_up_button {
+    width: 104px;
+    height: 49px;
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 428px) {
+  .header_auth_screen_content_text {
+    margin-right: clamp(16px, calc(17.593vw - 40.296px), 35px);
+  }
+
+  .log_in_card {
+    width: clamp(288px, calc(100vw - 32px), 396px);
+  }
+
+  .log_in_card_title {
+    margin-top: clamp(24px, calc(7.4074vw + 0.2963px), 32px);
+    font-size: clamp(40px, calc(6.4815vw + 19.259px), 47px);
+  }
+}
