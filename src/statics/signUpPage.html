@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join | Sign up</title>
+    <link rel="stylesheet" href="../styles/colors.css" />
+    <link rel="stylesheet" href="../styles/fonts.css" />
+    <link rel="stylesheet" href="../styles/standard.css" />
+    <link rel="stylesheet" href="../styles/auth.css" />
+    <link rel="stylesheet" href="../styles/sign_up.css" />
+    <link rel="stylesheet" href="../../style.css" />
+  </head>
+  <body>
+    <header class="header_auth_screen">
+      <img
+        class="header_auth_screen_icon_dark"
+        src="../../assets/icons/join_icon_dark.svg"
+        alt="Join logo"
+      />
+    </header>
+    <main class="main_content_container">
+      <div class="auth_card sign_up_card">
+        <div class="auth_screen_card_header_container">
+          <button onclick="location.href='../../index.html'" class="auth_screen_card_go_back_button" aria-label="Go back">
+            <svg
+              class="auth_screen_card_go_back_button_icon"
+              viewBox="0 0 21 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M4.27563 8.48509H19.1716C19.908 8.48509 20.505 9.08204 20.505 9.81842C20.505 10.5548 19.908 11.1518 19.1716 11.1518H4.27563L10.485 17.3611C11.0056 17.8817 11.0056 18.7258 10.485 19.2464C9.96434 19.767 9.12025 19.767 8.59963 19.2464L0.585843 11.2326C-0.195206 10.4516 -0.195204 9.18526 0.585844 8.40421L8.59963 0.39042C9.12025 -0.130201 9.96434 -0.1302 10.485 0.39042C11.0056 0.911041 11.0056 1.75513 10.485 2.27575L4.27563 8.48509Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+          <h1 class="auth_card_title">Sign up</h1>
+        </div>
+        <hr class="auth_card_divider" />
+        <form class="sign_up_card_form">
+          <input
+            class="general_auth_card_input_style sign_up_card_input_name"
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Name"
+            aria-label="Name"
+          />
+          <input
+            class="general_auth_card_input_style auth_card_input_email"
+            type="text"
+            id="email"
+            name="email"
+            placeholder="Email"
+            aria-label="Email"
+          />
+          <input
+            class="general_auth_card_input_style auth_card_input_password"
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            aria-label="Password"
+          />
+          <input
+            class="general_auth_card_input_style auth_card_input_password"
+            type="password"
+            id="confirm_password"
+            name="confirm_password"
+            placeholder="Confirm Password"
+            aria-label="Confirm Password"
+          />
+        </form>
+        <div class="sign_up_card_accept_container">
+          <input
+            class="sign_up_card_accept_checkbox"
+            type="checkbox"
+            id="accept_privacy_policy"
+            name="accept_privacy_policy"
+            aria-label="Accept privacy policy">
+            <p class="sign_up_card_accept_text">I accept the <a href="#" class="sign_up_card_accept_link">Privacy Policy</a></p>
+        </div>
+        <button class="auth_primary_button sign_up_card_sign_up_button">Sign up</button>
+      </div>
+    </main>
+    <footer class="footer_auth_screen">
+      <a href="#" class="footer_auth_screen_link">Privacy Policy</a>
+      <a href="#" class="footer_auth_screen_link">Legal Notice</a>
+    </footer>
+    <script src="../../scripts.js" defer></script>
+  </body>
+</html>

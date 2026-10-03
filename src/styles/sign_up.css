@@ -1,0 +1,99 @@
+.sign_up_card {
+  width: 598px;
+  height: 630px;
+}
+
+.auth_screen_card_header_container {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: 100%;
+  padding: 0 48px;
+  margin-top: 48px;
+}
+
+.auth_screen_card_go_back_button {
+  justify-self: start;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  border-radius: 16px;
+  background-color: var(--colorWhite);
+  color: var(--colorPrimaryGreyTone);
+  align-self: center;
+  margin-bottom: 10px;
+}
+
+.auth_screen_card_go_back_button:hover {
+  background-color: var(--colorBeige);
+}
+
+.auth_screen_card_go_back_button:active {
+  background-color: var(--colorPrimaryDark);
+  color: var(--colorWhite);
+}
+
+.auth_screen_card_go_back_button_icon {
+  width: 21.34px;
+  height: auto;
+}
+
+.sign_up_card_form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sign_up_card_input_name {
+  padding-right: 54px;
+  background-image: url("../../assets/icons/person.svg");
+  background-repeat: no-repeat;
+  background-position: right 24px center;
+  background-size: 16px 16px;
+}
+
+.sign_up_card_accept_container {
+  display: flex;
+  align-items: center;
+  margin-top: 38px;
+  margin-bottom: 32px;
+}
+
+.sign_up_card_accept_checkbox {
+  flex-shrink: 0;
+  height: 24px;
+  width: 24px;
+  margin-right: 8px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("../../assets/icons/checkbox.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.sign_up_card_accept_checkbox:checked {
+  background-image: url("../../assets/icons/checkbox_checked.svg");
+}
+
+.sign_up_card_accept_text {
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--colorTextGrey);
+}
+
+.sign_up_card_accept_link {
+  color: var(--colorPrimaryGreyTone);
+  text-decoration: none;
+}
+
+.sign_up_card_sign_up_button {
+  width: 126px;
+  height: 55px;
+  border-radius: 6px;
+  font-size: 21px;
+}
