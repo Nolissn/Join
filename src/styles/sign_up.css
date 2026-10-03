@@ -111,6 +111,13 @@
   .sign_up_card_title {
     font-size: clamp(47px, calc(4.1176vw + 29.376px), 61px);
   }
+
+  .sign_up_card_sign_up_button{
+    width: 180px;
+    height: 51px;
+    border-radius: 8px;
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 428px) {
