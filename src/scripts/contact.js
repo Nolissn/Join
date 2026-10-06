@@ -6,10 +6,7 @@ function init() {
 
 
 
-// Logo 54 x 67
-// title 361 x 89
-// underline 3 x 90
-
+// close button 32 x 32
 // container initials 120
 // container input 422 x 215
 // input 422 x 50

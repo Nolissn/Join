@@ -1,3 +1,5 @@
+/* Dialog Styles */
+
 .dialog {
     background-color: rgba(0, 0, 0, 0.526);
     min-height: 100%;
@@ -5,16 +7,18 @@
 }
 
 .dialog-container {
-    background-color: var(--colorBgPage);
+    background-color: white;
     height: 592px;
     width: 1212px;
-    position:fixed;
+    position: fixed;
     display: flex;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     border-radius: 30px;
 }
+
+/* Dialog Left Aside Styles */
 
 .dialog-left-aside {
     background-color: var(--colorPrimary);
@@ -28,18 +32,167 @@
 }
 
 .dialog-left-content {
-    background-color: red;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    margin-bottom: 100px;
+    padding: 0px 40px 0px 40px;
+    gap: 40px;
 }
 
+.contact-logo {
+    width: 54px;
+}
 
+.contact-option-content {
+    height: 89px;
+    width: 361px;
+    display: flex;
+    flex-direction: column;
+}
 
+.contact-option-title {
+    height: 73px;
+    font-size: 61px;
+    font-weight: 700;
+}
 
 .underline {
     height: 3px;
     width: 90px;
     background-color: var(--colorAccent);
     margin-top: 10px;
+}
+
+/* Dialog Right Content Styles */
+
+.dialog-right-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 0px 0px 50px 80px;
+    gap: 70px;
+}
+
+.dialog-right-title {
+    border-radius: 50%;
+    height: 130px;
+    width: 130px;
+    border: solid 2px #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dialog-right-title h2 {
+    background-color: red;
+    color: white;
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    font-size: 47px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dialog-right-body {
+    height: 100%;
+    padding: 60px 0px 80px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.dialog-right-close-button {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+.dialog-right-close-button button {
+    background-color: transparent;
+    border: none;
+}
+
+.dialog-right-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.dialog-right-inputs input {
+    height: 100%;
+    width: 422px;
+    padding: 0px 10px;
+    font-size: 16px;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    border: solid 1px var(--colorPrimaryGreyTone);
+}
+
+.dialog-input {
+    padding-left: 20px !important;
+}
+
+.input-name-wrapper,
+.input-email-wrapper,
+.input-phone-wrapper {
+    height: 50px;
+    position: relative;
+}
+
+.input-icons {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.dialog-action-buttons {
+    display: flex;
+    gap: 20px;
+    height: 55px;
+}
+
+.positive-button {
+    height: 100%;
+    width: 100px;
+    border-radius: 10px;
+    border: solid 1px var(--colorPrimaryGreyTone);
+    background-color: var(--colorPrimary);
+    color: white;
+    font-size: 21px;
+    font-weight: 700;
+    gap: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 60px;
+}
+
+.positive-button:hover {
+    background-color: var(--colorPrimaryLight);
+    filter: drop-shadow(0 4px 2px rgba(0, 0, 0, 0.23));
+    cursor: pointer;
+    transition: background-color 0.3s, filter 0.3s;
+}
+
+.negative-button {
+    height: 100%;
+    width: 100px;
+    border-radius: 10px;
+    border: solid 1px var(--colorPrimaryGreyTone);
+    background-color: transparent;
+    color: #333;
+    font-size: 21px;
+    font-weight: 400;
+}
+
+.negative-button:hover {
+    filter: drop-shadow(0 2px 1px rgba(0, 0, 0, 0.23));
+    cursor: pointer;
+    transition: background-color 0.3s, filter 0.3s;
 }

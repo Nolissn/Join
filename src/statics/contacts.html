@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="../styles/standard.css">
     <link rel="stylesheet" href="../styles/navbar.css">
     <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/contact.css">
+    <script src="../scripts/templates/layoutTemplates.js" defer></script>
     <script src="../scripts/template.js" defer></script>
     <script src="../scripts/layout.js" defer></script>
     <script src="../scripts/contact.js" defer></script>
@@ -23,13 +25,43 @@
                 <div class="dialog-container">
                     <div class="dialog-left-aside">
                         <div class="dialog-left-content">
-                            <img src="../../assets/icons/contact_join.svg" alt="Logo">
-                            <h2>Edit Contact</h2>
-                            <div class="underline"></div>
+                            <img class="contact-logo" src="../../assets/icons/contact_join.svg" alt="Logo">
+                            <div class="contact-option-content">
+                                <h2 class="contact-option-title" id="contact_option_title">Edit Contact</h2>
+                                <div class="underline"></div>
+                            </div>
                         </div>
 
                     </div>
-                    <div class="dialog-right-content"></div>
+                    <div class="dialog-right-content">
+                        <div class="dialog-right-title">
+                            <h2>TW</h2>
+                        </div>
+                        <div class="dialog-right-body">
+                            <div class="dialog-right-close-button">
+                                <button><img src="../../assets/icons/cancel.svg" alt=""></button>
+                            </div>
+                            <div class="dialog-right-inputs">
+                                <div class="input-name-wrapper">
+                                    <input class="dialog-input" type="text" placeholder="Name">
+                                    <img class="input-icons" src="../../assets/icons/input_person.svg" alt="">
+                                </div>
+                                <div class="input-email-wrapper">
+                                    <input class="dialog-input" type="email" placeholder="Email">
+                                    <img class="input-icons" src="../../assets/icons/input_mail.svg" alt="">
+                                </div>
+                                <div class="input-phone-wrapper">
+                                    <input class="dialog-input" type="tel" placeholder="Phone">
+                                    <img class="input-icons" src="../../assets/icons/input_phone.svg" alt="">
+                                </div>
+                            </div>
+                            <div class="dialog-action-buttons">
+                                <button class="negative-button">Cancel</button>
+                                <button class="positive-button">Save <img src="../../assets/icons/check.svg" alt=""></button>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </dialog>
         </main>
