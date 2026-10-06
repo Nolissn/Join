@@ -1,0 +1,45 @@
+.dialog {
+    background-color: rgba(0, 0, 0, 0.526);
+    min-height: 100%;
+    min-width: 100%;
+}
+
+.dialog-container {
+    background-color: var(--colorBgPage);
+    height: 592px;
+    width: 1212px;
+    position:fixed;
+    display: flex;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 30px;
+}
+
+.dialog-left-aside {
+    background-color: var(--colorPrimary);
+    height: 592px;
+    width: 453px;
+    border-radius: 30px 0 0 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+}
+
+.dialog-left-content {
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+
+.underline {
+    height: 3px;
+    width: 90px;
+    background-color: var(--colorAccent);
+    margin-top: 10px;
+}

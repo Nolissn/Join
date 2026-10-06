@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,14 +9,32 @@
     <link rel="stylesheet" href="../styles/standard.css">
     <link rel="stylesheet" href="../styles/navbar.css">
     <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/contact.css">
     <script src="../scripts/template.js" defer></script>
     <script src="../scripts/layout.js" defer></script>
+    <script src="../scripts/contact.js" defer></script>
 </head>
-<body>
+
+<body onload="init()">
     <aside class="sidebar"></aside>
     <div class="pageColumn">
         <header class="header"></header>
-        <main></main>
+        <main>
+            <dialog id="dialog" class="dialog">
+                <div class="dialog-container">
+                    <div class="dialog-left-aside">
+                        <div class="dialog-left-content">
+                            <img src="../../assets/icons/contact_join.svg" alt="Logo">
+                            <h2>Edit Contact</h2>
+                            <div class="underline"></div>
+                        </div>
+
+                    </div>
+                    <div class="dialog-right-content"></div>
+                </div>
+            </dialog>
+        </main>
     </div>
 </body>
+
 </html>
