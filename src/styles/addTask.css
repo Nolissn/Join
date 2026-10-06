@@ -91,6 +91,22 @@ textarea {
     color: var(--colorWhite);
 }
 
+.btn-active.priority-urgent {
+    background-color: var(--priorityUrgentRed);
+}
+
+.btn-active.priority-medium {
+    background-color: var(--priorityMediumYellow);
+}
+
+.btn-active.priority-low {
+    background-color: var(--priorityLowGreen);
+}
+
+.btn-active.priority-low .priority-btn-icon {
+    transform: rotate(180deg);
+}
+
 .add-task-btn-container {
     display: flex;
     justify-content: end;

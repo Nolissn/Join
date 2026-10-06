@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../styles/addTask.css">
     <script src="../scripts/templates/layoutTemplates.js" defer></script>
     <script src="../scripts/layout.js" defer></script>
+    <script src="../scripts/addTask.js" defer></script>
 </head>
 <body>
     <aside class="sidebar"></aside>
@@ -42,9 +43,9 @@
                         <div class="add-task-input-container">
                             <label for="priority" style="color:var(--colorBlack)">Priority</label>
                             <div id="priority" class="priority-btn-container">
-                                <button class="priority-btn">Urgent <img class="priority-btn-icon" src="../../assets/icons/urgent.svg" alt="Urgent"></button>
-                                <button class="priority-btn btn-active">Medium <img class="priority-btn-icon" src="../../assets/icons/medium.svg" alt="Medium"></button>
-                                <button class="priority-btn">Low <img class="priority-btn-icon" src="../../assets/icons/low.svg" alt="Low"></button>
+                                <button type="button" class="priority-btn" id="priorityUrgent" onclick="setPriority('urgent')">Urgent <img class="priority-btn-icon" src="../../assets/icons/urgent.svg" data-icon="urgent.svg" data-active-icon="urgend-white.svg" alt="Urgent"></button>
+                                <button type="button" class="priority-btn btn-active" id="priorityMedium" onclick="setPriority('medium')">Medium <img class="priority-btn-icon" src="../../assets/icons/medium.svg" data-icon="medium_orange.svg" data-active-icon="medium.svg" alt="Medium"></button>
+                                <button type="button" class="priority-btn" id="priorityLow" onclick="setPriority('low')">Low <img class="priority-btn-icon" src="../../assets/icons/low.svg" data-icon="low.svg" data-active-icon="urgend-white.svg" alt="Low"></button>
                             </div>
                         </div>
                         <div class="add-task-input-container">
