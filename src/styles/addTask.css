@@ -139,6 +139,11 @@ textarea {
     justify-content: center;
 }
 
+.create-task-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
 @media (max-width:1260px) {
     .add-task-input {
         width: 300px;
