@@ -25,17 +25,22 @@
                 <div class="dialog-container">
                     <div class="dialog-left-aside">
                         <div class="dialog-left-content">
+                            <div class="dialog-responsive-close-button">
+                                <button><img src="../../assets/icons/cancel_white.svg" alt=""></button>
+                            </div> 
                             <img class="contact-logo" src="../../assets/icons/contact_join.svg" alt="Logo">
                             <div class="contact-option-content">
-                                <h2 class="contact-option-title" id="contact_option_title">Edit Contact</h2>
+                                <h2 class="contact-option-title" id="contact_option_title">Edit contact</h2>
+                                <!-- <p>Tasks are better with a team!</p> -->
                                 <div class="underline"></div>
                             </div>
                         </div>
-
                     </div>
+
                     <div class="dialog-right-content">
-                        <div class="dialog-right-title">
-                            <h2>TW</h2>
+                        <!-- Dialog Right Title JS change -->
+                        <div id="dialog_right_title" class="dialog-right-title">
+                            <h2 id="dialog_right_title_initials">TW</h2>
                         </div>
                         <div class="dialog-right-body">
                             <div class="dialog-right-close-button">
@@ -43,21 +48,24 @@
                             </div>
                             <div class="dialog-right-inputs">
                                 <div class="input-name-wrapper">
-                                    <input class="dialog-input" type="text" placeholder="Name">
+                                    <input id="contact_name" class="dialog-input" type="text" placeholder="Name">
                                     <img class="input-icons" src="../../assets/icons/input_person.svg" alt="">
                                 </div>
                                 <div class="input-email-wrapper">
-                                    <input class="dialog-input" type="email" placeholder="Email">
+                                    <input id="contact_email" class="dialog-input" type="email" placeholder="Email">
                                     <img class="input-icons" src="../../assets/icons/input_mail.svg" alt="">
                                 </div>
                                 <div class="input-phone-wrapper">
-                                    <input class="dialog-input" type="tel" placeholder="Phone">
+                                    <input id="contact_phone" class="dialog-input" type="tel" placeholder="Phone">
                                     <img class="input-icons" src="../../assets/icons/input_phone.svg" alt="">
                                 </div>
                             </div>
-                            <div class="dialog-action-buttons">
+                            <!-- Dialog Action Buttons generate JS -->
+                            <div id="dialog_action_buttons" class="dialog-action-buttons">
                                 <button class="negative-button">Cancel</button>
                                 <button class="positive-button">Save <img src="../../assets/icons/check.svg" alt=""></button>
+                                <!-- <button class="negative-button">Delete</button>
+                                <button class="positive-button">Create contact<img src="../../assets/icons/check.svg" alt=""></button> -->
                             </div>
 
                         </div>
