@@ -151,6 +151,7 @@
 }
 
 .dialog-right-inputs {
+    width: 422px;
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -158,7 +159,7 @@
 
 .dialog-right-inputs input {
     height: 100%;
-    width: 422px;
+    width: 100%;
     padding: 0px 10px;
     font-size: 16px;
     border-radius: 10px;
@@ -233,16 +234,34 @@
 }
 
 /* Responsive Styles */
-@media (max-width: 1400px) {
+
+@media (max-width: 1240px) {
+    .dialog-container {
+        width: 1000px;
+    }
+
+    .dialog-right-content {
+        padding: 0px 20px;
+    }
+
+    .dialog-right-inputs {
+        width: 280px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Dialog Elements */
+
     .dialog-container {
         height: 760px;
-        width: 396px;
+        width: 320px;
         display: flex;
         flex-direction: column;
     }
 
     .dialog-left-aside {
-        width: 396px;
+        height: 351px;
+        width: 100%;
         border-radius: 30px 30px 0 0;
         align-items: center;
         justify-content: flex-end;
@@ -250,10 +269,25 @@
 
     .dialog-left-content {
         height: 351px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
-    .dialog-right-close-button {
+    .contact-logo {
         display: none;
+    }
+
+    .contact-option-content {
+        width: 100%;
+        /* padding-bottom: 30px; */
+        padding: 0px;
+        gap: 0px;
+    }
+
+    .contact-option-content h2 {
+        display: flex;
+        align-items: flex-end;
     }
 
     .contact-option-title {
@@ -261,12 +295,80 @@
         font-weight: 700;
     }
 
+    .contact-option-content p {
+        font-size: 20px;
+    }
+
     .dialog-responsive-close-button {
-        background-color: red;
         height: 50px;
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        padding-top: 30px;
+    }
 
+    .dialog-responsive-close-button:hover {
+        cursor: pointer;
+    }
+
+    /* Dialog Right to Bottom */
+
+    .dialog-right-close-button {
+        display: none;
+    }
+
+    .dialog-right-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px;
+        gap: 0px;
+        transform: translateY(-65px);
+    }
+
+    .dialog-right-title {
+        background-color: white;
+        height: 130px;
+        width: 130px;
+        display: flex;
+        align-items: center;
+        border: solid 2px #ccc;
+    }
+
+    .dialog-right-body {
+        width: 100%;
+        gap: 20px;
+        padding: 30px 10px 0 10px;
+    }
+
+    .dialog-right-inputs {
+        height: 171px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .input-name-wrapper,
+    .input-email-wrapper,
+    .input-phone-wrapper {
+        height: 41px;
+        max-width: 320px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .dialog-input {
+        /* max-width: 290px; */
+    }
+
+    .dialog-action-buttons {
+        height: 51px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
     }
 }

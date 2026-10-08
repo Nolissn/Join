@@ -24,7 +24,7 @@ function init() {
 
 // ID´s Dialog Elements
 // contact_option_title -> Title for contact option
-// dialog_right_title -> Background color for contact
+// contact_option_slogan -> Slogan for contact option// dialog_right_title -> Background color for contact
 // dialog_right_title_initials -> Initials for contact
 // dialog_action_buttons -> switch contact action buttons edit/new contact
 // contact_name -> Input field for contact name
