@@ -98,6 +98,79 @@
   font-size: 21px;
 }
 
+.sign_up_error_dialog {
+  width: 400px;
+  height: 300px;
+  padding: 0px;
+  border-radius: 16px;
+  border-style: none;
+  background-color: var(--colorPrimary);
+  margin: auto;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--colorWhite);
+}
+
+.sign_up_error_dialog[open] {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.sign_up_error_dialog_close_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  margin-left: auto;
+  margin-right: 16px;
+  margin-top: 16px;
+  padding: 0;
+  border-radius: 16px;
+  border-color: none;
+  border-style: none;
+  background-color: var(--colorPrimary);
+  color: var(--colorWhite);
+  cursor: pointer;
+}
+
+.sign_up_error_dialog_close_button:hover {
+  background-color: var(--colorBeige);
+}
+
+.sign_up_error_dialog_close_button:active {
+  background-color: var(--colorPrimaryDark);
+}
+
+.sign_up_error_dialog_close_button_icon {
+  width: 32px;
+  height: auto;
+  color: var(--colorWhite);
+}
+
+.sign_up_error_dialog_close_button_icon:hover {
+  color: var(--colorPrimary);
+}
+
+.sign_up_error_dialog_close_button_icon:active {
+  color: var(--colorwhite);
+}
+
+.sign_up_error_dialog_title {
+  margin-top: 48px;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.sign_up_error_dialog_text {
+  margin-top: 24px;
+  padding: 0 48px;
+  font-size: 20px;
+  text-align: center;
+}
+
 @media (max-width: 768px) {
   .sign_up_card {
     width: clamp(396px, calc(59.412vw + 141.718px), 598px);
@@ -112,7 +185,7 @@
     font-size: clamp(47px, calc(4.1176vw + 29.376px), 61px);
   }
 
-  .sign_up_card_sign_up_button{
+  .sign_up_card_sign_up_button {
     width: 180px;
     height: 51px;
     border-radius: 8px;
