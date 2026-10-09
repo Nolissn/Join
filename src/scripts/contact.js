@@ -1,25 +1,6 @@
 function init() {
-    console.log("init");
-    const dialog = document.getElementById('dialog');
-    dialog.showModal();
+
 }
-
-
-
-// close button 32 x 32
-// container initials 120
-// container input 422 x 215
-// input 422 x 50
-// container button 249 x 57
-// button 113 x 55
-
-// responsive design notes
-// container 396 x 760
-// left -> top 396 x 351
-// close button 32 x 32
-// container initials 120
-// action buttons 51
-// input fields 364 x 41
 
 
 // ID´s Dialog Elements
@@ -30,3 +11,20 @@ function init() {
 // contact_name -> Input field for contact name
 // contact_email -> Input field for contact email
 // contact_phone -> Input field for contact phone
+
+// CONTACT LEFT
+// container contact list 424 x xxx
+// container contact alphabet 352 x 58
+// container contact 352 x 78
+// contact initials 42 x 42 -> 
+// container contact 156 x 48
+// contact name 20 x 400
+// contact email 16 x 400
+
+// CONTACT RIGHT
+// container contact details rest x xxx
+
+
+
+
+
