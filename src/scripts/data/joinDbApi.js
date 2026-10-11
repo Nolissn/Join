@@ -34,6 +34,18 @@ export async function updateTask(taskId, taskModell) {
     }
 }
 
+export async function getTaskIdByTitle(title) {
+    try {
+        const titleQuery = query(collection(db, "tasks"), where("title", "==", title), limit(1));
+        const snap = await getDocs(titleQuery);
+        if (snap.empty) return null;
+        return snap.docs[0].id;
+    } catch (error) {
+        console.error("getTaskIdByTitle fehlgeschlagen:", error);
+        throw error;
+    }
+}
+
 export async function deleteTask(taskId) {
     try {
         await deleteDoc(doc(db, "tasks", taskId));
