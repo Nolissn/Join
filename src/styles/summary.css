@@ -1,0 +1,38 @@
+.summary-headline {
+    display: flex;
+}
+
+.seperator {
+    width: 2px;
+    background-color: var(--colorAccent);
+    margin: 0 16px;
+}
+
+section {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    column-gap: 16px;
+    row-gap: 16px;
+    width: 560px;
+}
+
+.task-summary {
+    background-color: var(--colorWhite);
+    display: flex;
+    justify-content: center;
+    height: 168px;
+    border-radius: 30px;
+}
+
+.summary-above {
+    grid-column: span 3;
+}
+
+.summary-middle {
+    grid-column: span 6;
+}
+
+.summary-below {
+    grid-column: span 2;
+    flex-direction: column;
+}
