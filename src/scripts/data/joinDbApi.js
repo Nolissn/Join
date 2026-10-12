@@ -1,11 +1,12 @@
 import { db } from "./joinDbConfig.js";
-import { doc, setDoc, collection, getDocs, deleteDoc  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import { doc, setDoc, collection, getDocs, deleteDoc, query, where, limit } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 // taskModell value = undefined is not allowed, because firestore does not accept undefined values. 
 export async function saveTask(taskModell) {
     try {
         const ref = doc(collection(db, "tasks"));
         await setDoc(ref, taskModell);
+        markTasksOutdated();
         return ref.id;
     } catch (error) {
         console.error("saveTask fehlgeschlagen:", error);
@@ -26,8 +27,21 @@ export async function getTasks() {
 export async function updateTask(taskId, taskModell) {
     try {
         await setDoc(doc(db, "tasks", taskId), taskModell);
+        markTasksOutdated();
     } catch (error) {
         console.error("updateTask fehlgeschlagen:", error);
+        throw error;
+    }
+}
+
+export async function getTaskIdByTitle(title) {
+    try {
+        const titleQuery = query(collection(db, "tasks"), where("title", "==", title), limit(1));
+        const snap = await getDocs(titleQuery);
+        if (snap.empty) return null;
+        return snap.docs[0].id;
+    } catch (error) {
+        console.error("getTaskIdByTitle fehlgeschlagen:", error);
         throw error;
     }
 }
@@ -35,8 +49,17 @@ export async function updateTask(taskId, taskModell) {
 export async function deleteTask(taskId) {
     try {
         await deleteDoc(doc(db, "tasks", taskId));
+        markTasksOutdated();
     } catch (error) {
         console.error("deleteTask fehlgeschlagen:", error);
         throw error;
+    }
+}
+
+function markTasksOutdated() {
+    try {
+        localStorage.setItem("joinTasksOutdated", "true");
+    } catch (error) {
+        console.warn("Tasks could not be marked as outdated:", error);
     }
 }

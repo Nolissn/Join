@@ -1,4 +1,5 @@
 const localStorageKey = 'joinData';
+const outdatedKey = 'joinTasksOutdated';
 const waitingTaskIds = [];
 let storedTasks = [];
 let firebaseQueue = Promise.resolve();
@@ -26,17 +27,37 @@ function saveTasksToLocalStorage() {
 
 async function loadTasks() {
   const joinData = readLocalStorage();
-  if (Array.isArray(joinData.tasks)) {
+  if (Array.isArray(joinData.tasks) && !areTasksOutdated()) {
     storedTasks = joinData.tasks;
     return;
   }
+  await loadTasksFromFirebase();
+}
+
+async function loadTasksFromFirebase() {
   try {
     const joinDbApi = await import('./joinDbApi.js');
     storedTasks = await joinDbApi.getTasks();
+    saveTasksToLocalStorage();
+    localStorage.removeItem(outdatedKey);
   } catch (error) {
-    storedTasks = [];
+    console.warn('Tasks could not be loaded from Firebase:', error);
+    storedTasks = readStoredTasks();
   }
-  if (storedTasks.length > 0) saveTasksToLocalStorage();
+}
+
+function areTasksOutdated() {
+  try {
+    return localStorage.getItem(outdatedKey) === 'true';
+  } catch (error) {
+    return true;
+  }
+}
+
+function readStoredTasks() {
+  const joinData = readLocalStorage();
+  if (Array.isArray(joinData.tasks)) return joinData.tasks;
+  return [];
 }
 
 function findStoredTask(taskId) {

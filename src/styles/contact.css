@@ -1,3 +1,212 @@
+.d-none {
+    display: none;
+}
+
+main {
+    display: flex;
+}
+
+/* Contact left side */
+.container-contact-list {
+    box-shadow: 4px 0 6px rgba(0, 0, 0, 0.15);
+    max-height: 849px;
+    height: 1500px;
+    width: 424px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    padding-top: 55px;
+}
+
+.add-new-contact-button {
+    background-color: var(--colorPrimary);
+    color: white;
+    min-height: 56px;
+    width: 352px;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 21px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.add-new-contact-button:hover {
+    background-color: var(--colorPrimaryDark);
+}
+
+.contact-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.contact-list-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* gap: 10px; */
+    width: 100%;
+    padding: 0px 24px;
+}
+
+.contact-list-group h3 {
+    display: flex;
+    align-items: center;
+    padding: 17px 36px;
+    height: 58px;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.contact-list-seperator {
+    height: 1px;
+    background-color: var(--colorUnfocusedInputTag);
+    width: 100%;
+    padding: 0px 24px;
+    margin-bottom: 10px;
+}
+
+.contact-list-item {
+    height: 78px;
+    width: 352px;
+    gap: 35px;
+    padding: 15px 24px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.contact-initials {
+    background-color: red;
+    color: white;
+    min-height: 42px;
+    min-width: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.contact-quick-view {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+
+.contact-list-name {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.contact-list-email {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+
+/* Contact right side */
+.container-contact-details {}
+
+.container-contact-main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.container-contact-initials {
+    background-color: white;
+    border-radius: 50%;
+    height: 130px;
+    width: 130px;
+    border: solid 3px #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
+}
+
+.contact-main-initials {
+    background-color: red;
+    color: white;
+    min-height: 120px;
+    min-width: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 47px;
+    font-weight: 500;
+}
+
+
+.container-contact-action-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.container-contact-action-options h3 {
+    font-size: 47px;
+    font-weight: 500;
+}
+
+.container-contact-action-buttons {
+    background-color: transparent;
+    display: flex;
+}
+
+.contact-action-button {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.contact-information-title {
+    height: 74px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.container-contact-information {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.container-contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.container-contact-details h5 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.container-contact-details a,
+p {
+    font-size: 16px;
+    font-weight: 400;
+}
+
 /* Dialog Styles */
 
 .dialog {
@@ -39,15 +248,40 @@
     gap: 40px;
 }
 
+.dialog-responsive-close-button {
+    display: none;
+}
+
+.dialog-responsive-close-button button {
+    background-color: transparent;
+    height: 32px;
+    width: 32px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dialog-responsive-close-button button:hover {
+    background-color: rgba(44, 44, 44, 0.1);
+    border-radius: 50%;
+}
+
 .contact-logo {
     width: 54px;
 }
 
 .contact-option-content {
-    height: 89px;
     width: 361px;
     display: flex;
     flex-direction: column;
+}
+
+.contact-option-content p {
+    padding-top: 10px;
+    font-size: 27px;
+    font-weight: 400;
+    letter-spacing: 0.4px;
 }
 
 .contact-option-title {
@@ -98,7 +332,7 @@
 
 .dialog-right-body {
     height: 100%;
-    padding: 60px 0px 80px 0px;
+    padding: 20px 0px 80px 0px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -112,10 +346,21 @@
 
 .dialog-right-close-button button {
     background-color: transparent;
+    height: 32px;
+    width: 32px;
     border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dialog-right-close-button button:hover {
+    background-color: rgba(44, 44, 44, 0.1);
+    border-radius: 50%;
 }
 
 .dialog-right-inputs {
+    width: 422px;
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -123,7 +368,7 @@
 
 .dialog-right-inputs input {
     height: 100%;
-    width: 422px;
+    width: 100%;
     padding: 0px 10px;
     font-size: 16px;
     border-radius: 10px;
@@ -141,6 +386,7 @@
 .input-email-wrapper,
 .input-phone-wrapper {
     height: 50px;
+    width: 100%;
     position: relative;
 }
 
@@ -195,4 +441,426 @@
     filter: drop-shadow(0 2px 1px rgba(0, 0, 0, 0.23));
     cursor: pointer;
     transition: background-color 0.3s, filter 0.3s;
+}
+
+/* Responsive Styles */
+
+@media (max-width: 1240px) {
+    .dialog-container {
+        width: 1000px;
+    }
+
+    .dialog-right-body {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .dialog-right-content {
+        padding-left: 20px;
+    }
+
+    .dialog-right-inputs {
+        width: 280px;
+    }
+}
+
+@media (max-width: 1025px) {
+    /* Dialog Elements */
+
+    .dialog-container {
+        height: 760px;
+        width: 750px !important;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .dialog-left-aside {
+        height: 351px;
+        width: 100%;
+        border-radius: 30px 30px 0 0;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .dialog-left-content {
+        height: 351px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0px 40px;
+    }
+
+    .contact-logo {
+        display: none;
+    }
+
+    .contact-option-content {
+        width: 100%;
+        /* padding-bottom: 30px; */
+        padding: 0px;
+        gap: 0px;
+    }
+
+    .contact-option-content h2 {
+        display: flex;
+        align-items: flex-end;
+        font-size: 42px;
+        font-weight: 700;
+    }
+
+    .contact-option-title {
+        font-size: 47px;
+        font-weight: 700;
+    }
+
+    .contact-option-content p {
+        font-size: 20px;
+    }
+
+    .dialog-responsive-close-button {
+        height: 50px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-top: 30px;
+    }
+
+    .dialog-responsive-close-button:hover {
+        cursor: pointer;
+    }
+
+    /* Dialog Right to Bottom */
+
+    .dialog-right-close-button {
+        display: none;
+    }
+
+    .dialog-right-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px;
+        gap: 0px;
+        transform: translateY(-65px);
+    }
+
+    .dialog-right-title {
+        background-color: white;
+        height: 130px;
+        width: 130px;
+        display: flex;
+        align-items: center;
+        border: solid 2px #ccc;
+    }
+
+    .dialog-right-body {
+        width: 100%;
+        gap: 20px;
+        padding: 30px 10px 0 10px;
+    }
+
+    .dialog-right-inputs {
+        height: 171px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .input-name-wrapper,
+    .input-email-wrapper,
+    .input-phone-wrapper {
+        height: 41px;
+        padding: 0px 50px;
+    }
+
+    .input-icons {
+        position: absolute;
+        right: 70px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .dialog-action-buttons {
+        height: 51px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 1025px) {
+    .dialog-container {
+        height: 760px;
+        width: 950px;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Dialog Elements */
+
+    .dialog-container {
+        height: 760px;
+        width: 500px !important;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .dialog-left-aside {
+        height: 351px;
+        width: 100%;
+        border-radius: 30px 30px 0 0;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .dialog-left-content {
+        height: 351px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0px 20px;
+    }
+
+    .contact-logo {
+        display: none;
+    }
+
+    .contact-option-content {
+        width: 100%;
+        padding: 0px;
+        gap: 0px;
+    }
+
+    .contact-option-content h2 {
+        display: flex;
+        align-items: flex-end;
+        font-size: 42px;
+        font-weight: 700;
+    }
+
+    .contact-option-title {
+        font-size: 47px;
+        font-weight: 700;
+    }
+
+    .contact-option-content p {
+        font-size: 20px;
+    }
+
+    .dialog-responsive-close-button {
+        height: 50px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-top: 30px;
+    }
+
+    .dialog-responsive-close-button:hover {
+        cursor: pointer;
+    }
+
+    /* Dialog Right to Bottom */
+
+    .dialog-right-close-button {
+        display: none;
+    }
+
+    .dialog-right-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px;
+        gap: 0px;
+        transform: translateY(-65px);
+    }
+
+    .dialog-right-title {
+        background-color: white;
+        height: 130px;
+        width: 130px;
+        display: flex;
+        align-items: center;
+        border: solid 2px #ccc;
+    }
+
+    .dialog-right-body {
+        width: 100%;
+        gap: 20px;
+        padding: 30px 10px 0 10px;
+    }
+
+    .dialog-right-inputs {
+        height: 171px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .input-name-wrapper,
+    .input-email-wrapper,
+    .input-phone-wrapper {
+        height: 41px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0px 10px;
+    }
+
+    .input-icons {
+        position: absolute;
+        right: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .dialog-action-buttons {
+        height: 51px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 520px) {
+    /* Dialog Elements */
+
+    .dialog-container {
+        height: 760px;
+        width: 310px !important;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .dialog-left-aside {
+        height: 351px;
+        width: 100%;
+        border-radius: 30px 30px 0 0;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .dialog-left-content {
+        height: 351px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0px 10px 0 10px;
+    }
+
+    .contact-logo {
+        display: none;
+    }
+
+    .contact-option-content {
+        width: 100%;
+        /* padding-bottom: 30px; */
+        padding: 0px;
+        gap: 0px;
+    }
+
+    .contact-option-content h2 {
+        display: flex;
+        align-items: flex-end;
+        font-size: 42px;
+        font-weight: 700;
+    }
+
+    .contact-option-title {
+        font-size: 47px;
+        font-weight: 700;
+    }
+
+    .contact-option-content p {
+        font-size: 20px;
+    }
+
+    .dialog-responsive-close-button {
+        height: 50px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-top: 30px;
+    }
+
+    .dialog-responsive-close-button:hover {
+        cursor: pointer;
+    }
+
+    /* Dialog Right to Bottom */
+
+    .dialog-right-close-button {
+        display: none;
+    }
+
+    .dialog-right-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px;
+        gap: 0px;
+        transform: translateY(-65px);
+    }
+
+    .dialog-right-title {
+        background-color: white;
+        height: 130px;
+        width: 130px;
+        display: flex;
+        align-items: center;
+        border: solid 2px #ccc;
+    }
+
+    .dialog-right-body {
+        width: 100%;
+        gap: 20px;
+        padding: 30px 10px 0 10px;
+    }
+
+    .dialog-right-inputs {
+        height: 171px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .input-name-wrapper,
+    .input-email-wrapper,
+    .input-phone-wrapper {
+        height: 41px;
+        max-width: 320px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .dialog-action-buttons {
+        height: 51px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+}
+
+@media (max-height: 700px) {
+    .dialog-container {
+        height: 650px;
+    }
+
+    .dialog-left-aside {
+        height: 300px;
+    }
 }
