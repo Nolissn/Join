@@ -1,5 +1,6 @@
-main  {
+main {
     margin: 125px 100px 50px 100px;
+    font-size: 16px;
 }
 
 h1 {
@@ -7,10 +8,20 @@ h1 {
 }
 
 h2 {
-    font-size: 27px;
+    font-size: clamp(20px, 3vw, 27px);
     padding: 50px 0 20px 0;
 }
 
 span {
     color: var(--colorPrimaryGreyTone);
+}
+
+@media(max-width: 1000px) {
+    h1 {
+        font-size: clamp(28px, 5vw, 50px);
+    }
+
+    main {
+        margin: 80px 24px 40px;
+    }
 }
