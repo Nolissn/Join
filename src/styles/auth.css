@@ -14,6 +14,7 @@
 .header_auth_screen_icon_dark {
   width: clamp(64px, calc(10.588vw + 18.682px), 100px);
   height: auto;
+  cursor: pointer;
 }
 
 .main_content_container {
