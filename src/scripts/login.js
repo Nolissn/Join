@@ -4,6 +4,15 @@ function initLogIn() {
   document.querySelector('.log_in_card_log_in_button').addEventListener('click', logIn);
   document.getElementById('email').addEventListener('input', resetLogInErrors);
   document.getElementById('password').addEventListener('input', resetLogInErrors);
+  document.getElementById('email').addEventListener('keydown', handleLogInEnterKey);
+  document.getElementById('password').addEventListener('keydown', handleLogInEnterKey);
+}
+
+function handleLogInEnterKey(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    logIn();
+  }
 }
 
 async function logIn() {
