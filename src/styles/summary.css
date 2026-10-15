@@ -1,58 +1,63 @@
 main {
-    margin-left: 75px;
-    margin-bottom: 100px;
+    margin: clamp(24px, 6vh, 80px) clamp(16px, 5.2vw, 75px) 32px;
 }
 
 .summary-headline {
     display: flex;
-    margin: 100px 0 50px 0;
+    align-items: center;
+    margin: 0 0 clamp(24px, 4vh, 50px);
 }
 
 h1 {
-    font-size: 61px;
+    flex-shrink: 0;
+    font-size: clamp(40px, 4.25vw, 61px);
 }
 
 .headline-txt {
+    min-width: 0;
     color: var(--colorPrimary);
-    font-size: 27px;
+    font-size: clamp(16px, 1.9vw, 27px);
     align-content: center;
 }
 
 .seperator {
+    flex-shrink: 0;
     width: 3px;
-    height: 59px;
+    height: clamp(40px, 4.1vw, 59px);
     background-color: var(--colorAccent);
-    margin: 0 16px;
+    margin: 0 clamp(10px, 1.1vw, 16px);
     align-self: center;
 }
 
 .summary-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
     align-items: center;
-    gap: 80px;
+    gap: clamp(16px, 4vw, 56px);
 }
 
 section {
     display: grid;
     grid-template-columns: repeat(6, minmax(0, 1fr));
     column-gap: 16px;
-    row-gap: 32px;
-    width: 560px;
+    row-gap: clamp(12px, 3vh, 32px);
+    width: 100%;
+    margin-inline: auto;
 }
 
 .task-summary {
     background-color: var(--colorWhite);
     display: flex;
     justify-content: center;
-    height: 168px;
-    border-radius: 30px;
+    height: clamp(96px, 19vh, 168px);
+    border-radius: clamp(20px, 2.1vw, 30px);
     border: 1px solid var(--colorUnfocusedInputTag);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 .summary-above {
     grid-column: span 3;
-    gap: 18px;
+    gap: clamp(8px, 1.25vw, 18px);
 }
 
 .summary-middle {
@@ -68,11 +73,17 @@ section {
     gap: 9px;
 }
 
+.summary-below h3,
+.summary-below-txt {
+    line-height: 1;
+}
+
 .summary-icon {
-    width: 69px;
+    width: clamp(40px, 4.8vw, 69px);
 }
 
 .summary-txt-container {
+    min-width: 0;
     align-content: center;
 }
 
@@ -81,43 +92,383 @@ section {
     height: 65%;
     background-color: var(--colorUnfocusedInputTag);
     align-self: center;
-    margin: 0 24px;
+    margin: 0 clamp(8px, 1.65vw, 24px);
 }
 
 h3 {
-    font-size: 64px;
+    font-size: clamp(44px, 4.45vw, 64px);
     text-align: center;
 }
 
 h4 {
-    font-size: 21px;
+    font-size: clamp(16px, 1.46vw, 21px);
     color: var(--colorPrimary);
     padding-bottom: 13px;
 }
 
 .deadline {
-    font-size: 16px !important;
+    font-size: 16px;
 }
 
 .summary-txt {
     color: var(--colorPrimary);
-    font-size: 20px;
+    font-size: clamp(16px, 1.4vw, 20px);
     font-weight: 400;
 }
 
 .summary-below-txt {
-    width: 130px;
+    width: min(130px, 100%);
     text-align: center;
 }
 
 h2 {
-    font-size: 47px;
+    font-size: clamp(32px, 3.25vw, 47px);
     color: var(--colorPrimary);
     font-weight: 500;
 }
 
 .name {
-    font-size: 64px;
+    font-size: clamp(40px, 4.45vw, 64px);
     font-weight: 700;
     color: var(--colorPrimaryGreyTone);
+}
+
+body {
+    min-width: 320px;
+}
+
+@media (max-width: 1200px) {
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: calc(100dvh - 96px);
+        margin: 0 32px;
+        padding-top: clamp(24px, 6vh, 80px);
+    }
+
+    .summary-headline {
+        width: 100%;
+        margin: 0 0 clamp(16px, 4vh, 32px);
+    }
+
+    .summary-content {
+        width: min(560px, 100%);
+        margin-inline: auto;
+    }
+
+    .summary-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .summary-greeting {
+        text-align: center;
+    }
+
+    section {
+        width: min(560px, 100%);
+    }
+}
+
+@media (min-width: 941px) and (max-width: 1200px) {
+    .summary-container {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.8fr);
+        align-items: center;
+        gap: clamp(16px, 2vw, 32px);
+    }
+
+    .summary-greeting {
+        text-align: center;
+    }
+
+    .summary-greeting h2 {
+        font-size: clamp(26px, 3vw, 36px);
+    }
+
+    .summary-greeting .name {
+        font-size: clamp(30px, 3.3vw, 40px);
+    }
+}
+
+@media (max-width: 940px) {
+    .summary-greeting {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background-color: var(--colorBgPage);
+        text-align: center;
+        animation: summary-greeting-intro 6s ease forwards;
+    }
+
+    .summary-greeting h2 {
+        font-size: clamp(32px, 6vw, 47px);
+    }
+
+    .summary-greeting .name {
+        font-size: clamp(42px, 8vw, 64px);
+    }
+}
+
+@keyframes summary-greeting-intro {
+    0%,
+    75% {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        min-height: calc(100dvh - 160px);
+        margin: 0;
+        padding: 12px 16px 16px;
+    }
+
+    .summary-headline {
+        align-items: center;
+        margin: 0 0 12px;
+    }
+
+    h1 {
+        flex-shrink: 0;
+        font-size: clamp(34px, 10vw, 48px);
+    }
+
+    .seperator {
+        flex-shrink: 0;
+        height: 40px;
+        margin: 0 10px;
+    }
+
+    .headline-txt {
+        font-size: clamp(16px, 4vw, 18px);
+    }
+
+    .summary-container {
+        display: block;
+    }
+
+    section {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        column-gap: 8px;
+        row-gap: 10px;
+    }
+
+    .task-summary {
+        height: clamp(88px, 16vh, 112px);
+        border-radius: 20px;
+    }
+
+    .summary-above {
+        gap: 8px;
+    }
+
+    .summary-icon {
+        width: clamp(32px, 11vw, 48px);
+    }
+
+    .summary-txt-container {
+        min-width: 0;
+    }
+
+    h3 {
+        font-size: clamp(38px, 12vw, 52px);
+    }
+
+    .summary-txt {
+        font-size: 16px;
+    }
+
+    .summary-middle {
+        gap: 8px;
+    }
+
+    .summary-seperator {
+        margin: 0 8px;
+    }
+
+    h4 {
+        font-size: 16px;
+        padding-bottom: 6px;
+    }
+
+    .deadline {
+        font-size: 16px;
+    }
+
+    .summary-below {
+        gap: 4px;
+    }
+
+    .summary-below-txt {
+        width: auto;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) and (max-height: 600px) {
+    .summary-headline {
+        margin-bottom: 8px;
+    }
+
+    .task-summary {
+        height: 68px;
+    }
+
+    h3 {
+        font-size: 30px;
+    }
+
+    .summary-txt {
+        line-height: 1.1;
+    }
+
+    .summary-below {
+        gap: 0;
+    }
+
+    .summary-below-txt {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 769px) and (max-height: 700px) {
+    main {
+        margin-top: clamp(16px, 4vh, 32px);
+    }
+
+    .summary-headline {
+        margin-bottom: clamp(12px, 2.5vh, 24px);
+    }
+
+    .task-summary {
+        height: clamp(88px, 17vh, 120px);
+    }
+
+    section {
+        row-gap: clamp(8px, 2vh, 16px);
+    }
+
+    h3 {
+        font-size: clamp(40px, 5vw, 52px);
+    }
+
+    .summary-below {
+        gap: 4px;
+    }
+
+    .summary-below-txt {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 769px) and (max-height: 700px) {
+    .sidebar {
+        padding: 24px 0;
+    }
+
+    .sidebarLogoImg {
+        width: 72px;
+        height: 88px;
+    }
+
+    .navMain {
+        gap: 8px;
+        margin-top: 32px;
+    }
+
+    .navLink {
+        height: 40px;
+    }
+
+    .navLegal {
+        gap: 8px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) and (max-height: 600px) {
+    main {
+        margin-top: 8px;
+    }
+
+    .summary-headline {
+        margin: 24px 0 16px;
+    }
+
+    .task-summary {
+        height: 96px;
+    }
+
+    section {
+        row-gap: 12px;
+    }
+
+    .summary-below {
+        gap: 2px;
+    }
+
+    .summary-below h3 {
+        font-size: 42px;
+    }
+
+    .summary-below-txt {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) and (max-height: 700px) {
+    main {
+        min-height: calc(100dvh - 96px - clamp(16px, 4vh, 32px));
+    }
+}
+
+@media (min-width: 1201px) and (max-height: 600px) {
+    main {
+        margin-top: 16px;
+    }
+
+    .summary-headline {
+        margin-bottom: 12px;
+    }
+
+    .task-summary {
+        height: 80px;
+    }
+
+    section {
+        row-gap: 8px;
+    }
+
+    h3 {
+        font-size: 40px;
+    }
+
+    .summary-below {
+        gap: 2px;
+    }
+
+    .summary-below-txt {
+        font-size: 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .summary-greeting {
+        animation-duration: 3s;
+        animation-timing-function: steps(1, end);
+    }
 }
