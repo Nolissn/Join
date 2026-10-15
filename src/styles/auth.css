@@ -14,6 +14,7 @@
 .header_auth_screen_icon_dark {
   width: clamp(64px, calc(10.588vw + 18.682px), 100px);
   height: auto;
+  cursor: pointer;
 }
 
 .main_content_container {
@@ -69,6 +70,11 @@
   color: var(--colorTextGrey);
 }
 
+.auth_card_input_error,
+.auth_card_input_error:focus {
+  border-color: var(--colorRed);
+}
+
 .auth_card_input_email {
   padding-right: 52px;
   background-image: url("../../assets/icons/mail.svg");
@@ -77,12 +83,71 @@
   background-size: 20px 16px;
 }
 
+.auth_card_password_container {
+  position: relative;
+  display: flex;
+}
+
 .auth_card_input_password {
   padding-right: 52px;
-  background-image: url("../../assets/icons/lock.svg");
-  background-repeat: no-repeat;
-  background-position: right 23px center;
-  background-size: 16px 21px;
+}
+
+.auth_card_lock_icon {
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  width: 16px;
+  height: 21px;
+  transform: translateY(-50%);
+  color: var(--colorTextGrey);
+  pointer-events: none;
+}
+
+.auth_card_password_toggle {
+  position: absolute;
+  top: 50%;
+  right: 21px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 22px;
+  height: 20px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--colorTextGrey);
+}
+
+.auth_card_password_container:focus-within .auth_card_password_toggle,
+.auth_card_input_password:not(:placeholder-shown) ~ .auth_card_password_toggle {
+  display: flex;
+}
+
+.auth_card_password_container:focus-within .auth_card_lock_icon,
+.auth_card_input_password:not(:placeholder-shown) ~ .auth_card_lock_icon {
+  display: none;
+}
+
+.auth_card_eye_closed_icon {
+  width: 22px;
+  height: 19px;
+  margin-top: 2.45px;
+}
+
+.auth_card_eye_open_icon {
+  display: none;
+  width: 22px;
+  height: 15px;
+}
+
+.auth_card_input_password[type="text"] ~ .auth_card_password_toggle .auth_card_eye_closed_icon {
+  display: none;
+}
+
+.auth_card_input_password[type="text"] ~ .auth_card_password_toggle .auth_card_eye_open_icon {
+  display: block;
 }
 
 .auth_primary_button {
@@ -122,6 +187,18 @@
 .footer_auth_screen_link:hover {
   font-weight: 700;
   color: var(--colorPrimaryDark);
+}
+
+.sign_up_card_error_text {
+  color: var(--colorRed);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  min-height: 20px;
+  margin-top: 8px;
+  padding-right: 10px;
+  padding-left: 10px;
+  text-align: center;
 }
 
 @media (max-width: 768px) {
