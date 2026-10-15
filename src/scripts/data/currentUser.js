@@ -20,3 +20,12 @@ function setCurrentUser(user) {
     console.warn('Current user could not be saved:', error);
   }
 }
+
+function removeCurrentUser() {
+  currentUser = null;
+  try {
+    sessionStorage.removeItem(currentUserKey);
+  } catch (error) {
+    console.warn('Current user could not be removed:', error);
+  }
+}

@@ -24,7 +24,7 @@ function headerTemplate(iconPath, initials) {
         <a class="headerMenuLink headerMenuLinkMobile" href="help.html">Help</a>
         <a class="headerMenuLink" href="legalNotice.html">Legal Notice</a>
         <a class="headerMenuLink" href="privacyPolicy.html">Privacy Policy</a>
-        <a class="headerMenuLink" href="../../index.html">Log out</a>
+        <a id="logOutLink" class="headerMenuLink" href="../../index.html">Log out</a>
       </nav>
     </div>`;
 }

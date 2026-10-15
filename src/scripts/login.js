@@ -2,6 +2,7 @@ const logInEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function initLogIn() {
   document.querySelector('.log_in_card_log_in_button').addEventListener('click', logIn);
+  document.querySelector('.log_in_card_guest_log_in_button').addEventListener('click', guestLogIn);
   document.getElementById('email').addEventListener('input', resetLogInErrors);
   document.getElementById('password').addEventListener('input', resetLogInErrors);
   document.getElementById('email').addEventListener('keydown', handleLogInEnterKey);
@@ -62,6 +63,11 @@ function handleLogInResult(user, password) {
     return;
   }
   setCurrentUser(user);
+  location.href = 'src/statics/summary.html';
+}
+
+function guestLogIn() {
+  setCurrentUser({ id: 'guest', name: 'Guest', email: '' });
   location.href = 'src/statics/summary.html';
 }
 

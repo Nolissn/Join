@@ -4,6 +4,13 @@ function renderLayout() {
   document.querySelector('.sidebar').innerHTML = sidebarTemplate(iconPath);
   document.querySelector('.header').innerHTML = headerTemplate(iconPath, getCurrentUserInitials());
   markActiveNavLink();
+  document.getElementById('logOutLink').addEventListener('click', logOut);
+}
+
+function logOut(event) {
+  event.preventDefault();
+  removeCurrentUser();
+  location.replace('../../index.html');
 }
 
 function getCurrentUserInitials() {
