@@ -158,14 +158,6 @@ function getProgressHtml(subtasks) {
   return taskProgressTemplate(doneCount, subtasks.length);
 }
 
-function getInitials(name) {
-  const nameParts = name.trim().split(' ');
-  const firstLetter = nameParts[0].charAt(0);
-  const lastLetter = nameParts[nameParts.length - 1].charAt(0);
-  if (nameParts.length === 1) return firstLetter.toUpperCase();
-  return (firstLetter + lastLetter).toUpperCase();
-}
-
 function formatDueDate(dueDate) {
   if (dueDate === '') return '';
   const dateParts = dueDate.split('-');

@@ -1,10 +1,22 @@
 const iconPath = '../../assets/icons/';
-const currentUserInitials = 'SM';
 
 function renderLayout() {
   document.querySelector('.sidebar').innerHTML = sidebarTemplate(iconPath);
-  document.querySelector('.header').innerHTML = headerTemplate(iconPath, currentUserInitials);
+  document.querySelector('.header').innerHTML = headerTemplate(iconPath, getCurrentUserInitials());
   markActiveNavLink();
+}
+
+function getCurrentUserInitials() {
+  if (currentUser === null) return 'G';
+  return getInitials(currentUser.name);
+}
+
+function getInitials(name) {
+  const nameParts = name.trim().split(' ');
+  const firstLetter = nameParts[0].charAt(0);
+  const lastLetter = nameParts[nameParts.length - 1].charAt(0);
+  if (nameParts.length === 1) return firstLetter.toUpperCase();
+  return (firstLetter + lastLetter).toUpperCase();
 }
 
 function markActiveNavLink() {
