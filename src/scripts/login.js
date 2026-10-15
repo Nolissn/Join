@@ -1,4 +1,5 @@
 const logInEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const guestEmail = 'guest@guestmail.com';
 
 function initLogIn() {
   document.querySelector('.log_in_card_log_in_button').addEventListener('click', logIn);
@@ -66,9 +67,20 @@ function handleLogInResult(user, password) {
   location.href = 'src/statics/summary.html';
 }
 
-function guestLogIn() {
-  setCurrentUser({ id: 'guest', name: 'Guest', email: '' });
-  location.href = 'src/statics/summary.html';
+async function guestLogIn() {
+  resetLogInErrors();
+  try {
+    const usersDbApi = await import('./data/usersDbApi.js');
+    const guestUser = await usersDbApi.getUserByEmail(guestEmail);
+    if (guestUser === null) {
+      showLogInError('email', 'Guest log in is currently not available');
+      return;
+    }
+    setCurrentUser(guestUser);
+    location.href = 'src/statics/summary.html';
+  } catch (error) {
+    showLogInError('email', 'Connection failed, please try again');
+  }
 }
 
 function showLogInError(inputId, text) {
