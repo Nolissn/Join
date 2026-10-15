@@ -30,7 +30,10 @@
           <h1 class="auth_card_title log_in_card_title">Log in</h1>
           <hr class="auth_card_divider"/>
           <form class="log_in_card_form">
-            <input class="general_auth_card_input_style auth_card_input_email" type="text" id="email" name="email" placeholder="Email" aria-label="Email">
+            <div class="logInInputContainer">
+              <input class="general_auth_card_input_style auth_card_input_email" type="text" id="email" name="email" placeholder="Email" aria-label="Email">
+              <p id="emailErrorText" class="logInErrorText"></p>
+            </div>
             <div class="auth_card_password_container">
               <input class="general_auth_card_input_style auth_card_input_password" type="password" id="password" name="password" placeholder="Password" aria-label="Password">
               <svg class="auth_card_lock_icon" viewBox="0 0 16 21" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -59,6 +62,7 @@
                   />
                 </svg>
               </button>
+              <p id="passwordErrorText" class="logInErrorText"></p>
             </div>
           </form>
           <div class="log_in_card_button_container">
@@ -72,5 +76,7 @@
         <a href="#" class="footer_auth_screen_link">Legal Notice</a>
     </footer>
     <script src="./scripts.js" defer></script>
+    <script src="./src/scripts/data/currentUser.js" defer></script>
+    <script src="./src/scripts/login.js" defer></script>
   </body>
 </html>

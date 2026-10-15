@@ -33,6 +33,24 @@
   gap: 32px;
 }
 
+.logInInputContainer {
+  position: relative;
+  display: flex;
+}
+
+.logInErrorText {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  padding-left: 16px;
+  color: var(--colorRed);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
 .log_in_card_button_container {
   display: flex;
   justify-content: space-between;
