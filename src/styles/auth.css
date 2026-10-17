@@ -221,7 +221,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  animation: sign_up_success_slide_in 1s ease-out;
+  animation: sign_up_success_slide_in 0.5s ease-out;
 }
 
 @keyframes sign_up_success_slide_in {

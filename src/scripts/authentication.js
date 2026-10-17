@@ -19,7 +19,7 @@ const whitespaceRegex = /\s/;
 const uppercaseLetterRegex = /\p{Lu}/u;
 const lowercaseLetterRegex = /\p{Ll}/u;
 const digitRegex = /\d/;
-const signUpSuccessDuration = 3500;
+const signUpSuccessDuration = 3000;
 
 async function signUp() {
   resetSignUpErrors();
