@@ -1,4 +1,4 @@
-import { registerUser } from "./data/usersDbApi.js";
+import { registerUser, getUserByEmail } from "./data/usersDbApi.js";
 import { createUser } from "./data/usersModel.js";
 
 const signUpInputIds = [
@@ -20,12 +20,28 @@ const uppercaseLetterRegex = /\p{Lu}/u;
 const lowercaseLetterRegex = /\p{Ll}/u;
 const digitRegex = /\d/;
 
-function signUp() {
+async function signUp() {
   resetSignUpErrors();
   const currentValues = getSignUpInputValues();
   if (checkIfSignUpFormIsValid(currentValues) === false) return;
+  const { confirmPassword, ...validValues } = currentValues;
+  try {
+    if ((await checkIfEmailIsAvailable(validValues.email)) === false) return;
+    //input valide und email noch nicht vergeben upload der Daten einfügen
+  } catch (error) {
+    showErrorText("An error occurred. Please check your internet connection and try again.");
+  }
 }
 window.signUp = signUp;
+
+async function checkIfEmailIsAvailable(email) {
+  const existingUser = await getUserByEmail(email);
+  if (existingUser !== null) {
+    showErrorText("Email is already in use");
+    return false;
+  }
+  return true;
+}
 
 function checkIfSignUpFormIsValid(values) {
   if (checkIfAllInputsAreFilled() === false) return false;
