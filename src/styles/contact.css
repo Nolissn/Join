@@ -45,6 +45,8 @@ main {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    padding-left: 10px;
+    
 }
 
 .contact-list-group {
@@ -82,6 +84,17 @@ main {
     padding: 15px 24px;
     display: flex;
     align-items: flex-start;
+    background-color: transparent;
+    border: none;
+}
+
+.contact-list-item:hover {
+    background-color: var(--colorUnfocusedInputTag);
+    cursor: pointer;
+}
+
+.contact-list-item-active {
+    background-color: var(--colorPrimary) !important;
 }
 
 .contact-initials {
@@ -115,7 +128,12 @@ main {
 
 
 /* Contact right side */
-.container-contact-details {}
+.section-contact-details {
+    display: flex;
+    flex-direction: column;
+    padding-top: 125px;
+    padding-left: 50px;
+}
 
 .container-contact-main {
     display: flex;
@@ -123,6 +141,33 @@ main {
     align-items: center;
     gap: 20px;
 }
+
+.container-contact-info-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.contact-info-title {
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.slogan-seperator {
+    background-color: var(--colorBlue);
+    height: 59px;
+    width: 3px;
+    border-radius: 3px;
+}
+
+.contact-info-slogan {
+    font-size: 27px;
+    font-weight: 400;
+}
+
+
+
 
 .container-contact-initials {
     background-color: white;
