@@ -142,11 +142,15 @@
   height: 15px;
 }
 
-.auth_card_input_password[type="text"] ~ .auth_card_password_toggle .auth_card_eye_closed_icon {
+.auth_card_input_password[type="text"]
+  ~ .auth_card_password_toggle
+  .auth_card_eye_closed_icon {
   display: none;
 }
 
-.auth_card_input_password[type="text"] ~ .auth_card_password_toggle .auth_card_eye_open_icon {
+.auth_card_input_password[type="text"]
+  ~ .auth_card_password_toggle
+  .auth_card_eye_open_icon {
   display: block;
 }
 
@@ -201,6 +205,40 @@
   text-align: center;
 }
 
+.sign_up_success_dialog {
+  margin: auto;
+  border: none;
+  border-radius: 16px;
+  padding: 0;
+  width: 312px;
+  height: 74px;
+  background-color: var(--colorPrimary);
+  outline: none;
+}
+
+.sign_up_success_dialog[open] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  animation: sign_up_success_slide_in 1s ease-out;
+}
+
+@keyframes sign_up_success_slide_in {
+  from {
+    transform: translateY(100vh);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.sign_up_success_dialog_text {
+  color: var(--colorWhite);
+  font-size: 20px;
+  font-weight: 400;
+}
+
 @media (max-width: 768px) {
   .header_auth_screen {
     display: contents;
@@ -237,5 +275,14 @@
 
   .general_auth_card_input_style {
     width: clamp(256px, calc(100vw - 64px), 364px);
+  }
+
+  .sign_up_success_dialog {
+    width: clamp(250px, calc(57.407vw + 66.296px), 312px);
+    height: clamp(60px, calc(12.963vw + 18.519px), 74px);
+  }
+
+  .sign_up_success_dialog_text {
+    font-size: 18px;
   }
 }

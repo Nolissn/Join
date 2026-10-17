@@ -19,6 +19,7 @@ const whitespaceRegex = /\s/;
 const uppercaseLetterRegex = /\p{Lu}/u;
 const lowercaseLetterRegex = /\p{Ll}/u;
 const digitRegex = /\d/;
+const signUpSuccessDuration = 3500;
 
 async function signUp() {
   resetSignUpErrors();
@@ -26,9 +27,8 @@ async function signUp() {
   if (checkIfSignUpFormIsValid(currentValues) === false) return;
   const { confirmPassword, ...validValues } = currentValues;
   try {
-    await withLoadingScreen(() => registerNewUser(validValues));
-    /* redirectTo(indexed.html);
-    showSuccesfullSignUpPopUp(); */
+    if ((await withLoadingScreen(() => registerNewUser(validValues))) === false) return;
+    showSignUpSuccessDialog();
   } catch (error) {
     showErrorText("An error occurred. Please check your internet connection and try again.");
   }
@@ -36,8 +36,14 @@ async function signUp() {
 window.signUp = signUp;
 
 async function registerNewUser(userValues) {
-  if ((await checkIfEmailIsAvailable(userValues.email)) === false) return;
+  if ((await checkIfEmailIsAvailable(userValues.email)) === false) return false;
   await registerUser(userValues);
+  return true;
+}
+
+function showSignUpSuccessDialog() {
+  document.getElementById("signUpSuccessDialog").showModal();
+  setTimeout(() => (location.href = "../../index.html"), signUpSuccessDuration);
 }
 
 async function checkIfEmailIsAvailable(email) {
