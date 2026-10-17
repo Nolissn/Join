@@ -1,5 +1,5 @@
 import { db } from "./joinDbConfig.js";
-import { doc, setDoc, collection, getDocs, query, where, limit } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import { doc, setDoc, collection, getDocsFromServer, query, where, limit } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 export async function registerUser(user) {
     try {
@@ -15,7 +15,7 @@ export async function registerUser(user) {
 export async function getUserByEmail(email) {
     try {
         const emailQuery = query(collection(db, "users"), where("email", "==", email), limit(1));
-        const snap = await getDocs(emailQuery);
+        const snap = await getDocsFromServer(emailQuery);
         if (snap.empty) return null;
         const userDoc = snap.docs[0];
         return { ...userDoc.data(), id: userDoc.id };

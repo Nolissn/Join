@@ -21,16 +21,23 @@ function closeDialog(dialogId) {
 }
 
 const loadingScreenDelay = 1000;
+const loadingScreenTimeout = 10000;
 
 async function withLoadingScreen(asyncTask) {
   const loadingScreen = document.getElementById("loadingScreenDialog");
   loadingScreen.showModal();
   const showTimeout = setTimeout(() => loadingScreen.classList.add("loading_screen_dialog_visible"), loadingScreenDelay);
   try {
-    return await asyncTask();
+    return await Promise.race([asyncTask(), rejectAfterTimeout()]);
   } finally {
     clearTimeout(showTimeout);
     loadingScreen.classList.remove("loading_screen_dialog_visible");
     loadingScreen.close();
   }
+}
+
+function rejectAfterTimeout() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => reject(new Error("Loading took too long")), loadingScreenTimeout);
+  });
 }
