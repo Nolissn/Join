@@ -1,0 +1,117 @@
+.loading_screen_dialog {
+  margin: auto;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  outline: none;
+  overflow: visible;
+  opacity: 0;
+}
+
+.loading_screen_dialog::backdrop {
+  background-color: transparent;
+}
+
+.loading_screen_dialog_visible {
+  opacity: 1;
+}
+
+.loading_screen_dialog_visible::backdrop {
+  background-color: #00000066;
+}
+
+body:has(.loading_screen_dialog[open]) {
+  overflow: hidden;
+}
+
+.loading_logo {
+  display: block;
+  width: 100px;
+  overflow: visible;
+}
+
+.loading_logo > path {
+  fill: #ffffff;
+}
+
+.loading_logo_square,
+.loading_logo_square_shape,
+.loading_logo_dot {
+  transform-box: fill-box;
+  animation-duration: 1.4s;
+  animation-iteration-count: infinite;
+}
+
+.loading_logo_square {
+  transform-origin: center;
+  animation-name: square_jump;
+}
+
+.loading_logo_square_shape {
+  transform-origin: center bottom;
+  animation-name: square_squash;
+}
+
+.loading_logo_dot {
+  transform-origin: center bottom;
+  animation-name: dot_squash;
+}
+
+@keyframes square_jump {
+  0%,
+  37% {
+    transform: translateY(0) rotate(0deg);
+  }
+  40% {
+    transform: translateY(-6px) rotate(0deg);
+    animation-timing-function: ease-out;
+  }
+  60% {
+    transform: translateY(-34px) rotate(180deg);
+    animation-timing-function: ease-in;
+  }
+  82%,
+  100% {
+    transform: translateY(0) rotate(360deg);
+  }
+}
+
+@keyframes square_squash {
+  0%,
+  28%,
+  40%,
+  82%,
+  93%,
+  100% {
+    transform: scale(1, 1);
+  }
+  37% {
+    transform: scale(1.18, 0.78);
+  }
+  85% {
+    transform: scale(1.1, 0.85);
+  }
+  89% {
+    transform: scale(0.96, 1.05);
+  }
+}
+
+@keyframes dot_squash {
+  0%,
+  82%,
+  90%,
+  100% {
+    transform: scaleY(1);
+  }
+  85% {
+    transform: scaleY(0.94);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading_logo_square,
+  .loading_logo_square_shape,
+  .loading_logo_dot {
+    animation: none;
+  }
+}

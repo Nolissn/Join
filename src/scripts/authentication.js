@@ -26,13 +26,19 @@ async function signUp() {
   if (checkIfSignUpFormIsValid(currentValues) === false) return;
   const { confirmPassword, ...validValues } = currentValues;
   try {
-    if ((await checkIfEmailIsAvailable(validValues.email)) === false) return;
-    //input valide und email noch nicht vergeben upload der Daten einfügen
+    await withLoadingScreen(() => registerNewUser(validValues));
+    /* redirectTo(indexed.html);
+    showSuccesfullSignUpPopUp(); */
   } catch (error) {
     showErrorText("An error occurred. Please check your internet connection and try again.");
   }
 }
 window.signUp = signUp;
+
+async function registerNewUser(userValues) {
+  if ((await checkIfEmailIsAvailable(userValues.email)) === false) return;
+  await registerUser(userValues);
+}
 
 async function checkIfEmailIsAvailable(email) {
   const existingUser = await getUserByEmail(email);

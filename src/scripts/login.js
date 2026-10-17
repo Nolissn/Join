@@ -23,12 +23,16 @@ async function logIn() {
   const password = document.getElementById('password').value;
   if (checkIfLogInInputsAreValid(email, password) === false) return;
   try {
-    const usersDbApi = await import('./data/usersDbApi.js');
-    const user = await usersDbApi.getUserByEmail(email);
-    handleLogInResult(user, password);
+    await withLoadingScreen(() => logInWithEmail(email, password));
   } catch (error) {
-    showLogInError('email', 'Connection failed, please try again');
+    showLogInError('password', 'An error occurred. Please check your internet connection and try again.');
   }
+}
+
+async function logInWithEmail(email, password) {
+  const usersDbApi = await import('./data/usersDbApi.js');
+  const user = await usersDbApi.getUserByEmail(email);
+  handleLogInResult(user, password);
 }
 
 function checkIfLogInInputsAreValid(email, password) {
@@ -70,17 +74,21 @@ function handleLogInResult(user, password) {
 async function guestLogIn() {
   resetLogInErrors();
   try {
-    const usersDbApi = await import('./data/usersDbApi.js');
-    const guestUser = await usersDbApi.getUserByEmail(guestEmail);
-    if (guestUser === null) {
-      showLogInError('email', 'Guest log in is currently not available');
-      return;
-    }
-    setCurrentUser(guestUser);
-    location.href = 'src/statics/summary.html';
+    await withLoadingScreen(logInAsGuest);
   } catch (error) {
-    showLogInError('email', 'Connection failed, please try again');
+    showLogInError('password', 'An error occurred. Please check your internet connection and try again.');
   }
+}
+
+async function logInAsGuest() {
+  const usersDbApi = await import('./data/usersDbApi.js');
+  const guestUser = await usersDbApi.getUserByEmail(guestEmail);
+  if (guestUser === null) {
+    showLogInError('email', 'Guest log in is currently not available');
+    return;
+  }
+  setCurrentUser(guestUser);
+  location.href = 'src/statics/summary.html';
 }
 
 function showLogInError(inputId, text) {
