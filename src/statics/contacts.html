@@ -27,15 +27,19 @@
         <main>
             <!-- contact list -->
             <div class="container-contact-list">
-                <button class="add-new-contact-button">Add new contact <img src="../../assets/icons/add_new_contact.svg"
-                        alt=""></button>
+                <button class="add-new-contact-button">
+                    <div class="add-new-contact-button-text">Add new contact</div>
+                    <img src="../../assets/icons/add_new_contact.svg" alt="">
+                </button>
                 <div class="contact-list">
                     <div class="contact-list-group">
                         <h3>A</h3>
                         <div class="contact-list-seperator"></div>
 
-                        <button class="contact-list-item">
-                            <div class="contact-initials">TW</div>
+                        <button class="contact-list-item contact-list-item-active">
+                            <div id="contact_initials_wrapper" class="contact-initials-wrapper">
+                                <div class="contact-initials">TW</div>
+                            </div>
                             <div class="contact-quick-view">
                                 <span class="contact-list-name">Till Schweiger</span>
                                 <a class="contact-list-email"
@@ -51,28 +55,28 @@
                             </div>
                         </button>
                     </div>
-                    
+
                     <div class="contact-list-group">
                         <h3>B</h3>
                         <div class="contact-list-seperator"></div>
                         <button class="contact-list-item">
                             <div class="contact-initials">RH</div>
-                            <div>
-                                <span>Robert Harris</span>
+                            <div class="contact-quick-view">
+                                <span class="contact-list-name">Robert Harris</span>
                                 <a href="mailto:robertharris@example.com">robertharris@example.com</a>
                             </div>
                         </button>
                         <button class="contact-list-item">
                             <div class="contact-initials">RH</div>
-                            <div>
-                                <span>Robert Harris</span>
+                            <div class="contact-quick-view">
+                                <span class="contact-list-name">Robert Harris</span>
                                 <a href="mailto:robertharris@example.com">robertharris@example.com</a>
                             </div>
                         </button>
                         <button class="contact-list-item">
                             <div class="contact-initials">RH</div>
-                            <div>
-                                <span>Robert Harris</span>
+                            <div class="contact-quick-view">
+                                <span class="contact-list-name">Robert Harris</span>
                                 <a href="mailto:robertharris@example.com">robertharris@example.com</a>
                             </div>
                         </button>
@@ -80,16 +84,17 @@
                 </div>
             </div>
 
-            <!-- contact infos -->
-            <section class="section-contact-details">
+            <!-- contact infos  --> <!-- responsive d-none  -->
+            <section id="section_contact_details" class="section-contact-details">
                 <div class="container-contact-info-header">
-                    <h2 class="contact-info-title">Contact</h2>
+                    <h2 class="contact-info-title">Contacts</h2>
                     <div class="slogan-seperator"></div>
-                    <span class="contact-info-slogan">Better with a team!</span>
+                    <span class="contact-info-slogan">Better with a team</span>
+                    <div class="slogan-seperator-responsive"></div>
                 </div>
 
                 <div>
-                    <div class="container-contact-main">
+                    <div id="contact_informations" class="container-contact-main">
                         <div class="container-contact-initials">
                             <span class="contact-main-initials">TW</span>
                         </div>

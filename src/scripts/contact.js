@@ -11,6 +11,8 @@ function init() {
 // contact_name -> Input field for contact name
 // contact_email -> Input field for contact email
 // contact_phone -> Input field for contact phone
+// contact_informations -> Container for the main contact information
+// contact_initials_wrapper -> cantact list initials white
 
 // CONTACT LEFT
 // container contact list 424 x xxx
