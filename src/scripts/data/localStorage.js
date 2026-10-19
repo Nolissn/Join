@@ -15,9 +15,7 @@ function readLocalStorage() {
   }
 }
 
-function saveTasksToLocalStorage() {
-  const joinData = readLocalStorage();
-  joinData.tasks = storedTasks;
+function writeLocalStorage(joinData) {
   try {
     localStorage.setItem(localStorageKey, JSON.stringify(joinData));
   } catch (error) {
@@ -25,10 +23,28 @@ function saveTasksToLocalStorage() {
   }
 }
 
-async function loadTasks() {
+function readTasksByUser(joinData) {
+  if (!joinData.tasksByUser) return {};
+  return joinData.tasksByUser;
+}
+
+function saveTasksToLocalStorage() {
   const joinData = readLocalStorage();
-  if (Array.isArray(joinData.tasks) && !areTasksOutdated()) {
-    storedTasks = joinData.tasks;
+  joinData.tasksByUser = readTasksByUser(joinData);
+  joinData.tasksByUser[currentUser.id] = storedTasks;
+  writeLocalStorage(joinData);
+}
+
+function removeAllCachedTasks() {
+  const joinData = readLocalStorage();
+  joinData.tasksByUser = {};
+  writeLocalStorage(joinData);
+}
+
+async function loadTasks() {
+  const tasksByUser = readTasksByUser(readLocalStorage());
+  if (Array.isArray(tasksByUser[currentUser.id]) && !areTasksOutdated()) {
+    storedTasks = tasksByUser[currentUser.id];
     return;
   }
   await loadTasksFromFirebase();
@@ -38,6 +54,7 @@ async function loadTasksFromFirebase() {
   try {
     const joinDbApi = await import('./joinDbApi.js');
     storedTasks = await joinDbApi.getTasks();
+    if (areTasksOutdated()) removeAllCachedTasks();
     saveTasksToLocalStorage();
     localStorage.removeItem(outdatedKey);
   } catch (error) {
@@ -55,8 +72,8 @@ function areTasksOutdated() {
 }
 
 function readStoredTasks() {
-  const joinData = readLocalStorage();
-  if (Array.isArray(joinData.tasks)) return joinData.tasks;
+  const tasksByUser = readTasksByUser(readLocalStorage());
+  if (Array.isArray(tasksByUser[currentUser.id])) return tasksByUser[currentUser.id];
   return [];
 }
 
