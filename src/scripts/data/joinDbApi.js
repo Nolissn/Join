@@ -1,10 +1,17 @@
 import { db } from "./joinDbConfig.js";
 import { doc, setDoc, collection, getDocs, deleteDoc, query, where, limit } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
+function getTasksCollection() {
+    if (typeof currentUser === "undefined" || currentUser === null) {
+        throw new Error("No user is logged in");
+    }
+    return collection(db, "users", currentUser.id, "tasks");
+}
+
 // taskModell value = undefined is not allowed, because firestore does not accept undefined values. 
 export async function saveTask(taskModell) {
     try {
-        const ref = doc(collection(db, "tasks"));
+        const ref = doc(getTasksCollection());
         await setDoc(ref, taskModell);
         markTasksOutdated();
         return ref.id;
@@ -16,7 +23,7 @@ export async function saveTask(taskModell) {
 
 export async function getTasks() {
     try {
-        const snap = await getDocs(collection(db, "tasks"));
+        const snap = await getDocs(getTasksCollection());
         return snap.docs.map(d => ({ ...d.data(), id: d.id }));
     } catch (error) {
         console.error("getTasks fehlgeschlagen:", error);
@@ -26,7 +33,7 @@ export async function getTasks() {
 
 export async function updateTask(taskId, taskModell) {
     try {
-        await setDoc(doc(db, "tasks", taskId), taskModell);
+        await setDoc(doc(getTasksCollection(), taskId), taskModell);
         markTasksOutdated();
     } catch (error) {
         console.error("updateTask fehlgeschlagen:", error);
@@ -36,7 +43,7 @@ export async function updateTask(taskId, taskModell) {
 
 export async function getTaskIdByTitle(title) {
     try {
-        const titleQuery = query(collection(db, "tasks"), where("title", "==", title), limit(1));
+        const titleQuery = query(getTasksCollection(), where("title", "==", title), limit(1));
         const snap = await getDocs(titleQuery);
         if (snap.empty) return null;
         return snap.docs[0].id;
@@ -48,7 +55,7 @@ export async function getTaskIdByTitle(title) {
 
 export async function deleteTask(taskId) {
     try {
-        await deleteDoc(doc(db, "tasks", taskId));
+        await deleteDoc(doc(getTasksCollection(), taskId));
         markTasksOutdated();
     } catch (error) {
         console.error("deleteTask fehlgeschlagen:", error);
