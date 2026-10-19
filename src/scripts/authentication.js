@@ -1,5 +1,6 @@
 import { registerUser, getUserByEmail } from "./data/usersDbApi.js";
 import { createUser } from "./data/usersModel.js";
+import { saveTutorialTask } from "./data/joinDbApi.js";
 
 const signUpInputIds = [
   "nameSignUp",
@@ -37,7 +38,8 @@ window.signUp = signUp;
 
 async function registerNewUser(userValues) {
   if ((await checkIfEmailIsAvailable(userValues.email)) === false) return false;
-  await registerUser(userValues);
+  const userId = await registerUser(userValues);
+  await saveTutorialTask(userId);
   return true;
 }
 

@@ -1,4 +1,5 @@
 import { db } from "./joinDbConfig.js";
+import { tutorialTask } from "./tutorialTask.js";
 import { doc, setDoc, collection, getDocs, deleteDoc, query, where, limit } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 function getTasksCollection() {
@@ -18,6 +19,17 @@ export async function saveTask(taskModell) {
     } catch (error) {
         console.error("saveTask fehlgeschlagen:", error);
         throw error;
+    }
+}
+
+export async function saveTutorialTask(userId) {
+    try {
+        const ref = doc(collection(db, "users", userId, "tasks"));
+        await setDoc(ref, tutorialTask);
+        return ref.id;
+    } catch (error) {
+        console.error("saveTutorialTask fehlgeschlagen:", error);
+        return null;
     }
 }
 
