@@ -12,8 +12,8 @@ function loadCurrentUser() {
   }
 }
 
-function setCurrentUser(user) {
-  currentUser = { id: user.id, name: user.name, email: user.email };
+function setCurrentUser(user, isGuest = false) {
+  currentUser = { id: user.id, name: user.name, email: user.email, isGuest };
   try {
     sessionStorage.setItem(currentUserKey, JSON.stringify(currentUser));
   } catch (error) {

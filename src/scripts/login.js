@@ -87,7 +87,7 @@ async function logInAsGuest() {
     showLogInError('email', 'Guest log in is currently not available');
     return;
   }
-  setCurrentUser(guestUser);
+  setCurrentUser(guestUser, true);
   location.href = 'src/statics/summary.html';
 }
 
