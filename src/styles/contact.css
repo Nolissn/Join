@@ -20,6 +20,14 @@ a {
     font-size: 16px;
 }
 
+.button-return {
+    display: none;
+}
+
+.button-contact-options {
+    display: none;
+}
+
 /* Contact left side */
 .container-contact-list {
     box-shadow: 4px 0 6px rgba(0, 0, 0, 0.15);
@@ -283,6 +291,22 @@ a {
 p {
     font-size: 16px;
     font-weight: 400;
+}
+
+.container-contact-action-buttons-responsive {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 20px 20px 0 20px;
+    box-shadow: 0 5px 0 rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    gap: 10px;
+    transform: translate(20px, 20px);
+}
+
+.toggle-action-buttons {
+    transform: translate(200px, 20px);
 }
 
 /* Dialog Styles */
@@ -563,6 +587,7 @@ p {
 
     .section-contact-details {
         padding-left: 25px;
+        padding-top: 0px;
     }
 
     .container-button-return {
@@ -580,9 +605,40 @@ p {
         display: flex;
         align-items: center;
         justify-content: center;
-        position: sticky;
-        top: 0;
-        right: 0;
+        transform: translateY(68px);
+    }
+
+    .container-button-responsive {
+        width: 100%;
+        padding: 0px 20px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .container-contact-options {
+        background-color: red;
+        align-items: end;
+        height: 100vh;
+        max-height: 260px;
+        width: 100%;
+        padding-top: 130px;
+        padding-right: 30px;
+        padding-bottom: 30px;
+    }
+
+    .button-contact-options {
+        background-color: transparent;
+        border: none;
+        height: 37px;
+        width: 37px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .button-contact-options:hover {
+        cursor: pointer;
     }
 
     .button-return:hover {
@@ -907,6 +963,10 @@ p {
         position: fixed;
         top: 550px;
         left: 10px;
+    }
+
+    .button-contact-options {
+        display: flex;
     }
 
     .contact-info-title {
