@@ -1,10 +1,23 @@
 const iconPath = '../../assets/icons/';
 
 function renderLayout() {
+  if (isUserLoggedIn()) {
+    renderLoggedInLayout();
+  } else {
+    renderLoggedOutLayout();
+  }
+  markActiveNavLink();
+}
+
+function renderLoggedInLayout() {
   document.querySelector('.sidebar').innerHTML = sidebarTemplate(iconPath);
   document.querySelector('.header').innerHTML = headerTemplate(iconPath, getCurrentUserInitials());
-  markActiveNavLink();
   document.getElementById('logOutLink').addEventListener('click', logOut);
+}
+
+function renderLoggedOutLayout() {
+  document.querySelector('.sidebar').innerHTML = sidebarLoggedOutTemplate(iconPath);
+  document.querySelector('.header').innerHTML = headerLoggedOutTemplate(iconPath);
 }
 
 function logOut(event) {
@@ -33,6 +46,7 @@ function markActiveNavLink() {
 
 function handleHeaderMenuClick(event) {
   const headerMenu = document.querySelector('.headerMenu');
+  if (headerMenu === null) return;
   if (event.target.closest('.headerAvatar')) {
     headerMenu.classList.toggle('headerMenuOpen');
   } else if (!event.target.closest('.headerMenu')) {
