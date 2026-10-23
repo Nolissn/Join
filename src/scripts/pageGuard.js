@@ -1,9 +1,3 @@
-function isUserLoggedIn() {
-  if (currentUser === null) return false;
-  if (!currentUser.id || !currentUser.name) return false;
-  return true;
-}
-
 function guardPage() {
   if (isUserLoggedIn() === false) {
     location.replace('../../index.html');
