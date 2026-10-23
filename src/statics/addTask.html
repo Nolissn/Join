@@ -54,20 +54,28 @@
                         </div>
                         <div class="add-task-input-container">
                             <label for="assigned">Assigned To</label>
-                            <select class="add-task-input" name="assigned" id="assigned" required>
+                            <div class="custom-select">
+                                <select class="visually-hidden-select" name="assigned" id="assignedValue" required aria-hidden="true" tabindex="-1">
                                 <option value="" disabled selected hidden>Assigned To</option>
                                 <option value="user1">User 1</option>
                                 <option value="user2">User 2</option>
                                 <option value="user3">User 3</option>
-                            </select>
+                                </select>
+                                <button type="button" class="add-task-input custom-select-trigger" id="assigned" aria-haspopup="listbox" aria-expanded="false">Assigned To</button>
+                                <div class="custom-select-menu" role="listbox" aria-labelledby="assigned" hidden></div>
+                            </div>
                         </div>
                         <div class="add-task-input-container">
                             <label for="category">Category</label>
-                            <select class="add-task-input" name="category" id="category" required>
+                            <div class="custom-select">
+                                <select class="visually-hidden-select" name="category" id="categoryValue" required aria-hidden="true" tabindex="-1">
                                 <option value="" disabled selected hidden>Category</option>
                                 <option value="personal">Technical Task</option>
                                 <option value="shopping">User Story</option>
-                            </select>
+                                </select>
+                                <button type="button" class="add-task-input custom-select-trigger" id="category" aria-haspopup="listbox" aria-expanded="false">Category</button>
+                                <div class="custom-select-menu" role="listbox" aria-labelledby="category" hidden></div>
+                            </div>
                         </div>
                     <div class="add-task-input-container">
                             <label for="subtasks">Subtasks</label>
