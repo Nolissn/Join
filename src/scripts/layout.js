@@ -1,10 +1,25 @@
 const iconPath = '../../assets/icons/';
 
 function renderLayout() {
+  if (isUserLoggedIn()) {
+    renderLoggedInLayout();
+  } else {
+    renderLoggedOutLayout();
+  }
+  markActiveNavLink();
+}
+
+function renderLoggedInLayout() {
   document.querySelector('.sidebar').innerHTML = sidebarTemplate(iconPath);
   document.querySelector('.header').innerHTML = headerTemplate(iconPath, getCurrentUserInitials());
-  markActiveNavLink();
   document.getElementById('logOutLink').addEventListener('click', logOut);
+}
+
+function renderLoggedOutLayout() {
+  const sidebar = document.querySelector('.sidebar');
+  sidebar.classList.add('sidebarLoggedOut');
+  sidebar.innerHTML = sidebarLoggedOutTemplate(iconPath);
+  document.querySelector('.header').innerHTML = headerLoggedOutTemplate(iconPath);
 }
 
 function logOut(event) {
@@ -28,11 +43,18 @@ function getInitials(name) {
 
 function markActiveNavLink() {
   const currentPage = window.location.pathname.split('/').pop();
-  document.querySelector(`.navLink[href="${currentPage}"]`)?.classList.add('navLinkActive');
+  markActiveLink('.navLink', currentPage, 'navLinkActive');
+  markActiveLink('.legalLink', currentPage, 'legalLinkActive');
+}
+
+function markActiveLink(linkClass, currentPage, activeClass) {
+  const activeLink = document.querySelector(`${linkClass}[href="${currentPage}"]`);
+  if (activeLink !== null) activeLink.classList.add(activeClass);
 }
 
 function handleHeaderMenuClick(event) {
   const headerMenu = document.querySelector('.headerMenu');
+  if (headerMenu === null) return;
   if (event.target.closest('.headerAvatar')) {
     headerMenu.classList.toggle('headerMenuOpen');
   } else if (!event.target.closest('.headerMenu')) {

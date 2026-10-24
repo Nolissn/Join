@@ -51,14 +51,21 @@
 .navLegal {
   display: flex;
   flex-direction: column;
-  gap: 16px;
   margin-top: auto;
-  padding-left: 56px;
 }
 
 .legalLink {
+  display: flex;
+  align-items: center;
+  height: 35px;
+  padding-left: 56px;
   color: var(--colorGrey);
   text-decoration: none;
+}
+
+.legalLinkActive {
+  background-color: var(--colorPrimaryDark);
+  color: var(--colorWhite);
 }
 
 @media (min-width: 769px) {
@@ -72,6 +79,10 @@
 
   .legalLink:hover {
     color: var(--colorPrimaryGreyTone);
+  }
+
+  .legalLinkActive:hover {
+    color: var(--colorWhite);
   }
 }
 
@@ -110,5 +121,35 @@
     padding: 0;
     border-radius: 16px;
     font-size: 14px;
+  }
+
+  .sidebarLoggedOut {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .sidebarLoggedOut .navLink {
+    white-space: nowrap;
+  }
+
+  .sidebarLoggedOut .navLegal {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-top: 0;
+  }
+
+  .sidebarLoggedOut .legalLink {
+    height: 76px;
+    padding: 0 12px;
+    border-radius: 16px;
+    color: var(--colorGreyLight);
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .sidebarLoggedOut .legalLinkActive {
+    color: var(--colorWhite);
   }
 }

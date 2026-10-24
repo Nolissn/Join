@@ -28,3 +28,21 @@ function headerTemplate(iconPath, initials) {
       </nav>
     </div>`;
 }
+
+function sidebarLoggedOutTemplate(iconPath) {
+  return `
+    <a class="sidebarLogo" href="../../index.html"><img class="sidebarLogoImg" src="${iconPath}join_icon_bright.svg" alt="Join Logo"></a>
+    <nav class="navMain">
+      <a class="navLink" href="../../index.html"><img class="navIcon" src="${iconPath}login_icon.svg" alt="">Log In</a>
+    </nav>
+    <nav class="navLegal">
+      <a class="legalLink" href="privacyPolicy.html">Privacy Policy</a>
+      <a class="legalLink" href="legalNotice.html">Legal notice</a>
+    </nav>`;
+}
+
+function headerLoggedOutTemplate(iconPath) {
+  return `
+    <a class="headerLogo" href="../../index.html"><img class="headerLogoImg" src="${iconPath}join_icon_dark.svg" alt="Join Logo"></a>
+    <p class="headerTitle">Kanban Project Management Tool</p>`;
+}

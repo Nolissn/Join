@@ -29,3 +29,9 @@ function removeCurrentUser() {
     console.warn('Current user could not be removed:', error);
   }
 }
+
+function isUserLoggedIn() {
+  if (currentUser === null) return false;
+  if (!currentUser.id || !currentUser.name) return false;
+  return true;
+}
