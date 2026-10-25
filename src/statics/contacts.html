@@ -25,163 +25,115 @@
     <div class="pageColumn">
         <header class="header"></header>
         <main>
-            <!-- contact list -->
-            <div class="container-contact-list d-none">
-                <button class="add-new-contact-button">
-                    <div class="add-new-contact-button-text">Add new contact</div>
-                    <img src="../../assets/icons/add_new_contact.svg" alt="">
-                </button>
-                <div class="contact-list">
-                    <div class="contact-list-group">
-                        <h3>A</h3>
-                        <div class="contact-list-seperator"></div>
-
-                        <button class="contact-list-item contact-list-item-active">
-                            <div id="contact_initials_wrapper" class="contact-initials-wrapper">
-                                <div class="contact-initials">TW</div>
-                            </div>
-                            <div class="contact-quick-view">
-                                <span class="contact-list-name">Till Schweiger</span>
-                                <a class="contact-list-email"
-                                    href="mailto:tillschweiger@example.com">tillschweiger@example.com</a>
-                            </div>
-                        </button>
-                        <button class="contact-list-item">
-                            <div class="contact-initials">TW</div>
-                            <div class="contact-quick-view">
-                                <span class="contact-list-name">Till Schweiger</span>
-                                <a class="contact-list-email"
-                                    href="mailto:tillschweiger@example.com">tillschweiger@example.com</a>
-                            </div>
-                        </button>
-                    </div>
-
-                    <div class="contact-list-group">
-                        <h3>B</h3>
-                        <div class="contact-list-seperator"></div>
-                        <button class="contact-list-item">
-                            <div class="contact-initials">RH</div>
-                            <div class="contact-quick-view">
-                                <span class="contact-list-name">Robert Harris</span>
-                                <a href="mailto:robertharris@example.com">robertharris@example.com</a>
-                            </div>
-                        </button>
-                        <button class="contact-list-item">
-                            <div class="contact-initials">RH</div>
-                            <div class="contact-quick-view">
-                                <span class="contact-list-name">Robert Harris</span>
-                                <a href="mailto:robertharris@example.com">robertharris@example.com</a>
-                            </div>
-                        </button>
-                        <button class="contact-list-item">
-                            <div class="contact-initials">RH</div>
-                            <div class="contact-quick-view">
-                                <span class="contact-list-name">Robert Harris</span>
-                                <a href="mailto:robertharris@example.com">robertharris@example.com</a>
-                            </div>
-                        </button>
-                    </div>
+            <section class="section-contact-list">
+                <button class="button-add-new-contact contact-list-container-width">Add new contact <img
+                        src="../../assets/icons/add_new_contact.svg" alt=""></button>
+                <div class="container-contact-list-alphabet contact-list-container-width">
+                    <div class="contact-list-alphabet">T</div>
                 </div>
-            </div>
-
-            <!-- contact infos  --> <!-- responsive d-none  -->
-            <section id="section_contact_details" class="section-contact-details">
-                <div class="container-contact-info-header">
-                    <h2 class="contact-info-title">Contacts</h2>
-                    <div class="slogan-seperator"></div>
-                    <span class="contact-info-slogan">Better with a team</span>
-                    <div class="slogan-seperator-responsive"></div>
-                    <button class="button-return"><img src="../../assets/icons/arrow_left.svg" alt="Return"></button>
+                <div class="contact-list-seperator contact-list-container-width"></div>
+                <button class="button-contact contact-list-selected contact-list-container-width">
+                    <div class="contact-list-initials">TW</div>
+                    <div class="container-contact-list-info">
+                        <div class="contact-list-name">Timo Weyer</div>
+                        <a href="">timoweyer@example.com</a>
+                    </div>
+                </button>
+                <button class="button-contact contact-list-container-width">
+                    <div class="contact-list-initials">TW</div>
+                    <div class="container-contact-list-info">
+                        <div class="contact-list-name">Timo Weyer</div>
+                        <a href="">timoweyer@example.com</a>
+                    </div>
+                </button>
+                <button class="button-responsive-contact-options"><img src="../../assets/icons/add_new_contact.svg"
+                        alt=""></button>
+            </section>
+            <section class="section-contacts-information">
+                <button class="button-responsive-return"><img src="../../assets/icons/arrow_left.svg" alt=""></button>
+                <div class="container-contacts-header">
+                    <h2 class="contacts-header-title">Contacts</h2>
+                    <div class="contacts-header-seperator-container">
+                        <div class="contacts-header-seperator"></div>
+                        <div class="contacts-header-slogan">Better with a team</div>
+                        <div class="contacts-header-seperator-responsive"></div>
+                    </div>
                 </div>
                 <div>
-                    <div id="contact_informations" class="container-contact-main">
-                        <div class="container-contact-initials">
-                            <span class="contact-main-initials">TW</span>
+                    <div class="container-contact-quick-select">
+                        <div class="box-contact-initials">
+                            <div class="contact-initials">TW</div>
                         </div>
-                        <div class="container-contact-action-options">
-                            <h3>Tatjana Wolf</h3>
-                            <div class="container-contact-action-buttons">
-                                <button class="contact-action-button"><img src="../../assets/icons/edit.svg"
-                                        alt="Edit">Edit</button>
-                                <button class="contact-action-button"><img src="../../assets/icons/delete.svg"
-                                        alt="Delete">Delete</button>
+                        <div class="container-contact-quick-select-info">
+                            <div class="contact-name">Timo Weyer</div>
+                            <div class="container-contact-buttons">
+                                <button class="button-edit"><img src="../../assets/icons/edit.svg" alt="">Edit</button>
+                                <button class="button-edit"><img src="../../assets/icons/delete.svg"
+                                        alt="">Delete</button>
                             </div>
                         </div>
                     </div>
-                    <br>
                     <div class="contact-information-title">Contact Information</div>
-                    <br>
-                    <div class="container-contact-information">
-                        <div class="container-contact-details">
-                            <h5>Email</h5>
-                            <a href="mailto:tatjanawolf@example.com">tatjanawolf@example.com</a>
-                        </div>
-                        <div class="container-contact-details">
-                            <h5>Phone</h5>
-                            <p>+49 123 456 7890</p>
-                        </div>
+                    <div class="contact-information-tocontact">
+                        <p class="contact-information-tocontact-title">Email</p>
+                        <a>email@example.com</a>
+                        <p class="contact-information-tocontact-title">Phone</p>
+                        <p>+1234567890</p>
                     </div>
                 </div>
+                <button class="button-responsive-contact-options"><img src="../../assets/icons/contact_options.svg"
+                        alt=""></button>
             </section>
-    </div>
+            <dialog id="dialog_contact" class="dialog-contact">
+                <div class="dialog-center">
+                    <section class="dialog-left-side">
+                        <button class="button-dialog-cancel-responsive"><img src="../../assets/icons/cancel_white.svg"
+                                alt=""></button>
+                        <div class="dialog-container-logo">
+                            <img class="dialog-logo" src="../../assets/icons/contact_join.svg" alt="Logo">
+                        </div>
+                        <div class="dialog-container-left-text">
+                            <h2 class="dialog-title">Add contact</h2>
+                            <p class="dialog-slogan">Tasks are better with a team!</p>
+                            <div class="dialog-underline"></div>
+                        </div>
+                    </section>
+                    <section class="dialog-right-side">
+                        <button class="button-dialog-close"><img src="../../assets/icons/cancel.svg" alt=""></button>
+                        <div class="box-dialog-initials">
+                            <div class="dialog-initials add-new-contact"><img class="dialog-initials-create-icon"
+                                    src="../../assets/icons/create_contact.svg" alt=""></div>
+                        </div>
+                        <div class="container-dialog-changings">
+                            <div class="container-dialog-inputs">
+                                <input class="dialog-input dialog-input-person-icon" type="text"
+                                    placeholder="Enter Name">
+                                <input class="dialog-input dialog-input-email-icon" type="email"
+                                    placeholder="Enter email">
+                                <input class="dialog-input dialog-input-phone-icon" type="tel"
+                                    placeholder="Enter phone number">
+                            </div>
+                            <div class="container-dialog-buttons">
+                                <button class="dialog-button-delete">Delete</button>
+                                <button class="dialog-button-save">Save <img class="dialog-icon"
+                                        src="../../assets/icons/check.svg" alt=""></button>
 
-    <!-- dialog -->
-
-    </main>
-    </div>
-    <dialog id="dialog" class="dialog">
-        <div class="dialog-container">
-            <div class="dialog-left-aside">
-                <div class="dialog-left-content">
-                    <div class="dialog-responsive-close-button">
-                        <button><img src="../../assets/icons/cancel_white.svg" alt=""></button>
-                    </div>
-                    <div class="contact-logo">
-                        <img src="../../assets/icons/contact_join.svg" alt="Logo">
-                    </div>
-                    <div class="contact-option-content">
-                        <h2 class="contact-option-title" id="contact_option_title">Edit contact</h2>
-                        <p id="contact_option_slogan" class="d-none">Tasks are better with a team!</p>
-                        <div class="underline"></div>
-                    </div>
+                                <button class="dialog-button-cancel d-none">Cancel <img
+                                        src="../../assets/icons/cancel.svg" alt=""></button>
+                                <button class="dialog-button-create d-none">Create contact <img class="dialog-icon"
+                                        src="../../assets/icons/check.svg" alt=""></button>
+                            </div>
+                        </div>
+                    </section>
                 </div>
+            </dialog>
+            <div class="contact-container-actions-responsive">
+                <button class="button-action-responsive"><img src="../../assets/icons/edit.svg" alt=""> Edit</button>
+                <button class="button-action-responsive"><img src="../../assets/icons/delete.svg" alt="">
+                    Delete</button>
             </div>
 
-            <div class="dialog-right-content">
-                <!-- Dialog Right Title JS change -->
-                <div id="dialog_right_title" class="dialog-right-title">
-                    <h2 id="dialog_right_title_initials">TW</h2>
-                </div>
-                <div class="dialog-right-body">
-                    <div class="dialog-right-close-button">
-                        <button><img src="../../assets/icons/cancel.svg" alt=""></button>
-                    </div>
-                    <div class="dialog-right-inputs">
-                        <div class="input-name-wrapper">
-                            <input id="contact_name" class="dialog-input" type="text" placeholder="Name">
-                            <img class="input-icons" src="../../assets/icons/input_person.svg" alt="">
-                        </div>
-                        <div class="input-email-wrapper">
-                            <input id="contact_email" class="dialog-input" type="email" placeholder="Email">
-                            <img class="input-icons" src="../../assets/icons/input_mail.svg" alt="">
-                        </div>
-                        <div class="input-phone-wrapper">
-                            <input id="contact_phone" class="dialog-input" type="tel" placeholder="Phone">
-                            <img class="input-icons" src="../../assets/icons/input_phone.svg" alt="">
-                        </div>
-                    </div>
-                    <!-- Dialog Action Buttons generate JS -->
-                    <div id="dialog_action_buttons" class="dialog-action-buttons">
-                        <button class="negative-button">Cancel</button>
-                        <button class="positive-button">Save <img src="../../assets/icons/check.svg" alt=""></button>
-                        <!-- <button class="negative-button">Delete</button>
-                                <button class="positive-button">Create contact<img src="../../assets/icons/check.svg" alt=""></button> -->
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </dialog>
+        </main>
 </body>
 
 </html>
