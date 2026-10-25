@@ -1,143 +1,196 @@
-body {
-    overflow-x: hidden
-}
-
-html {
-    overflow-x: hidden;
+/* Generals */
+main {
+    height: calc(100vh - 96px);
+    display: flex;
 }
 
 .d-none {
     display: none !important;
 }
 
-main {
-    display: flex;
-}
-
 a {
-    text-decoration: none;
     color: var(--colorEmail);
+    text-decoration: none;
     font-size: 16px;
+    font-weight: 400;
 }
 
-/* Contact left side */
-.container-contact-list {
-    box-shadow: 4px 0 6px rgba(0, 0, 0, 0.15);
-    max-height: 849px;
-    height: 1500px;
-    width: 424px;
+.d-flex {
+    display: flex !important;
+}
+
+/* User specifications */
+
+.add-new-contact {
+    background-color: var(--colorUnfocusedInputTag);
+}
+
+/* Responsive Elements */
+
+.actions-buttons {
+    transform: translateY(0%) !important;
+    transition: transform 0.3s ease-in-out;
+}
+
+.button-responsive-contact-options {
+    background-color: var(--colorPrimary);
+    height: 56px;
+    width: 56px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 120px;
+    right: 16px;
+    cursor: pointer;
+}
+
+.contacts-header-seperator-responsive {
+    background-color: var(--colorBlue);
+    height: 3px;
+    width: 90px;
+    display: none;
+    border-radius: 3px;
+}
+
+.button-responsive-return {
+    background-color: transparent;
+    height: 32px;
+    width: 32px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    position: fixed;
+    top: 150px;
+    right: 16px;
+    cursor: pointer;
+}
+
+.contact-container-actions-responsive {
+    background-color: var(--colorWhite);
+    height: 100px;
+    width: 116px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px 20px 0px 20px;
+    box-shadow: 0px 4px 4px #00000040;
+    position: fixed;
+    bottom: 110px;
+    right: 10px;
+    transform: translateX(150%);
+}
+
+.button-action-responsive {
+    background-color: transparent;
+    height: 40px;
+    width: 96px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+/* Contact List */
+
+.section-contact-list {
+    background-color: var(--colorWhite);
+    min-width: 424px;
+    padding: 32px 24px;
+    overflow-y: auto;
+    scrollbar-color: var(--colorGrey) var(--colorWhite);
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: auto;
-    padding-top: 55px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.add-new-contact-button {
+.contact-list-selected {
+    background-color: var(--colorPrimary) !important;
+    color: var(--colorWhite);
+}
+
+.contact-list-container-width {
+    width: 352px;
+}
+
+.button-add-new-contact {
     background-color: var(--colorPrimary);
-    color: white;
-    min-height: 56px;
-    max-width: 352px;
-    width: 100%;
-    border: none;
-    border-radius: 10px;
+    color: var(--colorWhite);
+    height: 56px;
     padding: 12px 16px;
-    font-size: 21px;
-    font-weight: 700;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 21px;
+    font-weight: 700;
 }
 
-.add-new-contact-button:hover {
-    background-color: var(--colorPrimaryDark);
+.button-add-new-contact img {
+    height: 32px;
 }
 
-.contact-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding-left: 10px;
-
-}
-
-.contact-list-group {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    /* gap: 10px; */
-    width: 100%;
-    padding: 0px 24px;
-}
-
-.contact-list-group h3 {
-    display: flex;
-    align-items: center;
-    padding: 17px 36px;
+.container-contact-list-alphabet {
     height: 58px;
-    width: 100%;
+    padding: 17px 36px;
+    display: flex;
+    align-items: center;
+}
+
+.contact-list-alphabet {
     font-size: 20px;
     font-weight: 400;
-    margin-bottom: 10px;
 }
 
 .contact-list-seperator {
+    background-color: var(--colorUnfocusedInputTag);
+    margin: 8px 0;
     height: 1px;
-    background-color: var(--colorUnfocusedInputTag);
-    width: 100%;
-    padding: 0px 24px;
-    margin-bottom: 10px;
-}
-
-.contact-list-item {
-    height: 78px;
-    width: 352px;
-    gap: 35px;
-    padding: 15px 24px;
     display: flex;
-    align-items: flex-start;
-    background-color: transparent;
-    border: none;
+    align-items: center;
 }
 
-.contact-list-item:hover {
-    background-color: var(--colorUnfocusedInputTag);
+.button-contact {
+    background-color: transparent;
+    height: 78px;
+    padding: 15px 24px;
+    gap: 35px;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
     cursor: pointer;
 }
 
-.contact-list-item-active {
-    background-color: var(--colorPrimary) !important;
-    color: white;
-    border-radius: 10px;
-}
-
-.contact-initials {
-    background-color: red;
-    color: white;
+.contact-list-initials {
+    background-color: orange;
+    color: var(--colorWhite);
     min-height: 42px;
     min-width: 42px;
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 400;
-}
-
-.contact-initials-wrapper {
-    background-color: white;
     border-radius: 50%;
-    padding: 2px;
+    font-size: 16px;
+    font-weight: 400;
+    box-shadow: 0px 0px 0px 2px rgb(255, 254, 254);
 }
 
-.contact-quick-view {
+.container-contact-list-info {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 5px;
     align-items: flex-start;
+    gap: 4px;
 }
 
 .contact-list-name {
@@ -145,992 +198,725 @@ a {
     font-weight: 400;
 }
 
-.contact-list-email {
-    font-size: 16px;
-    font-weight: 400;
-}
+/* Contacts Information */
 
-
-/* Contact right side */
-.section-contact-details {
+.section-contacts-information {
+    background-color: var(--colorBgPage);
+    height: 469px;
+    min-width: 569px;
+    width: 569px;
     display: flex;
     flex-direction: column;
-    padding-top: 125px;
-    padding-left: 50px;
-    gap: 25px;
+    gap: 32px;
+    margin-top: 115px;
+    margin-left: 60px;
+}
+
+.container-contacts-header {
+    height: 73px;
     width: 100%;
-}
-
-.container-contact-main {
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    gap: 20px;
 }
 
-.container-contact-info-header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-    width: 100%;
-}
-
-.contact-info-title {
+.contacts-header-title {
     font-size: 61px;
     font-weight: 700;
 }
 
-.slogan-seperator {
+.contacts-header-seperator-container {
+    display: flex;
+    align-items: center;
+    gap: 42px;
+}
+
+.contacts-header-seperator {
     background-color: var(--colorBlue);
     height: 59px;
-    min-width: 3px;
+    width: 3px;
     border-radius: 3px;
 }
 
-.contact-info-slogan {
+.contacts-header-slogan {
     font-size: 27px;
     font-weight: 400;
-    color: var(--colorPrimary);
-    letter-spacing: 1px;
-    min-width: 240px;
 }
 
-.container-button-return {
-    display: none;
+.container-contact-quick-select {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
-
-.container-contact-initials {
-    background-color: white;
-    border-radius: 50%;
-    height: 128px;
-    width: 128px;
-    border: solid 1px #ccc;
+.box-contact-initials {
+    background-color: var(--colorWhite);
+    min-height: 125px;
+    min-width: 125px;
     display: flex;
     align-items: center;
     justify-content: center;
-    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.3));
+    border-radius: 50%;
+    box-shadow: 0px 0px 4px 0px #00000066;
 }
 
-.contact-main-initials {
-    background-color: red;
-    color: white;
-    min-height: 120px;
-    min-width: 120px;
-    border-radius: 50%;
+.contact-initials {
+    background-color: orange;
+    color: var(--colorWhite);
+    height: 120px;
+    width: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
     font-size: 47px;
     font-weight: 500;
 }
 
-
-.container-contact-action-options {
+.container-contact-quick-select-info {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    align-items: flex-start;
+    gap: 8px;
 }
 
-.container-contact-action-options h3 {
+.contact-name {
     font-size: 47px;
     font-weight: 500;
 }
 
-.container-contact-action-buttons {
-    background-color: transparent;
+.container-contact-buttons {
     display: flex;
+    gap: 8px;
 }
 
-.contact-action-button {
+.button-edit {
     background-color: transparent;
-    border: none;
+    height: 24px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
+    gap: 8px;
+    border: none;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.button-delete {
+    background-color: var(--colorRed);
+    color: var(--colorWhite);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
+    font-weight: 500;
 }
 
 .contact-information-title {
     height: 74px;
+    width: 207px;
     display: flex;
     align-items: center;
     font-size: 20px;
     font-weight: 400;
 }
 
-.container-contact-information {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.container-contact-details {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.container-contact-details h5 {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.container-contact-details a,
-p {
-    font-size: 16px;
-    font-weight: 400;
-}
-
-/* Dialog Styles */
-
-.dialog {
-    background-color: rgba(0, 0, 0, 0.526);
-    min-height: 100%;
-    min-width: 100%;
-}
-
-.dialog-container {
-    background-color: white;
-    height: 592px;
-    width: 1212px;
-    position: fixed;
-    display: flex;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 30px;
-}
-
-/* Dialog Left Aside Styles */
-
-.dialog-left-aside {
-    background-color: var(--colorPrimary);
-    height: 592px;
-    width: 453px;
-    border-radius: 30px 0 0 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: white;
-}
-
-.dialog-left-content {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 100px;
-    padding: 0px 40px 0px 40px;
-    gap: 40px;
-}
-
-.dialog-responsive-close-button {
-    display: none;
-}
-
-.dialog-responsive-close-button button {
-    background-color: transparent;
-    height: 32px;
-    width: 32px;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.dialog-responsive-close-button button:hover {
-    background-color: rgba(44, 44, 44, 0.1);
-    border-radius: 50%;
-}
-
-.contact-logo {
-    width: 54px;
-}
-
-.contact-option-content {
-    width: 361px;
-    display: flex;
-    flex-direction: column;
-}
-
-.contact-option-content p {
-    padding-top: 10px;
-    font-size: 27px;
-    font-weight: 400;
-    letter-spacing: 0.4px;
-}
-
-.contact-option-title {
-    height: 73px;
-    font-size: 61px;
-    font-weight: 700;
-}
-
-.underline {
-    height: 3px;
-    width: 90px;
-    background-color: var(--colorAccent);
-    margin-top: 10px;
-}
-
-/* Dialog Right Content Styles */
-
-.dialog-right-content {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    padding: 0px 0px 50px 80px;
-    gap: 70px;
-}
-
-.dialog-right-title {
-    border-radius: 50%;
-    height: 130px;
-    width: 130px;
-    border: solid 2px #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.dialog-right-title h2 {
-    background-color: red;
-    color: white;
-    height: 120px;
-    width: 120px;
-    border-radius: 50%;
-    font-size: 47px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.dialog-right-body {
-    height: 100%;
-    padding: 20px 0px 80px 0px;
+.contact-information-tocontact {
+    height: 128px;
+    width: 207px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.dialog-right-close-button {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-}
-
-.dialog-right-close-button button {
-    background-color: transparent;
-    height: 32px;
-    width: 32px;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.dialog-right-close-button button:hover {
-    background-color: rgba(44, 44, 44, 0.1);
-    border-radius: 50%;
-}
-
-.dialog-right-inputs {
-    width: 422px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.dialog-right-inputs input {
-    height: 100%;
-    width: 100%;
-    padding: 0px 10px;
+.contact-information-tocontact-title {
     font-size: 16px;
-    border-radius: 10px;
-
-    display: flex;
-    flex-direction: column;
-    border: solid 1px var(--colorPrimaryGreyTone);
-}
-
-.dialog-input {
-    padding-left: 20px !important;
-}
-
-.input-name-wrapper,
-.input-email-wrapper,
-.input-phone-wrapper {
-    height: 50px;
-    width: 100%;
-    position: relative;
-}
-
-.input-icons {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.dialog-action-buttons {
-    display: flex;
-    gap: 20px;
-    height: 55px;
-}
-
-.positive-button {
-    height: 100%;
-    width: 100px;
-    border-radius: 10px;
-    border: solid 1px var(--colorPrimaryGreyTone);
-    background-color: var(--colorPrimary);
-    color: white;
-    font-size: 21px;
     font-weight: 700;
-    gap: 5px;
+    margin: 0;
+}
+
+/* Contact dialog */
+
+.dialog-contact {
+    background-color: rgba(255, 255, 255, 0.179);
+    min-height: 100%;
+    min-width: 100%;
+}
+
+.dialog-center {
+    height: 592px;
+    width: 1212px;
+    position: fixed;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 0px 60px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.positive-button:hover {
-    background-color: var(--colorPrimaryLight);
-    filter: drop-shadow(0 4px 2px rgba(0, 0, 0, 0.23));
-    cursor: pointer;
-    transition: background-color 0.3s, filter 0.3s;
-}
+/* Dialog left side */
 
-.negative-button {
+.dialog-left-side {
+    background-color: var(--colorPrimary);
     height: 100%;
-    width: 100px;
-    border-radius: 10px;
-    border: solid 1px var(--colorPrimaryGreyTone);
+    width: 453px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: 30px 0px 0px 30px;
+    gap: 16px;
+    padding-bottom: 70px;
+}
+
+.button-dialog-cancel-responsive {
     background-color: transparent;
-    color: #333;
-    font-size: 21px;
+    height: 24px;
+    width: 24px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    position: absolute;
+    top: 34px;
+    right: 30px;
+    cursor: pointer;
+}
+
+.dialog-container-logo {
+    width: 371px;
+}
+
+.dialog-logo {
+    height: 66px;
+    width: 55px;
+}
+
+.dialog-container-left-text {
+    height: 129px;
+    width: 371px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.dialog-title {
+    color: var(--colorWhite);
+    height: 73px;
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.dialog-slogan {
+    color: var(--colorWhite);
+    height: 32px;
+    font-size: 27px;
     font-weight: 400;
 }
 
-.negative-button:hover {
-    filter: drop-shadow(0 2px 1px rgba(0, 0, 0, 0.23));
-    cursor: pointer;
-    transition: background-color 0.3s, filter 0.3s;
+.dialog-underline {
+    background-color: var(--colorAccent);
+    min-height: 3px;
+    width: 90px;
+    border-radius: 3px;
 }
 
+/* Dialog right side */
 
-/* Responsive Styles */
-
-@media (max-width: 1265px) {
-    .section-contact-details {
-        padding-left: 25px;
-    }
+.dialog-right-side {
+    background-color: var(--colorWhite);
+    height: 100%;
+    width: calc(100% - 453px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 76px;
+    padding-right: 32px;
+    border-radius: 0px 30px 30px 0px;
+    position: relative;
+    gap: 32px;
 }
 
-@media (max-width: 1250px) {
-    .contact-list {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        padding-left: 10px;
-    }
+.button-dialog-close {
+    background-color: transparent;
+    height: 24px;
+    width: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    position: absolute;
+    top: 48px;
+    right: 32px;
+}
 
-    .contact-list-group {
-        display: flex;
-        /* gap: 10px; */
-        width: 100%;
-        padding: 0px 24px;
-    }
+.dialog-initials-create-icon {
+    height: 42px;
+    width: 42px;
+}
 
-    /* .contact-info-title {
-        font-size: 47px;
-        font-weight: 700;
-    }
+.box-dialog-initials {
+    min-height: 125px;
+    min-width: 125px;
+    margin-bottom: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0px 0px 4px 0px #00000066;
+}
 
-    .contact-info-slogan {
-        font-size: 20px;
-        font-weight: 400;
-        color: var(--colorPrimary);
-        letter-spacing: 1px;
-    } */
+.dialog-initials {
+    color: var(--colorWhite);
+    height: 120px;
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 47px;
+    font-weight: 500;
+}
+
+.container-dialog-changings {
+    width: 422px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+}
+
+.container-dialog-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.dialog-input {
+    height: 50px;
+    width: 100%;
+    padding: 13px 21px;
+    font-size: 20px;
+    font-weight: 400;
+    border: 1px solid #6B6B6BB6;
+    border-radius: 10px;
+}
+
+.dialog-input-person-icon {
+    background: url(../../assets/icons/person.svg);
+    background-size: 16px 16px;
+    background-position: calc(100% - 16px) center;
+    background-repeat: no-repeat;
+}
+
+.dialog-input-email-icon {
+    background: url(../../assets/icons/mail.svg);
+    background-size: 16px 16px;
+    background-position: calc(100% - 16px) center;
+    background-repeat: no-repeat;
+    padding-left: 30px;
+}
+
+.dialog-input-phone-icon {
+    background: url(../../assets/icons/input_phone.svg);
+    background-size: 18px 18px;
+    background-position: calc(100% - 16px) center;
+    background-repeat: no-repeat;
+    padding-left: 30px;
+}
+
+.container-dialog-buttons {
+    display: flex;
+    gap: 32px;
+}
+
+.dialog-button-delete {
+    background-color: var(--colorWhite);
+    color: var(--colorPrimary);
+    height: 55px;
+    width: 113px;
+    border: solid 1px var(--colorPrimary);
+    border-radius: 8px;
+    padding: 15px 24px;
+    display: flex;
+    gap: 4px;
+    font-size: 21px;
+}
+
+.dialog-button-save {
+    background-color: var(--colorPrimary);
+    color: var(--colorWhite);
+    height: 57px;
+    width: 111px;
+    border: none;
+    border-radius: 8px;
+    padding: 15px 24px;
+    display: flex;
+    gap: 4px;
+    font-size: 21px;
+}
+
+.dialog-button-cancel {
+    background-color: var(--colorWhite);
+    color: var(--colorPrimary);
+    height: 56px;
+    width: 126px;
+    border: solid 1px var(--colorPrimary);
+    border-radius: 8px;
+    padding: 15px 24px;
+    display: flex;
+    gap: 4px;
+    font-size: 21px;
+}
+
+.dialog-button-create {
+    background-color: var(--colorPrimary);
+    color: var(--colorWhite);
+    height: 57px;
+    width: 214px;
+    border: none;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    font-size: 21px;
+}
+
+.dialog-icon {
+    height: 24px;
+    width: 24px;
+}
+
+.dialog-success-message {
+    background-color: var(--colorPrimary);
+    color: var(--colorWhite);
+    height: 74px;
+    width: 326px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+/* Responsive */
+
+@media (max-width: 1300px) {
+
+    .section-contacts-information {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
 }
 
 @media (max-width: 1240px) {
 
-    .section-contact-details {
-        padding-left: 25px;
+    .section-contact-list {
+        min-width: 335px;
+        padding: 32px 10px;
     }
 
-    .container-button-return {
-        display: flex;
-        justify-content: flex-end;
-        width: 100%;
-        padding: 0px 10px;
+    .contact-list-container-width {
+        width: 311px;
     }
 
-    .button-return {
-        background-color: transparent;
-        border: none;
-        height: 37px;
-        width: 37px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: sticky;
-        top: 0;
-        right: 0;
+    .dialog-center {
+        width: calc(100% - 20px);
+        max-width: 1212px;
     }
 
-    .button-return:hover {
-        cursor: pointer;
-    }
-
-    .dialog-container {
-        width: 1000px;
-    }
-
-    .dialog-right-body {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .dialog-right-content {
-        padding-left: 20px;
-    }
-
-    .dialog-right-inputs {
-        width: 280px;
-    }
-}
-
-@media (max-width: 1025px) {
-
-    /* Dialog Elements */
-
-    .dialog-container {
-        height: 760px;
-        width: 750px !important;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .dialog-left-aside {
-        height: 351px;
-        width: 100%;
-        border-radius: 30px 30px 0 0;
-        align-items: center;
-        justify-content: flex-end;
-    }
-
-    .dialog-left-content {
-        height: 351px;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 0px 40px;
-    }
-
-    .contact-logo {
-        display: none;
-    }
-
-    .contact-option-content {
-        width: 100%;
-        /* padding-bottom: 30px; */
-        padding: 0px;
-        gap: 0px;
-    }
-
-    .contact-option-content h2 {
-        display: flex;
-        align-items: flex-end;
-        font-size: 42px;
-        font-weight: 700;
-    }
-
-    .contact-option-title {
-        font-size: 47px;
-        font-weight: 700;
-    }
-
-    .contact-option-content p {
-        font-size: 20px;
-    }
-
-    .dialog-responsive-close-button {
-        height: 50px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        padding-top: 30px;
-    }
-
-    .dialog-responsive-close-button:hover {
-        cursor: pointer;
-    }
-
-    /* Dialog Right to Bottom */
-
-    .dialog-right-close-button {
-        display: none;
-    }
-
-    .dialog-right-content {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0px;
-        gap: 0px;
-        transform: translateY(-65px);
-    }
-
-    .dialog-right-title {
-        background-color: white;
-        height: 130px;
-        width: 130px;
-        display: flex;
-        align-items: center;
-        border: solid 2px #ccc;
-    }
-
-    .dialog-right-body {
-        width: 100%;
-        gap: 20px;
-        padding: 30px 10px 0 10px;
-    }
-
-    .dialog-right-inputs {
-        height: 171px;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .input-name-wrapper,
-    .input-email-wrapper,
-    .input-phone-wrapper {
-        height: 41px;
-        padding: 0px 50px;
-    }
-
-    .input-icons {
-        position: absolute;
-        right: 70px;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .dialog-action-buttons {
-        height: 51px;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-    }
-}
-
-@media (max-width: 900px) {
-    .container-contact-info-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .button-return {
-        transform: translateY(-171px);
-    }
-
-    .slogan-seperator {
-        display: none;
-    }
-
-    .slogan-seperator-responsive {
-        width: 90px;
-        height: 3px;
-        background-color: var(--colorBlue);
-    }
-}
-
-@media (max-width: 768px) {
-    /* Dialog Elements */
-
-    .dialog-container {
-        height: 760px;
-        width: 500px !important;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .dialog-left-aside {
-        height: 351px;
-        width: 100%;
-        border-radius: 30px 30px 0 0;
-        align-items: center;
-        justify-content: flex-end;
-    }
-
-    .dialog-left-content {
-        height: 351px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 0px 20px;
-    }
-
-    .contact-logo {
-        display: none;
-    }
-
-    .contact-option-content {
-        width: 100%;
-        padding: 0px;
-        gap: 0px;
-    }
-
-    .contact-option-content h2 {
-        display: flex;
-        align-items: flex-end;
-        font-size: 42px;
-        font-weight: 700;
-    }
-
-    .contact-option-title {
-        font-size: 47px;
-        font-weight: 700;
-    }
-
-    .contact-option-content p {
-        font-size: 20px;
-    }
-
-    .dialog-responsive-close-button {
-        height: 50px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        padding-top: 30px;
-    }
-
-    .dialog-responsive-close-button:hover {
-        cursor: pointer;
-    }
-
-    /* Dialog Right to Bottom */
-
-    .dialog-right-close-button {
-        display: none;
-    }
-
-    .dialog-right-content {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0px;
-        gap: 0px;
-        transform: translateY(-65px);
-    }
-
-    .dialog-right-title {
-        background-color: white;
-        height: 130px;
-        width: 130px;
-        display: flex;
-        align-items: center;
-        border: solid 2px #ccc;
-    }
-
-    .dialog-right-body {
-        width: 100%;
-        gap: 20px;
-        padding: 30px 10px 0 10px;
-    }
-
-    .dialog-right-inputs {
-        height: 171px;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .input-name-wrapper,
-    .input-email-wrapper,
-    .input-phone-wrapper {
-        height: 41px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 0px 10px;
-    }
-
-    .input-icons {
-        position: absolute;
-        right: 30px;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .dialog-action-buttons {
-        height: 51px;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-    }
-
-    /* contact main */
-
-    .section-contact-details {
-        padding-top: 50px;
+    .dialog-right-side {
+        width: calc(100% - 453px);
         padding-left: 10px;
-    }
-
-    /* contact list */
-
-    .container-contact-list {
-        width: 100vw;
-    }
-
-    /* contact info */
-
-    .button-return {
-        background-color: red;
-        position: fixed;
-        top: 550px;
-        left: 10px;
-    }
-
-    .contact-info-title {
-        font-size: 47px;
-    }
-
-    .contact-info-slogan {
-        font-size: 20px;
-        letter-spacing: 0px;
-    }
-
-    .container-contact-initials {
-        height: 85px;
-        width: 85px;
-    }
-
-    .contact-main-initials {
-        min-height: 80px;
-        min-width: 80px;
-        font-size: 27px;
-        font-weight: 400;
-    }
-
-    .container-contact-action-options h3 {
-        font-size: 36px;
-        font-weight: 700;
-    }
-
-    .container-contact-action-buttons {
-        display: none;
-    }
-}
-
-@media (max-height: 700px) {
-    .dialog-container {
-        height: 650px;
-    }
-
-    .dialog-left-aside {
-        height: 300px;
-    }
-}
-
-@media (max-width: 520px) {
-    /* Dialog Elements */
-
-    .dialog-container {
-        height: 760px;
-        width: 310px !important;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .dialog-left-aside {
-        height: 351px;
-        width: 100%;
-        border-radius: 30px 30px 0 0;
-        align-items: center;
-        justify-content: flex-end;
-    }
-
-    .dialog-left-content {
-        height: 351px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 0px 10px 0 10px;
-    }
-
-    .contact-logo {
-        display: none;
-    }
-
-    .contact-option-content {
-        width: 100%;
-        /* padding-bottom: 30px; */
-        padding: 0px;
-        gap: 0px;
-    }
-
-    .contact-option-content h2 {
-        display: flex;
-        align-items: flex-end;
-        font-size: 42px;
-        font-weight: 700;
-    }
-
-    .contact-option-title {
-        font-size: 47px;
-        font-weight: 700;
-    }
-
-    .contact-option-content p {
-        font-size: 20px;
-    }
-
-    .dialog-responsive-close-button {
-        height: 50px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        padding-top: 30px;
-    }
-
-    .dialog-responsive-close-button:hover {
-        cursor: pointer;
-    }
-
-    /* Dialog Right to Bottom */
-
-    .dialog-right-close-button {
-        display: none;
-    }
-
-    .dialog-right-content {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0px;
-        gap: 0px;
-        transform: translateY(-65px);
-    }
-
-    .dialog-right-title {
-        background-color: white;
-        height: 130px;
-        width: 130px;
-        display: flex;
-        align-items: center;
-        border: solid 2px #ccc;
-    }
-
-    .dialog-right-body {
-        width: 100%;
-        gap: 20px;
-        padding: 30px 10px 0 10px;
-    }
-
-    .dialog-right-inputs {
-        height: 171px;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .input-name-wrapper,
-    .input-email-wrapper,
-    .input-phone-wrapper {
-        height: 41px;
-        max-width: 320px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .dialog-action-buttons {
-        height: 51px;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-    }
-
-    /* Contact info */
-
-    .container-contact-info-header {
-        flex-direction: column;
-        align-items: flex-start;
         gap: 10px;
     }
 }
 
-@media (max-width: 427px) {
-    .add-new-contact-button-text {
+@media (max-width: 1145px) {
+
+    .section-contacts-information {
+        min-width: inherit;
+        margin-top: 45px;
+        gap: 70px;
+    }
+
+    .container-contacts-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .contacts-header-seperator-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .contacts-header-seperator {
         display: none;
     }
 
-    .add-new-contact-button {
-        height: 56px;
-        width: 56px;
-        border-radius: 50%;
-        position: fixed;
-        top: 790px;
-        left: 330px;
+    .contacts-header-seperator-responsive {
+        display: block;
     }
 
-    .contact-list-item {
-        height: 78px;
-        width: 100%;
-        max-width: 352px;
-        gap: 35px;
-        padding: 15px 24px;
-        display: flex;
-        align-items: flex-start;
-        background-color: transparent;
-        border: none;
+    .dialog-right-side {
+        gap: 20px;
     }
 }
 
-@media (max-width: 400px) {
-    .add-new-contact-button {
-        left: 230px;
+@media (max-width: 1080px) {
+    .dialog-center {
+        width: 110%;
+        display: flex;
+        justify-content: center;
     }
 
-    .contact-list {
-        padding: 0 10px;
+    .dialog-left-side {
+        align-items: flex-start;
+        padding-left: 24px;
+        width: 326px;
     }
 
-    .contact-list-group {
+    .dialog-title {
+        font-size: 47px;
+    }
+
+    .dialog-slogan {
+        font-size: 20px;
+    }
+
+    .dialog-right-side {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 32px;
+    }
+
+    .container-dialog-changings {
+        min-width: 300px;
         width: 100%;
-        padding: 0px 0px;
+        max-width: 422px;
     }
 
-    .contact-list-group h3 {
-        padding: 17px 30px;
+    .dialog-input {
+        height: 41px;
+
+        .dialog-button-delete {
+            height: 51px;
+            width: 82px;
+            padding: 0px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dialog-button-save {
+            height: 51px;
+            width: 99px;
+            padding: 0px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dialog-button-cancel {
+            display: none;
+        }
+
+        .dialog-button-create {
+            height: 51px;
+            width: 202px;
+            padding: 0px;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+
+@media (max-width: 980px) {
+
+    .contacts-header-title {
+        font-size: 47px;
+        font-weight: 700;
     }
 
+    .contacts-header-slogan {
+        font-size: 20px;
+        font-weight: 400;
+    }
 
+    .contact-initials {
+        height: 80px;
+        width: 80px;
+        font-size: 27px;
+        font-weight: 400;
+    }
 
-    .contact-list-item {
+    .box-contact-initials {
+        min-height: 85px;
+        min-width: 85px;
+    }
+
+    .container-contact-quick-select {
         width: 100%;
-        gap: 15px;
-        padding: 15px 16px;
+    }
+
+    .container-contact-buttons {
+        display: none;
+    }
+}
+
+@media (max-width: 910px) {
+
+    .dialog-center {
+        height: 760px;
+        min-width: 320px;
+        width: calc(100% - 30px);
+        max-width: 670px;
+        flex-direction: column;
+    }
+
+    .dialog-left-side {
+        align-items: center;
+        padding-left: 24px;
+        padding-bottom: 0px;
+        min-height: 352px;
+        width: 100%;
+        border-radius: 30px 30px 0px 0px;
+    }
+
+    .button-dialog-cancel-responsive {
+        display: flex;
+    }
+
+    .dialog-logo {
+        display: none;
+    }
+
+    .dialog-container-left-text {
+        height: 104px;
+    }
+
+    .dialog-title {
+        height: 56px;
+    }
+
+    .dialog-right-side {
+        height: 100%;
+        width: 100%;
+        flex-direction: column;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-bottom: 70px;
+        border-radius: 0px 0px 30px 30px;
+        gap: 0px;
+    }
+
+    .button-dialog-close {
+        display: none;
+    }
+
+    .box-dialog-initials {
+        background-color: var(--colorWhite);
+        min-height: 125px;
+        min-width: 125px;
+        margin-bottom: 0px;
+        transform: translateY(-60px);
+    }
+
+    .container-dialog-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 820px) {
+
+    .section-contact-list {
+        min-width: 400px;
+        width: 100%;
+        padding: 32px 14px;
+    }
+
+    .contact-list-container-width {
+        width: 80%;
+    }
+
+    .button-add-new-contact {
+        display: flex;
+    }
+
+    .section-contacts-information {
+        display: none;
+    }
+
+    .button-responsive-return {
+        display: flex;
+    }
+
+    .button-responsive-contact-options {
+        display: flex;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .button-add-new-contact {
+        display: none;
+    }
+
+    .button-responsive-contact-options {
+        display: flex;
+    }
+}
+
+@media (max-width: 430px) {
+
+    .dialog-left-side {
+        padding-left: 20px;
+    }
+
+    .dialog-container-left-text {
+        width: inherit;
+    }
+
+    .container-dialog-changings {
+        width: 300px;
+    }
+}
+
+@media (max-width: 420px) {
+
+    .section-contact-list {
+        min-width: 320px;
+        width: 100%;
+        padding: 32px 14px;
+    }
+
+    .contact-list-container-width {
+        width: 100%;
+    }
+}
+
+@media (max-width: 350px) {
+
+    .dialog-center {
+        min-width: calc(100% - 10px);
+        ;
+        max-width: inherit;
+    }
+}
+
+@media (max-width: 340px) {
+
+    .dialog-left-side {
+        padding-left: 10px;
+    }
+
+    .section-contact-list {
+        min-width: inherit;
+        width: 100%;
+        padding: 32px 0px;
     }
 }
