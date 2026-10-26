@@ -24,13 +24,90 @@ function updatePriorityIcons() {
     document.querySelectorAll(".priority-btn").forEach(updatePriorityIcon);
 }
 
+let isSavingTask = false;
+
 function updateCreateTaskButton() {
     const form = document.querySelector("form");
     const createTaskButton = document.querySelector(".create-task-btn");
     const hasSelectedPriority = document.querySelector(".priority-btn.btn-active") !== null;
     const hasTextContent = [...form.querySelectorAll('input[type="text"], textarea')]
         .every(field => field.value.trim().length > 0);
-    createTaskButton.disabled = !form.checkValidity() || !hasTextContent || !hasSelectedPriority;
+    createTaskButton.disabled = isSavingTask || !form.checkValidity() || !hasTextContent || !hasSelectedPriority;
+}
+
+function getSelectedPriority() {
+    const selectedButton = document.querySelector(".priority-btn.btn-active");
+    return selectedButton.id.replace("priority", "").toLowerCase();
+}
+
+function getTaskAssignees(formData) {
+    const assignedOption = document.getElementById("assignedValue").selectedOptions[0];
+    return [{ id: formData.get("assigned"), name: assignedOption.textContent }];
+}
+
+function getTaskSubtasks(formData) {
+    return [{ title: formData.get("subtasks").trim(), done: false }];
+}
+
+function getTaskFromForm() {
+    const formData = new FormData(addTaskForm);
+    return {
+        title: formData.get("title").trim(),
+        description: formData.get("description").trim(),
+        dueDate: formData.get("dueDate"),
+        priority: getSelectedPriority(),
+        assignedTo: getTaskAssignees(formData),
+        category: formData.get("category"),
+        subtasks: getTaskSubtasks(formData),
+        status: "todo"
+    };
+}
+
+function startTaskSave(statusMessage) {
+    isSavingTask = true;
+    statusMessage.hidden = true;
+    updateCreateTaskButton();
+}
+
+async function persistTask() {
+    const { saveTask } = await import("./data/joinDbApi.js");
+    await saveTask(getTaskFromForm());
+}
+
+function showTaskStatus(statusMessage, state, message) {
+    statusMessage.textContent = message;
+    statusMessage.dataset.state = state;
+    statusMessage.hidden = false;
+}
+
+function handleTaskSaveSuccess(statusMessage) {
+    clearTaskForm();
+    showTaskStatus(statusMessage, "success", "Task created successfully.");
+}
+
+function handleTaskSaveError(statusMessage, error) {
+    console.error("Task could not be created:", error);
+    showTaskStatus(statusMessage, "error", "Task could not be saved. Please try again.");
+}
+
+function finishTaskSave() {
+    isSavingTask = false;
+    updateCreateTaskButton();
+}
+
+async function createTask(event) {
+    event.preventDefault();
+    if (!addTaskForm.reportValidity()) return;
+    const statusMessage = document.getElementById("taskFormStatus");
+    startTaskSave(statusMessage);
+    try {
+        await persistTask();
+        handleTaskSaveSuccess(statusMessage);
+    } catch (error) {
+        handleTaskSaveError(statusMessage, error);
+    } finally {
+        finishTaskSave();
+    }
 }
 
 function clearTaskForm() {
@@ -172,6 +249,7 @@ function scheduleCustomSelectReset() {
 
 const addTaskForm = document.querySelector("form");
 document.querySelectorAll(".custom-select").forEach(initializeCustomSelect);
+addTaskForm.addEventListener("submit", createTask);
 addTaskForm.addEventListener("input", updateCreateTaskButton);
 addTaskForm.addEventListener("change", updateCreateTaskButton);
 addTaskForm.addEventListener("reset", scheduleCustomSelectReset);

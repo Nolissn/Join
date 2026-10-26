@@ -70,8 +70,8 @@
                             <div class="custom-select">
                                 <select class="visually-hidden-select" name="category" id="categoryValue" required aria-hidden="true" tabindex="-1">
                                 <option value="" disabled selected hidden>Category</option>
-                                <option value="personal">Technical Task</option>
-                                <option value="shopping">User Story</option>
+                                <option value="Technical Task">Technical Task</option>
+                                <option value="User Story">User Story</option>
                                 </select>
                                 <button type="button" class="add-task-input custom-select-trigger" id="category" aria-haspopup="listbox" aria-expanded="false">Category</button>
                                 <div class="custom-select-menu" role="listbox" aria-labelledby="category" hidden></div>
@@ -88,6 +88,7 @@
                     <button type="button" class="clear-task-btn add-task-btn" onclick="clearTaskForm()">Clear <img src="../../assets/icons/cancel.svg" alt="Clear"></button>
                     <button type="submit" class="create-task-btn add-task-btn" disabled>Create Task <img src="../../assets/icons/check.svg" alt="Create Task"></button>
                 </div>
+                <p id="taskFormStatus" role="status" aria-live="polite" hidden></p>
             </form>
         </main>
     </div>
