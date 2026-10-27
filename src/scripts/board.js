@@ -6,9 +6,9 @@ const boardColumns = [
 ];
 
 const priorities = {
-  urgent: { label: 'Urgent', icon: 'urgent.svg' },
-  medium: { label: 'Medium', icon: 'medium_orange.svg' },
-  low: { label: 'Low', icon: 'low.svg' }
+  urgent: { label: 'Urgent', icon: 'urgent.svg', editClass: 'taskEditPriorityUrgent' },
+  medium: { label: 'Medium', icon: 'medium_orange.svg', editClass: 'taskEditPriorityMedium' },
+  low: { label: 'Low', icon: 'low.svg', editClass: 'taskEditPriorityLow' }
 };
 
 const categoryClasses = {
@@ -26,7 +26,6 @@ async function initBoard() {
 
 function initBoardEvents() {
   const boardElement = document.querySelector('.boardColumns');
-  const taskDialog = document.getElementById('taskDialog');
   boardElement.addEventListener('dragstart', startDragging);
   boardElement.addEventListener('dragover', allowDrop);
   boardElement.addEventListener('dragleave', removeHighlight);
@@ -35,8 +34,15 @@ function initBoardEvents() {
   boardElement.addEventListener('click', openTaskDialog);
   document.getElementById('findTask').addEventListener('input', renderBoard);
   document.querySelector('.boardSearchClear').addEventListener('click', clearSearch);
+  initTaskDialogEvents();
+}
+
+function initTaskDialogEvents() {
+  const taskDialog = document.getElementById('taskDialog');
   taskDialog.addEventListener('click', handleDialogClick);
   taskDialog.addEventListener('cancel', closeTaskDialog);
+  taskDialog.addEventListener('submit', saveTaskEdit);
+  taskDialog.addEventListener('keydown', handleEditKeydown);
 }
 
 function renderBoard() {
@@ -105,23 +111,85 @@ function openTaskDialog(event) {
   const taskCard = event.target.closest('.taskCard');
   if (!taskCard) return;
   const taskDialog = document.getElementById('taskDialog');
-  taskDialog.querySelector('.taskDetail').innerHTML = taskDetailTemplate(findStoredTask(taskCard.dataset.taskId));
+  showTaskDetail(findStoredTask(taskCard.dataset.taskId));
   taskDialog.classList.add('taskDialogOpen');
   taskDialog.showModal();
+}
+
+function showTaskDetail(task) {
+  document.querySelector('.taskDetail').innerHTML = taskDetailTemplate(task);
 }
 
 function handleDialogClick(event) {
   const clickedBackground = event.target === event.currentTarget;
   const clickedCloseButton = event.target.closest('.taskDetailClose');
-  const deleteButton = event.target.closest('.taskDetailDelete');
-  if (deleteButton) deleteTaskFromBoard(event, deleteButton.dataset.taskId);
+  const actionButton = event.target.closest('[data-action]');
+  if (actionButton) handleDialogAction(event, actionButton);
   if (clickedBackground || clickedCloseButton) closeTaskDialog(event);
+}
+
+function handleDialogAction(event, button) {
+  const action = button.dataset.action;
+  if (action === 'delete') deleteTaskFromBoard(event, button.dataset.taskId);
+  if (action === 'edit') openTaskEdit(button.dataset.taskId);
+  if (action === 'addSubtask') addEditSubtask(button.closest('.taskEditForm'));
+  if (action === 'removeSubtask') button.closest('.taskEditSubtask').remove();
 }
 
 function deleteTaskFromBoard(event, taskId) {
   deleteStoredTask(taskId);
   renderBoard();
   closeTaskDialog(event);
+}
+
+function openTaskEdit(taskId) {
+  const taskDetail = document.querySelector('.taskDetail');
+  taskDetail.innerHTML = taskEditTemplate(findStoredTask(taskId));
+  taskDetail.querySelector('.taskEditInput').focus();
+}
+
+function addEditSubtask(form) {
+  const input = form.querySelector('.taskEditNewSubtask');
+  const title = input.value.trim();
+  if (title === '') return;
+  const subtaskHtml = taskEditSubtaskTemplate({ title: title, done: false });
+  form.querySelector('.taskEditSubtaskList').insertAdjacentHTML('beforeend', subtaskHtml);
+  input.value = '';
+  input.focus();
+}
+
+function handleEditKeydown(event) {
+  if (event.key !== 'Enter' || !event.target.matches('.taskEditNewSubtask')) return;
+  event.preventDefault();
+  addEditSubtask(event.target.closest('.taskEditForm'));
+}
+
+function saveTaskEdit(event) {
+  event.preventDefault();
+  const form = event.target;
+  const task = findStoredTask(form.dataset.taskId);
+  updateTaskFromForm(task, form);
+  saveTaskChanges(task.id);
+  renderBoard();
+  showTaskDetail(task);
+}
+
+function updateTaskFromForm(task, form) {
+  const formData = new FormData(form);
+  task.title = formData.get('title').trim();
+  task.description = formData.get('description').trim();
+  task.dueDate = formData.get('dueDate');
+  task.priority = formData.get('priority');
+  task.subtasks = getEditedSubtasks(form);
+}
+
+function getEditedSubtasks(form) {
+  const subtasks = [];
+  for (const item of form.querySelectorAll('.taskEditSubtask')) {
+    const title = item.querySelector('.taskEditSubtaskInput').value.trim();
+    if (title !== '') subtasks.push({ title: title, done: item.dataset.done === 'true' });
+  }
+  return subtasks;
 }
 
 function closeTaskDialog(event) {
@@ -153,6 +221,24 @@ function getSubtasksHtml(subtasks) {
     let checkedAttribute = '';
     if (subtask.done) checkedAttribute = 'checked';
     subtasksHtml += taskDetailSubtaskTemplate(subtask.title, checkedAttribute);
+  }
+  return subtasksHtml;
+}
+
+function getEditPrioritiesHtml(selectedPriority) {
+  let prioritiesHtml = '';
+  for (const priority in priorities) {
+    let checkedAttribute = '';
+    if (priority === selectedPriority) checkedAttribute = 'checked';
+    prioritiesHtml += taskEditPriorityTemplate(priority, checkedAttribute);
+  }
+  return prioritiesHtml;
+}
+
+function getEditSubtasksHtml(subtasks) {
+  let subtasksHtml = '';
+  for (const subtask of subtasks) {
+    subtasksHtml += taskEditSubtaskTemplate(subtask);
   }
   return subtasksHtml;
 }

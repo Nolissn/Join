@@ -74,8 +74,8 @@ function taskDetailTemplate(task) {
       <ul class="taskDetailList">${getSubtasksHtml(task.subtasks)}</ul>
     </div>
     <div class="taskDetailActions">
-      <button class="taskDetailAction taskDetailDelete" type="button" data-task-id="${task.id}"><img src="${iconPath}delete.svg" alt="">Delete</button>
-      <button class="taskDetailAction" type="button"><img src="${iconPath}edit.svg" alt="">Edit</button>
+      <button class="taskDetailAction" type="button" data-action="delete" data-task-id="${makeTextSafe(task.id)}"><img src="${iconPath}delete.svg" alt="">Delete</button>
+      <button class="taskDetailAction" type="button" data-action="edit" data-task-id="${makeTextSafe(task.id)}"><img src="${iconPath}edit.svg" alt="">Edit</button>
     </div>`;
 }
 
@@ -85,4 +85,56 @@ function taskDetailAssigneeTemplate(initials, avatarColor, name) {
 
 function taskDetailSubtaskTemplate(title, checkedAttribute) {
   return `<li><label class="taskDetailSubtask"><input class="taskDetailCheckbox" type="checkbox" ${checkedAttribute}>${makeTextSafe(title)}</label></li>`;
+}
+
+function taskEditTemplate(task) {
+  return `
+    <form class="taskEditForm" data-task-id="${makeTextSafe(task.id)}">
+      <div class="taskEditHeader">
+        <button class="taskDetailClose" type="button"><img src="${iconPath}cancel.svg" alt="Close"></button>
+      </div>
+      <label class="taskEditField">
+        <span class="taskEditLabel">Title</span>
+        <input class="taskEditInput" type="text" name="title" value="${makeTextSafe(task.title)}" pattern=".*\\S.*" required>
+      </label>
+      <label class="taskEditField">
+        <span class="taskEditLabel">Description</span>
+        <textarea class="taskEditInput taskEditTextarea" name="description" required>${makeTextSafe(task.description)}</textarea>
+      </label>
+      <label class="taskEditField">
+        <span class="taskEditLabel">Due date</span>
+        <input class="taskEditInput" type="date" name="dueDate" value="${makeTextSafe(task.dueDate)}" required>
+      </label>
+      <fieldset class="taskEditField taskEditFieldset">
+        <legend class="taskEditLabel">Priority</legend>
+        <div class="taskEditPriorities">${getEditPrioritiesHtml(task.priority)}</div>
+      </fieldset>
+      <div class="taskEditField">
+        <span class="taskEditLabel">Subtasks</span>
+        <div class="taskEditSubtaskAdd">
+          <input class="taskEditInput taskEditNewSubtask" type="text" placeholder="Add new subtask" aria-label="Add new subtask">
+          <button class="taskEditIconButton" type="button" data-action="addSubtask"><img src="${iconPath}plus_box.svg" alt="Add subtask"></button>
+        </div>
+        <ul class="taskEditSubtaskList">${getEditSubtasksHtml(task.subtasks)}</ul>
+      </div>
+      <div class="taskEditActions">
+        <button class="taskEditSubmit" type="submit">Ok<img src="${iconPath}check.svg" alt=""></button>
+      </div>
+    </form>`;
+}
+
+function taskEditPriorityTemplate(priority, checkedAttribute) {
+  return `
+    <label class="taskEditPriority ${priorities[priority].editClass}">
+      <input class="taskEditPriorityRadio" type="radio" name="priority" value="${priority}" required ${checkedAttribute}>
+      ${priorities[priority].label}<img class="taskEditPriorityIcon" src="${iconPath}${priorities[priority].icon}" alt="">
+    </label>`;
+}
+
+function taskEditSubtaskTemplate(subtask) {
+  return `
+    <li class="taskEditSubtask" data-done="${subtask.done}">
+      <input class="taskEditInput taskEditSubtaskInput" type="text" value="${makeTextSafe(subtask.title)}" aria-label="Subtask">
+      <button class="taskEditIconButton" type="button" data-action="removeSubtask"><img src="${iconPath}delete.svg" alt="Remove subtask"></button>
+    </li>`;
 }
