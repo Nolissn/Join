@@ -19,6 +19,10 @@ a {
     display: flex !important;
 }
 
+.dialog-title-underline {
+    margin-bottom: 36px;
+}
+
 /* User specifications */
 
 .add-new-contact {
@@ -109,6 +113,14 @@ a {
     flex-direction: column;
     align-items: center;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.container-contact-list {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .contact-list-selected {
@@ -299,6 +311,7 @@ a {
     border: none;
     font-size: 16px;
     font-weight: 400;
+    cursor: pointer;
 }
 
 .button-delete {
@@ -310,6 +323,7 @@ a {
     cursor: pointer;
     font-size: 16px;
     font-weight: 500;
+    cursor: pointer;
 }
 
 .contact-information-title {
@@ -449,6 +463,7 @@ a {
     position: absolute;
     top: 48px;
     right: 32px;
+    cursor: pointer;
 }
 
 .dialog-initials-create-icon {
@@ -542,6 +557,7 @@ a {
     display: flex;
     gap: 4px;
     font-size: 21px;
+    cursor: pointer;
 }
 
 .dialog-button-save {
@@ -555,6 +571,7 @@ a {
     display: flex;
     gap: 4px;
     font-size: 21px;
+    cursor: pointer;
 }
 
 .dialog-button-cancel {
@@ -568,6 +585,7 @@ a {
     display: flex;
     gap: 4px;
     font-size: 21px;
+    cursor: pointer;
 }
 
 .dialog-button-create {
@@ -582,6 +600,7 @@ a {
     align-items: center;
     gap: 4px;
     font-size: 21px;
+    cursor: pointer;
 }
 
 .dialog-icon {
