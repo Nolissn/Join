@@ -113,7 +113,15 @@ function openTaskDialog(event) {
 function handleDialogClick(event) {
   const clickedBackground = event.target === event.currentTarget;
   const clickedCloseButton = event.target.closest('.taskDetailClose');
+  const deleteButton = event.target.closest('.taskDetailDelete');
+  if (deleteButton) deleteTaskFromBoard(event, deleteButton.dataset.taskId);
   if (clickedBackground || clickedCloseButton) closeTaskDialog(event);
+}
+
+function deleteTaskFromBoard(event, taskId) {
+  deleteStoredTask(taskId);
+  renderBoard();
+  closeTaskDialog(event);
 }
 
 function closeTaskDialog(event) {

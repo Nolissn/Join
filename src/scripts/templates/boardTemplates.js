@@ -74,7 +74,7 @@ function taskDetailTemplate(task) {
       <ul class="taskDetailList">${getSubtasksHtml(task.subtasks)}</ul>
     </div>
     <div class="taskDetailActions">
-      <button class="taskDetailAction" type="button"><img src="${iconPath}delete.svg" alt="">Delete</button>
+      <button class="taskDetailAction taskDetailDelete" type="button" data-task-id="${task.id}"><img src="${iconPath}delete.svg" alt="">Delete</button>
       <button class="taskDetailAction" type="button"><img src="${iconPath}edit.svg" alt="">Edit</button>
     </div>`;
 }
