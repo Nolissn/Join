@@ -165,6 +165,7 @@
 }
 
 .taskCard {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -173,6 +174,68 @@
   background-color: var(--colorWhite);
   box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.08);
   cursor: pointer;
+}
+
+.taskCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.taskMoveButton {
+  display: none;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.taskMoveMenu {
+  position: absolute;
+  top: 48px;
+  right: 16px;
+  z-index: 1;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 8px;
+  border-radius: 20px 0 20px 20px;
+  background-color: var(--colorPrimary);
+  cursor: default;
+}
+
+.taskCardMoveOpen .taskMoveMenu {
+  display: flex;
+}
+
+.taskMoveTitle {
+  padding: 0 8px 4px;
+  color: var(--colorWhite);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.taskMoveOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  color: var(--colorWhite);
+  font-family: inherit;
+  font-size: 16px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.taskMoveOption:hover,
+.taskMoveOption:focus-visible {
+  background-color: var(--colorPrimaryDark);
+  outline: none;
 }
 
 .taskCardDragging {
@@ -731,6 +794,10 @@
   .columnTasks {
     margin: 0 -16px -16px;
     padding: 8px 16px 16px;
+  }
+
+  .taskMoveButton {
+    display: flex;
   }
 
   .taskDetail {

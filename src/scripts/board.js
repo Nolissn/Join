@@ -31,7 +31,8 @@ function initBoardEvents() {
   boardElement.addEventListener('dragleave', removeHighlight);
   boardElement.addEventListener('drop', moveTask);
   boardElement.addEventListener('dragend', renderBoard);
-  boardElement.addEventListener('click', openTaskDialog);
+  boardElement.addEventListener('click', handleBoardClick);
+  document.addEventListener('click', handleOutsideMoveClick);
   document.getElementById('findTask').addEventListener('input', renderBoard);
   document.querySelector('.boardSearchClear').addEventListener('click', clearSearch);
   initTaskDialogEvents();
@@ -104,6 +105,38 @@ function moveTask(event) {
     task.status = newStatus;
     saveTaskChanges(task.id);
   }
+  renderBoard();
+}
+
+function handleBoardClick(event) {
+  const actionButton = event.target.closest('[data-action]');
+  if (!actionButton && event.target.closest('.taskMoveMenu')) return;
+  if (!actionButton) return openTaskDialog(event);
+  const taskCard = actionButton.closest('.taskCard');
+  if (actionButton.dataset.action === 'toggleMove') toggleMoveMenu(taskCard);
+  if (actionButton.dataset.action === 'moveTask') moveTaskTo(taskCard.dataset.taskId, actionButton.dataset.status);
+}
+
+function toggleMoveMenu(taskCard) {
+  const isOpen = taskCard.classList.contains('taskCardMoveOpen');
+  closeMoveMenus();
+  if (!isOpen) taskCard.classList.add('taskCardMoveOpen');
+}
+
+function closeMoveMenus() {
+  for (const taskCard of document.querySelectorAll('.taskCardMoveOpen')) {
+    taskCard.classList.remove('taskCardMoveOpen');
+  }
+}
+
+function handleOutsideMoveClick(event) {
+  if (!event.target.closest('.taskCardMoveOpen')) closeMoveMenus();
+}
+
+function moveTaskTo(taskId, newStatus) {
+  const task = findStoredTask(taskId);
+  task.status = newStatus;
+  saveTaskChanges(task.id);
   renderBoard();
 }
 
@@ -223,6 +256,14 @@ function getSubtasksHtml(subtasks) {
     subtasksHtml += taskDetailSubtaskTemplate(subtask.title, checkedAttribute);
   }
   return subtasksHtml;
+}
+
+function getMoveOptionsHtml(status) {
+  const index = boardColumns.findIndex(column => column.status === status);
+  let optionsHtml = '';
+  if (index > 0) optionsHtml += taskMoveOptionTemplate(boardColumns[index - 1], 'upward');
+  if (index < boardColumns.length - 1) optionsHtml += taskMoveOptionTemplate(boardColumns[index + 1], 'downward');
+  return optionsHtml;
 }
 
 function getEditPrioritiesHtml(selectedPriority) {

@@ -24,7 +24,14 @@ function boardColumnTemplate(column, tasksHtml) {
 function taskCardTemplate(task) {
   return `
     <article class="taskCard" data-task-id="${task.id}" draggable="true">
-      <span class="taskCategory ${categoryClasses[task.category]}">${makeTextSafe(task.category)}</span>
+      <div class="taskCardHeader">
+        <span class="taskCategory ${categoryClasses[task.category]}">${makeTextSafe(task.category)}</span>
+        <button class="taskMoveButton" type="button" data-action="toggleMove"><img src="${iconPath}move_task.svg" alt="Move task"></button>
+      </div>
+      <div class="taskMoveMenu">
+        <span class="taskMoveTitle">Move to</span>
+        ${getMoveOptionsHtml(task.status)}
+      </div>
       <div class="taskText">
         <h3 class="taskTitle">${makeTextSafe(task.title)}</h3>
         <p class="taskDescription">${makeTextSafe(task.description)}</p>
@@ -35,6 +42,10 @@ function taskCardTemplate(task) {
         <img class="taskPriority" src="${iconPath}${priorities[task.priority].icon}" alt="${priorities[task.priority].label}">
       </div>
     </article>`;
+}
+
+function taskMoveOptionTemplate(column, direction) {
+  return `<button class="taskMoveOption" type="button" data-action="moveTask" data-status="${column.status}"><img src="${iconPath}arrow_${direction}.svg" alt="">${column.title}</button>`;
 }
 
 function taskProgressTemplate(doneCount, totalCount) {
