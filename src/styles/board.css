@@ -138,16 +138,7 @@
   gap: 16px;
 }
 
-.columnTasksHighlight::after {
-  content: '';
-  height: 160px;
-  border: 1px dashed var(--colorGrey);
-  border-radius: 24px;
-  background-color: var(--colorPlaceholderBg);
-}
-
-.columnTasks:has(.taskCard) .taskPlaceholder,
-.columnTasksHighlight .taskPlaceholder {
+.columnTasks:has(.taskCard) .taskPlaceholder {
   display: none;
 }
 
@@ -238,8 +229,35 @@
   outline: none;
 }
 
+.taskCardHeld,
 .taskCardDragging {
-  opacity: 0.4;
+  border: 1px dashed var(--colorGrey);
+  background-color: var(--colorPlaceholderBg);
+  box-shadow: none;
+}
+
+.taskCardHeld > *,
+.taskCardDragging > * {
+  visibility: hidden;
+}
+
+.taskCardGhost {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 252px;
+  translate: var(--dragX) var(--dragY);
+  scale: 1.05;
+  box-shadow: 0 8px 24px 4px rgba(0, 0, 0, 0.24);
+  pointer-events: none;
+  animation: taskCardGrab 150ms ease-out;
+}
+
+@keyframes taskCardGrab {
+  from {
+    scale: 1;
+  }
 }
 
 .taskCategory {
@@ -730,8 +748,7 @@
     flex: 1;
   }
 
-  .taskCard,
-  .columnTasksHighlight::after {
+  .taskCard {
     flex: 0 0 252px;
   }
 }
@@ -812,6 +829,15 @@
   .taskEditPriority {
     gap: 4px;
     font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) and (pointer: coarse) {
+  .taskCard {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
   }
 }
 

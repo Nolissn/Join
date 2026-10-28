@@ -17,6 +17,9 @@ const categoryClasses = {
 };
 
 const avatarColors = ['avatarOrange', 'avatarTurquoise', 'avatarPurple'];
+const autoScrollZone = 80;
+const autoScrollMaxSpeed = 18;
+let mouseDrag = null;
 
 async function initBoard() {
   initBoardEvents();
@@ -27,11 +30,11 @@ async function initBoard() {
 function initBoardEvents() {
   const boardElement = document.querySelector('.boardColumns');
   boardElement.addEventListener('dragstart', startDragging);
-  boardElement.addEventListener('dragover', allowDrop);
-  boardElement.addEventListener('dragleave', removeHighlight);
-  boardElement.addEventListener('drop', moveTask);
-  boardElement.addEventListener('dragend', renderBoard);
+  boardElement.addEventListener('dragend', endDragging);
+  document.addEventListener('dragover', handleDragOver);
+  document.addEventListener('drop', moveTask);
   boardElement.addEventListener('click', handleBoardClick);
+  initTouchSortEvents(boardElement);
   document.addEventListener('click', handleOutsideMoveClick);
   document.getElementById('findTask').addEventListener('input', renderBoard);
   document.querySelector('.boardSearchClear').addEventListener('click', clearSearch);
@@ -48,15 +51,29 @@ function initTaskDialogEvents() {
 
 function renderBoard() {
   const searchText = document.getElementById('findTask').value.trim().toLowerCase();
+  const sortedTasks = getSortedTasks();
   let boardHtml = '';
   for (const column of boardColumns) {
     let tasksHtml = '';
-    for (const task of storedTasks) {
+    for (const task of sortedTasks) {
       if (task.status === column.status && matchesSearch(task, searchText)) tasksHtml += taskCardTemplate(task);
     }
     boardHtml += boardColumnTemplate(column, tasksHtml);
   }
   document.querySelector('.boardColumns').innerHTML = boardHtml;
+}
+
+function getSortedTasks() {
+  const sortedTasks = storedTasks.slice();
+  sortedTasks.sort(function (taskA, taskB) {
+    return getTaskOrder(taskA) - getTaskOrder(taskB);
+  });
+  return sortedTasks;
+}
+
+function getTaskOrder(task) {
+  if (typeof task.order === 'number') return task.order;
+  return storedTasks.length + storedTasks.indexOf(task);
 }
 
 function matchesSearch(task, searchText) {
@@ -75,37 +92,118 @@ function clearSearch() {
 function startDragging(event) {
   const taskCard = event.target.closest('.taskCard');
   if (!taskCard) return;
+  if (touchSort) return event.preventDefault();
   event.dataTransfer.setData('text/plain', taskCard.dataset.taskId);
+  mouseDrag = { card: taskCard, pointerX: event.clientX, pointerY: event.clientY };
+  mouseDrag.frameId = requestAnimationFrame(autoScrollWhileDragging);
   setTimeout(function () {
     taskCard.classList.add('taskCardDragging');
   });
 }
 
-function allowDrop(event) {
-  const taskArea = event.target.closest('.columnTasks');
-  if (!taskArea) return;
+function handleDragOver(event) {
+  if (!mouseDrag) return;
   event.preventDefault();
-  if (!taskArea.querySelector('.taskCardDragging')) {
-    taskArea.classList.add('columnTasksHighlight');
-  }
-}
-
-function removeHighlight(event) {
-  const taskArea = event.target.closest('.columnTasks');
-  if (taskArea && !taskArea.contains(event.relatedTarget)) {
-    taskArea.classList.remove('columnTasksHighlight');
-  }
+  mouseDrag.pointerX = event.clientX;
+  mouseDrag.pointerY = event.clientY;
+  const column = event.target.closest('.boardColumn');
+  if (!column) return;
+  placeCardAtPointer(column.querySelector('.columnTasks'), mouseDrag.card, event.clientX, event.clientY);
 }
 
 function moveTask(event) {
+  if (!mouseDrag) return;
   event.preventDefault();
-  const newStatus = event.target.closest('.boardColumn').dataset.status;
-  const task = findStoredTask(event.dataTransfer.getData('text/plain'));
+  const columnTasks = mouseDrag.card.closest('.columnTasks');
+  const newStatus = columnTasks.closest('.boardColumn').dataset.status;
+  const task = findStoredTask(mouseDrag.card.dataset.taskId);
   if (task.status !== newStatus) {
     task.status = newStatus;
     saveTaskChanges(task.id);
   }
+  saveColumnOrder(columnTasks);
+  endDragging();
+}
+
+function autoScrollWhileDragging() {
+  const columnTasks = mouseDrag.card.closest('.columnTasks');
+  const columnRect = columnTasks.getBoundingClientRect();
+  const scrollDown = getScrollStep(mouseDrag.pointerY, 0, window.innerHeight);
+  window.scrollBy({ top: scrollDown, behavior: 'instant' });
+  if (isRowLayout(columnTasks)) {
+    const scrollRight = getScrollStep(mouseDrag.pointerX, columnRect.left, columnRect.right);
+    columnTasks.scrollBy({ left: scrollRight, behavior: 'instant' });
+  }
+  placeCardAtPointer(columnTasks, mouseDrag.card, mouseDrag.pointerX, mouseDrag.pointerY);
+  mouseDrag.frameId = requestAnimationFrame(autoScrollWhileDragging);
+}
+
+function getScrollStep(pointer, areaStart, areaEnd) {
+  if (pointer - areaStart < autoScrollZone) return -getEdgeSpeed(pointer - areaStart);
+  if (areaEnd - pointer < autoScrollZone) return getEdgeSpeed(areaEnd - pointer);
+  return 0;
+}
+
+function getEdgeSpeed(distance) {
+  const closeness = 1 - Math.max(distance, 0) / autoScrollZone;
+  return Math.ceil(closeness * closeness * autoScrollMaxSpeed);
+}
+
+function endDragging() {
+  if (mouseDrag) cancelAnimationFrame(mouseDrag.frameId);
+  mouseDrag = null;
   renderBoard();
+}
+
+function isRowLayout(columnTasks) {
+  return getComputedStyle(columnTasks).flexDirection === 'row';
+}
+
+function placeCardAtPointer(columnTasks, movingCard, pointerX, pointerY) {
+  const isRow = isRowLayout(columnTasks);
+  for (const card of columnTasks.querySelectorAll('.taskCard')) {
+    if (card === movingCard) continue;
+    if (isPointerBeforeCard(card, isRow, pointerX, pointerY)) {
+      if (card.previousElementSibling !== movingCard) columnTasks.insertBefore(movingCard, card);
+      return;
+    }
+  }
+  if (columnTasks.lastElementChild !== movingCard) columnTasks.appendChild(movingCard);
+}
+
+function isPointerBeforeCard(card, isRow, pointerX, pointerY) {
+  const cardRect = card.getBoundingClientRect();
+  if (isRow) return pointerX < cardRect.left + cardRect.width / 2;
+  return pointerY < cardRect.top + cardRect.height / 2;
+}
+
+function saveColumnOrder(columnTasks) {
+  const status = columnTasks.closest('.boardColumn').dataset.status;
+  const columnOrder = getNewColumnOrder(status, getCardIds(columnTasks));
+  for (let i = 0; i < columnOrder.length; i++) {
+    if (columnOrder[i].order === i) continue;
+    columnOrder[i].order = i;
+    saveTaskChanges(columnOrder[i].id);
+  }
+}
+
+function getCardIds(columnTasks) {
+  const cardIds = [];
+  for (const card of columnTasks.querySelectorAll('.taskCard')) {
+    cardIds.push(card.dataset.taskId);
+  }
+  return cardIds;
+}
+
+function getNewColumnOrder(status, visibleIds) {
+  const remainingIds = visibleIds.slice();
+  const columnOrder = [];
+  for (const task of getSortedTasks()) {
+    if (task.status !== status) continue;
+    if (visibleIds.includes(task.id)) columnOrder.push(findStoredTask(remainingIds.shift()));
+    else columnOrder.push(task);
+  }
+  return columnOrder;
 }
 
 function handleBoardClick(event) {
@@ -136,6 +234,7 @@ function handleOutsideMoveClick(event) {
 function moveTaskTo(taskId, newStatus) {
   const task = findStoredTask(taskId);
   task.status = newStatus;
+  delete task.order;
   saveTaskChanges(task.id);
   renderBoard();
 }
