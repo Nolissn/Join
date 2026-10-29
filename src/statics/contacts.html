@@ -29,25 +29,8 @@
             <section class="section-contact-list">
                 <button onclick="addNewContact()" class="button-add-new-contact contact-list-container-width">Add new
                     contact <img src="../../assets/icons/add_new_contact.svg" alt=""></button>
-                <div id="contact-list" class="container-contact-list">
-                    <div class="container-contact-list-alphabet contact-list-container-width">
-                        <div class="contact-list-alphabet">T</div>
-                    </div>
-                    <div class="contact-list-seperator contact-list-container-width"></div>
-                    <button class="button-contact contact-list-selected contact-list-container-width">
-                        <div class="contact-list-initials">TW</div>
-                        <div class="container-contact-list-info">
-                            <div class="contact-list-name">Timo Weyer</div>
-                            <a href="">timoweyer@example.com</a>
-                        </div>
-                    </button>
-                    <button class="button-contact contact-list-container-width">
-                        <div class="contact-list-initials">TW</div>
-                        <div class="container-contact-list-info">
-                            <div class="contact-list-name">Timo Weyer</div>
-                            <a href="">timoweyer@example.com</a>
-                        </div>
-                    </button>
+                <div id="contact_list" class="container-contact-list">
+                    <!-- js elements will be inserted here -->
                 </div>
                 <button onclick="addNewContact()" class="button-responsive-contact-options"><img
                         src="../../assets/icons/add_new_contact.svg" alt=""></button>
@@ -62,13 +45,15 @@
                         <div class="contacts-header-seperator-responsive"></div>
                     </div>
                 </div>
-                <div>
+                <div id="contact_information_container" class="d-none">
                     <div class="container-contact-quick-select">
                         <div class="box-contact-initials">
-                            <div class="contact-initials">TW</div>
+                            <div id="contact_initials" class="contact-initials add-new-contact"><img
+                                    class="dialog-initials-create-icon" src="../../assets/icons/create_contact.svg"
+                                    alt=""></div>
                         </div>
                         <div class="container-contact-quick-select-info">
-                            <div class="contact-name">Timo Weyer</div>
+                            <div id="contact_name" class="contact-name"></div>
                             <div class="container-contact-buttons">
                                 <button onclick="editContact()" class="button-edit"><img
                                         src="../../assets/icons/edit.svg" alt="">Edit</button>
@@ -80,9 +65,9 @@
                     <div class="contact-information-title">Contact Information</div>
                     <div class="contact-information-tocontact">
                         <p class="contact-information-tocontact-title">Email</p>
-                        <a>email@example.com</a>
+                        <a id="contact_email">email@example.com</a>
                         <p class="contact-information-tocontact-title">Phone</p>
-                        <p>+1234567890</p>
+                        <p id="contact_phone">+1234567890</p>
                     </div>
                 </div>
                 <button class="button-responsive-contact-options"><img src="../../assets/icons/contact_options.svg"
@@ -100,7 +85,7 @@
                             <img class="dialog-logo" src="../../assets/icons/contact_join.svg" alt="Logo">
                         </div>
                         <div class="dialog-container-left-text">
-                            <h2 id="dialog-title" class="dialog-title">Add contact</h2>
+                            <h2 id="dialog_title" class="dialog-title">Add contact</h2>
                             <p class="dialog-slogan">Tasks are better with a team!</p>
                             <div class="dialog-underline"></div>
                         </div>
@@ -109,26 +94,30 @@
                         <button onclick="closeDialog()" class="button-dialog-close"><img
                                 src="../../assets/icons/cancel.svg" alt=""></button>
                         <div class="box-dialog-initials">
-                            <div class="dialog-initials add-new-contact"><img class="dialog-initials-create-icon"
+                            <div id="dialog_initials" class="dialog-initials add-new-contact"><img id="dialog_initials_icon" class="dialog-initials-create-icon"
                                     src="../../assets/icons/create_contact.svg" alt=""></div>
                         </div>
-                        <div class="container-dialog-changings">
+                        <div onsubmit="return false;" class="container-dialog-changings">
                             <div class="container-dialog-inputs">
-                                <input class="dialog-input dialog-input-person-icon" type="text"
-                                    placeholder="Enter Name">
-                                <input class="dialog-input dialog-input-email-icon" type="email"
-                                    placeholder="Enter email">
-                                <input class="dialog-input dialog-input-phone-icon" type="tel"
-                                    placeholder="Enter phone number">
+                                <input id="dialog_input_name" class="dialog-input dialog-input-person-icon" type="text"
+                                    placeholder="Enter Name" required>
+                                <input id="dialog_input_email" class="dialog-input dialog-input-email-icon" type="email"
+                                    placeholder="Enter email" required>
+                                <input id="dialog_input_phone" class="dialog-input dialog-input-phone-icon" type="tel"
+                                    placeholder="Enter phone number" required>
                             </div>
                             <div class="container-dialog-buttons">
-                                <button class="dialog-button-delete">Delete</button>
-                                <button class="dialog-button-save">Save <img class="dialog-icon"
+                                <button onclick="deleteContact()" id="dialog_button_delete"
+                                    class="dialog-button-delete">Delete</button>
+                                <button onclick="saveEditContact()" id="dialog_button_save"
+                                    class="dialog-button-save">Save <img class="dialog-icon"
                                         src="../../assets/icons/check.svg" alt=""></button>
 
-                                <button class="dialog-button-cancel d-none">Cancel <img
-                                        src="../../assets/icons/cancel.svg" alt=""></button>
-                                <button class="dialog-button-create d-none">Create contact <img class="dialog-icon"
+                                <button onclick="closeDialog()" id="dialog_button_cancel"
+                                    class="dialog-button-cancel d-none">Cancel <img src="../../assets/icons/cancel.svg"
+                                        alt=""></button>
+                                <button onclick="createContact()" id="dialog_button_create"
+                                    class="dialog-button-create d-none">Create contact <img class="dialog-icon"
                                         src="../../assets/icons/check.svg" alt=""></button>
                             </div>
                         </div>

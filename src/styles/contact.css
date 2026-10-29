@@ -273,7 +273,6 @@ a {
 }
 
 .contact-initials {
-    background-color: orange;
     color: var(--colorWhite);
     height: 120px;
     width: 120px;
@@ -619,6 +618,39 @@ a {
     border-radius: 20px;
     font-size: 20px;
     font-weight: 400;
+}
+
+/* user colors */
+
+.red {
+    background-color: red;
+}
+.blue {
+    background-color: blue;
+}
+.green {
+    background-color: green;
+}
+.darfred {
+    background-color: rgb(65, 0, 0);
+}
+.orange {
+    background-color: orange;
+}
+.purple {
+    background-color: purple;
+}
+.pink {
+    background-color: pink;
+}
+.darkgreen {
+    background-color: rgb(0, 63, 0);
+}
+.turquoise {
+    background-color: turquoise;
+}
+.darkblue {
+    background-color: rgb(0, 0, 118);
 }
 
 /* Responsive */
