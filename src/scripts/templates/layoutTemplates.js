@@ -46,3 +46,17 @@ function headerLoggedOutTemplate(iconPath) {
     <a class="headerLogo" href="../../index.html"><img class="headerLogoImg" src="${iconPath}join_icon_dark.svg" alt="Join Logo"></a>
     <p class="headerTitle">Kanban Project Management Tool</p>`;
 }
+
+function sessionTimeoutTemplate(iconPath) {
+  return `
+    <div id="sessionOverlay" class="sessionOverlay"></div>
+    <div id="sessionWarning" class="sessionWarning" role="status" aria-live="polite">
+      <p class="sessionWarningText">You will be logged out due to inactivity in <span id="sessionWarningTime" class="sessionWarningTime"></span>.</p>
+      <button class="sessionWarningButton" type="button">Stay logged in</button>
+    </div>
+    <dialog id="sessionGoodbyeDialog" class="sessionGoodbyeDialog">
+      <img class="sessionGoodbyeLogo" src="${iconPath}join_icon_bright.svg" alt="Join Logo">
+      <p class="sessionGoodbyeTitle">See you next time!</p>
+      <p class="sessionGoodbyeText">You have been logged out due to inactivity.</p>
+    </dialog>`;
+}

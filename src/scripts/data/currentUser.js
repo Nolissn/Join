@@ -1,4 +1,5 @@
 const currentUserKey = 'joinCurrentUser';
+const lastActivityKey = 'joinLastActivity';
 let currentUser = loadCurrentUser();
 
 function loadCurrentUser() {
@@ -25,6 +26,7 @@ function removeCurrentUser() {
   currentUser = null;
   try {
     sessionStorage.removeItem(currentUserKey);
+    sessionStorage.removeItem(lastActivityKey);
   } catch (error) {
     console.warn('Current user could not be removed:', error);
   }
