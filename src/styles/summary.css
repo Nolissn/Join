@@ -49,6 +49,8 @@ section {
     background-color: var(--colorWhite);
     display: flex;
     justify-content: center;
+    color: inherit;
+    text-decoration: none;
     height: clamp(96px, 19vh, 168px);
     border-radius: clamp(20px, 2.1vw, 30px);
     border: 1px solid var(--colorUnfocusedInputTag);
