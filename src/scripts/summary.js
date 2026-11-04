@@ -10,21 +10,30 @@ async function initSummary() {
   const summaryElements = getSummaryElements();
   if (summaryElements === null) return;
 
-  if (currentUser && currentUser.isGuest !== true) {
-    renderCurrentUser(summaryElements);
-  } else {
-    renderGuest(summaryElements);
-  }
+  renderSummaryGreeting(summaryElements);
 
   await loadTasks();
   renderTaskSummary();
 }
 
+function renderSummaryGreeting(summaryElements) {
+  if (consumeSummaryGreetingIntro()) {
+    summaryElements.greetingContainer.classList.add("summary-greeting-intro");
+  }
+
+  if (currentUser && currentUser.isGuest !== true) {
+    renderCurrentUser(summaryElements);
+  } else {
+    renderGuest(summaryElements);
+  }
+}
+
 function getSummaryElements() {
+  const greetingContainer = document.querySelector(".summary-greeting");
   const greetingElement = document.querySelector(".summary-greeting .greeting-message");
   const nameElement = document.querySelector(".summary-greeting .name");
-  if (greetingElement === null || nameElement === null) return null;
-  return { greetingElement, nameElement };
+  if (greetingContainer === null || greetingElement === null || nameElement === null) return null;
+  return { greetingContainer, greetingElement, nameElement };
 }
 
 function renderTaskSummary() {
@@ -86,16 +95,16 @@ function renderCurrentUser({ greetingElement, nameElement }) {
 function renderGuest({ greetingElement, nameElement }) {
   const time = new Date().getHours();
   if (time >= 5 && time < 12) {
-    greetingElement.textContent = "Good Morning,";
+    greetingElement.textContent = "Good Morning";
   } else if (time >= 12 && time < 18) {
-    greetingElement.textContent = "Good Afternoon,";
+    greetingElement.textContent = "Good Afternoon";
   } else if (time >= 18 && time < 21) {
-    greetingElement.textContent = "Good Evening,";
+    greetingElement.textContent = "Good Evening";
   } else {
-    greetingElement.textContent = "Good Night,";
+    greetingElement.textContent = "Good Night";
   }
 
-  nameElement.textContent = currentUser.name;
+  nameElement.textContent = "";
 }
 
 initSummary();
