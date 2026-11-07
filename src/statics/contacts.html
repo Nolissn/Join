@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join - Contacts</title>
+    <link rel="icon" type="image/svg+xml" href="../../assets/icons/join_icon_bright.svg" />
+    <link rel="stylesheet" href="../styles/colors.css">
+    <link rel="stylesheet" href="../styles/fonts.css">
+    <link rel="stylesheet" href="../styles/standard.css">
+    <link rel="stylesheet" href="../styles/navbar.css">
+    <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/contact.css">
+    <script src="../scripts/data/currentUser.js"></script>
+    <script src="../scripts/pageGuard.js"></script>
+    <script src="../scripts/templates/layoutTemplates.js" defer></script>
+    <script src="../scripts/templates/boardTemplates.js" defer></script>
+    <script src="../scripts/layout.js" defer></script>
+    <script type="module" src="../scripts/contact.js"></script>
+</head>
+
+<body>
+    <aside class="sidebar"></aside>
+    <div class="pageColumn">
+        <header class="header"></header>
+        <main>
+            <!-- Contact list -->
+            <section class="section-contact-list">
+                <button onclick="addNewContact()" class="button-add-new-contact contact-list-container-width">Add new
+                    contact <img src="../../assets/icons/add_new_contact.svg" alt=""></button>
+                <div id="contact_list" class="container-contact-list">
+                    <!-- js elements will be inserted here -->
+                </div>
+                <button onclick="addNewContact()" class="button-responsive-contact-options"><img
+                        src="../../assets/icons/add_new_contact.svg" alt=""></button>
+            </section>
+            <!-- Contact information -->
+            <section class="section-contacts-information">
+                <button class="button-responsive-return"><img src="../../assets/icons/arrow_left.svg" alt=""></button>
+                <div class="container-contacts-header">
+                    <h2 class="contacts-header-title">Contacts</h2>
+                    <div class="contacts-header-seperator-container">
+                        <div class="contacts-header-seperator"></div>
+                        <div class="contacts-header-slogan">Better with a team</div>
+                        <div class="contacts-header-seperator-responsive"></div>
+                    </div>
+                </div>
+                <div id="contact_information_container" class="d-none">
+                    <div class="container-contact-quick-select">
+                        <div class="box-contact-initials">
+                            <div id="contact_initials" class="contact-initials add-new-contact"></div>
+                        </div>
+                        <div class="container-contact-quick-select-info">
+                            <div id="contact_name" class="contact-name"></div>
+                            <div class="container-contact-buttons">
+                                <button onclick="editContact()" class="button-edit"><img
+                                        src="../../assets/icons/edit.svg" alt="">Edit</button>
+                                <button onclick="deleteContact()" class="button-edit"><img
+                                        src="../../assets/icons/delete.svg" alt="">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-information-title">Contact Information</div>
+                    <div class="contact-information-tocontact">
+                        <p class="contact-information-tocontact-title">Email</p>
+                        <a id="contact_email" href="mailto:">email@example.com</a>
+                        <p class="contact-information-tocontact-title">Phone</p>
+                        <p id="contact_phone">+1234567890</p>
+                    </div>
+                </div>
+                <button class="button-responsive-contact-options"><img src="../../assets/icons/contact_options.svg"
+                        alt=""></button>
+            </section>
+
+            <!-- contact dialog -->
+
+            <dialog onclick="closeDialog()" id="dialog_contact" class="dialog-contact">
+                <div onclick="event.stopPropagation()" class=" dialog-center">
+                    <section class="dialog-left-side">
+                        <button onclick="closeDialog()" class="button-dialog-cancel-responsive"><img
+                                src="../../assets/icons/cancel_white.svg" alt=""></button>
+                        <div class="dialog-container-logo">
+                            <img class="dialog-logo" src="../../assets/icons/contact_join.svg" alt="Logo">
+                        </div>
+                        <div class="dialog-container-left-text">
+                            <h2 id="dialog_title" class="dialog-title">Add contact</h2>
+                            <p id="dialog_slogan" class="dialog-slogan">Tasks are better with a team!</p>
+                            <div class="dialog-underline"></div>
+                        </div>
+                    </section>
+                    <section class="dialog-right-side">
+                        <button onclick="closeDialog()" class="button-dialog-close"><img
+                                src="../../assets/icons/cancel.svg" alt=""></button>
+                        <div class="box-dialog-initials">
+                            <div id="dialog_initials" class="dialog-initials add-new-contact"></div>
+                        </div>
+                        <form onsubmit="return false" class="container-dialog-changings">
+                            <div class="container-dialog-inputs">
+                                <input id="dialog_input_name" class="dialog-input dialog-input-person-icon" type="text"
+                                    placeholder="Enter Name" required>
+                                <input id="dialog_input_email" class="dialog-input dialog-input-email-icon" type="email"
+                                    placeholder="Enter email" required>
+                                <input id="dialog_input_phone" class="dialog-input dialog-input-phone-icon" type="tel"
+                                    placeholder="Enter phone number" required>
+                            </div>
+                            <div class="container-dialog-buttons">
+                                <button onclick="deleteContact()" id="dialog_button_delete"
+                                    class="dialog-button-delete d-none">Delete</button>
+                                <button onclick="saveEditContact()" id="dialog_button_save"
+                                    class="dialog-button-save d-none">Save <img class="dialog-icon"
+                                        src="../../assets/icons/check.svg" alt=""></button>
+
+                                <button onclick="closeDialog()" type="button" id="dialog_button_cancel"
+                                    class="dialog-button-cancel d-none">Cancel <img src="../../assets/icons/cancel.svg"
+                                        alt=""></button>
+                                <button onclick="createContact()" id="dialog_button_create"
+                                    class="dialog-button-create d-none">Create contact <img class="dialog-icon"
+                                        src="../../assets/icons/check.svg" alt=""></button>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+
+                <!-- <div class="dialog-success-message">Contact succesfully created</div> -->
+            </dialog>
+
+            <!-- transform Element -->
+
+            <div class="contact-container-actions-responsive">
+                <button class="button-action-responsive"><img src="../../assets/icons/edit.svg" alt=""> Edit</button>
+                <button class="button-action-responsive"><img src="../../assets/icons/delete.svg" alt="">
+                    Delete</button>
+            </div>
+
+        </main>
+</body>
+
+</html>
