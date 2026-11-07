@@ -20,6 +20,7 @@ const avatarColors = ['avatarOrange', 'avatarTurquoise', 'avatarPurple'];
 const autoScrollZone = 80;
 const autoScrollMaxSpeed = 18;
 let mouseDrag = null;
+let previousBodyOverflow = null;
 
 async function initBoard() {
   initBoardEvents();
@@ -39,6 +40,7 @@ function initBoardEvents() {
   document.getElementById('findTask').addEventListener('input', renderBoard);
   document.querySelector('.boardSearchClear').addEventListener('click', clearSearch);
   initTaskDialogEvents();
+  initAddTaskDialogEvents();
 }
 
 function initTaskDialogEvents() {
@@ -47,6 +49,26 @@ function initTaskDialogEvents() {
   taskDialog.addEventListener('cancel', closeTaskDialog);
   taskDialog.addEventListener('submit', saveTaskEdit);
   taskDialog.addEventListener('keydown', handleEditKeydown);
+}
+
+function initAddTaskDialogEvents() {
+  const addTaskDialog = document.getElementById('addTaskDialog');
+  addTaskDialog.addEventListener('click', function (event) {
+    if (event.target === addTaskDialog) closeAddTaskDialog();
+  });
+  addTaskDialog.addEventListener('close', unlockPageScroll);
+}
+
+function lockPageScroll() {
+  if (previousBodyOverflow !== null) return;
+  previousBodyOverflow = document.body.style.overflow;
+  document.body.style.overflow = 'hidden';
+}
+
+function unlockPageScroll() {
+  if (previousBodyOverflow === null) return;
+  document.body.style.overflow = previousBodyOverflow;
+  previousBodyOverflow = null;
 }
 
 function renderBoard() {
@@ -400,14 +422,17 @@ function formatDueDate(dueDate) {
 
 function openAddTaskDialog() {
   const addTaskDialog = document.getElementById('addTaskDialog');
+  if (addTaskDialog.open) return;
   const content = addTaskDialog.querySelector('.add-task-dialog-content');
   content.innerHTML = renderAddTaskDialog();
   initializeAddTaskForm(content.querySelector('#addTaskForm'));
   addTaskDialog.showModal();
+  lockPageScroll();
 }
 
 function closeAddTaskDialog() {
-  document.getElementById('addTaskDialog').close();
+  const addTaskDialog = document.getElementById('addTaskDialog');
+  if (addTaskDialog.open) addTaskDialog.close();
 }
 
 document.addEventListener('DOMContentLoaded', initBoard);
