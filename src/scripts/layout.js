@@ -30,6 +30,7 @@ function logOut(event) {
 
 function getCurrentUserInitials() {
   if (currentUser === null) return 'G';
+  if (currentUser.isGuest === true) return 'G';
   return getInitials(currentUser.name);
 }
 

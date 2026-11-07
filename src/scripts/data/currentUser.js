@@ -1,4 +1,6 @@
 const currentUserKey = 'joinCurrentUser';
+const lastActivityKey = 'joinLastActivity';
+const summaryGreetingIntroKey = 'joinSummaryGreetingIntro';
 let currentUser = loadCurrentUser();
 
 function loadCurrentUser() {
@@ -16,8 +18,20 @@ function setCurrentUser(user, isGuest = false) {
   currentUser = { id: user.id, name: user.name, email: user.email, isGuest };
   try {
     sessionStorage.setItem(currentUserKey, JSON.stringify(currentUser));
+    sessionStorage.setItem(summaryGreetingIntroKey, 'true');
   } catch (error) {
     console.warn('Current user could not be saved:', error);
+  }
+}
+
+function consumeSummaryGreetingIntro() {
+  try {
+    const shouldShowIntro = sessionStorage.getItem(summaryGreetingIntroKey) === 'true';
+    sessionStorage.removeItem(summaryGreetingIntroKey);
+    return shouldShowIntro;
+  } catch (error) {
+    console.warn('Summary greeting intro could not be loaded:', error);
+    return false;
   }
 }
 
@@ -25,6 +39,8 @@ function removeCurrentUser() {
   currentUser = null;
   try {
     sessionStorage.removeItem(currentUserKey);
+    sessionStorage.removeItem(lastActivityKey);
+    sessionStorage.removeItem(summaryGreetingIntroKey);
   } catch (error) {
     console.warn('Current user could not be removed:', error);
   }

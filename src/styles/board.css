@@ -138,16 +138,7 @@
   gap: 16px;
 }
 
-.columnTasksHighlight::after {
-  content: '';
-  height: 160px;
-  border: 1px dashed var(--colorGrey);
-  border-radius: 24px;
-  background-color: var(--colorPlaceholderBg);
-}
-
-.columnTasks:has(.taskCard) .taskPlaceholder,
-.columnTasksHighlight .taskPlaceholder {
+.columnTasks:has(.taskCard) .taskPlaceholder {
   display: none;
 }
 
@@ -165,6 +156,7 @@
 }
 
 .taskCard {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -175,8 +167,97 @@
   cursor: pointer;
 }
 
+.taskCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.taskMoveButton {
+  display: none;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.taskMoveMenu {
+  position: absolute;
+  top: 48px;
+  right: 16px;
+  z-index: 1;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 8px;
+  border-radius: 20px 0 20px 20px;
+  background-color: var(--colorPrimary);
+  cursor: default;
+}
+
+.taskCardMoveOpen .taskMoveMenu {
+  display: flex;
+}
+
+.taskMoveTitle {
+  padding: 0 8px 4px;
+  color: var(--colorWhite);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.taskMoveOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  color: var(--colorWhite);
+  font-family: inherit;
+  font-size: 16px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.taskMoveOption:hover,
+.taskMoveOption:focus-visible {
+  background-color: var(--colorPrimaryDark);
+  outline: none;
+}
+
+.taskCardHeld,
 .taskCardDragging {
-  opacity: 0.4;
+  border: 1px dashed var(--colorGrey);
+  background-color: var(--colorPlaceholderBg);
+  box-shadow: none;
+}
+
+.taskCardHeld > *,
+.taskCardDragging > * {
+  visibility: hidden;
+}
+
+.taskCardGhost {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 252px;
+  translate: var(--dragX) var(--dragY);
+  scale: 1.05;
+  box-shadow: 0 8px 24px 4px rgba(0, 0, 0, 0.24);
+  pointer-events: none;
+  animation: taskCardGrab 150ms ease-out;
+}
+
+@keyframes taskCardGrab {
+  from {
+    scale: 1;
+  }
 }
 
 .taskCategory {
@@ -457,6 +538,163 @@
   border-left: 1px solid var(--colorUnfocusedInputTag);
 }
 
+.taskEditForm {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.taskEditHeader {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.taskEditField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.taskEditFieldset {
+  min-width: 0;
+  padding: 0;
+  border: none;
+}
+
+.taskEditLabel {
+  padding: 0;
+  margin-bottom: 8px;
+  color: var(--colorColumnTitle);
+  font-size: 20px;
+}
+
+.taskEditField > .taskEditLabel {
+  margin-bottom: 0;
+}
+
+.taskEditInput {
+  width: 100%;
+  min-width: 0;
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--colorGreyLight);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 20px;
+}
+
+.taskEditInput:focus {
+  border-color: var(--colorAccent);
+  outline: none;
+}
+
+.taskEditTextarea {
+  height: 120px;
+  padding: 12px 16px;
+  resize: vertical;
+}
+
+.taskEditPriorities {
+  display: flex;
+  gap: 8px;
+}
+
+.taskEditPriority {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 56px;
+  border-radius: 10px;
+  background-color: var(--colorWhite);
+  font-size: 20px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.16);
+  cursor: pointer;
+}
+
+.taskEditPriorityRadio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.taskEditPriority:has(:focus-visible) {
+  outline: 2px solid var(--colorAccent);
+}
+
+.taskEditPriority:has(:checked) {
+  color: var(--colorWhite);
+  font-weight: 700;
+}
+
+.taskEditPriority:has(:checked) .taskEditPriorityIcon {
+  filter: brightness(0) invert(1);
+}
+
+.taskEditPriorityUrgent:has(:checked) {
+  background-color: var(--priorityUrgentRed);
+}
+
+.taskEditPriorityMedium:has(:checked) {
+  background-color: var(--priorityMediumYellow);
+}
+
+.taskEditPriorityLow:has(:checked) {
+  background-color: var(--priorityLowGreen);
+}
+
+.taskEditSubtaskAdd,
+.taskEditSubtask {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.taskEditSubtaskList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.taskEditSubtaskInput {
+  height: 40px;
+  font-size: 16px;
+}
+
+.taskEditIconButton {
+  display: flex;
+  flex-shrink: 0;
+  padding: 4px;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+}
+
+.taskEditActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.taskEditSubmit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--colorPrimary);
+  color: var(--colorWhite);
+  font-family: inherit;
+  font-size: 21px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 @media (min-width: 769px) {
   .boardAddButton:hover {
     background-color: var(--colorAccent);
@@ -465,6 +703,15 @@
 
   .taskCard:hover {
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.16);
+  }
+
+  .taskEditIconButton:hover {
+    background-color: var(--colorBgHover);
+  }
+
+  .taskEditSubmit:hover {
+    background-color: var(--colorAccent);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   }
 }
 
@@ -501,8 +748,7 @@
     flex: 1;
   }
 
-  .taskCard,
-  .columnTasksHighlight::after {
+  .taskCard {
     flex: 0 0 252px;
   }
 }
@@ -567,6 +813,10 @@
     padding: 8px 16px 16px;
   }
 
+  .taskMoveButton {
+    display: flex;
+  }
+
   .taskDetail {
     gap: 16px;
     padding: 32px 24px;
@@ -574,5 +824,37 @@
 
   .taskDetailTitle {
     font-size: 36px;
+  }
+
+  .taskEditPriority {
+    gap: 4px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) and (pointer: coarse) {
+  .taskCard {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+  }
+}
+
+@media (max-width: 430px) {
+  .taskEditPriorities {
+    gap: 6px;
+  }
+
+  .taskEditPriority {
+    gap: 4px;
+    height: 48px;
+    padding: 0 6px;
+    font-size: 14px;
+  }
+
+  .taskEditPriorityIcon {
+    width: 14px;
+    height: 10px;
   }
 }

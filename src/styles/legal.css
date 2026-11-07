@@ -9,11 +9,55 @@ h1 {
 
 h2 {
     font-size: clamp(20px, 3vw, 27px);
+}
+
+.h2-notice-policy {
     padding: 50px 0 20px 0;
 }
 
 span {
     color: var(--colorPrimaryGreyTone);
+}
+
+.help-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.steps-legal {
+    display: flex;
+    gap: 35px;
+    padding-top: 16px;
+}
+
+button {
+    border: 0;
+    background-color: transparent;
+}
+button:hover {
+    cursor: pointer;
+}
+
+.help-header button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.help-header button:hover {
+    background-color: #e8e8e8;
+}
+
+.help-header button img {
+    transition: transform 0.2s ease;
+}
+
+.help-header button:hover img {
+    transform: scale(1.15);
 }
 
 @media(max-width: 1000px) {

@@ -10,11 +10,13 @@
     <link rel="stylesheet" href="../styles/standard.css">
     <link rel="stylesheet" href="../styles/navbar.css">
     <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/sessionTimeout.css">
     <link rel="stylesheet" href="../styles/addTask.css">
     <script src="../scripts/data/currentUser.js"></script>
     <script src="../scripts/pageGuard.js"></script>
     <script src="../scripts/templates/layoutTemplates.js" defer></script>
     <script src="../scripts/layout.js" defer></script>
+    <script src="../scripts/sessionTimeout.js" defer></script>
     <script src="../scripts/addTask.js" defer></script>
 </head>
 <body>
@@ -24,7 +26,7 @@
         <main>
             <h1>Add Task</h1>
 
-            <form>
+            <form id="addTaskForm">
                 <div class="form-task-input">
                     <section class="form-left">
                         <div class="add-task-input-container">
@@ -70,8 +72,8 @@
                             <div class="custom-select">
                                 <select class="visually-hidden-select" name="category" id="categoryValue" required aria-hidden="true" tabindex="-1">
                                 <option value="" disabled selected hidden>Category</option>
-                                <option value="personal">Technical Task</option>
-                                <option value="shopping">User Story</option>
+                                <option value="Technical Task">Technical Task</option>
+                                <option value="User Story">User Story</option>
                                 </select>
                                 <button type="button" class="add-task-input custom-select-trigger" id="category" aria-haspopup="listbox" aria-expanded="false">Category</button>
                                 <div class="custom-select-menu" role="listbox" aria-labelledby="category" hidden></div>
@@ -84,10 +86,14 @@
                     </section>
                 </div>
 
-                <div class="add-task-btn-container">
-                    <button type="button" class="clear-task-btn add-task-btn" onclick="clearTaskForm()">Clear <img src="../../assets/icons/cancel.svg" alt="Clear"></button>
-                    <button type="submit" class="create-task-btn add-task-btn" disabled>Create Task <img src="../../assets/icons/check.svg" alt="Create Task"></button>
+                <div class="footer">
+                    <p class="required"><span style="color: var(--colorAvatarOrange);">*</span>field is required</p>
+                    <div class="add-task-btn-container">
+                        <button type="button" class="clear-task-btn add-task-btn" onclick="clearTaskForm()">Clear <img src="../../assets/icons/cancel.svg" alt="Clear"></button>
+                        <button type="submit" class="create-task-btn add-task-btn" disabled>Create Task <img src="../../assets/icons/check.svg" alt="Create Task"></button>
+                    </div>
                 </div>
+                <p id="taskFormStatus" role="status" aria-live="polite" hidden></p>
             </form>
         </main>
     </div>

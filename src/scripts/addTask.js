@@ -24,20 +24,101 @@ function updatePriorityIcons() {
     document.querySelectorAll(".priority-btn").forEach(updatePriorityIcon);
 }
 
+let isSavingTask = false;
+
 function updateCreateTaskButton() {
-    const form = document.querySelector("form");
-    const createTaskButton = document.querySelector(".create-task-btn");
-    const hasSelectedPriority = document.querySelector(".priority-btn.btn-active") !== null;
-    const hasTextContent = [...form.querySelectorAll('input[type="text"], textarea')]
+    const createTaskButton = addTaskForm.querySelector(".create-task-btn");
+    const hasSelectedPriority = addTaskForm.querySelector(".priority-btn.btn-active") !== null;
+    const hasTextContent = [...addTaskForm.querySelectorAll('input[type="text"], textarea')]
         .every(field => field.value.trim().length > 0);
-    createTaskButton.disabled = !form.checkValidity() || !hasTextContent || !hasSelectedPriority;
+    createTaskButton.disabled = isSavingTask || !addTaskForm.checkValidity() || !hasTextContent || !hasSelectedPriority;
+}
+
+function getSelectedPriority() {
+    const selectedButton = addTaskForm.querySelector(".priority-btn.btn-active");
+    return selectedButton.id.replace("priority", "").toLowerCase();
+}
+
+function getTaskAssignees(formData) {
+    const assignedOption = addTaskForm.querySelector("#assignedValue").selectedOptions[0];
+    return [{ id: formData.get("assigned"), name: assignedOption.textContent }];
+}
+
+function getTaskSubtasks(formData) {
+    return [{ title: formData.get("subtasks").trim(), done: false }];
+}
+
+function getTaskFromForm() {
+    const formData = new FormData(addTaskForm);
+    return {
+        title: formData.get("title").trim(),
+        description: formData.get("description").trim(),
+        dueDate: formData.get("dueDate"),
+        priority: getSelectedPriority(),
+        assignedTo: getTaskAssignees(formData),
+        category: formData.get("category"),
+        subtasks: getTaskSubtasks(formData),
+        status: "todo"
+    };
+}
+
+function startTaskSave(statusMessage) {
+    isSavingTask = true;
+    statusMessage.hidden = true;
+    updateCreateTaskButton();
+}
+
+async function persistTask() {
+    const { saveTask } = await import("./data/joinDbApi.js");
+    const task = getTaskFromForm();
+    const taskId = await saveTask(task);
+    if (typeof renderBoard === "function") {
+        storedTasks.push({ ...task, id: taskId });
+        saveTasksToLocalStorage();
+        renderBoard();
+    }
+}
+
+function showTaskStatus(statusMessage, state, message) {
+    statusMessage.textContent = message;
+    statusMessage.dataset.state = state;
+    statusMessage.hidden = false;
+}
+
+function handleTaskSaveSuccess(statusMessage) {
+    clearTaskForm();
+    showTaskStatus(statusMessage, "success", "Task created successfully.");
+}
+
+function handleTaskSaveError(statusMessage, error) {
+    console.error("Task could not be created:", error);
+    showTaskStatus(statusMessage, "error", "Task could not be saved. Please try again.");
+}
+
+function finishTaskSave() {
+    isSavingTask = false;
+    updateCreateTaskButton();
+}
+
+async function createTask(event) {
+    event.preventDefault();
+    if (!addTaskForm.reportValidity()) return;
+    const statusMessage = addTaskForm.querySelector("#taskFormStatus");
+    startTaskSave(statusMessage);
+    try {
+        await persistTask();
+        handleTaskSaveSuccess(statusMessage);
+    } catch (error) {
+        handleTaskSaveError(statusMessage, error);
+    } finally {
+        finishTaskSave();
+    }
 }
 
 function clearTaskForm() {
-    const form = document.querySelector("form");
-    form.reset();
+    addTaskForm.reset();
     clearPriorityButtons();
-    document.getElementById("priorityMedium").classList.add("btn-active", "priority-medium");
+    addTaskForm.querySelector("#priorityMedium").classList.add("btn-active", "priority-medium");
     updatePriorityIcons();
     updateCreateTaskButton();
 }
@@ -80,7 +161,7 @@ function populateCustomSelectMenu(context) {
 }
 
 function closeOtherCustomSelects(context) {
-    document.querySelectorAll(".custom-select").forEach(container => {
+    addTaskForm.querySelectorAll(".custom-select").forEach(container => {
         if (container !== context.container) closeCustomSelect(getCustomSelectContext(container));
     });
 }
@@ -159,7 +240,7 @@ function initializeCustomSelect(container) {
 }
 
 function resetCustomSelects() {
-    document.querySelectorAll(".custom-select").forEach(container => {
+    addTaskForm.querySelectorAll(".custom-select").forEach(container => {
         const context = getCustomSelectContext(container);
         syncCustomSelectSelection(context);
         closeCustomSelect(context);
@@ -170,9 +251,20 @@ function scheduleCustomSelectReset() {
     requestAnimationFrame(resetCustomSelects);
 }
 
-const addTaskForm = document.querySelector("form");
-document.querySelectorAll(".custom-select").forEach(initializeCustomSelect);
-addTaskForm.addEventListener("input", updateCreateTaskButton);
-addTaskForm.addEventListener("change", updateCreateTaskButton);
-addTaskForm.addEventListener("reset", scheduleCustomSelectReset);
-updateCreateTaskButton();
+let addTaskForm;
+
+function initializeAddTaskForm(form) {
+    addTaskForm = form;
+    form.querySelectorAll(".custom-select").forEach(initializeCustomSelect);
+    form.addEventListener("submit", createTask);
+    form.addEventListener("input", updateCreateTaskButton);
+    form.addEventListener("change", updateCreateTaskButton);
+    form.addEventListener("reset", scheduleCustomSelectReset);
+    updatePriorityIcons();
+    updateCreateTaskButton();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("addTaskForm");
+    if (form) initializeAddTaskForm(form);
+});

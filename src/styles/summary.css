@@ -49,6 +49,8 @@ section {
     background-color: var(--colorWhite);
     display: flex;
     justify-content: center;
+    color: inherit;
+    text-decoration: none;
     height: clamp(96px, 19vh, 168px);
     border-radius: clamp(20px, 2.1vw, 30px);
     border: 1px solid var(--colorUnfocusedInputTag);
@@ -240,6 +242,10 @@ body {
 
 @media (max-width: 940px) {
     .summary-greeting {
+        display: none;
+        text-align: center;
+    }
+    .summary-greeting.summary-greeting-intro {
         position: fixed;
         inset: 0;
         z-index: 20;
@@ -248,8 +254,7 @@ body {
         justify-content: center;
         padding: 24px;
         background-color: var(--colorBgPage);
-        text-align: center;
-        animation: summary-greeting-intro 6s ease forwards;
+        animation: summary-greeting-intro 2.5s ease forwards;
     }
     .summary-greeting h2 {
         font-size: clamp(32px, 6vw, 47px);
@@ -451,8 +456,8 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .summary-greeting {
-        animation-duration: 3s;
+    .summary-greeting.summary-greeting-intro {
+        animation-duration: 1ms;
         animation-timing-function: steps(1, end);
     }
 }

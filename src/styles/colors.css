@@ -1,5 +1,6 @@
 :root {
   --colorPrimary: #2A3647;
+  --colorPrimaryTransparent: #2A3647CC;
   --colorPrimaryDark: #091931;
   --colorPrimaryLight: #2A3D59;
   --colorPrimaryGreyTone: #124658;

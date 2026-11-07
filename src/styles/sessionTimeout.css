@@ -1,0 +1,164 @@
+.sessionOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 199;
+  background-color: rgba(0, 0, 0, 0.25);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 300ms ease-out, visibility 300ms;
+}
+
+.sessionOverlayVisible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.sessionWarning {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 384px;
+  padding: 20px 24px;
+  border-radius: 24px 0 24px 24px;
+  background-color: var(--colorPrimaryTransparent);
+  color: var(--colorWhite);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+  visibility: hidden;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.9);
+  transition: opacity 300ms ease-out, transform 300ms ease-out, visibility 300ms;
+}
+
+.sessionWarningVisible {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.sessionWarningText {
+  font-size: 19px;
+  line-height: 1.4;
+}
+
+.sessionWarningTime {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.sessionWarningButton {
+  align-self: center;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--colorWhite);
+  color: var(--colorPrimary);
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sessionGoodbyeDialog {
+  margin: auto;
+  border: none;
+  border-radius: 30px;
+  padding: 56px 72px;
+  width: 560px;
+  max-width: calc(100% - 32px);
+  background-color: var(--colorPrimaryTransparent);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(6px);
+  outline: none;
+}
+
+.sessionGoodbyeDialog[open] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+  animation: sessionGoodbyePopIn 500ms ease-out;
+}
+
+.sessionGoodbyeDialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.sessionGoodbyeLogo {
+  width: 80px;
+  height: 98px;
+}
+
+.sessionGoodbyeTitle {
+  color: var(--colorWhite);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.sessionGoodbyeText {
+  color: var(--colorGreyLight);
+  font-size: 20px;
+}
+
+@keyframes sessionGoodbyePopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (min-width: 769px) {
+  .sessionWarningButton:hover {
+    background-color: var(--colorAccent);
+    color: var(--colorWhite);
+  }
+}
+
+@media (max-width: 768px) {
+  .sessionWarning {
+    width: calc(100% - 32px);
+    max-width: 384px;
+  }
+
+  .sessionGoodbyeDialog {
+    padding: 40px 24px;
+  }
+
+  .sessionGoodbyeLogo {
+    width: 56px;
+    height: 68px;
+  }
+
+  .sessionGoodbyeTitle {
+    font-size: 32px;
+  }
+
+  .sessionGoodbyeText {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sessionOverlay,
+  .sessionWarning {
+    transition: none;
+  }
+
+  .sessionGoodbyeDialog[open] {
+    animation: none;
+  }
+}
