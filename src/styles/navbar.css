@@ -78,11 +78,11 @@
   }
 
   .legalLink:hover {
-    color: var(--colorPrimaryGreyTone);
+    background-color: var(--colorPrimaryLight);
   }
 
   .legalLinkActive:hover {
-    color: var(--colorWhite);
+    background-color: var(--colorPrimaryDark);
   }
 }
 
