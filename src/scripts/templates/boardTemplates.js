@@ -97,6 +97,81 @@ function taskDetailAssigneeTemplate(initials, avatarColor, name) {
 function taskDetailSubtaskTemplate(title, checkedAttribute) {
   return `<li><label class="taskDetailSubtask"><input class="taskDetailCheckbox" type="checkbox" ${checkedAttribute}>${makeTextSafe(title)}</label></li>`;
 }
+
+function renderAddTaskDialog() {
+  return `
+    <div class="add-task-dialog-header">
+      <h1>Add Task</h1>
+      <button class="close-dialog" onclick="closeAddTaskDialog()" type="button"><img src="../../assets/icons/cancel.svg" alt="Close"></button>
+    </div>
+    <form id="addTaskForm">
+      <div class="form-task-input">
+        <section class="form-left">
+          <div class="add-task-input-container">
+            <label for="title">Title</label>
+            <input class="add-task-input" type="text" name="title" id="title" placeholder="Enter a title" required>
+          </div>
+          <div class="add-task-input-container">
+            <label for="description">Description</label>
+            <textarea class="add-task-input" name="description" id="description" placeholder="Enter a description" required></textarea>
+          </div>
+          <div class="add-task-input-container">
+            <label for="dueDate">Due Date</label>
+            <input class="add-task-input" type="date" name="dueDate" id="dueDate" style="color:var(--colorTextGrey)" required>
+          </div>
+        </section>
+        <div class="seperator"></div>
+        <section class="form-right">
+          <div class="add-task-input-container">
+            <label for="priority" style="color:var(--colorBlack)">Priority</label>
+            <div id="priority" class="priority-btn-container">
+              <button type="button" class="priority-btn" id="priorityUrgent" onclick="setPriority('urgent')">Urgent <img class="priority-btn-icon" src="../../assets/icons/urgent.svg" data-icon="urgent.svg" data-active-icon="urgend-white.svg" alt="Urgent"></button>
+              <button type="button" class="priority-btn btn-active priority-medium" id="priorityMedium" onclick="setPriority('medium')">Medium <img class="priority-btn-icon" src="../../assets/icons/medium.svg" data-icon="medium_orange.svg" data-active-icon="medium.svg" alt="Medium"></button>
+              <button type="button" class="priority-btn" id="priorityLow" onclick="setPriority('low')">Low <img class="priority-btn-icon" src="../../assets/icons/low.svg" data-icon="low.svg" data-active-icon="urgend-white.svg" alt="Low"></button>
+            </div>
+          </div>
+          <div class="add-task-input-container">
+            <label for="assigned">Assigned To</label>
+            <div class="custom-select">
+              <select class="visually-hidden-select" name="assigned" id="assignedValue" required aria-hidden="true" tabindex="-1">
+                <option value="" disabled selected hidden>Assigned To</option>
+                <option value="user1">User 1</option>
+                <option value="user2">User 2</option>
+                <option value="user3">User 3</option>
+              </select>
+              <button type="button" class="add-task-input custom-select-trigger" id="assigned" aria-haspopup="listbox" aria-expanded="false">Assigned To</button>
+              <div class="custom-select-menu" role="listbox" aria-labelledby="assigned" hidden></div>
+            </div>
+          </div>
+          <div class="add-task-input-container">
+            <label for="category">Category</label>
+            <div class="custom-select">
+              <select class="visually-hidden-select" name="category" id="categoryValue" required aria-hidden="true" tabindex="-1">
+                <option value="" disabled selected hidden>Category</option>
+                <option value="Technical Task">Technical Task</option>
+                <option value="User Story">User Story</option>
+              </select>
+              <button type="button" class="add-task-input custom-select-trigger" id="category" aria-haspopup="listbox" aria-expanded="false">Category</button>
+              <div class="custom-select-menu" role="listbox" aria-labelledby="category" hidden></div>
+            </div>
+          </div>
+          <div class="add-task-input-container">
+            <label for="subtasks">Subtasks</label>
+            <input class="add-task-input" type="text" name="subtasks" id="subtasks" placeholder="Add new subtask" required>
+          </div>
+        </section>
+      </div>
+      <div class="footer">
+        <p class="required"><span class="required-asterisk">*</span> Required fields</p>
+        <div class="add-task-btn-container">
+          <button type="button" class="clear-task-btn add-task-btn" onclick="clearTaskForm()">Clear <img src="../../assets/icons/cancel.svg" alt="Clear"></button>
+          <button type="submit" class="create-task-btn add-task-btn" disabled>Create Task <img src="../../assets/icons/check.svg" alt="Create Task"></button>
+        </div>
+      </div>
+      <p class="task-form-status" id="taskFormStatus" role="status" aria-live="polite" hidden></p>
+    </form>`;
+}
+
 function taskEditTemplate(task) {
   return `
     <form class="taskEditForm" data-task-id="${makeTextSafe(task.id)}">

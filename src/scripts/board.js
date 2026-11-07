@@ -398,4 +398,16 @@ function formatDueDate(dueDate) {
   return dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0];
 }
 
+function openAddTaskDialog() {
+  const addTaskDialog = document.getElementById('addTaskDialog');
+  const content = addTaskDialog.querySelector('.add-task-dialog-content');
+  content.innerHTML = renderAddTaskDialog();
+  initializeAddTaskForm(content.querySelector('#addTaskForm'));
+  addTaskDialog.showModal();
+}
+
+function closeAddTaskDialog() {
+  document.getElementById('addTaskDialog').close();
+}
+
 document.addEventListener('DOMContentLoaded', initBoard);
