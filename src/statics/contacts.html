@@ -35,6 +35,7 @@
                 <button onclick="addNewContact()" class="button-responsive-contact-options"><img
                         src="../../assets/icons/add_new_contact.svg" alt=""></button>
             </section>
+            <!-- Contact information -->
             <section class="section-contacts-information">
                 <button class="button-responsive-return"><img src="../../assets/icons/arrow_left.svg" alt=""></button>
                 <div class="container-contacts-header">
@@ -48,9 +49,7 @@
                 <div id="contact_information_container" class="d-none">
                     <div class="container-contact-quick-select">
                         <div class="box-contact-initials">
-                            <div id="contact_initials" class="contact-initials add-new-contact"><img
-                                    class="dialog-initials-create-icon" src="../../assets/icons/create_contact.svg"
-                                    alt=""></div>
+                            <div id="contact_initials" class="contact-initials add-new-contact"></div>
                         </div>
                         <div class="container-contact-quick-select-info">
                             <div id="contact_name" class="contact-name"></div>
@@ -65,7 +64,7 @@
                     <div class="contact-information-title">Contact Information</div>
                     <div class="contact-information-tocontact">
                         <p class="contact-information-tocontact-title">Email</p>
-                        <a id="contact_email">email@example.com</a>
+                        <a id="contact_email" href="mailto:">email@example.com</a>
                         <p class="contact-information-tocontact-title">Phone</p>
                         <p id="contact_phone">+1234567890</p>
                     </div>
@@ -86,7 +85,7 @@
                         </div>
                         <div class="dialog-container-left-text">
                             <h2 id="dialog_title" class="dialog-title">Add contact</h2>
-                            <p class="dialog-slogan">Tasks are better with a team!</p>
+                            <p id="dialog_slogan" class="dialog-slogan">Tasks are better with a team!</p>
                             <div class="dialog-underline"></div>
                         </div>
                     </section>
@@ -94,10 +93,9 @@
                         <button onclick="closeDialog()" class="button-dialog-close"><img
                                 src="../../assets/icons/cancel.svg" alt=""></button>
                         <div class="box-dialog-initials">
-                            <div id="dialog_initials" class="dialog-initials add-new-contact"><img id="dialog_initials_icon" class="dialog-initials-create-icon"
-                                    src="../../assets/icons/create_contact.svg" alt=""></div>
+                            <div id="dialog_initials" class="dialog-initials add-new-contact"></div>
                         </div>
-                        <div onsubmit="return false;" class="container-dialog-changings">
+                        <form onsubmit="return false" class="container-dialog-changings">
                             <div class="container-dialog-inputs">
                                 <input id="dialog_input_name" class="dialog-input dialog-input-person-icon" type="text"
                                     placeholder="Enter Name" required>
@@ -108,19 +106,19 @@
                             </div>
                             <div class="container-dialog-buttons">
                                 <button onclick="deleteContact()" id="dialog_button_delete"
-                                    class="dialog-button-delete">Delete</button>
+                                    class="dialog-button-delete d-none">Delete</button>
                                 <button onclick="saveEditContact()" id="dialog_button_save"
-                                    class="dialog-button-save">Save <img class="dialog-icon"
+                                    class="dialog-button-save d-none">Save <img class="dialog-icon"
                                         src="../../assets/icons/check.svg" alt=""></button>
 
-                                <button onclick="closeDialog()" id="dialog_button_cancel"
+                                <button onclick="closeDialog()" type="button" id="dialog_button_cancel"
                                     class="dialog-button-cancel d-none">Cancel <img src="../../assets/icons/cancel.svg"
                                         alt=""></button>
                                 <button onclick="createContact()" id="dialog_button_create"
                                     class="dialog-button-create d-none">Create contact <img class="dialog-icon"
                                         src="../../assets/icons/check.svg" alt=""></button>
                             </div>
-                        </div>
+                        </form>
                     </section>
                 </div>
 
