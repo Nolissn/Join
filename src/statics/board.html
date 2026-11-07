@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="../styles/header.css">
     <link rel="stylesheet" href="../styles/sessionTimeout.css">
     <link rel="stylesheet" href="../styles/board.css">
-    <link rel="stylesheet" href="../styles/addTaskDialog.css">
     <script src="../scripts/data/currentUser.js"></script>
     <script src="../scripts/pageGuard.js"></script>
     <script src="../scripts/templates/layoutTemplates.js" defer></script>
@@ -21,11 +20,7 @@
     <script src="../scripts/templates/boardTemplates.js" defer></script>
     <script src="../scripts/data/localStorage.js" defer></script>
     <script src="../scripts/board.js" defer></script>
-<<<<<<< HEAD
-    <script src="../scripts/addTask.js" defer></script>
-=======
     <script src="../scripts/boardTouchSort.js" defer></script>
->>>>>>> f9cf021e701169c1460953941041713f50190904
 </head>
 <body>
     <aside class="sidebar"></aside>
@@ -40,16 +35,13 @@
                         <button class="boardSearchClear" type="button"><img src="../../assets/icons/cancel.svg" alt="Clear search"></button>
                         <button class="boardSearchButton" type="button"><img src="../../assets/icons/search.svg" alt="Search"></button>
                     </div>
-                    <button class="boardAddButton" id="addTaskButton" onclick="openAddTaskDialog()" type="button" aria-label="Add task"><span class="boardAddButtonText">Add task</span><img src="../../assets/icons/plus_white.svg" alt=""></button>
+                    <button class="boardAddButton" type="button" aria-label="Add task"><span class="boardAddButtonText">Add task</span><img src="../../assets/icons/plus_white.svg" alt=""></button>
                 </div>
             </div>
 
             <div class="boardColumns"></div>
             <dialog class="taskDialog" id="taskDialog">
                 <div class="taskDetail" tabindex="-1" autofocus></div>
-            </dialog>
-            <dialog class="add-task-dialog" id="addTaskDialog">
-                <div class="add-task-dialog-content"></div>
             </dialog>
         </main>
     </div>
