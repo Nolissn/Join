@@ -184,6 +184,16 @@ textarea {
     transform: rotate(180deg);
 }
 
+.footer {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 16px;
+}
+
+.required {
+    align-content: center;
+}
+
 .add-task-btn-container {
     display: flex;
     justify-content: end;

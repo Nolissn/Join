@@ -94,12 +94,33 @@ function saveTaskChanges(taskId) {
 
 async function sendTaskToFirebase(taskId) {
   waitingTaskIds.splice(waitingTaskIds.indexOf(taskId), 1);
-  const taskData = JSON.parse(JSON.stringify(findStoredTask(taskId)));
+  const task = findStoredTask(taskId);
+  if (!task) return;
+  const taskData = JSON.parse(JSON.stringify(task));
   delete taskData.id;
   try {
     const joinDbApi = await import('./joinDbApi.js');
     await joinDbApi.updateTask(taskId, taskData);
   } catch (error) {
     console.warn('Task ' + taskId + ' could not be sent to Firebase:', error);
+  }
+}
+
+function deleteStoredTask(taskId) {
+  storedTasks = storedTasks.filter(function (task) {
+    return task.id !== taskId;
+  });
+  saveTasksToLocalStorage();
+  firebaseQueue = firebaseQueue.then(function () {
+    return deleteTaskFromFirebase(taskId);
+  });
+}
+
+async function deleteTaskFromFirebase(taskId) {
+  try {
+    const joinDbApi = await import('./joinDbApi.js');
+    await joinDbApi.deleteTask(taskId);
+  } catch (error) {
+    console.warn('Task ' + taskId + ' could not be deleted from Firebase:', error);
   }
 }
