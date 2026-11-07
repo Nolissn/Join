@@ -77,7 +77,7 @@ export async function deleteTask(taskId) {
 
 function markTasksOutdated() {
     try {
-        localStorage.setItem("joinTasksOutdated", "true");
+        sessionStorage.setItem("joinTasksOutdated", "true");
     } catch (error) {
         console.warn("Tasks could not be marked as outdated:", error);
     }
