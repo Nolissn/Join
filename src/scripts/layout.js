@@ -1,5 +1,8 @@
 const iconPath = '../../assets/icons/';
 
+/**
+ * Renders the sidebar and the header depending on the login state and highlights the active link.
+ */
 function renderLayout() {
   if (isUserLoggedIn()) {
     renderLoggedInLayout();
@@ -9,12 +12,18 @@ function renderLayout() {
   markActiveNavLink();
 }
 
+/**
+ * Renders the sidebar and the header for a logged-in user and registers the log out link.
+ */
 function renderLoggedInLayout() {
   document.querySelector('.sidebar').innerHTML = sidebarTemplate(iconPath);
   document.querySelector('.header').innerHTML = headerTemplate(iconPath, getCurrentUserInitials());
   document.getElementById('logOutLink').addEventListener('click', logOut);
 }
 
+/**
+ * Renders the sidebar and the header for a visitor who is not logged in.
+ */
 function renderLoggedOutLayout() {
   const sidebar = document.querySelector('.sidebar');
   sidebar.classList.add('sidebarLoggedOut');
@@ -22,18 +31,31 @@ function renderLoggedOutLayout() {
   document.querySelector('.header').innerHTML = headerLoggedOutTemplate(iconPath);
 }
 
+/**
+ * Logs out the current user and redirects to the login page.
+ * @param {MouseEvent} event - The click event of the log out link.
+ */
 function logOut(event) {
   event.preventDefault();
   removeCurrentUser();
   location.replace('../../index.html');
 }
 
+/**
+ * Returns the initials of the logged-in user for the header avatar.
+ * @returns {string} The initials, or "G" for a guest.
+ */
 function getCurrentUserInitials() {
   if (currentUser === null) return 'G';
   if (currentUser.isGuest === true) return 'G';
   return getInitials(currentUser.name);
 }
 
+/**
+ * Returns the initials of a name, built from the first letter of the first and the last name part.
+ * @param {string} name - The full name.
+ * @returns {string} One or two uppercase letters.
+ */
 function getInitials(name) {
   const nameParts = name.trim().split(' ');
   const firstLetter = nameParts[0].charAt(0);
@@ -42,17 +64,30 @@ function getInitials(name) {
   return (firstLetter + lastLetter).toUpperCase();
 }
 
+/**
+ * Highlights the navigation link and the legal link of the current page.
+ */
 function markActiveNavLink() {
   const currentPage = window.location.pathname.split('/').pop();
   markActiveLink('.navLink', currentPage, 'navLinkActive');
   markActiveLink('.legalLink', currentPage, 'legalLinkActive');
 }
 
+/**
+ * Adds the active class to the link that points to the current page.
+ * @param {string} linkClass - The CSS selector of the links, e.g. ".navLink".
+ * @param {string} currentPage - The file name of the current page.
+ * @param {string} activeClass - The class that marks the active link.
+ */
 function markActiveLink(linkClass, currentPage, activeClass) {
   const activeLink = document.querySelector(`${linkClass}[href="${currentPage}"]`);
   if (activeLink !== null) activeLink.classList.add(activeClass);
 }
 
+/**
+ * Toggles the header menu when the avatar is clicked and closes it on a click outside the menu.
+ * @param {MouseEvent} event - The click event.
+ */
 function handleHeaderMenuClick(event) {
   const headerMenu = document.querySelector('.headerMenu');
   if (headerMenu === null) return;

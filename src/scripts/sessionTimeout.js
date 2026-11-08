@@ -8,6 +8,10 @@ let sessionTimerId = null;
 let isSessionWarningVisible = false;
 let isSessionEnding = false;
 
+/**
+ * Starts the session timeout for the logged-in user.
+ * Inserts the warning markup, registers the activity listeners and starts the timer.
+ */
 function initSessionTimeout() {
   if (isUserLoggedIn() === false) return;
   lastActivityTime = loadLastActivityTime();
@@ -21,6 +25,10 @@ function initSessionTimeout() {
   checkSessionTimeout();
 }
 
+/**
+ * Loads the time of the last user activity from the session storage.
+ * @returns {number} The saved timestamp in milliseconds, or the current time if none is saved.
+ */
 function loadLastActivityTime() {
   try {
     const savedTime = Number(sessionStorage.getItem(lastActivityKey));
@@ -31,6 +39,9 @@ function loadLastActivityTime() {
   return Date.now();
 }
 
+/**
+ * Saves the time of the last user activity in the session storage.
+ */
 function saveLastActivityTime() {
   if (isUserLoggedIn() === false) return;
   try {
@@ -40,12 +51,21 @@ function saveLastActivityTime() {
   }
 }
 
+/**
+ * Reloads the last activity time and checks the timeout when the page is restored from the browser cache.
+ * @param {PageTransitionEvent} event - The pageshow event.
+ */
 function handleSessionPageShow(event) {
   if (event.persisted === false) return;
   lastActivityTime = loadLastActivityTime();
   checkSessionTimeout();
 }
 
+/**
+ * Registers a user activity and resets the timeout.
+ * While the warning is visible, only active input like clicks or key presses counts as activity.
+ * @param {Event} event - The activity event.
+ */
 function registerActivity(event) {
   if (isSessionEnding) return;
   if (isSessionWarningVisible && sessionPassiveEvents.includes(event.type)) return;
@@ -53,6 +73,9 @@ function registerActivity(event) {
   if (isSessionWarningVisible) checkSessionTimeout();
 }
 
+/**
+ * Checks the remaining session time and shows the warning, hides it or ends the session.
+ */
 function checkSessionTimeout() {
   if (isSessionEnding) return;
   saveLastActivityTime();
@@ -66,6 +89,10 @@ function checkSessionTimeout() {
   }
 }
 
+/**
+ * Shows the timeout warning with the remaining time.
+ * @param {number} remainingTime - The remaining session time in milliseconds.
+ */
 function showSessionWarning(remainingTime) {
   isSessionWarningVisible = true;
   document.getElementById('sessionWarningTime').textContent = getSessionWarningText(remainingTime);
@@ -73,12 +100,20 @@ function showSessionWarning(remainingTime) {
   document.getElementById('sessionOverlay').classList.add('sessionOverlayVisible');
 }
 
+/**
+ * Hides the timeout warning.
+ */
 function hideSessionWarning() {
   isSessionWarningVisible = false;
   document.getElementById('sessionWarning').classList.remove('sessionWarningVisible');
   document.getElementById('sessionOverlay').classList.remove('sessionOverlayVisible');
 }
 
+/**
+ * Formats the remaining session time as minutes and seconds.
+ * @param {number} remainingTime - The remaining session time in milliseconds.
+ * @returns {string} The time in the format m:ss.
+ */
 function getSessionWarningText(remainingTime) {
   const remainingSeconds = Math.ceil(remainingTime / 1000);
   const minutes = Math.floor(remainingSeconds / 60);
@@ -86,6 +121,9 @@ function getSessionWarningText(remainingTime) {
   return minutes + ':' + String(seconds).padStart(2, '0');
 }
 
+/**
+ * Ends the session, shows the goodbye dialog and logs out after a short delay.
+ */
 function endSession() {
   isSessionEnding = true;
   clearInterval(sessionTimerId);
@@ -94,6 +132,9 @@ function endSession() {
   setTimeout(logOutAfterTimeout, sessionGoodbyeDuration);
 }
 
+/**
+ * Logs out the user and redirects to the login page.
+ */
 function logOutAfterTimeout() {
   removeCurrentUser();
   location.replace('../../index.html');
