@@ -74,7 +74,7 @@ async function persistTask() {
     const taskId = await saveTask(task);
     if (typeof renderBoard === "function") {
         storedTasks.push({ ...task, id: taskId });
-        saveTasksToLocalStorage();
+        saveTasksToSessionStorage();
         renderBoard();
     }
 }

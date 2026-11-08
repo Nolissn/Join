@@ -3,75 +3,39 @@ import { db } from "./data/joinDbConfig.js";
 // import { log } from "firebase/firestore/pipelines";
 import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-let contact = [{
-    name: "Timo Weyer",
-    email: "timo.weyer@example.com",
-    phone: "+49 123 4567890",
-    color: "red"
-}, {
-    name: "Anna Müller",
-    email: "anna.mueller@example.com",
-    phone: "+49 987 6543210",
-    color: "blue"
-}, {
-    name: "Max Mustermann",
-    email: "max.mustermann@example.com",
-    phone: "+49 555 1234567",
-    color: "purple"
-}, {
-    name: "Kerstin Weiß",
-    email: "kerstin.weiss@example.com",
-    phone: "+49 555 1234567",
-    color: "green"
-}, {
-    name: "Mila Graf",
-    email: "mila.graf@example.com",
-    phone: "+49 555 1234567",
-    color: "darkblue"
-}, {
-    name: "Thomas Schäfer",
-    email: "thomas.schaefer@example.com",
-    phone: "+49 555 1234567",
-    color: "orange"
-}, {
-    name: "Marcel Petersen",
-    email: "marcel.petersen@example.com",
-    phone: "+49 555 1251567",
-    color: "darkgreen"
-}]
-
 const userColor = ["red", "blue", "green", "darfred", "orange", "purple", "pink", "darkgreen", "turquoise", "darkblue"];
 
 currentUser = 0;
 
-function init() {
+async function init() {
+    await loadContacts();
     sortContacts();
     renderContactList();
 }
 
 function sortContacts() {
-    const sorted = [...contact].sort((a, b) => a.name.localeCompare(b.name, "de"));
-    contact = sorted;
+    const sorted = [...storedContacts].sort((a, b) => a.name.localeCompare(b.name, "de"));
+    storedContacts = sorted;
 }
 
 function renderContactList() {
     let currentLetter = "";
     let html = "";
-    for (let i = 0; i < contact.length; i++) {
-        const letter = contact[i].name[0].toUpperCase();
+    for (let i = 0; i < storedContacts.length; i++) {
+        const letter = storedContacts[i].name[0].toUpperCase();
         if (letter !== currentLetter) {
             currentLetter = letter;
             const alphabet = getContactListAlphabetHtmlElement(letter);
             html += alphabet;
         }
-        html += getContactListHtmlElement(contact[i], i);
+        html += getContactListHtmlElement(storedContacts[i], i);
     }
     document.getElementById("contact_list").innerHTML = html;
 }
 
 function selectContact(index) {
     document.getElementById("contact" + currentUser).classList.remove("contact-list-selected");
-    document.getElementById("contact_initials").classList.remove(contact[currentUser].color);
+    document.getElementById("contact_initials").classList.remove(storedContacts[currentUser].color);
     currentUser = index;
     document.getElementById("contact" + currentUser).classList.add("contact-list-selected");
     showContactInformation();
@@ -79,12 +43,21 @@ function selectContact(index) {
 
 function showContactInformation() {
     document.getElementById("contact_information_container").classList.remove("d-none");
+<<<<<<< HEAD
     document.getElementById("contact_name").innerText = contact[currentUser].name;
     document.getElementById("contact_email").innerText = contact[currentUser].email;
     document.getElementById("contact_email").href = "mailto:" + contact[currentUser].email;
     document.getElementById("contact_phone").innerText = contact[currentUser].phone;
     document.getElementById("contact_initials").innerText = contact[currentUser].name.split(" ").map(n => n[0]).join("");
     document.getElementById("contact_initials").classList.add("contact-initials", contact[currentUser].color, "add-new-contact");
+=======
+    document.getElementById("contact_name").innerText = storedContacts[index].name;
+    document.getElementById("contact_email").innerText = storedContacts[index].email;
+    document.getElementById("contact_email").href = "mailto:" + storedContacts[index].email;
+    document.getElementById("contact_phone").innerText = storedContacts[index].phone;
+    document.getElementById("contact_initials").innerText = storedContacts[index].name.split(" ").map(n => n[0]).join("");
+    document.getElementById("contact_initials").classList.add("contact-initials", storedContacts[index].color, "add-new-contact");
+>>>>>>> 05efdfaef8fc8b5eef70e3bb6e6528a0c08adc7a
 }
 
 function addNewContact() {
@@ -102,8 +75,13 @@ function createContact() {
         checkDialogInputs();
         return;
     } else {
+<<<<<<< HEAD
         checkContactList();
         contact.push({
+=======
+        console.log("step 3");
+        storedContacts.push({
+>>>>>>> 05efdfaef8fc8b5eef70e3bb6e6528a0c08adc7a
             name: document.getElementById("dialog_input_name").value,
             email: document.getElementById("dialog_input_email").value,
             phone: document.getElementById("dialog_input_phone").value,
