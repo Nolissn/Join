@@ -1,6 +1,6 @@
 import { db } from "./joinDbConfig.js";
 import { tutorialTask } from "./tutorialTask.js";
-import { doc, setDoc, collection, getDocs, deleteDoc, query, where, limit } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import { doc, setDoc, collection, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 
 /**
@@ -68,20 +68,6 @@ export async function getTasks() {
 export async function updateTask(taskId, taskModell) {
     await setDoc(doc(getTasksCollection(), taskId), taskModell);
     markTasksOutdated();
-}
-
-
-/**
- * Finds the id of the first task with the given title.
- * @param {string} title - The title to search for.
- * @returns {Promise<string|null>} The id of the task, or null if no task matches.
- * @throws {Error} If the query fails or no user is logged in.
- */
-export async function getTaskIdByTitle(title) {
-    const titleQuery = query(getTasksCollection(), where("title", "==", title), limit(1));
-    const snap = await getDocs(titleQuery);
-    if (snap.empty) return null;
-    return snap.docs[0].id;
 }
 
 

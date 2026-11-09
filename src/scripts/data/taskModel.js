@@ -17,22 +17,3 @@
  * @property {string} status - "todo", "inProgress", "awaitFeedback" or "done".
  * @property {number} [order] - The position of the task in its column.
  */
-
-
-/**
- * Creates an empty, sealed task object.
- * @param {string} [status="todo"] - The board column of the new task.
- * @returns {Task} The new task.
- */
-function createTask(status = "todo") {
-    return Object.seal({
-        title: "",
-        description: "",
-        dueDate: "",
-        priority: "medium",
-        assignedTo: [],
-        category: "",
-        subtasks: [],
-        status: status
-    });
-}
