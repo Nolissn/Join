@@ -51,7 +51,7 @@ function initBoardEvents() {
 }
 
 /**
- * Registers the event listeners of the task detail dialog.
+ * Registers the event listeners of the task detail dialog./Users/shoffi/Desktop/Develooper Akademie/Modul 10 - Gruppenarbeit/Join_Docs/Join Checkliste.docx /Users/shoffi/Desktop/Develooper Akademie/Modul 10 - Gruppenarbeit/Join_Docs/Join Checkliste.pdf
  */
 function initTaskDialogEvents() {
   const taskDialog = document.getElementById('taskDialog');
@@ -59,6 +59,7 @@ function initTaskDialogEvents() {
   taskDialog.addEventListener('cancel', closeTaskDialog);
   taskDialog.addEventListener('submit', saveTaskEdit);
   taskDialog.addEventListener('keydown', handleEditKeydown);
+  taskDialog.addEventListener('change', handleSubtaskToggle);
 }
 
 /**
@@ -427,6 +428,19 @@ function handleDialogClick(event) {
 }
 
 /**
+ * Saves the done state of a subtask when its checkbox in the task detail view is toggled.
+ * @param {Event} event - The change event.
+ */
+function handleSubtaskToggle(event) {
+  if (!event.target.matches('.taskDetailCheckbox')) return;
+  const taskId = event.target.closest('[data-task-id]').dataset.taskId;
+  const task = findStoredTask(taskId);
+  task.subtasks[event.target.dataset.subtaskIndex].done = event.target.checked;
+  saveTaskChanges(task.id);
+  renderBoard();
+}
+
+/**
  * Runs the action of a clicked button in the task dialog.
  * @param {MouseEvent} event - The click event.
  * @param {HTMLElement} button - The clicked button with a data-action attribute.
@@ -566,10 +580,10 @@ function getAvatarsHtml(contacts, view) {
  */
 function getSubtasksHtml(subtasks) {
   let subtasksHtml = '';
-  for (const subtask of subtasks) {
+  for (let i = 0; i < subtasks.length; i++) {
     let checkedAttribute = '';
-    if (subtask.done) checkedAttribute = 'checked';
-    subtasksHtml += taskDetailSubtaskTemplate(subtask.title, checkedAttribute);
+    if (subtasks[i].done) checkedAttribute = 'checked';
+    subtasksHtml += taskDetailSubtaskTemplate(subtasks[i].title, checkedAttribute, i);
   }
   return subtasksHtml;
 }

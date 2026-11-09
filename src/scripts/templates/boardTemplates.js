@@ -121,7 +121,7 @@ function taskDetailTemplate(task) {
     </div>
     <div class="taskDetailSection">
       <span class="taskDetailLabel">Subtasks</span>
-      <ul class="taskDetailList">${getSubtasksHtml(task.subtasks)}</ul>
+      <ul class="taskDetailList" data-task-id="${makeTextSafe(task.id)}">${getSubtasksHtml(task.subtasks)}</ul>
     </div>
     <div class="taskDetailActions">
       <button class="taskDetailAction" type="button" data-action="delete" data-task-id="${makeTextSafe(task.id)}"><img src="${iconPath}delete.svg" alt="">Delete</button>
@@ -144,10 +144,11 @@ function taskDetailAssigneeTemplate(initials, avatarColor, name) {
  * Returns the HTML of a subtask in the task detail view.
  * @param {string} title - The title of the subtask.
  * @param {string} checkedAttribute - "checked" if the subtask is done, otherwise an empty string.
+ * @param {number} index - The position of the subtask in the subtask list.
  * @returns {string} The list item HTML.
  */
-function taskDetailSubtaskTemplate(title, checkedAttribute) {
-  return `<li><label class="taskDetailSubtask"><input class="taskDetailCheckbox" type="checkbox" ${checkedAttribute}>${makeTextSafe(title)}</label></li>`;
+function taskDetailSubtaskTemplate(title, checkedAttribute, index) {
+  return `<li><label class="taskDetailSubtask"><input class="taskDetailCheckbox" type="checkbox" data-subtask-index="${index}" ${checkedAttribute}>${makeTextSafe(title)}</label></li>`;
 }
 
 /**
