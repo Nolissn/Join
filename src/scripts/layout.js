@@ -1,4 +1,6 @@
 const iconPath = '../../assets/icons/';
+const toastDuration = 2000;
+let toastTimerId = null;
 
 /**
  * Renders the sidebar and the header depending on the login state and highlights the active link.
@@ -96,6 +98,29 @@ function handleHeaderMenuClick(event) {
   } else if (!event.target.closest('.headerMenu')) {
     headerMenu.classList.remove('headerMenuOpen');
   }
+}
+
+/**
+ * Shows a short feedback message at the bottom of the page.
+ * Needs an element with the id "toast" and the attribute popover="manual" on the page.
+ * @param {string} message - The message to show.
+ */
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  if (toast === null) return;
+  toast.textContent = message;
+  if (toast.matches(':popover-open')) toast.hidePopover();
+  toast.showPopover();
+  clearTimeout(toastTimerId);
+  toastTimerId = setTimeout(hideToast, toastDuration);
+}
+
+/**
+ * Hides the feedback message.
+ */
+function hideToast() {
+  const toast = document.getElementById('toast');
+  if (toast.matches(':popover-open')) toast.hidePopover();
 }
 
 document.addEventListener('DOMContentLoaded', renderLayout);

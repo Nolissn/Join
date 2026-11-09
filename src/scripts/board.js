@@ -395,6 +395,7 @@ function moveTaskTo(taskId, newStatus) {
   delete task.order;
   saveTaskChanges(task.id);
   renderBoard();
+  showToast('Task moved to ' + boardColumns.find(column => column.status === newStatus).title);
 }
 
 /**
@@ -487,6 +488,7 @@ function deleteTaskFromBoard(event, taskId) {
   deleteStoredTask(taskId);
   renderBoard();
   closeTaskDialog(event);
+  showToast('Task deleted');
 }
 
 /**
@@ -536,6 +538,7 @@ function saveTaskEdit(event) {
   saveTaskChanges(task.id);
   renderBoard();
   showTaskDetail(task);
+  showToast('Task updated');
 }
 
 /**
