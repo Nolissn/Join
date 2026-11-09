@@ -12,8 +12,7 @@ function readSessionTasks() {
     const savedText = sessionStorage.getItem(tasksKey);
     if (savedText === null) return null;
     return JSON.parse(savedText);
-  } catch (error) {
-    console.warn('Tasks could not be read:', error);
+  } catch {
     return null;
   }
 }
@@ -25,9 +24,7 @@ function readSessionTasks() {
 function saveTasksToSessionStorage() {
   try {
     sessionStorage.setItem(tasksKey, JSON.stringify(storedTasks));
-  } catch (error) {
-    console.warn('Tasks could not be saved:', error);
-  }
+  } catch {}
 }
 
 
@@ -47,7 +44,7 @@ async function loadTasks() {
 
 /**
  * Loads the tasks from Firebase and refreshes the session storage.
- * Falls back to the cached tasks if loading fails.
+ * Falls back to the cached tasks and shows a message if loading fails.
  * @returns {Promise<void>}
  */
 async function loadTasksFromFirebase() {
@@ -56,9 +53,9 @@ async function loadTasksFromFirebase() {
     storedTasks = await joinDbApi.getTasks();
     saveTasksToSessionStorage();
     sessionStorage.removeItem(tasksOutdatedKey);
-  } catch (error) {
-    console.warn('Tasks could not be loaded from Firebase:', error);
+  } catch {
     storedTasks = readStoredTasks();
+    showToast('Tasks could not be loaded');
   }
 }
 
@@ -115,7 +112,7 @@ function saveTaskChanges(taskId) {
 
 
 /**
- * Sends the current state of a stored task to Firebase.
+ * Sends the current state of a stored task to Firebase and shows a message if it fails.
  * @param {string} taskId - The id of the task to send.
  * @returns {Promise<void>}
  */
@@ -128,8 +125,8 @@ async function sendTaskToFirebase(taskId) {
   try {
     const joinDbApi = await import('./joinDbApi.js');
     await joinDbApi.updateTask(taskId, taskData);
-  } catch (error) {
-    console.warn('Task ' + taskId + ' could not be sent to Firebase:', error);
+  } catch {
+    showToast('Changes could not be saved');
   }
 }
 
@@ -150,7 +147,7 @@ function deleteStoredTask(taskId) {
 
 
 /**
- * Deletes a task in Firebase.
+ * Deletes a task in Firebase and shows a message if it fails.
  * @param {string} taskId - The id of the task to delete.
  * @returns {Promise<void>}
  */
@@ -158,7 +155,7 @@ async function deleteTaskFromFirebase(taskId) {
   try {
     const joinDbApi = await import('./joinDbApi.js');
     await joinDbApi.deleteTask(taskId);
-  } catch (error) {
-    console.warn('Task ' + taskId + ' could not be deleted from Firebase:', error);
+  } catch {
+    showToast('Task could not be deleted');
   }
 }

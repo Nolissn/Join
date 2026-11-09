@@ -35,9 +35,7 @@ function loadLastActivityTime() {
   try {
     const savedTime = Number(sessionStorage.getItem(lastActivityKey));
     if (savedTime > 0) return savedTime;
-  } catch (error) {
-    console.warn('Last activity could not be loaded:', error);
-  }
+  } catch {}
   return Date.now();
 }
 
@@ -49,9 +47,7 @@ function saveLastActivityTime() {
   if (isUserLoggedIn() === false) return;
   try {
     sessionStorage.setItem(lastActivityKey, String(lastActivityTime));
-  } catch (error) {
-    console.warn('Last activity could not be saved:', error);
-  }
+  } catch {}
 }
 
 

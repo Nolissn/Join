@@ -16,8 +16,7 @@ function loadCurrentUser() {
     const savedText = sessionStorage.getItem(currentUserKey);
     if (savedText === null) return null;
     return JSON.parse(savedText);
-  } catch (error) {
-    console.warn('Current user could not be loaded:', error);
+  } catch {
     return null;
   }
 }
@@ -37,9 +36,7 @@ function setCurrentUser(user, isGuest = false) {
   try {
     sessionStorage.setItem(currentUserKey, JSON.stringify(currentUser));
     sessionStorage.setItem(summaryGreetingIntroKey, 'true');
-  } catch (error) {
-    console.warn('Current user could not be saved:', error);
-  }
+  } catch {}
 }
 
 
@@ -52,8 +49,7 @@ function consumeSummaryGreetingIntro() {
     const shouldShowIntro = sessionStorage.getItem(summaryGreetingIntroKey) === 'true';
     sessionStorage.removeItem(summaryGreetingIntroKey);
     return shouldShowIntro;
-  } catch (error) {
-    console.warn('Summary greeting intro could not be loaded:', error);
+  } catch {
     return false;
   }
 }
@@ -68,9 +64,7 @@ function removeCurrentUser() {
     sessionStorage.removeItem(currentUserKey);
     sessionStorage.removeItem(lastActivityKey);
     sessionStorage.removeItem(summaryGreetingIntroKey);
-  } catch (error) {
-    console.warn('Current user could not be removed:', error);
-  }
+  } catch {}
   removeCachedUserData();
 }
 
@@ -83,9 +77,7 @@ function removeCachedUserData() {
     sessionStorage.removeItem(tasksKey);
     sessionStorage.removeItem(tasksOutdatedKey);
     sessionStorage.removeItem(contactsKey);
-  } catch (error) {
-    console.warn('Cached user data could not be removed:', error);
-  }
+  } catch {}
 }
 
 

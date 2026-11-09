@@ -24,15 +24,10 @@ function getTasksCollection() {
  * @throws {Error} If saving fails or no user is logged in.
  */
 export async function saveTask(taskModell) {
-    try {
-        const ref = doc(getTasksCollection());
-        await setDoc(ref, taskModell);
-        markTasksOutdated();
-        return ref.id;
-    } catch (error) {
-        console.error("saveTask fehlgeschlagen:", error);
-        throw error;
-    }
+    const ref = doc(getTasksCollection());
+    await setDoc(ref, taskModell);
+    markTasksOutdated();
+    return ref.id;
 }
 
 
@@ -46,8 +41,7 @@ export async function saveTutorialTask(userId) {
         const ref = doc(collection(db, "users", userId, "tasks"));
         await setDoc(ref, tutorialTask);
         return ref.id;
-    } catch (error) {
-        console.error("saveTutorialTask fehlgeschlagen:", error);
+    } catch {
         return null;
     }
 }
@@ -59,13 +53,8 @@ export async function saveTutorialTask(userId) {
  * @throws {Error} If loading fails or no user is logged in.
  */
 export async function getTasks() {
-    try {
-        const snap = await getDocs(getTasksCollection());
-        return snap.docs.map(d => ({ ...d.data(), id: d.id }));
-    } catch (error) {
-        console.error("getTasks fehlgeschlagen:", error);
-        throw error;
-    }
+    const snap = await getDocs(getTasksCollection());
+    return snap.docs.map(d => ({ ...d.data(), id: d.id }));
 }
 
 
@@ -77,13 +66,8 @@ export async function getTasks() {
  * @throws {Error} If updating fails or no user is logged in.
  */
 export async function updateTask(taskId, taskModell) {
-    try {
-        await setDoc(doc(getTasksCollection(), taskId), taskModell);
-        markTasksOutdated();
-    } catch (error) {
-        console.error("updateTask fehlgeschlagen:", error);
-        throw error;
-    }
+    await setDoc(doc(getTasksCollection(), taskId), taskModell);
+    markTasksOutdated();
 }
 
 
@@ -94,15 +78,10 @@ export async function updateTask(taskId, taskModell) {
  * @throws {Error} If the query fails or no user is logged in.
  */
 export async function getTaskIdByTitle(title) {
-    try {
-        const titleQuery = query(getTasksCollection(), where("title", "==", title), limit(1));
-        const snap = await getDocs(titleQuery);
-        if (snap.empty) return null;
-        return snap.docs[0].id;
-    } catch (error) {
-        console.error("getTaskIdByTitle fehlgeschlagen:", error);
-        throw error;
-    }
+    const titleQuery = query(getTasksCollection(), where("title", "==", title), limit(1));
+    const snap = await getDocs(titleQuery);
+    if (snap.empty) return null;
+    return snap.docs[0].id;
 }
 
 
@@ -113,13 +92,8 @@ export async function getTaskIdByTitle(title) {
  * @throws {Error} If deleting fails or no user is logged in.
  */
 export async function deleteTask(taskId) {
-    try {
-        await deleteDoc(doc(getTasksCollection(), taskId));
-        markTasksOutdated();
-    } catch (error) {
-        console.error("deleteTask fehlgeschlagen:", error);
-        throw error;
-    }
+    await deleteDoc(doc(getTasksCollection(), taskId));
+    markTasksOutdated();
 }
 
 
@@ -129,7 +103,5 @@ export async function deleteTask(taskId) {
 function markTasksOutdated() {
     try {
         sessionStorage.setItem("joinTasksOutdated", "true");
-    } catch (error) {
-        console.warn("Tasks could not be marked as outdated:", error);
-    }
+    } catch {}
 }
