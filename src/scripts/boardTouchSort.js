@@ -2,6 +2,7 @@ const touchHoldDelay = 500;
 const touchMoveTolerance = 8;
 let touchSort = null;
 
+
 /**
  * Registers the touch event listeners for sorting task cards on mobile devices.
  * @param {HTMLElement} boardElement - The board container.
@@ -14,6 +15,7 @@ function initTouchSortEvents(boardElement) {
   boardElement.addEventListener('contextmenu', preventMenuWhileHolding);
 }
 
+
 /**
  * Checks whether the board is shown in the mobile view.
  * @returns {boolean} True if the viewport is 768px wide or less.
@@ -21,6 +23,7 @@ function initTouchSortEvents(boardElement) {
 function isMobileView() {
   return window.matchMedia('(max-width: 768px)').matches;
 }
+
 
 /**
  * Starts the hold timer when a task card is touched in the mobile view.
@@ -37,6 +40,7 @@ function startTouchHold(event) {
   touchSort.touchY = touch.clientY;
   touchSort.holdTimer = setTimeout(grabTaskCard, touchHoldDelay);
 }
+
 
 /**
  * Grabs the touched card after the hold delay.
@@ -57,6 +61,7 @@ function grabTaskCard() {
   if (canVibrate()) navigator.vibrate(30);
 }
 
+
 /**
  * Checks whether the device can vibrate and the user has already interacted with the page.
  * @returns {boolean} True if a vibration is allowed.
@@ -65,6 +70,7 @@ function canVibrate() {
   if (!navigator.vibrate || !navigator.userActivation) return false;
   return navigator.userActivation.hasBeenActive;
 }
+
 
 /**
  * Creates a copy of the card that follows the finger while dragging.
@@ -78,6 +84,7 @@ function createDragGhost(card) {
   return ghost;
 }
 
+
 /**
  * Moves the drag ghost to the touch position.
  * @param {number} touchX - The horizontal touch position in pixels.
@@ -87,6 +94,7 @@ function moveDragGhost(touchX, touchY) {
   touchSort.ghost.style.setProperty('--dragX', (touchX - touchSort.offsetX) + 'px');
   touchSort.ghost.style.setProperty('--dragY', (touchY - touchSort.offsetY) + 'px');
 }
+
 
 /**
  * Moves the grabbed card with the finger.
@@ -104,6 +112,7 @@ function handleTouchMove(event) {
   placeTouchCard();
 }
 
+
 /**
  * Cancels the hold timer if the finger moved further than the tolerance.
  */
@@ -116,12 +125,14 @@ function cancelHoldIfMoved() {
   }
 }
 
+
 /**
  * Places the grabbed card at the current touch position.
  */
 function placeTouchCard() {
   placeCardAtPointer(touchSort.columnTasks, touchSort.card, touchSort.touchX, touchSort.touchY);
 }
+
 
 /**
  * Scrolls the column horizontally when the finger is near its edge.
@@ -137,6 +148,7 @@ function autoScrollColumn() {
   touchSort.frameId = requestAnimationFrame(autoScrollColumn);
 }
 
+
 /**
  * Ends the touch sort and drops the card if it was grabbed.
  * @param {TouchEvent} event - The touchend or touchcancel event.
@@ -147,6 +159,7 @@ function endTouchSort(event) {
   if (touchSort.isGrabbed) dropHeldCard(event);
   touchSort = null;
 }
+
 
 /**
  * Drops the grabbed card, removes the drag ghost and saves the new column order.
@@ -159,6 +172,7 @@ function dropHeldCard(event) {
   touchSort.card.classList.remove('taskCardHeld');
   saveColumnOrder(touchSort.columnTasks);
 }
+
 
 /**
  * Prevents the context menu while a card is held.

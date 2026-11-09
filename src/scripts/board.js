@@ -23,6 +23,7 @@ let mouseDrag = null;
 let previousBodyOverflow = null;
 let editContacts = [];
 
+
 /**
  * Initializes the board: registers the events, loads the tasks and contacts and renders the board.
  * @returns {Promise<void>}
@@ -33,6 +34,7 @@ async function initBoard() {
   await loadContacts();
   renderBoard();
 }
+
 
 /**
  * Registers all event listeners of the board, the search and the dialogs.
@@ -52,6 +54,7 @@ function initBoardEvents() {
   initAddTaskDialogEvents();
 }
 
+
 /**
  * Registers the event listeners of the task detail dialog./Users/shoffi/Desktop/Develooper Akademie/Modul 10 - Gruppenarbeit/Join_Docs/Join Checkliste.docx /Users/shoffi/Desktop/Develooper Akademie/Modul 10 - Gruppenarbeit/Join_Docs/Join Checkliste.pdf
  */
@@ -66,6 +69,7 @@ function initTaskDialogEvents() {
   taskDialog.addEventListener('input', handleEditInput);
 }
 
+
 /**
  * Registers the event listeners of the add task dialog.
  * A click on the backdrop closes the dialog.
@@ -78,6 +82,7 @@ function initAddTaskDialogEvents() {
   addTaskDialog.addEventListener('close', unlockPageScroll);
 }
 
+
 /**
  * Prevents the page from scrolling while a dialog is open and remembers the previous overflow value.
  */
@@ -87,6 +92,7 @@ function lockPageScroll() {
   document.body.style.overflow = 'hidden';
 }
 
+
 /**
  * Restores the previous scroll behavior of the page.
  */
@@ -95,6 +101,7 @@ function unlockPageScroll() {
   document.body.style.overflow = previousBodyOverflow;
   previousBodyOverflow = null;
 }
+
 
 /**
  * Renders all board columns with the tasks that match the search text.
@@ -114,6 +121,7 @@ function renderBoard() {
   updateNoResultsMessage(searchText, sortedTasks);
 }
 
+
 /**
  * Shows the "No results found" message if a search text is entered and no task matches it.
  * @param {string} searchText - The search text in lowercase.
@@ -124,6 +132,7 @@ function updateNoResultsMessage(searchText, tasks) {
   const showMessage = searchText !== '' && !hasResults;
   document.getElementById('boardNoResults').classList.toggle('boardNoResultsVisible', showMessage);
 }
+
 
 /**
  * Returns a copy of the stored tasks sorted by their order.
@@ -137,6 +146,7 @@ function getSortedTasks() {
   return sortedTasks;
 }
 
+
 /**
  * Returns the sort position of a task.
  * Tasks without an order are placed after all ordered tasks.
@@ -147,6 +157,7 @@ function getTaskOrder(task) {
   if (typeof task.order === 'number') return task.order;
   return storedTasks.length + storedTasks.indexOf(task);
 }
+
 
 /**
  * Checks whether the title or the description of a task contains the search text.
@@ -160,6 +171,7 @@ function matchesSearch(task, searchText) {
   return title.includes(searchText) || description.includes(searchText);
 }
 
+
 /**
  * Clears the search field, focuses it and renders the board again.
  */
@@ -169,6 +181,7 @@ function clearSearch() {
   searchInput.focus();
   renderBoard();
 }
+
 
 /**
  * Starts dragging a task card with the mouse and starts the auto scroll.
@@ -187,6 +200,7 @@ function startDragging(event) {
   });
 }
 
+
 /**
  * Updates the pointer position while dragging and places the card in the column below the pointer.
  * @param {DragEvent} event - The dragover event.
@@ -200,6 +214,7 @@ function handleDragOver(event) {
   if (!column) return;
   placeCardAtPointer(column.querySelector('.columnTasks'), mouseDrag.card, event.clientX, event.clientY);
 }
+
 
 /**
  * Drops the dragged card and saves its new status and the new order of the column.
@@ -219,6 +234,7 @@ function moveTask(event) {
   endDragging();
 }
 
+
 /**
  * Scrolls the page and, in row layout, the column when the pointer is near an edge.
  * Runs on every animation frame while a card is dragged.
@@ -236,6 +252,7 @@ function autoScrollWhileDragging() {
   mouseDrag.frameId = requestAnimationFrame(autoScrollWhileDragging);
 }
 
+
 /**
  * Calculates the scroll step for a pointer near the start or the end of an area.
  * @param {number} pointer - The pointer position in pixels.
@@ -249,6 +266,7 @@ function getScrollStep(pointer, areaStart, areaEnd) {
   return 0;
 }
 
+
 /**
  * Calculates the scroll speed. The closer the pointer is to the edge, the faster it scrolls.
  * @param {number} distance - The distance between the pointer and the edge in pixels.
@@ -259,6 +277,7 @@ function getEdgeSpeed(distance) {
   return Math.ceil(closeness * closeness * autoScrollMaxSpeed);
 }
 
+
 /**
  * Stops the auto scroll, resets the drag state and renders the board again.
  */
@@ -268,6 +287,7 @@ function endDragging() {
   renderBoard();
 }
 
+
 /**
  * Checks whether the tasks of a column are laid out in a row.
  * @param {HTMLElement} columnTasks - The task container of a column.
@@ -276,6 +296,7 @@ function endDragging() {
 function isRowLayout(columnTasks) {
   return getComputedStyle(columnTasks).flexDirection === 'row';
 }
+
 
 /**
  * Moves a card in front of the first card that lies after the pointer, or to the end of the column.
@@ -296,6 +317,7 @@ function placeCardAtPointer(columnTasks, movingCard, pointerX, pointerY) {
   if (columnTasks.lastElementChild !== movingCard) columnTasks.appendChild(movingCard);
 }
 
+
 /**
  * Checks whether the pointer lies before the middle of a card.
  * @param {HTMLElement} card - The card to compare with.
@@ -309,6 +331,7 @@ function isPointerBeforeCard(card, isRow, pointerX, pointerY) {
   if (isRow) return pointerX < cardRect.left + cardRect.width / 2;
   return pointerY < cardRect.top + cardRect.height / 2;
 }
+
 
 /**
  * Saves the order of the cards in a column and uploads every task whose order has changed.
@@ -324,6 +347,7 @@ function saveColumnOrder(columnTasks) {
   }
 }
 
+
 /**
  * Returns the task ids of all cards in a column in their visible order.
  * @param {HTMLElement} columnTasks - The task container of the column.
@@ -336,6 +360,7 @@ function getCardIds(columnTasks) {
   }
   return cardIds;
 }
+
 
 /**
  * Builds the new order of all tasks in a column.
@@ -355,6 +380,7 @@ function getNewColumnOrder(status, visibleIds) {
   return columnOrder;
 }
 
+
 /**
  * Handles clicks on the board: toggles the move menu, moves a task or opens the task detail.
  * @param {MouseEvent} event - The click event.
@@ -368,6 +394,7 @@ function handleBoardClick(event) {
   if (actionButton.dataset.action === 'moveTask') moveTaskTo(taskCard.dataset.taskId, actionButton.dataset.status);
 }
 
+
 /**
  * Opens the move menu of a card and closes all other move menus.
  * Closes the menu if it was already open.
@@ -379,6 +406,7 @@ function toggleMoveMenu(taskCard) {
   if (!isOpen) taskCard.classList.add('taskCardMoveOpen');
 }
 
+
 /**
  * Closes all open move menus.
  */
@@ -388,6 +416,7 @@ function closeMoveMenus() {
   }
 }
 
+
 /**
  * Closes all move menus when the click is outside an open move menu.
  * @param {MouseEvent} event - The click event.
@@ -395,6 +424,7 @@ function closeMoveMenus() {
 function handleOutsideMoveClick(event) {
   if (!event.target.closest('.taskCardMoveOpen')) closeMoveMenus();
 }
+
 
 /**
  * Moves a task to another column, removes its order and renders the board again.
@@ -410,6 +440,7 @@ function moveTaskTo(taskId, newStatus) {
   showToast('Task moved to ' + boardColumns.find(column => column.status === newStatus).title);
 }
 
+
 /**
  * Opens the detail dialog of the clicked task card.
  * @param {MouseEvent} event - The click event.
@@ -423,6 +454,7 @@ function openTaskDialog(event) {
   taskDialog.showModal();
 }
 
+
 /**
  * Renders the detail view of a task in the dialog.
  * @param {Task} task - The task to show.
@@ -430,6 +462,7 @@ function openTaskDialog(event) {
 function showTaskDetail(task) {
   document.querySelector('.taskDetail').innerHTML = taskDetailTemplate(task);
 }
+
 
 /**
  * Handles clicks in the task dialog.
@@ -445,6 +478,7 @@ function handleDialogClick(event) {
   if (clickedBackground || clickedCloseButton) closeTaskDialog(event);
 }
 
+
 /**
  * Saves the done state of a subtask when its checkbox in the task detail view is toggled.
  * @param {Event} event - The change event.
@@ -457,6 +491,7 @@ function handleSubtaskToggle(event) {
   saveTaskChanges(task.id);
   renderBoard();
 }
+
 
 /**
  * Runs the action of a clicked button in the task dialog.
@@ -472,6 +507,7 @@ function handleDialogAction(event, button) {
   if (action === 'toggleAssign') button.closest('.taskEditAssign').classList.toggle('taskEditAssignOpen');
 }
 
+
 /**
  * Closes the open contact list of the edit form when the click is outside of the assign field.
  * @param {MouseEvent} event - The click event.
@@ -480,6 +516,7 @@ function closeAssignList(event) {
   const assignField = document.querySelector('.taskEditAssignOpen');
   if (assignField && !assignField.contains(event.target)) assignField.classList.remove('taskEditAssignOpen');
 }
+
 
 /**
  * Updates the avatar preview of the edit form when a contact is checked or unchecked.
@@ -490,6 +527,7 @@ function handleAssignChange(event) {
   const form = event.target.closest('.taskEditForm');
   form.querySelector('.taskEditAssignees').innerHTML = getAvatarsHtml(getEditedAssignees(form), 'card');
 }
+
 
 /**
  * Deletes a task, renders the board again and closes the dialog.
@@ -503,6 +541,7 @@ function deleteTaskFromBoard(event, taskId) {
   showToast('Task deleted');
 }
 
+
 /**
  * Shows the edit form of a task in the dialog and focuses the title input.
  * @param {string} taskId - The id of the task to edit.
@@ -512,6 +551,7 @@ function openTaskEdit(taskId) {
   taskDetail.innerHTML = taskEditTemplate(findStoredTask(taskId));
   taskDetail.querySelector('.taskEditInput').focus();
 }
+
 
 /**
  * Adds the entered subtask to the subtask list of the edit form and clears the input.
@@ -527,6 +567,7 @@ function addEditSubtask(form) {
   input.focus();
 }
 
+
 /**
  * Adds a subtask when Enter is pressed in the new subtask input.
  * @param {KeyboardEvent} event - The keydown event.
@@ -536,6 +577,7 @@ function handleEditKeydown(event) {
   event.preventDefault();
   addEditSubtask(event.target.closest('.taskEditForm'));
 }
+
 
 /**
  * Saves the edited task, renders the board again and shows the updated detail view.
@@ -553,6 +595,7 @@ function saveTaskEdit(event) {
   showToast('Task updated');
 }
 
+
 /**
  * Validates the required fields of the edit form and focuses the first invalid field.
  * @param {HTMLFormElement} form - The edit form.
@@ -566,6 +609,7 @@ function isTaskEditValid(form) {
   return isTitleValid && isDueDateValid;
 }
 
+
 /**
  * Checks whether a required field of the edit form is filled and shows or hides its error message.
  * @param {HTMLInputElement} input - The required input.
@@ -577,6 +621,7 @@ function validateEditField(input) {
   return isValid;
 }
 
+
 /**
  * Validates an invalid field of the edit form again while the user corrects it.
  * @param {Event} event - The input event.
@@ -584,6 +629,7 @@ function validateEditField(input) {
 function handleEditInput(event) {
   if (event.target.closest('.taskEditFieldInvalid')) validateEditField(event.target);
 }
+
 
 /**
  * Writes the values of the edit form into the task.
@@ -600,6 +646,7 @@ function updateTaskFromForm(task, form) {
   task.subtasks = getEditedSubtasks(form);
 }
 
+
 /**
  * Reads the checked contacts from the edit form.
  * @param {HTMLFormElement} form - The edit form.
@@ -612,6 +659,7 @@ function getEditedAssignees(form) {
   }
   return assignees;
 }
+
 
 /**
  * Reads the subtasks from the edit form. Empty subtasks are skipped.
@@ -627,6 +675,7 @@ function getEditedSubtasks(form) {
   return subtasks;
 }
 
+
 /**
  * Closes the task dialog after its closing transition has finished.
  * @param {Event} event - The event that closes the dialog.
@@ -639,6 +688,7 @@ function closeTaskDialog(event) {
   }, { once: true });
   taskDialog.classList.remove('taskDialogOpen');
 }
+
 
 /**
  * Builds the avatar HTML of the assigned contacts.
@@ -660,6 +710,7 @@ function getAvatarsHtml(contacts, view) {
   return avatarsHtml;
 }
 
+
 /**
  * Builds the subtask list HTML of the detail view.
  * @param {Subtask[]} subtasks - The subtasks of the task.
@@ -675,6 +726,7 @@ function getSubtasksHtml(subtasks) {
   return subtasksHtml;
 }
 
+
 /**
  * Builds the move menu options for the previous and the next column.
  * @param {string} status - The current status of the task.
@@ -687,6 +739,7 @@ function getMoveOptionsHtml(status) {
   if (index < boardColumns.length - 1) optionsHtml += taskMoveOptionTemplate(boardColumns[index + 1], 'downward');
   return optionsHtml;
 }
+
 
 /**
  * Builds the priority radio buttons of the edit form.
@@ -703,6 +756,7 @@ function getEditPrioritiesHtml(selectedPriority) {
   return prioritiesHtml;
 }
 
+
 /**
  * Checks whether two contacts are the same person.
  * Compares the ids if both contacts have one, otherwise the names.
@@ -714,6 +768,7 @@ function isSameContact(contactA, contactB) {
   if (contactA.id && contactB.id) return contactA.id === contactB.id;
   return contactA.name === contactB.name;
 }
+
 
 /**
  * Returns all contacts for the edit form.
@@ -729,6 +784,7 @@ function getEditContacts(assignedTo) {
   }
   return contacts;
 }
+
 
 /**
  * Builds the contact list HTML of the edit form and remembers the shown contacts.
@@ -747,6 +803,7 @@ function getEditContactsHtml(assignedTo) {
   return contactsHtml;
 }
 
+
 /**
  * Builds the subtask list HTML of the edit form.
  * @param {Subtask[]} subtasks - The subtasks of the task.
@@ -759,6 +816,7 @@ function getEditSubtasksHtml(subtasks) {
   }
   return subtasksHtml;
 }
+
 
 /**
  * Builds the subtask progress bar of a task card.
@@ -774,6 +832,7 @@ function getProgressHtml(subtasks) {
   return taskProgressTemplate(doneCount, subtasks.length);
 }
 
+
 /**
  * Converts a due date from YYYY-MM-DD to DD/MM/YYYY.
  * @param {string} dueDate - The due date in the format YYYY-MM-DD.
@@ -784,6 +843,7 @@ function formatDueDate(dueDate) {
   const dateParts = dueDate.split('-');
   return dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0];
 }
+
 
 /**
  * Opens the add task dialog, renders and initializes the form and locks the page scroll.
@@ -797,6 +857,7 @@ function openAddTaskDialog() {
   addTaskDialog.showModal();
   lockPageScroll();
 }
+
 
 /**
  * Closes the add task dialog if it is open.

@@ -6,6 +6,7 @@ const tasksKey = 'joinTasks';
 const tasksOutdatedKey = 'joinTasksOutdated';
 let currentUser = loadCurrentUser();
 
+
 /**
  * Loads the logged-in user from the session storage.
  * @returns {Object|null} The saved user, or null if no user is saved or loading fails.
@@ -20,6 +21,7 @@ function loadCurrentUser() {
     return null;
   }
 }
+
 
 /**
  * Sets the logged-in user, saves it in the session storage and removes the cached data of the previous user.
@@ -40,6 +42,7 @@ function setCurrentUser(user, isGuest = false) {
   }
 }
 
+
 /**
  * Checks whether the greeting intro on the summary page should be shown and removes the flag, so it is shown only once.
  * @returns {boolean} True if the intro should be shown.
@@ -54,6 +57,7 @@ function consumeSummaryGreetingIntro() {
     return false;
   }
 }
+
 
 /**
  * Logs out the current user and removes all user data from the session storage.
@@ -70,6 +74,7 @@ function removeCurrentUser() {
   removeCachedUserData();
 }
 
+
 /**
  * Removes the cached tasks and contacts from the session storage.
  */
@@ -82,6 +87,7 @@ function removeCachedUserData() {
     console.warn('Cached user data could not be removed:', error);
   }
 }
+
 
 /**
  * Checks whether a valid user is logged in.

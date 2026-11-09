@@ -18,6 +18,7 @@
  * @property {number} [order] - The position of the task in its column.
  */
 
+
 /**
  * Creates an empty, sealed task object.
  * @param {string} [status="todo"] - The board column of the new task.

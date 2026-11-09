@@ -12,6 +12,7 @@ function makeTextSafe(text) {
     .replaceAll("'", '&#39;');
 }
 
+
 /**
  * Returns the HTML of a board column.
  * @param {{status: string, title: string}} column - The column data.
@@ -31,6 +32,7 @@ function boardColumnTemplate(column, tasksHtml) {
       </div>
     </section>`;
 }
+
 
 /**
  * Returns the HTML of a task card.
@@ -60,6 +62,7 @@ function taskCardTemplate(task) {
     </article>`;
 }
 
+
 /**
  * Returns the HTML of an option in the move menu.
  * @param {{status: string, title: string}} column - The target column.
@@ -69,6 +72,7 @@ function taskCardTemplate(task) {
 function taskMoveOptionTemplate(column, direction) {
   return `<button class="taskMoveOption" type="button" data-action="moveTask" data-status="${column.status}"><img src="${iconPath}arrow_${direction}.svg" alt="">${column.title}</button>`;
 }
+
 
 /**
  * Returns the HTML of the subtask progress bar.
@@ -84,6 +88,7 @@ function taskProgressTemplate(doneCount, totalCount) {
     </div>`;
 }
 
+
 /**
  * Returns the HTML of an avatar on a task card.
  * @param {string} initials - The initials of the contact.
@@ -93,6 +98,7 @@ function taskProgressTemplate(doneCount, totalCount) {
 function taskAvatarTemplate(initials, avatarColor) {
   return `<span class="taskAvatar ${avatarColor}">${makeTextSafe(initials)}</span>`;
 }
+
 
 /**
  * Returns the HTML of the task detail view.
@@ -129,6 +135,7 @@ function taskDetailTemplate(task) {
     </div>`;
 }
 
+
 /**
  * Returns the HTML of an assigned contact in the task detail view.
  * @param {string} initials - The initials of the contact.
@@ -140,6 +147,7 @@ function taskDetailAssigneeTemplate(initials, avatarColor, name) {
   return `<li class="taskDetailAssignee"><span class="taskAvatar taskDetailAvatar ${avatarColor}">${makeTextSafe(initials)}</span>${makeTextSafe(name)}</li>`;
 }
 
+
 /**
  * Returns the HTML of a subtask in the task detail view.
  * @param {string} title - The title of the subtask.
@@ -150,6 +158,7 @@ function taskDetailAssigneeTemplate(initials, avatarColor, name) {
 function taskDetailSubtaskTemplate(title, checkedAttribute, index) {
   return `<li><label class="taskDetailSubtask"><input class="taskDetailCheckbox" type="checkbox" data-subtask-index="${index}" ${checkedAttribute}>${makeTextSafe(title)}</label></li>`;
 }
+
 
 /**
  * Returns the HTML of the add task form inside the dialog.
@@ -229,6 +238,7 @@ function renderAddTaskDialog() {
     </form>`;
 }
 
+
 /**
  * Returns the HTML of the task edit form.
  * @param {Task} task - The task to edit.
@@ -278,6 +288,7 @@ function taskEditTemplate(task) {
     </form>`;
 }
 
+
 /**
  * Returns the HTML of a priority radio button in the edit form.
  * @param {string} priority - The priority key, e.g. "urgent".
@@ -291,6 +302,7 @@ function taskEditPriorityTemplate(priority, checkedAttribute) {
       ${priorities[priority].label}<img class="taskEditPriorityIcon" src="${iconPath}${priorities[priority].icon}" alt="">
     </label>`;
 }
+
 
 /**
  * Returns the HTML of a selectable contact in the edit form.
@@ -310,6 +322,7 @@ function taskEditContactTemplate(contact, index, avatarColor, checkedAttribute) 
       </label>
     </li>`;
 }
+
 
 /**
  * Returns the HTML of an editable subtask in the edit form.

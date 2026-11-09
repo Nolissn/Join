@@ -2,6 +2,7 @@ import { db } from "./joinDbConfig.js";
 import { tutorialTask } from "./tutorialTask.js";
 import { doc, setDoc, collection, getDocs, deleteDoc, query, where, limit } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
+
 /**
  * Returns the Firestore collection that holds the tasks of the logged-in user.
  * @returns {CollectionReference} The tasks collection of the current user.
@@ -13,6 +14,7 @@ function getTasksCollection() {
     }
     return collection(db, "users", currentUser.id, "tasks");
 }
+
 
 /**
  * Saves a new task in Firestore and marks the cached tasks as outdated.
@@ -33,6 +35,7 @@ export async function saveTask(taskModell) {
     }
 }
 
+
 /**
  * Saves the tutorial task for a newly registered user.
  * @param {string} userId - The id of the user.
@@ -49,6 +52,7 @@ export async function saveTutorialTask(userId) {
     }
 }
 
+
 /**
  * Loads all tasks of the logged-in user from Firestore.
  * @returns {Promise<Task[]>} All tasks including their document id.
@@ -63,6 +67,7 @@ export async function getTasks() {
         throw error;
     }
 }
+
 
 /**
  * Overwrites an existing task in Firestore and marks the cached tasks as outdated.
@@ -80,6 +85,7 @@ export async function updateTask(taskId, taskModell) {
         throw error;
     }
 }
+
 
 /**
  * Finds the id of the first task with the given title.
@@ -99,6 +105,7 @@ export async function getTaskIdByTitle(title) {
     }
 }
 
+
 /**
  * Deletes a task in Firestore and marks the cached tasks as outdated.
  * @param {string} taskId - The id of the task to delete.
@@ -114,6 +121,7 @@ export async function deleteTask(taskId) {
         throw error;
     }
 }
+
 
 /**
  * Marks the cached tasks in the session storage as outdated, so they are reloaded from Firestore.

@@ -2,6 +2,7 @@ const waitingTaskIds = [];
 let storedTasks = [];
 let firebaseQueue = Promise.resolve();
 
+
 /**
  * Reads the cached tasks from the session storage.
  * @returns {Task[]|null} The cached tasks, or null if nothing is saved or reading fails.
@@ -17,6 +18,7 @@ function readSessionTasks() {
   }
 }
 
+
 /**
  * Saves the stored tasks in the session storage.
  */
@@ -27,6 +29,7 @@ function saveTasksToSessionStorage() {
     console.warn('Tasks could not be saved:', error);
   }
 }
+
 
 /**
  * Loads the tasks from the session storage, or from Firebase if the cache is missing or outdated.
@@ -40,6 +43,7 @@ async function loadTasks() {
   }
   await loadTasksFromFirebase();
 }
+
 
 /**
  * Loads the tasks from Firebase and refreshes the session storage.
@@ -58,6 +62,7 @@ async function loadTasksFromFirebase() {
   }
 }
 
+
 /**
  * Checks whether the cached tasks are marked as outdated.
  * @returns {boolean} True if the tasks are outdated or the session storage is not available.
@@ -70,6 +75,7 @@ function areTasksOutdated() {
   }
 }
 
+
 /**
  * Returns the cached tasks from the session storage.
  * @returns {Task[]} The cached tasks, or an empty array if there are none.
@@ -79,6 +85,7 @@ function readStoredTasks() {
   if (Array.isArray(savedTasks)) return savedTasks;
   return [];
 }
+
 
 /**
  * Finds a stored task by its id.
@@ -90,6 +97,7 @@ function findStoredTask(taskId) {
     if (task.id === taskId) return task;
   }
 }
+
 
 /**
  * Saves the changes of a task in the session storage and queues the upload to Firebase.
@@ -104,6 +112,7 @@ function saveTaskChanges(taskId) {
     return sendTaskToFirebase(taskId);
   });
 }
+
 
 /**
  * Sends the current state of a stored task to Firebase.
@@ -124,6 +133,7 @@ async function sendTaskToFirebase(taskId) {
   }
 }
 
+
 /**
  * Removes a task from the stored tasks and queues its deletion in Firebase.
  * @param {string} taskId - The id of the task to delete.
@@ -137,6 +147,7 @@ function deleteStoredTask(taskId) {
     return deleteTaskFromFirebase(taskId);
   });
 }
+
 
 /**
  * Deletes a task in Firebase.

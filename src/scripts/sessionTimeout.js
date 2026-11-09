@@ -8,6 +8,7 @@ let sessionTimerId = null;
 let isSessionWarningVisible = false;
 let isSessionEnding = false;
 
+
 /**
  * Starts the session timeout for the logged-in user.
  * Inserts the warning markup, registers the activity listeners and starts the timer.
@@ -25,6 +26,7 @@ function initSessionTimeout() {
   checkSessionTimeout();
 }
 
+
 /**
  * Loads the time of the last user activity from the session storage.
  * @returns {number} The saved timestamp in milliseconds, or the current time if none is saved.
@@ -39,6 +41,7 @@ function loadLastActivityTime() {
   return Date.now();
 }
 
+
 /**
  * Saves the time of the last user activity in the session storage.
  */
@@ -51,6 +54,7 @@ function saveLastActivityTime() {
   }
 }
 
+
 /**
  * Reloads the last activity time and checks the timeout when the page is restored from the browser cache.
  * @param {PageTransitionEvent} event - The pageshow event.
@@ -60,6 +64,7 @@ function handleSessionPageShow(event) {
   lastActivityTime = loadLastActivityTime();
   checkSessionTimeout();
 }
+
 
 /**
  * Registers a user activity and resets the timeout.
@@ -72,6 +77,7 @@ function registerActivity(event) {
   lastActivityTime = Date.now();
   if (isSessionWarningVisible) checkSessionTimeout();
 }
+
 
 /**
  * Checks the remaining session time and shows the warning, hides it or ends the session.
@@ -89,6 +95,7 @@ function checkSessionTimeout() {
   }
 }
 
+
 /**
  * Shows the timeout warning with the remaining time.
  * @param {number} remainingTime - The remaining session time in milliseconds.
@@ -100,6 +107,7 @@ function showSessionWarning(remainingTime) {
   document.getElementById('sessionOverlay').classList.add('sessionOverlayVisible');
 }
 
+
 /**
  * Hides the timeout warning.
  */
@@ -108,6 +116,7 @@ function hideSessionWarning() {
   document.getElementById('sessionWarning').classList.remove('sessionWarningVisible');
   document.getElementById('sessionOverlay').classList.remove('sessionOverlayVisible');
 }
+
 
 /**
  * Formats the remaining session time as minutes and seconds.
@@ -121,6 +130,7 @@ function getSessionWarningText(remainingTime) {
   return minutes + ':' + String(seconds).padStart(2, '0');
 }
 
+
 /**
  * Ends the session, shows the goodbye dialog and logs out after a short delay.
  */
@@ -131,6 +141,7 @@ function endSession() {
   document.getElementById('sessionGoodbyeDialog').showModal();
   setTimeout(logOutAfterTimeout, sessionGoodbyeDuration);
 }
+
 
 /**
  * Logs out the user and redirects to the login page.

@@ -2,6 +2,7 @@ const iconPath = '../../assets/icons/';
 const toastDuration = 2000;
 let toastTimerId = null;
 
+
 /**
  * Renders the sidebar and the header depending on the login state and highlights the active link.
  */
@@ -14,6 +15,7 @@ function renderLayout() {
   markActiveNavLink();
 }
 
+
 /**
  * Renders the sidebar and the header for a logged-in user and registers the log out link.
  */
@@ -22,6 +24,7 @@ function renderLoggedInLayout() {
   document.querySelector('.header').innerHTML = headerTemplate(iconPath, getCurrentUserInitials());
   document.getElementById('logOutLink').addEventListener('click', logOut);
 }
+
 
 /**
  * Renders the sidebar and the header for a visitor who is not logged in.
@@ -33,6 +36,7 @@ function renderLoggedOutLayout() {
   document.querySelector('.header').innerHTML = headerLoggedOutTemplate(iconPath);
 }
 
+
 /**
  * Logs out the current user and redirects to the login page.
  * @param {MouseEvent} event - The click event of the log out link.
@@ -43,6 +47,7 @@ function logOut(event) {
   location.replace('../../index.html');
 }
 
+
 /**
  * Returns the initials of the logged-in user for the header avatar.
  * @returns {string} The initials, or "G" for a guest.
@@ -52,6 +57,7 @@ function getCurrentUserInitials() {
   if (currentUser.isGuest === true) return 'G';
   return getInitials(currentUser.name);
 }
+
 
 /**
  * Returns the initials of a name, built from the first letter of the first and the last name part.
@@ -66,6 +72,7 @@ function getInitials(name) {
   return (firstLetter + lastLetter).toUpperCase();
 }
 
+
 /**
  * Highlights the navigation link and the legal link of the current page.
  */
@@ -74,6 +81,7 @@ function markActiveNavLink() {
   markActiveLink('.navLink', currentPage, 'navLinkActive');
   markActiveLink('.legalLink', currentPage, 'legalLinkActive');
 }
+
 
 /**
  * Adds the active class to the link that points to the current page.
@@ -85,6 +93,7 @@ function markActiveLink(linkClass, currentPage, activeClass) {
   const activeLink = document.querySelector(`${linkClass}[href="${currentPage}"]`);
   if (activeLink !== null) activeLink.classList.add(activeClass);
 }
+
 
 /**
  * Toggles the header menu when the avatar is clicked and closes it on a click outside the menu.
@@ -100,6 +109,7 @@ function handleHeaderMenuClick(event) {
   }
 }
 
+
 /**
  * Shows a short feedback message at the bottom of the page.
  * Needs an element with the id "toast" and the attribute popover="manual" on the page.
@@ -114,6 +124,7 @@ function showToast(message) {
   clearTimeout(toastTimerId);
   toastTimerId = setTimeout(hideToast, toastDuration);
 }
+
 
 /**
  * Hides the feedback message.

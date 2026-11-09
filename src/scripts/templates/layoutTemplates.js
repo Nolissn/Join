@@ -18,6 +18,7 @@ function sidebarTemplate(iconPath) {
     </nav>`;
 }
 
+
 /**
  * Returns the HTML of the header for a logged-in user.
  * @param {string} iconPath - The path to the icon folder.
@@ -40,6 +41,7 @@ function headerTemplate(iconPath, initials) {
     </div>`;
 }
 
+
 /**
  * Returns the HTML of the sidebar for a visitor who is not logged in.
  * @param {string} iconPath - The path to the icon folder.
@@ -57,6 +59,7 @@ function sidebarLoggedOutTemplate(iconPath) {
     </nav>`;
 }
 
+
 /**
  * Returns the HTML of the header for a visitor who is not logged in.
  * @param {string} iconPath - The path to the icon folder.
@@ -67,6 +70,7 @@ function headerLoggedOutTemplate(iconPath) {
     <a class="headerLogo" href="../../index.html"><img class="headerLogoImg" src="${iconPath}join_icon_dark.svg" alt="Join Logo"></a>
     <p class="headerTitle">Kanban Project Management Tool</p>`;
 }
+
 
 /**
  * Returns the HTML of the session timeout warning and the goodbye dialog.

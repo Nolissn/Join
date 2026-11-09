@@ -7,6 +7,7 @@ function guardPage() {
   }
 }
 
+
 /**
  * Checks the login again when the page is restored from the browser cache.
  * @param {PageTransitionEvent} event - The pageshow event.
