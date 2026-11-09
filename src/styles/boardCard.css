@@ -1,0 +1,246 @@
+.taskCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px;
+  border-radius: 24px;
+  background-color: var(--colorWhite);
+  box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+.taskCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.taskMoveButton {
+  display: none;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.taskMoveMenu {
+  position: absolute;
+  top: 48px;
+  right: 16px;
+  z-index: 1;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 8px;
+  border-radius: 20px 0 20px 20px;
+  background-color: var(--colorPrimary);
+  cursor: default;
+}
+
+.taskCardMoveOpen .taskMoveMenu {
+  display: flex;
+}
+
+.taskMoveTitle {
+  padding: 0 8px 4px;
+  color: var(--colorWhite);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.taskMoveOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  color: var(--colorWhite);
+  font-family: inherit;
+  font-size: 16px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.taskMoveOption:hover,
+.taskMoveOption:focus-visible {
+  background-color: var(--colorPrimaryDark);
+  outline: none;
+}
+
+.taskCardHeld,
+.taskCardDragging {
+  border: 1px dashed var(--colorGrey);
+  background-color: var(--colorPlaceholderBg);
+  box-shadow: none;
+}
+
+.taskCardHeld > *,
+.taskCardDragging > * {
+  visibility: hidden;
+}
+
+.taskCardGhost {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 252px;
+  translate: var(--dragX) var(--dragY);
+  scale: 1.05;
+  box-shadow: 0 8px 24px 4px rgba(0, 0, 0, 0.24);
+  pointer-events: none;
+  animation: taskCardGrab 150ms ease-out;
+}
+
+@keyframes taskCardGrab {
+  from {
+    scale: 1;
+  }
+}
+
+.taskCategory {
+  align-self: flex-start;
+  padding: 4px 16px;
+  border-radius: 8px;
+  color: var(--colorWhite);
+  font-size: 16px;
+}
+
+.categoryUserStory {
+  background-color: var(--colorUserStory);
+}
+
+.categoryTechnicalTask {
+  background-color: var(--colorTechnicalTask);
+}
+
+.taskText {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.taskTitle {
+  color: var(--colorPrimary);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.taskDescription {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: var(--colorTextGrey);
+  font-size: 16px;
+}
+
+.taskProgress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.taskProgressBar {
+  flex: 1;
+  height: 8px;
+  border: none;
+  border-radius: 16px;
+  background-color: var(--colorProgressTrack);
+  appearance: none;
+  overflow: hidden;
+}
+
+.taskProgressBar::-webkit-progress-bar {
+  background-color: var(--colorProgressTrack);
+}
+
+.taskProgressBar::-webkit-progress-value {
+  border-radius: 16px;
+  background-color: var(--colorProgress);
+}
+
+.taskProgressBar::-moz-progress-bar {
+  border-radius: 16px;
+  background-color: var(--colorProgress);
+}
+
+.taskProgressText {
+  color: var(--colorBlack);
+  font-size: 16px;
+}
+
+.taskFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.taskAssignees {
+  display: flex;
+}
+
+.taskAvatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--colorWhite);
+  border-radius: 50%;
+  color: var(--colorWhite);
+  font-size: 12px;
+}
+
+.taskAvatar + .taskAvatar {
+  margin-left: -8px;
+}
+
+.taskPriority {
+  pointer-events: none;
+}
+
+.avatarOrange {
+  background-color: var(--colorAvatarOrange);
+}
+
+.avatarTurquoise {
+  background-color: var(--colorAvatarTurquoise);
+}
+
+.avatarPurple {
+  background-color: var(--colorAvatarPurple);
+}
+
+@media (min-width: 769px) {
+  .taskCard:hover {
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.16);
+  }
+}
+
+@media (max-width: 1250px) {
+  .taskCard {
+    flex: 0 0 252px;
+  }
+}
+
+@media (max-width: 768px) {
+  .taskMoveButton {
+    display: flex;
+  }
+}
+
+@media (max-width: 768px) and (pointer: coarse) {
+  .taskCard {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+  }
+}
