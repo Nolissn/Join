@@ -100,33 +100,37 @@ function findStoredTask(taskId) {
  * Saves the changes of a task in the session storage and queues the upload to Firebase.
  * A task that is already waiting in the queue is not added twice.
  * @param {string} taskId - The id of the changed task.
+ * @returns {Promise<boolean>} Resolves when the queued uploads are done, true if the last upload was successful.
  */
 function saveTaskChanges(taskId) {
   saveTasksToSessionStorage();
-  if (waitingTaskIds.includes(taskId)) return;
+  if (waitingTaskIds.includes(taskId)) return firebaseQueue;
   waitingTaskIds.push(taskId);
   firebaseQueue = firebaseQueue.then(function () {
     return sendTaskToFirebase(taskId);
   });
+  return firebaseQueue;
 }
 
 
 /**
  * Sends the current state of a stored task to Firebase and shows a message if it fails.
  * @param {string} taskId - The id of the task to send.
- * @returns {Promise<void>}
+ * @returns {Promise<boolean>} True if the task was saved in Firebase.
  */
 async function sendTaskToFirebase(taskId) {
   waitingTaskIds.splice(waitingTaskIds.indexOf(taskId), 1);
   const task = findStoredTask(taskId);
-  if (!task) return;
+  if (!task) return false;
   const taskData = JSON.parse(JSON.stringify(task));
   delete taskData.id;
   try {
     const joinDbApi = await import('./joinDbApi.js');
     await joinDbApi.updateTask(taskId, taskData);
+    return true;
   } catch {
     showToast('Changes could not be saved');
+    return false;
   }
 }
 

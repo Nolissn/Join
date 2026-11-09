@@ -242,6 +242,11 @@
   transition: background-color 100ms ease-out, box-shadow 100ms ease-out;
 }
 
+.taskEditSubmit:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
 @media (min-width: 769px) {
   .taskEditIconButton:hover {
     background-color: var(--colorBgHover);
@@ -255,7 +260,7 @@
     background-color: var(--colorPrimaryDark);
   }
 
-  .taskEditSubmit:hover {
+  .taskEditSubmit:not(:disabled):hover {
     background-color: var(--colorAccent);
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   }

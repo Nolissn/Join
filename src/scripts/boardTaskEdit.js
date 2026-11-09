@@ -60,19 +60,22 @@ function handleEditKeydown(event) {
 
 
 /**
- * Saves the edited task, renders the board again and shows the updated detail view.
+ * Saves the edited task and renders the board again.
+ * The submit button stays disabled until Firebase has answered, then the updated detail view is shown.
  * @param {SubmitEvent} event - The submit event of the edit form.
+ * @returns {Promise<void>}
  */
-function saveTaskEdit(event) {
+async function saveTaskEdit(event) {
   event.preventDefault();
   const form = event.target;
   if (!isTaskEditValid(form)) return;
+  form.querySelector('.taskEditSubmit').disabled = true;
   const task = findStoredTask(form.dataset.taskId);
   updateTaskFromForm(task, form);
-  saveTaskChanges(task.id);
   renderBoard();
-  showTaskDetail(task);
-  showToast('Task updated');
+  const isSaved = await saveTaskChanges(task.id);
+  if (form.isConnected) showTaskDetail(task);
+  if (isSaved) showToast('Task updated');
 }
 
 
