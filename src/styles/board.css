@@ -500,7 +500,8 @@
   cursor: pointer;
 }
 
-.taskDetailCheckbox {
+.taskDetailCheckbox,
+.taskEditContactCheckbox {
   flex-shrink: 0;
   width: 24px;
   height: 24px;
@@ -510,7 +511,8 @@
   cursor: pointer;
 }
 
-.taskDetailCheckbox:checked {
+.taskDetailCheckbox:checked,
+.taskEditContactCheckbox:checked {
   background-image: url('../../assets/icons/checkbox_checked.svg');
 }
 
@@ -644,6 +646,73 @@
   background-color: var(--priorityLowGreen);
 }
 
+.taskEditAssignToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--colorWhite);
+  color: var(--colorBlack);
+  text-align: left;
+  cursor: pointer;
+}
+
+.taskEditAssignToggle::after {
+  content: '';
+  border: 6px solid transparent;
+  border-top-color: var(--colorBlack);
+  transform: translateY(3px);
+  transition: transform 100ms ease-out;
+}
+
+.taskEditAssignOpen .taskEditAssignToggle::after {
+  transform: translateY(-3px) rotate(180deg);
+}
+
+.taskEditAssignList {
+  display: none;
+  flex-direction: column;
+  max-height: 240px;
+  padding: 0;
+  overflow-y: auto;
+  border-radius: 10px;
+  list-style: none;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.16);
+}
+
+.taskEditAssignOpen .taskEditAssignList {
+  display: flex;
+}
+
+.taskEditContact {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 16px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.taskEditContactName {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.taskEditContact:has(:checked) {
+  background-color: var(--colorPrimary);
+  color: var(--colorWhite);
+}
+
+.taskEditContact:has(:checked) .taskEditContactCheckbox {
+  filter: brightness(0) invert(1);
+}
+
+.taskEditAssignees {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 4px;
+}
+
 .taskEditSubtaskAdd,
 .taskEditSubtask {
   display: flex;
@@ -707,6 +776,14 @@
 
   .taskEditIconButton:hover {
     background-color: var(--colorBgHover);
+  }
+
+  .taskEditContact:hover {
+    background-color: var(--colorBgHover);
+  }
+
+  .taskEditContact:has(:checked):hover {
+    background-color: var(--colorPrimaryDark);
   }
 
   .taskEditSubmit:hover {

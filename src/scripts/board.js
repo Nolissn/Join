@@ -21,14 +21,16 @@ const autoScrollZone = 80;
 const autoScrollMaxSpeed = 18;
 let mouseDrag = null;
 let previousBodyOverflow = null;
+let editContacts = [];
 
 /**
- * Initializes the board: registers the events, loads the tasks and renders the board.
+ * Initializes the board: registers the events, loads the tasks and contacts and renders the board.
  * @returns {Promise<void>}
  */
 async function initBoard() {
   initBoardEvents();
   await loadTasks();
+  await loadContacts();
   renderBoard();
 }
 
@@ -60,6 +62,7 @@ function initTaskDialogEvents() {
   taskDialog.addEventListener('submit', saveTaskEdit);
   taskDialog.addEventListener('keydown', handleEditKeydown);
   taskDialog.addEventListener('change', handleSubtaskToggle);
+  taskDialog.addEventListener('change', handleAssignChange);
 }
 
 /**
@@ -423,6 +426,7 @@ function handleDialogClick(event) {
   const clickedBackground = event.target === event.currentTarget;
   const clickedCloseButton = event.target.closest('.taskDetailClose');
   const actionButton = event.target.closest('[data-action]');
+  closeAssignList(event);
   if (actionButton) handleDialogAction(event, actionButton);
   if (clickedBackground || clickedCloseButton) closeTaskDialog(event);
 }
@@ -451,6 +455,26 @@ function handleDialogAction(event, button) {
   if (action === 'edit') openTaskEdit(button.dataset.taskId);
   if (action === 'addSubtask') addEditSubtask(button.closest('.taskEditForm'));
   if (action === 'removeSubtask') button.closest('.taskEditSubtask').remove();
+  if (action === 'toggleAssign') button.closest('.taskEditAssign').classList.toggle('taskEditAssignOpen');
+}
+
+/**
+ * Closes the open contact list of the edit form when the click is outside of the assign field.
+ * @param {MouseEvent} event - The click event.
+ */
+function closeAssignList(event) {
+  const assignField = document.querySelector('.taskEditAssignOpen');
+  if (assignField && !assignField.contains(event.target)) assignField.classList.remove('taskEditAssignOpen');
+}
+
+/**
+ * Updates the avatar preview of the edit form when a contact is checked or unchecked.
+ * @param {Event} event - The change event.
+ */
+function handleAssignChange(event) {
+  if (!event.target.matches('.taskEditContactCheckbox')) return;
+  const form = event.target.closest('.taskEditForm');
+  form.querySelector('.taskEditAssignees').innerHTML = getAvatarsHtml(getEditedAssignees(form), 'card');
 }
 
 /**
@@ -523,7 +547,21 @@ function updateTaskFromForm(task, form) {
   task.description = formData.get('description').trim();
   task.dueDate = formData.get('dueDate');
   task.priority = formData.get('priority');
+  task.assignedTo = getEditedAssignees(form);
   task.subtasks = getEditedSubtasks(form);
+}
+
+/**
+ * Reads the checked contacts from the edit form.
+ * @param {HTMLFormElement} form - The edit form.
+ * @returns {Object[]} The assigned contacts with id and name.
+ */
+function getEditedAssignees(form) {
+  const assignees = [];
+  for (const checkbox of form.querySelectorAll('.taskEditContactCheckbox:checked')) {
+    assignees.push(editContacts[checkbox.value]);
+  }
+  return assignees;
 }
 
 /**
@@ -614,6 +652,50 @@ function getEditPrioritiesHtml(selectedPriority) {
     prioritiesHtml += taskEditPriorityTemplate(priority, checkedAttribute);
   }
   return prioritiesHtml;
+}
+
+/**
+ * Checks whether two contacts are the same person.
+ * Compares the ids if both contacts have one, otherwise the names.
+ * @param {Object} contactA - The first contact.
+ * @param {Object} contactB - The second contact.
+ * @returns {boolean} True if both contacts are the same person.
+ */
+function isSameContact(contactA, contactB) {
+  if (contactA.id && contactB.id) return contactA.id === contactB.id;
+  return contactA.name === contactB.name;
+}
+
+/**
+ * Returns all contacts for the edit form.
+ * The assigned contacts come first in their card order, followed by the remaining contacts.
+ * @param {Object[]} assignedTo - The contacts assigned to the task.
+ * @returns {Object[]} The contacts to show in the edit form.
+ */
+function getEditContacts(assignedTo) {
+  const contacts = assignedTo.slice();
+  for (const contact of storedContacts) {
+    if (contacts.some(assignee => isSameContact(assignee, contact))) continue;
+    contacts.push({ id: contact.id, name: contact.name });
+  }
+  return contacts;
+}
+
+/**
+ * Builds the contact list HTML of the edit form and remembers the shown contacts.
+ * The assigned contacts are checked and keep the avatar colors of the task card.
+ * @param {Object[]} assignedTo - The contacts assigned to the task.
+ * @returns {string} The contact list HTML.
+ */
+function getEditContactsHtml(assignedTo) {
+  editContacts = getEditContacts(assignedTo);
+  let contactsHtml = '';
+  for (let i = 0; i < editContacts.length; i++) {
+    let checkedAttribute = '';
+    if (i < assignedTo.length) checkedAttribute = 'checked';
+    contactsHtml += taskEditContactTemplate(editContacts[i], i, avatarColors[i % avatarColors.length], checkedAttribute);
+  }
+  return contactsHtml;
 }
 
 /**

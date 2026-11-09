@@ -256,6 +256,12 @@ function taskEditTemplate(task) {
         <legend class="taskEditLabel">Priority</legend>
         <div class="taskEditPriorities">${getEditPrioritiesHtml(task.priority)}</div>
       </fieldset>
+      <div class="taskEditField taskEditAssign">
+        <span class="taskEditLabel">Assigned to</span>
+        <button class="taskEditInput taskEditAssignToggle" type="button" data-action="toggleAssign">Select contacts to assign</button>
+        <ul class="taskEditAssignList">${getEditContactsHtml(task.assignedTo)}</ul>
+        <div class="taskEditAssignees">${getAvatarsHtml(task.assignedTo, 'card')}</div>
+      </div>
       <div class="taskEditField">
         <span class="taskEditLabel">Subtasks</span>
         <div class="taskEditSubtaskAdd">
@@ -282,6 +288,25 @@ function taskEditPriorityTemplate(priority, checkedAttribute) {
       <input class="taskEditPriorityRadio" type="radio" name="priority" value="${priority}" required ${checkedAttribute}>
       ${priorities[priority].label}<img class="taskEditPriorityIcon" src="${iconPath}${priorities[priority].icon}" alt="">
     </label>`;
+}
+
+/**
+ * Returns the HTML of a selectable contact in the edit form.
+ * @param {Object} contact - The contact with id and name.
+ * @param {number} index - The position of the contact in the list of the edit form.
+ * @param {string} avatarColor - The color class of the avatar.
+ * @param {string} checkedAttribute - "checked" if the contact is assigned, otherwise an empty string.
+ * @returns {string} The list item HTML.
+ */
+function taskEditContactTemplate(contact, index, avatarColor, checkedAttribute) {
+  return `
+    <li>
+      <label class="taskEditContact">
+        <span class="taskAvatar ${avatarColor}">${makeTextSafe(getInitials(contact.name))}</span>
+        <span class="taskEditContactName">${makeTextSafe(contact.name)}</span>
+        <input class="taskEditContactCheckbox" type="checkbox" value="${index}" ${checkedAttribute}>
+      </label>
+    </li>`;
 }
 
 /**
