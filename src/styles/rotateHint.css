@@ -1,0 +1,36 @@
+@media (orientation: landscape) and (max-height: 500px) and (pointer: coarse) {
+  body {
+    overflow: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background-color: var(--colorPrimary);
+  }
+
+  body::after {
+    content: 'Please rotate your device to portrait mode';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 1001;
+    width: max-content;
+    max-width: calc(100% - 64px);
+    padding-top: 96px;
+    background: url('../../assets/icons/join_icon_bright.svg') top center / 64px 78px no-repeat;
+    color: var(--colorWhite);
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    transform: translate(-50%, -50%);
+  }
+
+  dialog,
+  [popover],
+  ::backdrop {
+    visibility: hidden;
+  }
+}
