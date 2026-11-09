@@ -41,6 +41,7 @@
 .headerHelpIcon {
   width: 24px;
   height: 24px;
+  transition: transform 100ms ease-out;
 }
 
 .headerAvatar {
@@ -54,6 +55,7 @@
   font-size: 20px;
   font-weight: 700;
   cursor: pointer;
+  transition: background-color 100ms ease-out;
 }
 
 .headerMenu {
@@ -80,6 +82,7 @@
   color: var(--colorGreyLight);
   font-size: 16px;
   text-decoration: none;
+  transition: background-color 100ms ease-out;
 }
 
 .headerMenuLinkMobile {
@@ -93,6 +96,10 @@
 
   .headerAvatar:hover {
     background-color: var(--colorBgHover);
+  }
+
+  .headerMenuLink:hover {
+    background-color: var(--colorPrimaryDark);
   }
 }
 

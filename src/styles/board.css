@@ -53,11 +53,18 @@
 
 .boardSearchClear {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
-  padding: 0 8px;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+  padding: 0;
   border: none;
+  border-radius: 50%;
   background: none;
   cursor: pointer;
+  transition: background-color 100ms ease-out;
 }
 
 .boardSearchInput:placeholder-shown + .boardSearchClear {
@@ -75,6 +82,10 @@
   cursor: pointer;
 }
 
+.boardSearchButton img {
+  transition: transform 100ms ease-out;
+}
+
 .boardAddButton {
   display: flex;
   align-items: center;
@@ -89,6 +100,7 @@
   font-size: 21px;
   font-weight: 700;
   cursor: pointer;
+  transition: background-color 100ms ease-out, box-shadow 100ms ease-out;
 }
 
 .boardNoResults {
@@ -135,6 +147,8 @@
   border: none;
   background: none;
   cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 100ms ease-out, box-shadow 100ms ease-out;
 }
 
 .boardColumn[data-status="done"] .columnAddButton {
@@ -169,6 +183,20 @@
   .boardAddButton:hover {
     background-color: var(--colorAccent);
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .boardSearchClear:hover {
+    background-color: var(--colorBgHover);
+  }
+
+  .boardSearchButton:hover img {
+    transform: scale(1.2);
+  }
+
+  .columnAddButton:hover,
+  .taskDetailClose:hover {
+    background-color: var(--colorBgHover);
+    box-shadow: 0 0 0 4px var(--colorBgHover);
   }
 }
 

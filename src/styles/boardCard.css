@@ -8,6 +8,7 @@
   background-color: var(--colorWhite);
   box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.08);
   cursor: pointer;
+  transition: box-shadow 100ms ease-out;
 }
 
 .taskCardHeader {
@@ -64,6 +65,7 @@
   font-size: 16px;
   white-space: nowrap;
   cursor: pointer;
+  transition: background-color 100ms ease-out;
 }
 
 .taskMoveOption:hover,
