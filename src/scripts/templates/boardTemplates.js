@@ -183,13 +183,13 @@ function renderAddTaskDialog() {
           </div>
           <div class="add-task-input-container">
             <label for="dueDate">Due Date</label>
-            <input class="add-task-input" type="date" name="dueDate" id="dueDate" style="color:var(--colorTextGrey)" required>
+            <input class="add-task-input add-task-date-input" type="date" name="dueDate" id="dueDate" required>
           </div>
         </section>
         <div class="seperator"></div>
         <section class="form-right">
           <div class="add-task-input-container">
-            <label for="priority" style="color:var(--colorBlack)">Priority</label>
+            <label class="priority-label" for="priority">Priority</label>
             <div id="priority" class="priority-btn-container">
               <button type="button" class="priority-btn" id="priorityUrgent" onclick="setPriority('urgent')">Urgent <img class="priority-btn-icon" src="../../assets/icons/urgent.svg" data-icon="urgent.svg" data-active-icon="urgend-white.svg" alt="Urgent"></button>
               <button type="button" class="priority-btn btn-active priority-medium" id="priorityMedium" onclick="setPriority('medium')">Medium <img class="priority-btn-icon" src="../../assets/icons/medium.svg" data-icon="medium_orange.svg" data-active-icon="medium.svg" alt="Medium"></button>

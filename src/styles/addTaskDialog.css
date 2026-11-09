@@ -436,4 +436,12 @@
     justify-content: center;
     gap: 2px;
   }
-}
+}
+
+.add-task-dialog .add-task-date-input {
+  color: var(--colorTextGrey);
+}
+
+.add-task-dialog .priority-label {
+  color: var(--colorBlack);
+}

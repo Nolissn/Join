@@ -18,7 +18,6 @@ const categoryClasses = {
 
 const avatarColors = ['avatarOrange', 'avatarTurquoise', 'avatarPurple'];
 const maxCardAvatars = 4;
-let previousBodyOverflow = null;
 
 
 /**
@@ -81,22 +80,18 @@ function initAddTaskDialogEvents() {
 
 
 /**
- * Prevents the page from scrolling while a dialog is open and remembers the previous overflow value.
+ * Prevents the page from scrolling while a dialog is open.
  */
 function lockPageScroll() {
-  if (previousBodyOverflow !== null) return;
-  previousBodyOverflow = document.body.style.overflow;
-  document.body.style.overflow = 'hidden';
+  document.body.classList.add('bodyScrollLocked');
 }
 
 
 /**
- * Restores the previous scroll behavior of the page.
+ * Allows the page to scroll again after a dialog is closed.
  */
 function unlockPageScroll() {
-  if (previousBodyOverflow === null) return;
-  document.body.style.overflow = previousBodyOverflow;
-  previousBodyOverflow = null;
+  document.body.classList.remove('bodyScrollLocked');
 }
 
 

@@ -1,3 +1,7 @@
+.bodyScrollLocked {
+  overflow: hidden;
+}
+
 .board {
   display: flex;
   flex-direction: column;
