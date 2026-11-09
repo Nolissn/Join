@@ -62,6 +62,14 @@
   line-height: 1.2;
 }
 
+.taskDetailTitle,
+.taskDetailDescription,
+.taskDetailAssigneeName,
+.taskDetailSubtaskTitle {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 .taskDetailDescription,
 .taskDetailRow,
 .taskDetailLabel {

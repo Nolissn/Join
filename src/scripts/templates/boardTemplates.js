@@ -144,7 +144,7 @@ function taskDetailTemplate(task) {
  * @returns {string} The list item HTML.
  */
 function taskDetailAssigneeTemplate(initials, avatarColor, name) {
-  return `<li class="taskDetailAssignee"><span class="taskAvatar taskDetailAvatar ${avatarColor}">${makeTextSafe(initials)}</span>${makeTextSafe(name)}</li>`;
+  return `<li class="taskDetailAssignee"><span class="taskAvatar taskDetailAvatar ${avatarColor}">${makeTextSafe(initials)}</span><span class="taskDetailAssigneeName">${makeTextSafe(name)}</span></li>`;
 }
 
 
@@ -156,7 +156,7 @@ function taskDetailAssigneeTemplate(initials, avatarColor, name) {
  * @returns {string} The list item HTML.
  */
 function taskDetailSubtaskTemplate(title, checkedAttribute, index) {
-  return `<li><label class="taskDetailSubtask"><input class="taskDetailCheckbox" type="checkbox" data-subtask-index="${index}" ${checkedAttribute}>${makeTextSafe(title)}</label></li>`;
+  return `<li><label class="taskDetailSubtask"><input class="taskDetailCheckbox" type="checkbox" data-subtask-index="${index}" ${checkedAttribute}><span class="taskDetailSubtaskTitle">${makeTextSafe(title)}</span></label></li>`;
 }
 
 

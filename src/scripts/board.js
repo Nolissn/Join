@@ -17,6 +17,7 @@ const categoryClasses = {
 };
 
 const avatarColors = ['avatarOrange', 'avatarTurquoise', 'avatarPurple'];
+const maxCardAvatars = 4;
 let previousBodyOverflow = null;
 
 
@@ -241,22 +242,36 @@ function moveTaskTo(taskId, newStatus) {
 
 /**
  * Builds the avatar HTML of the assigned contacts.
+ * The card view shows at most maxCardAvatars avatars and a "+N" avatar for the rest.
  * @param {Object[]} contacts - The assigned contacts.
  * @param {string} view - "detail" for the detail view, otherwise the card view is used.
  * @returns {string} The avatar HTML.
  */
 function getAvatarsHtml(contacts, view) {
+  if (view === 'detail') return getDetailAssigneesHtml(contacts);
   let avatarsHtml = '';
-  for (let i = 0; i < contacts.length; i++) {
-    const initials = getInitials(contacts[i].name);
-    const avatarColor = avatarColors[i % avatarColors.length];
-    if (view === 'detail') {
-      avatarsHtml += taskDetailAssigneeTemplate(initials, avatarColor, contacts[i].name);
-    } else {
-      avatarsHtml += taskAvatarTemplate(initials, avatarColor);
-    }
+  for (let i = 0; i < contacts.length && i < maxCardAvatars; i++) {
+    avatarsHtml += taskAvatarTemplate(getInitials(contacts[i].name), avatarColors[i % avatarColors.length]);
+  }
+  if (contacts.length > maxCardAvatars) {
+    avatarsHtml += taskAvatarTemplate('+' + (contacts.length - maxCardAvatars), 'avatarMore');
   }
   return avatarsHtml;
+}
+
+
+/**
+ * Builds the list of all assigned contacts with avatar and name for the detail view.
+ * @param {Object[]} contacts - The assigned contacts.
+ * @returns {string} The assignee list HTML.
+ */
+function getDetailAssigneesHtml(contacts) {
+  let assigneesHtml = '';
+  for (let i = 0; i < contacts.length; i++) {
+    const avatarColor = avatarColors[i % avatarColors.length];
+    assigneesHtml += taskDetailAssigneeTemplate(getInitials(contacts[i].name), avatarColor, contacts[i].name);
+  }
+  return assigneesHtml;
 }
 
 
