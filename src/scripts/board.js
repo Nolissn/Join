@@ -63,6 +63,7 @@ function initTaskDialogEvents() {
   taskDialog.addEventListener('keydown', handleEditKeydown);
   taskDialog.addEventListener('change', handleSubtaskToggle);
   taskDialog.addEventListener('change', handleAssignChange);
+  taskDialog.addEventListener('input', handleEditInput);
 }
 
 /**
@@ -529,11 +530,44 @@ function handleEditKeydown(event) {
 function saveTaskEdit(event) {
   event.preventDefault();
   const form = event.target;
+  if (!isTaskEditValid(form)) return;
   const task = findStoredTask(form.dataset.taskId);
   updateTaskFromForm(task, form);
   saveTaskChanges(task.id);
   renderBoard();
   showTaskDetail(task);
+}
+
+/**
+ * Validates the required fields of the edit form and focuses the first invalid field.
+ * @param {HTMLFormElement} form - The edit form.
+ * @returns {boolean} True if all required fields are filled.
+ */
+function isTaskEditValid(form) {
+  const isTitleValid = validateEditField(form.elements.title);
+  const isDueDateValid = validateEditField(form.elements.dueDate);
+  const firstInvalidInput = form.querySelector('.taskEditFieldInvalid .taskEditInput');
+  if (firstInvalidInput) firstInvalidInput.focus();
+  return isTitleValid && isDueDateValid;
+}
+
+/**
+ * Checks whether a required field of the edit form is filled and shows or hides its error message.
+ * @param {HTMLInputElement} input - The required input.
+ * @returns {boolean} True if the input is not empty.
+ */
+function validateEditField(input) {
+  const isValid = input.value.trim() !== '';
+  input.closest('.taskEditField').classList.toggle('taskEditFieldInvalid', !isValid);
+  return isValid;
+}
+
+/**
+ * Validates an invalid field of the edit form again while the user corrects it.
+ * @param {Event} event - The input event.
+ */
+function handleEditInput(event) {
+  if (event.target.closest('.taskEditFieldInvalid')) validateEditField(event.target);
 }
 
 /**

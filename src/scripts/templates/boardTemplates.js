@@ -242,15 +242,17 @@ function taskEditTemplate(task) {
       </div>
       <label class="taskEditField">
         <span class="taskEditLabel">Title</span>
-        <input class="taskEditInput" type="text" name="title" value="${makeTextSafe(task.title)}" pattern=".*\\S.*" required>
+        <input class="taskEditInput" type="text" name="title" value="${makeTextSafe(task.title)}">
+        <span class="taskEditError">This field is required</span>
       </label>
       <label class="taskEditField">
         <span class="taskEditLabel">Description</span>
-        <textarea class="taskEditInput taskEditTextarea" name="description" required>${makeTextSafe(task.description)}</textarea>
+        <textarea class="taskEditInput taskEditTextarea" name="description">${makeTextSafe(task.description)}</textarea>
       </label>
       <label class="taskEditField">
         <span class="taskEditLabel">Due date</span>
-        <input class="taskEditInput" type="date" name="dueDate" value="${makeTextSafe(task.dueDate)}" required>
+        <input class="taskEditInput" type="date" name="dueDate" value="${makeTextSafe(task.dueDate)}">
+        <span class="taskEditError">This field is required</span>
       </label>
       <fieldset class="taskEditField taskEditFieldset">
         <legend class="taskEditLabel">Priority</legend>
@@ -285,7 +287,7 @@ function taskEditTemplate(task) {
 function taskEditPriorityTemplate(priority, checkedAttribute) {
   return `
     <label class="taskEditPriority ${priorities[priority].editClass}">
-      <input class="taskEditPriorityRadio" type="radio" name="priority" value="${priority}" required ${checkedAttribute}>
+      <input class="taskEditPriorityRadio" type="radio" name="priority" value="${priority}" ${checkedAttribute}>
       ${priorities[priority].label}<img class="taskEditPriorityIcon" src="${iconPath}${priorities[priority].icon}" alt="">
     </label>`;
 }

@@ -590,6 +590,21 @@
   outline: none;
 }
 
+.taskEditFieldInvalid .taskEditInput,
+.taskEditFieldInvalid .taskEditInput:focus {
+  border-color: var(--colorRed);
+}
+
+.taskEditError {
+  display: none;
+  color: var(--colorRed);
+  font-size: 14px;
+}
+
+.taskEditFieldInvalid .taskEditError {
+  display: block;
+}
+
 .taskEditTextarea {
   height: 120px;
   padding: 12px 16px;
