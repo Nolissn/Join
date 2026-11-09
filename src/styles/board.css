@@ -91,6 +91,16 @@
   cursor: pointer;
 }
 
+.boardNoResults {
+  display: none;
+  color: var(--colorTextGrey);
+  font-size: 20px;
+}
+
+.boardNoResultsVisible {
+  display: block;
+}
+
 .boardColumns {
   display: flex;
   gap: 24px;

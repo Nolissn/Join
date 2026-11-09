@@ -111,6 +111,18 @@ function renderBoard() {
     boardHtml += boardColumnTemplate(column, tasksHtml);
   }
   document.querySelector('.boardColumns').innerHTML = boardHtml;
+  updateNoResultsMessage(searchText, sortedTasks);
+}
+
+/**
+ * Shows the "No results found" message if a search text is entered and no task matches it.
+ * @param {string} searchText - The search text in lowercase.
+ * @param {Task[]} tasks - All tasks of the board.
+ */
+function updateNoResultsMessage(searchText, tasks) {
+  const hasResults = tasks.some(task => matchesSearch(task, searchText));
+  const showMessage = searchText !== '' && !hasResults;
+  document.getElementById('boardNoResults').classList.toggle('boardNoResultsVisible', showMessage);
 }
 
 /**
