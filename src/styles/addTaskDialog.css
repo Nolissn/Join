@@ -4,7 +4,7 @@
   width: 1100px;
   height: 800px;
   max-width: calc(100vw - 32px);
-  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
   box-sizing: border-box;
   margin: auto;
   padding: 56px;
