@@ -200,7 +200,7 @@ function getContactListHtmlElement(contact, index) {
                         <div class="contact-list-initials ${contact.color}">${contact.name.split(" ").map(n => n[0]).join("")}</div>
                         <div class="container-contact-list-info">
                             <div class="contact-list-name">${contact.name}</div>
-                            <a href="mailto:${contact.email}">${contact.email}</a>
+                            <a>${contact.email}</a>
                         </div>
                     </button>`
 }
