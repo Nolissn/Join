@@ -445,3 +445,11 @@
 .add-task-dialog .priority-label {
   color: var(--colorBlack);
 }
+
+.add-task-dialog .add-task-date-input {
+  color: var(--colorTextGrey);
+}
+
+.add-task-dialog .priority-label {
+  color: var(--colorBlack);
+}
