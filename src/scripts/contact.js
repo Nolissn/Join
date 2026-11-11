@@ -11,6 +11,8 @@ async function init() {
     await loadContacts();
     sortContacts();
     renderContactList();
+    console.log(storedContacts);
+    test();
 }
 
 function sortContacts() {
@@ -43,21 +45,12 @@ function selectContact(index) {
 
 function showContactInformation() {
     document.getElementById("contact_information_container").classList.remove("d-none");
-<<<<<<< HEAD
-    document.getElementById("contact_name").innerText = contact[currentUser].name;
-    document.getElementById("contact_email").innerText = contact[currentUser].email;
-    document.getElementById("contact_email").href = "mailto:" + contact[currentUser].email;
-    document.getElementById("contact_phone").innerText = contact[currentUser].phone;
-    document.getElementById("contact_initials").innerText = contact[currentUser].name.split(" ").map(n => n[0]).join("");
-    document.getElementById("contact_initials").classList.add("contact-initials", contact[currentUser].color, "add-new-contact");
-=======
-    document.getElementById("contact_name").innerText = storedContacts[index].name;
-    document.getElementById("contact_email").innerText = storedContacts[index].email;
-    document.getElementById("contact_email").href = "mailto:" + storedContacts[index].email;
-    document.getElementById("contact_phone").innerText = storedContacts[index].phone;
-    document.getElementById("contact_initials").innerText = storedContacts[index].name.split(" ").map(n => n[0]).join("");
-    document.getElementById("contact_initials").classList.add("contact-initials", storedContacts[index].color, "add-new-contact");
->>>>>>> 05efdfaef8fc8b5eef70e3bb6e6528a0c08adc7a
+    document.getElementById("contact_name").innerText = storedContacts[currentUser].name;
+    document.getElementById("contact_email").innerText = storedContacts[currentUser].email;
+    document.getElementById("contact_email").href = "mailto:" + storedContacts[currentUser].email;
+    document.getElementById("contact_phone").innerText = storedContacts[currentUser].phone;
+    document.getElementById("contact_initials").innerText = storedContacts[currentUser].name.split(" ").map(n => n[0]).join("");
+    document.getElementById("contact_initials").classList.add("contact-initials", storedContacts[currentUser].color, "add-new-contact");
 }
 
 function addNewContact() {
@@ -75,13 +68,10 @@ function createContact() {
         checkDialogInputs();
         return;
     } else {
-<<<<<<< HEAD
-        checkContactList();
-        contact.push({
-=======
-        console.log("step 3");
+        if (storedContacts.length > 0) {
+            document.getElementById("contact_initials").classList.remove(storedContacts[currentUser].color);
+        }
         storedContacts.push({
->>>>>>> 05efdfaef8fc8b5eef70e3bb6e6528a0c08adc7a
             name: document.getElementById("dialog_input_name").value,
             email: document.getElementById("dialog_input_email").value,
             phone: document.getElementById("dialog_input_phone").value,
@@ -92,12 +82,12 @@ function createContact() {
 }
 
 function addContactSuccess() {
-    currentUser = contact.length - 1;
-    closeDialog();
+    currentUser = storedContacts.length - 1;
     showContactInformation();
     sortContacts();
-    currentUser = contact.findIndex(c => c.name === document.getElementById("dialog_input_name").value);
+    currentUser = storedContacts.findIndex(c => c.name == document.getElementById("dialog_input_name").value);
     renderContactList();
+    closeDialog();
 }
 
 function checkDialogInputs() {
@@ -121,68 +111,57 @@ function editContact() {
     document.getElementById("dialog_button_delete").classList.remove("d-none");
     document.getElementById("dialog_button_save").classList.remove("d-none");
 
-    document.getElementById("dialog_initials").innerHTML = getInitials(contact[currentUser].name);
-    document.getElementById("dialog_initials").classList.add(contact[currentUser].color);
-    document.getElementById("dialog_input_name").value = contact[currentUser].name;
-    document.getElementById("dialog_input_email").value = contact[currentUser].email;
-    document.getElementById("dialog_input_phone").value = contact[currentUser].phone;
+    document.getElementById("dialog_initials").innerHTML = getInitials(storedContacts[currentUser].name);
+    document.getElementById("dialog_initials").classList.add(storedContacts[currentUser].color);
+    document.getElementById("dialog_input_name").value = storedContacts[currentUser].name;
+    document.getElementById("dialog_input_email").value = storedContacts[currentUser].email;
+    document.getElementById("dialog_input_phone").value = storedContacts[currentUser].phone;
     showDialog()
 }
 
 function saveEditContact() {
-    contact[currentUser].name = document.getElementById("dialog_input_name").value.trim();
-    contact[currentUser].email = document.getElementById("dialog_input_email").value.trim();
-    contact[currentUser].phone = document.getElementById("dialog_input_phone").value.trim();
+    storedContacts[currentUser].name = document.getElementById("dialog_input_name").value.trim();
+    storedContacts[currentUser].email = document.getElementById("dialog_input_email").value.trim();
+    storedContacts[currentUser].phone = document.getElementById("dialog_input_phone").value.trim();
     closeDialog();
     init();
     showContactInformation();
 }
 
 function deleteContact() {
-    console.log(contact.length);
-    console.log(contact);
+    console.log(storedContacts.length);
+    console.log(storedContacts);
     console.log(currentUser);
     if (currentUser >= 1) {
         currentUser = 0;
     };
-    document.getElementById("contact_initials").classList.remove(contact[currentUser].color);
-    document.getElementById("dialog_initials").classList.remove(contact[currentUser].color);
+    document.getElementById("contact_initials").classList.remove(storedContacts[currentUser].color);
+    document.getElementById("dialog_initials").classList.remove(storedContacts[currentUser].color);
     document.getElementById("contact_information_container").classList.add("d-none");
-    console.table(contact);
-    contact.splice(currentUser, 1);
+    console.table(storedContacts);
+    storedContacts.splice(currentUser, 1);
     init();
     closeDialog();
-    console.log(contact.length);
-    console.log(contact);
+    console.log(storedContacts.length);
+    console.log(storedContacts);
     console.log(currentUser);
 }
 
 function test() {
-    console.log(contact.length);
-    console.log(currentUser);
+    addNewContact();
+    document.getElementById("dialog_input_name").value = "Sebastian Opielka";
+    document.getElementById("dialog_input_email").value = "sebastian.opielka@example.com";
+    document.getElementById("dialog_input_phone").value = "+49 1258 934416";
+    createContact();
 }
-
-
 
 function showDialog() {
     const dialog = document.getElementById("dialog_contact");
     dialog.showModal();
 }
 
-function clearDialog() {
-    checkContactList();
-    document.getElementById("dialog_button_cancel").classList.add("d-none");
-    document.getElementById("dialog_button_create").classList.add("d-none");
-    document.getElementById("dialog_button_delete").classList.add("d-none");
-    document.getElementById("dialog_button_save").classList.add("d-none");
-    document.getElementById("dialog_underline").classList.remove("dialog-title-underline");
-}
-
 function checkContactList() {
-    if (contact.length > 0) {
-        document.getElementById("contact_initials").classList.remove(contact[currentUser].color);
-        document.getElementById("dialog_initials").classList.remove(contact[currentUser].color);
-    }
+
 }
 
 function closeDialog() {
@@ -228,4 +207,23 @@ function getContactListHtmlElement(contact, index) {
 
 function getDialogEmptyInitialsHtmlElement() {
     return `<img class="dialog-initials-create-icon" src="../../assets/icons/create_contact.svg" alt="">`;
+}
+
+function clearDialog() {
+    document.getElementById("dialog_input_name").value = "";
+    document.getElementById("dialog_input_email").value = "";
+    document.getElementById("dialog_input_phone").value = "";
+    document.getElementById("dialog_initials").className = "dialog-initials add-new-contact";
+    document.getElementById("dialog_initials").innerHTML = getDialogEmptyInitialsHtmlElement();
+    document.getElementById("dialog_button_cancel").classList.add("d-none");
+    document.getElementById("dialog_button_create").classList.add("d-none");
+    document.getElementById("dialog_button_delete").classList.add("d-none");
+    document.getElementById("dialog_button_save").classList.add("d-none");
+    document.getElementById("dialog_underline").classList.remove("dialog-title-underline");
+    document.getElementById("dialog_slogan").classList.add("d-none");
+    document.getElementById("dialog_underline").classList.add("dialog-underline");
+}
+
+function clearInformation() {
+
 }

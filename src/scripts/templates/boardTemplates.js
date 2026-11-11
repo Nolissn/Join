@@ -1,3 +1,8 @@
+/**
+ * Escapes HTML special characters, so the text can be inserted into HTML safely.
+ * @param {*} text - The text to escape.
+ * @returns {string} The escaped text.
+ */
 function makeTextSafe(text) {
   return String(text)
     .replaceAll('&', '&amp;')
@@ -7,6 +12,13 @@ function makeTextSafe(text) {
     .replaceAll("'", '&#39;');
 }
 
+
+/**
+ * Returns the HTML of a board column.
+ * @param {{status: string, title: string}} column - The column data.
+ * @param {string} tasksHtml - The HTML of the task cards in this column.
+ * @returns {string} The column HTML.
+ */
 function boardColumnTemplate(column, tasksHtml) {
   return `
     <section class="boardColumn" data-status="${column.status}">
@@ -21,6 +33,12 @@ function boardColumnTemplate(column, tasksHtml) {
     </section>`;
 }
 
+
+/**
+ * Returns the HTML of a task card.
+ * @param {Task} task - The task to show.
+ * @returns {string} The task card HTML.
+ */
 function taskCardTemplate(task) {
   return `
     <article class="taskCard" data-task-id="${task.id}" draggable="true">
@@ -44,10 +62,24 @@ function taskCardTemplate(task) {
     </article>`;
 }
 
+
+/**
+ * Returns the HTML of an option in the move menu.
+ * @param {{status: string, title: string}} column - The target column.
+ * @param {string} direction - "upward" or "downward".
+ * @returns {string} The option HTML.
+ */
 function taskMoveOptionTemplate(column, direction) {
   return `<button class="taskMoveOption" type="button" data-action="moveTask" data-status="${column.status}"><img src="${iconPath}arrow_${direction}.svg" alt="">${column.title}</button>`;
 }
 
+
+/**
+ * Returns the HTML of the subtask progress bar.
+ * @param {number} doneCount - The number of done subtasks.
+ * @param {number} totalCount - The total number of subtasks.
+ * @returns {string} The progress HTML.
+ */
 function taskProgressTemplate(doneCount, totalCount) {
   return `
     <div class="taskProgress">
@@ -56,10 +88,23 @@ function taskProgressTemplate(doneCount, totalCount) {
     </div>`;
 }
 
+
+/**
+ * Returns the HTML of an avatar on a task card.
+ * @param {string} initials - The initials of the contact.
+ * @param {string} avatarColor - The color class of the avatar.
+ * @returns {string} The avatar HTML.
+ */
 function taskAvatarTemplate(initials, avatarColor) {
   return `<span class="taskAvatar ${avatarColor}">${makeTextSafe(initials)}</span>`;
 }
 
+
+/**
+ * Returns the HTML of the task detail view.
+ * @param {Task} task - The task to show.
+ * @returns {string} The task detail HTML.
+ */
 function taskDetailTemplate(task) {
   return `
     <div class="taskDetailHeader">
@@ -82,7 +127,7 @@ function taskDetailTemplate(task) {
     </div>
     <div class="taskDetailSection">
       <span class="taskDetailLabel">Subtasks</span>
-      <ul class="taskDetailList">${getSubtasksHtml(task.subtasks)}</ul>
+      <ul class="taskDetailList" data-task-id="${makeTextSafe(task.id)}">${getSubtasksHtml(task.subtasks)}</ul>
     </div>
     <div class="taskDetailActions">
       <button class="taskDetailAction" type="button" data-action="delete" data-task-id="${makeTextSafe(task.id)}"><img src="${iconPath}delete.svg" alt="">Delete</button>
@@ -90,14 +135,35 @@ function taskDetailTemplate(task) {
     </div>`;
 }
 
+
+/**
+ * Returns the HTML of an assigned contact in the task detail view.
+ * @param {string} initials - The initials of the contact.
+ * @param {string} avatarColor - The color class of the avatar.
+ * @param {string} name - The name of the contact.
+ * @returns {string} The list item HTML.
+ */
 function taskDetailAssigneeTemplate(initials, avatarColor, name) {
-  return `<li class="taskDetailAssignee"><span class="taskAvatar taskDetailAvatar ${avatarColor}">${makeTextSafe(initials)}</span>${makeTextSafe(name)}</li>`;
+  return `<li class="taskDetailAssignee"><span class="taskAvatar taskDetailAvatar ${avatarColor}">${makeTextSafe(initials)}</span><span class="taskDetailAssigneeName">${makeTextSafe(name)}</span></li>`;
 }
 
-function taskDetailSubtaskTemplate(title, checkedAttribute) {
-  return `<li><label class="taskDetailSubtask"><input class="taskDetailCheckbox" type="checkbox" ${checkedAttribute}>${makeTextSafe(title)}</label></li>`;
+
+/**
+ * Returns the HTML of a subtask in the task detail view.
+ * @param {string} title - The title of the subtask.
+ * @param {string} checkedAttribute - "checked" if the subtask is done, otherwise an empty string.
+ * @param {number} index - The position of the subtask in the subtask list.
+ * @returns {string} The list item HTML.
+ */
+function taskDetailSubtaskTemplate(title, checkedAttribute, index) {
+  return `<li><label class="taskDetailSubtask"><input class="taskDetailCheckbox" type="checkbox" data-subtask-index="${index}" ${checkedAttribute}><span class="taskDetailSubtaskTitle">${makeTextSafe(title)}</span></label></li>`;
 }
 
+
+/**
+ * Returns the HTML of the add task form inside the dialog.
+ * @returns {string} The add task form HTML.
+ */
 function renderAddTaskDialog() {
   return `
     <div class="add-task-dialog-header">
@@ -117,13 +183,13 @@ function renderAddTaskDialog() {
           </div>
           <div class="add-task-input-container">
             <label for="dueDate">Due Date</label>
-            <input class="add-task-input" type="date" name="dueDate" id="dueDate" style="color:var(--colorTextGrey)" required>
+            <input class="add-task-input add-task-date-input" type="date" name="dueDate" id="dueDate" required>
           </div>
         </section>
         <div class="seperator"></div>
         <section class="form-right">
           <div class="add-task-input-container">
-            <label for="priority" style="color:var(--colorBlack)">Priority</label>
+            <label class="priority-label" for="priority">Priority</label>
             <div id="priority" class="priority-btn-container">
               <button type="button" class="priority-btn" id="priorityUrgent" onclick="setPriority('urgent')">Urgent <img class="priority-btn-icon" src="../../assets/icons/urgent.svg" data-icon="urgent.svg" data-active-icon="urgend-white.svg" alt="Urgent"></button>
               <button type="button" class="priority-btn btn-active priority-medium" id="priorityMedium" onclick="setPriority('medium')">Medium <img class="priority-btn-icon" src="../../assets/icons/medium.svg" data-icon="medium_orange.svg" data-active-icon="medium.svg" alt="Medium"></button>
@@ -172,6 +238,12 @@ function renderAddTaskDialog() {
     </form>`;
 }
 
+
+/**
+ * Returns the HTML of the task edit form.
+ * @param {Task} task - The task to edit.
+ * @returns {string} The edit form HTML.
+ */
 function taskEditTemplate(task) {
   return `
     <form class="taskEditForm" data-task-id="${makeTextSafe(task.id)}">
@@ -180,20 +252,28 @@ function taskEditTemplate(task) {
       </div>
       <label class="taskEditField">
         <span class="taskEditLabel">Title</span>
-        <input class="taskEditInput" type="text" name="title" value="${makeTextSafe(task.title)}" pattern=".*\\S.*" required>
+        <input class="taskEditInput" type="text" name="title" value="${makeTextSafe(task.title)}">
+        <span class="taskEditError">This field is required</span>
       </label>
       <label class="taskEditField">
         <span class="taskEditLabel">Description</span>
-        <textarea class="taskEditInput taskEditTextarea" name="description" required>${makeTextSafe(task.description)}</textarea>
+        <textarea class="taskEditInput taskEditTextarea" name="description">${makeTextSafe(task.description)}</textarea>
       </label>
       <label class="taskEditField">
         <span class="taskEditLabel">Due date</span>
-        <input class="taskEditInput" type="date" name="dueDate" value="${makeTextSafe(task.dueDate)}" required>
+        <input class="taskEditInput" type="date" name="dueDate" value="${makeTextSafe(task.dueDate)}">
+        <span class="taskEditError">This field is required</span>
       </label>
       <fieldset class="taskEditField taskEditFieldset">
         <legend class="taskEditLabel">Priority</legend>
         <div class="taskEditPriorities">${getEditPrioritiesHtml(task.priority)}</div>
       </fieldset>
+      <div class="taskEditField taskEditAssign">
+        <span class="taskEditLabel">Assigned to</span>
+        <button class="taskEditInput taskEditAssignToggle" type="button" data-action="toggleAssign">Select contacts to assign</button>
+        <ul class="taskEditAssignList">${getEditContactsHtml(task.assignedTo)}</ul>
+        <div class="taskEditAssignees">${getAvatarsHtml(task.assignedTo, 'card')}</div>
+      </div>
       <div class="taskEditField">
         <span class="taskEditLabel">Subtasks</span>
         <div class="taskEditSubtaskAdd">
@@ -208,14 +288,47 @@ function taskEditTemplate(task) {
     </form>`;
 }
 
+
+/**
+ * Returns the HTML of a priority radio button in the edit form.
+ * @param {string} priority - The priority key, e.g. "urgent".
+ * @param {string} checkedAttribute - "checked" if this priority is selected, otherwise an empty string.
+ * @returns {string} The priority HTML.
+ */
 function taskEditPriorityTemplate(priority, checkedAttribute) {
   return `
     <label class="taskEditPriority ${priorities[priority].editClass}">
-      <input class="taskEditPriorityRadio" type="radio" name="priority" value="${priority}" required ${checkedAttribute}>
+      <input class="taskEditPriorityRadio" type="radio" name="priority" value="${priority}" ${checkedAttribute}>
       ${priorities[priority].label}<img class="taskEditPriorityIcon" src="${iconPath}${priorities[priority].icon}" alt="">
     </label>`;
 }
 
+
+/**
+ * Returns the HTML of a selectable contact in the edit form.
+ * @param {Object} contact - The contact with id and name.
+ * @param {number} index - The position of the contact in the list of the edit form.
+ * @param {string} avatarColor - The color class of the avatar.
+ * @param {string} checkedAttribute - "checked" if the contact is assigned, otherwise an empty string.
+ * @returns {string} The list item HTML.
+ */
+function taskEditContactTemplate(contact, index, avatarColor, checkedAttribute) {
+  return `
+    <li>
+      <label class="taskEditContact">
+        <span class="taskAvatar ${avatarColor}">${makeTextSafe(getInitials(contact.name))}</span>
+        <span class="taskEditContactName">${makeTextSafe(contact.name)}</span>
+        <input class="taskEditContactCheckbox" type="checkbox" value="${index}" ${checkedAttribute}>
+      </label>
+    </li>`;
+}
+
+
+/**
+ * Returns the HTML of an editable subtask in the edit form.
+ * @param {Subtask} subtask - The subtask to show.
+ * @returns {string} The list item HTML.
+ */
 function taskEditSubtaskTemplate(subtask) {
   return `
     <li class="taskEditSubtask" data-done="${subtask.done}">

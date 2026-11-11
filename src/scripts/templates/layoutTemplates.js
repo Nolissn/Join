@@ -1,3 +1,8 @@
+/**
+ * Returns the HTML of the sidebar for a logged-in user.
+ * @param {string} iconPath - The path to the icon folder.
+ * @returns {string} The sidebar HTML.
+ */
 function sidebarTemplate(iconPath) {
   return `
     <a class="sidebarLogo" href="summary.html"><img class="sidebarLogoImg" src="${iconPath}join_icon_bright.svg" alt="Join Logo"></a>
@@ -13,6 +18,13 @@ function sidebarTemplate(iconPath) {
     </nav>`;
 }
 
+
+/**
+ * Returns the HTML of the header for a logged-in user.
+ * @param {string} iconPath - The path to the icon folder.
+ * @param {string} initials - The initials shown in the avatar.
+ * @returns {string} The header HTML.
+ */
 function headerTemplate(iconPath, initials) {
   return `
     <a class="headerLogo" href="summary.html"><img class="headerLogoImg" src="${iconPath}join_icon_dark.svg" alt="Join Logo"></a>
@@ -29,6 +41,12 @@ function headerTemplate(iconPath, initials) {
     </div>`;
 }
 
+
+/**
+ * Returns the HTML of the sidebar for a visitor who is not logged in.
+ * @param {string} iconPath - The path to the icon folder.
+ * @returns {string} The sidebar HTML.
+ */
 function sidebarLoggedOutTemplate(iconPath) {
   return `
     <a class="sidebarLogo" href="../../index.html"><img class="sidebarLogoImg" src="${iconPath}join_icon_bright.svg" alt="Join Logo"></a>
@@ -41,12 +59,24 @@ function sidebarLoggedOutTemplate(iconPath) {
     </nav>`;
 }
 
+
+/**
+ * Returns the HTML of the header for a visitor who is not logged in.
+ * @param {string} iconPath - The path to the icon folder.
+ * @returns {string} The header HTML.
+ */
 function headerLoggedOutTemplate(iconPath) {
   return `
     <a class="headerLogo" href="../../index.html"><img class="headerLogoImg" src="${iconPath}join_icon_dark.svg" alt="Join Logo"></a>
     <p class="headerTitle">Kanban Project Management Tool</p>`;
 }
 
+
+/**
+ * Returns the HTML of the session timeout warning and the goodbye dialog.
+ * @param {string} iconPath - The path to the icon folder.
+ * @returns {string} The session timeout HTML.
+ */
 function sessionTimeoutTemplate(iconPath) {
   return `
     <div id="sessionOverlay" class="sessionOverlay"></div>

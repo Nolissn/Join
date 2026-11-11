@@ -17,17 +17,24 @@ const categoryClasses = {
 };
 
 const avatarColors = ['avatarOrange', 'avatarTurquoise', 'avatarPurple'];
-const autoScrollZone = 80;
-const autoScrollMaxSpeed = 18;
-let mouseDrag = null;
-let previousBodyOverflow = null;
+const maxCardAvatars = 4;
 
+
+/**
+ * Initializes the board: registers the events, loads the tasks and contacts and renders the board.
+ * @returns {Promise<void>}
+ */
 async function initBoard() {
   initBoardEvents();
   await loadTasks();
+  await loadContacts();
   renderBoard();
 }
 
+
+/**
+ * Registers all event listeners of the board, the search and the dialogs.
+ */
 function initBoardEvents() {
   const boardElement = document.querySelector('.boardColumns');
   boardElement.addEventListener('dragstart', startDragging);
@@ -43,14 +50,26 @@ function initBoardEvents() {
   initAddTaskDialogEvents();
 }
 
+
+/**
+ * Registers the event listeners of the task detail dialog./Users/shoffi/Desktop/Develooper Akademie/Modul 10 - Gruppenarbeit/Join_Docs/Join Checkliste.docx /Users/shoffi/Desktop/Develooper Akademie/Modul 10 - Gruppenarbeit/Join_Docs/Join Checkliste.pdf
+ */
 function initTaskDialogEvents() {
   const taskDialog = document.getElementById('taskDialog');
   taskDialog.addEventListener('click', handleDialogClick);
   taskDialog.addEventListener('cancel', closeTaskDialog);
   taskDialog.addEventListener('submit', saveTaskEdit);
   taskDialog.addEventListener('keydown', handleEditKeydown);
+  taskDialog.addEventListener('change', handleSubtaskToggle);
+  taskDialog.addEventListener('change', handleAssignChange);
+  taskDialog.addEventListener('input', handleEditInput);
 }
 
+
+/**
+ * Registers the event listeners of the add task dialog.
+ * A click on the backdrop closes the dialog.
+ */
 function initAddTaskDialogEvents() {
   const addTaskDialog = document.getElementById('addTaskDialog');
   addTaskDialog.addEventListener('click', function (event) {
@@ -59,18 +78,26 @@ function initAddTaskDialogEvents() {
   addTaskDialog.addEventListener('close', unlockPageScroll);
 }
 
+
+/**
+ * Prevents the page from scrolling while a dialog is open.
+ */
 function lockPageScroll() {
-  if (previousBodyOverflow !== null) return;
-  previousBodyOverflow = document.body.style.overflow;
-  document.body.style.overflow = 'hidden';
+  document.body.classList.add('bodyScrollLocked');
 }
 
+
+/**
+ * Allows the page to scroll again after a dialog is closed.
+ */
 function unlockPageScroll() {
-  if (previousBodyOverflow === null) return;
-  document.body.style.overflow = previousBodyOverflow;
-  previousBodyOverflow = null;
+  document.body.classList.remove('bodyScrollLocked');
 }
 
+
+/**
+ * Renders all board columns with the tasks that match the search text.
+ */
 function renderBoard() {
   const searchText = document.getElementById('findTask').value.trim().toLowerCase();
   const sortedTasks = getSortedTasks();
@@ -83,8 +110,26 @@ function renderBoard() {
     boardHtml += boardColumnTemplate(column, tasksHtml);
   }
   document.querySelector('.boardColumns').innerHTML = boardHtml;
+  updateNoResultsMessage(searchText, sortedTasks);
 }
 
+
+/**
+ * Shows the "No results found" message if a search text is entered and no task matches it.
+ * @param {string} searchText - The search text in lowercase.
+ * @param {Task[]} tasks - All tasks of the board.
+ */
+function updateNoResultsMessage(searchText, tasks) {
+  const hasResults = tasks.some(task => matchesSearch(task, searchText));
+  const showMessage = searchText !== '' && !hasResults;
+  document.getElementById('boardNoResults').classList.toggle('boardNoResultsVisible', showMessage);
+}
+
+
+/**
+ * Returns a copy of the stored tasks sorted by their order.
+ * @returns {Task[]} The sorted tasks.
+ */
 function getSortedTasks() {
   const sortedTasks = storedTasks.slice();
   sortedTasks.sort(function (taskA, taskB) {
@@ -93,17 +138,35 @@ function getSortedTasks() {
   return sortedTasks;
 }
 
+
+/**
+ * Returns the sort position of a task.
+ * Tasks without an order are placed after all ordered tasks.
+ * @param {Task} task - The task to sort.
+ * @returns {number} The sort position.
+ */
 function getTaskOrder(task) {
   if (typeof task.order === 'number') return task.order;
   return storedTasks.length + storedTasks.indexOf(task);
 }
 
+
+/**
+ * Checks whether the title or the description of a task contains the search text.
+ * @param {Task} task - The task to check.
+ * @param {string} searchText - The search text in lowercase.
+ * @returns {boolean} True if the task matches the search text.
+ */
 function matchesSearch(task, searchText) {
   const title = task.title.toLowerCase();
   const description = task.description.toLowerCase();
   return title.includes(searchText) || description.includes(searchText);
 }
 
+
+/**
+ * Clears the search field, focuses it and renders the board again.
+ */
 function clearSearch() {
   const searchInput = document.getElementById('findTask');
   searchInput.value = '';
@@ -111,123 +174,11 @@ function clearSearch() {
   renderBoard();
 }
 
-function startDragging(event) {
-  const taskCard = event.target.closest('.taskCard');
-  if (!taskCard) return;
-  if (touchSort) return event.preventDefault();
-  event.dataTransfer.setData('text/plain', taskCard.dataset.taskId);
-  mouseDrag = { card: taskCard, pointerX: event.clientX, pointerY: event.clientY };
-  mouseDrag.frameId = requestAnimationFrame(autoScrollWhileDragging);
-  setTimeout(function () {
-    taskCard.classList.add('taskCardDragging');
-  });
-}
 
-function handleDragOver(event) {
-  if (!mouseDrag) return;
-  event.preventDefault();
-  mouseDrag.pointerX = event.clientX;
-  mouseDrag.pointerY = event.clientY;
-  const column = event.target.closest('.boardColumn');
-  if (!column) return;
-  placeCardAtPointer(column.querySelector('.columnTasks'), mouseDrag.card, event.clientX, event.clientY);
-}
-
-function moveTask(event) {
-  if (!mouseDrag) return;
-  event.preventDefault();
-  const columnTasks = mouseDrag.card.closest('.columnTasks');
-  const newStatus = columnTasks.closest('.boardColumn').dataset.status;
-  const task = findStoredTask(mouseDrag.card.dataset.taskId);
-  if (task.status !== newStatus) {
-    task.status = newStatus;
-    saveTaskChanges(task.id);
-  }
-  saveColumnOrder(columnTasks);
-  endDragging();
-}
-
-function autoScrollWhileDragging() {
-  const columnTasks = mouseDrag.card.closest('.columnTasks');
-  const columnRect = columnTasks.getBoundingClientRect();
-  const scrollDown = getScrollStep(mouseDrag.pointerY, 0, window.innerHeight);
-  window.scrollBy({ top: scrollDown, behavior: 'instant' });
-  if (isRowLayout(columnTasks)) {
-    const scrollRight = getScrollStep(mouseDrag.pointerX, columnRect.left, columnRect.right);
-    columnTasks.scrollBy({ left: scrollRight, behavior: 'instant' });
-  }
-  placeCardAtPointer(columnTasks, mouseDrag.card, mouseDrag.pointerX, mouseDrag.pointerY);
-  mouseDrag.frameId = requestAnimationFrame(autoScrollWhileDragging);
-}
-
-function getScrollStep(pointer, areaStart, areaEnd) {
-  if (pointer - areaStart < autoScrollZone) return -getEdgeSpeed(pointer - areaStart);
-  if (areaEnd - pointer < autoScrollZone) return getEdgeSpeed(areaEnd - pointer);
-  return 0;
-}
-
-function getEdgeSpeed(distance) {
-  const closeness = 1 - Math.max(distance, 0) / autoScrollZone;
-  return Math.ceil(closeness * closeness * autoScrollMaxSpeed);
-}
-
-function endDragging() {
-  if (mouseDrag) cancelAnimationFrame(mouseDrag.frameId);
-  mouseDrag = null;
-  renderBoard();
-}
-
-function isRowLayout(columnTasks) {
-  return getComputedStyle(columnTasks).flexDirection === 'row';
-}
-
-function placeCardAtPointer(columnTasks, movingCard, pointerX, pointerY) {
-  const isRow = isRowLayout(columnTasks);
-  for (const card of columnTasks.querySelectorAll('.taskCard')) {
-    if (card === movingCard) continue;
-    if (isPointerBeforeCard(card, isRow, pointerX, pointerY)) {
-      if (card.previousElementSibling !== movingCard) columnTasks.insertBefore(movingCard, card);
-      return;
-    }
-  }
-  if (columnTasks.lastElementChild !== movingCard) columnTasks.appendChild(movingCard);
-}
-
-function isPointerBeforeCard(card, isRow, pointerX, pointerY) {
-  const cardRect = card.getBoundingClientRect();
-  if (isRow) return pointerX < cardRect.left + cardRect.width / 2;
-  return pointerY < cardRect.top + cardRect.height / 2;
-}
-
-function saveColumnOrder(columnTasks) {
-  const status = columnTasks.closest('.boardColumn').dataset.status;
-  const columnOrder = getNewColumnOrder(status, getCardIds(columnTasks));
-  for (let i = 0; i < columnOrder.length; i++) {
-    if (columnOrder[i].order === i) continue;
-    columnOrder[i].order = i;
-    saveTaskChanges(columnOrder[i].id);
-  }
-}
-
-function getCardIds(columnTasks) {
-  const cardIds = [];
-  for (const card of columnTasks.querySelectorAll('.taskCard')) {
-    cardIds.push(card.dataset.taskId);
-  }
-  return cardIds;
-}
-
-function getNewColumnOrder(status, visibleIds) {
-  const remainingIds = visibleIds.slice();
-  const columnOrder = [];
-  for (const task of getSortedTasks()) {
-    if (task.status !== status) continue;
-    if (visibleIds.includes(task.id)) columnOrder.push(findStoredTask(remainingIds.shift()));
-    else columnOrder.push(task);
-  }
-  return columnOrder;
-}
-
+/**
+ * Handles clicks on the board: toggles the move menu, moves a task or opens the task detail.
+ * @param {MouseEvent} event - The click event.
+ */
 function handleBoardClick(event) {
   const actionButton = event.target.closest('[data-action]');
   if (!actionButton && event.target.closest('.taskMoveMenu')) return;
@@ -237,148 +188,93 @@ function handleBoardClick(event) {
   if (actionButton.dataset.action === 'moveTask') moveTaskTo(taskCard.dataset.taskId, actionButton.dataset.status);
 }
 
+
+/**
+ * Opens the move menu of a card and closes all other move menus.
+ * Closes the menu if it was already open.
+ * @param {HTMLElement} taskCard - The task card of the clicked button.
+ */
 function toggleMoveMenu(taskCard) {
   const isOpen = taskCard.classList.contains('taskCardMoveOpen');
   closeMoveMenus();
   if (!isOpen) taskCard.classList.add('taskCardMoveOpen');
 }
 
+
+/**
+ * Closes all open move menus.
+ */
 function closeMoveMenus() {
   for (const taskCard of document.querySelectorAll('.taskCardMoveOpen')) {
     taskCard.classList.remove('taskCardMoveOpen');
   }
 }
 
+
+/**
+ * Closes all move menus when the click is outside an open move menu.
+ * @param {MouseEvent} event - The click event.
+ */
 function handleOutsideMoveClick(event) {
   if (!event.target.closest('.taskCardMoveOpen')) closeMoveMenus();
 }
 
+
+/**
+ * Moves a task to another column, removes its order and renders the board again.
+ * @param {string} taskId - The id of the task.
+ * @param {string} newStatus - The status of the target column.
+ */
 function moveTaskTo(taskId, newStatus) {
   const task = findStoredTask(taskId);
   task.status = newStatus;
   delete task.order;
   saveTaskChanges(task.id);
   renderBoard();
+  showToast('Task moved to ' + boardColumns.find(column => column.status === newStatus).title);
 }
 
-function openTaskDialog(event) {
-  const taskCard = event.target.closest('.taskCard');
-  if (!taskCard) return;
-  const taskDialog = document.getElementById('taskDialog');
-  showTaskDetail(findStoredTask(taskCard.dataset.taskId));
-  taskDialog.classList.add('taskDialogOpen');
-  taskDialog.showModal();
-}
 
-function showTaskDetail(task) {
-  document.querySelector('.taskDetail').innerHTML = taskDetailTemplate(task);
-}
-
-function handleDialogClick(event) {
-  const clickedBackground = event.target === event.currentTarget;
-  const clickedCloseButton = event.target.closest('.taskDetailClose');
-  const actionButton = event.target.closest('[data-action]');
-  if (actionButton) handleDialogAction(event, actionButton);
-  if (clickedBackground || clickedCloseButton) closeTaskDialog(event);
-}
-
-function handleDialogAction(event, button) {
-  const action = button.dataset.action;
-  if (action === 'delete') deleteTaskFromBoard(event, button.dataset.taskId);
-  if (action === 'edit') openTaskEdit(button.dataset.taskId);
-  if (action === 'addSubtask') addEditSubtask(button.closest('.taskEditForm'));
-  if (action === 'removeSubtask') button.closest('.taskEditSubtask').remove();
-}
-
-function deleteTaskFromBoard(event, taskId) {
-  deleteStoredTask(taskId);
-  renderBoard();
-  closeTaskDialog(event);
-}
-
-function openTaskEdit(taskId) {
-  const taskDetail = document.querySelector('.taskDetail');
-  taskDetail.innerHTML = taskEditTemplate(findStoredTask(taskId));
-  taskDetail.querySelector('.taskEditInput').focus();
-}
-
-function addEditSubtask(form) {
-  const input = form.querySelector('.taskEditNewSubtask');
-  const title = input.value.trim();
-  if (title === '') return;
-  const subtaskHtml = taskEditSubtaskTemplate({ title: title, done: false });
-  form.querySelector('.taskEditSubtaskList').insertAdjacentHTML('beforeend', subtaskHtml);
-  input.value = '';
-  input.focus();
-}
-
-function handleEditKeydown(event) {
-  if (event.key !== 'Enter' || !event.target.matches('.taskEditNewSubtask')) return;
-  event.preventDefault();
-  addEditSubtask(event.target.closest('.taskEditForm'));
-}
-
-function saveTaskEdit(event) {
-  event.preventDefault();
-  const form = event.target;
-  const task = findStoredTask(form.dataset.taskId);
-  updateTaskFromForm(task, form);
-  saveTaskChanges(task.id);
-  renderBoard();
-  showTaskDetail(task);
-}
-
-function updateTaskFromForm(task, form) {
-  const formData = new FormData(form);
-  task.title = formData.get('title').trim();
-  task.description = formData.get('description').trim();
-  task.dueDate = formData.get('dueDate');
-  task.priority = formData.get('priority');
-  task.subtasks = getEditedSubtasks(form);
-}
-
-function getEditedSubtasks(form) {
-  const subtasks = [];
-  for (const item of form.querySelectorAll('.taskEditSubtask')) {
-    const title = item.querySelector('.taskEditSubtaskInput').value.trim();
-    if (title !== '') subtasks.push({ title: title, done: item.dataset.done === 'true' });
-  }
-  return subtasks;
-}
-
-function closeTaskDialog(event) {
-  event.preventDefault();
-  const taskDialog = document.getElementById('taskDialog');
-  taskDialog.addEventListener('transitionend', function () {
-    taskDialog.close();
-  }, { once: true });
-  taskDialog.classList.remove('taskDialogOpen');
-}
-
+/**
+ * Builds the avatar HTML of the assigned contacts.
+ * The card view shows at most maxCardAvatars avatars and a "+N" avatar for the rest.
+ * @param {Object[]} contacts - The assigned contacts.
+ * @param {string} view - "detail" for the detail view, otherwise the card view is used.
+ * @returns {string} The avatar HTML.
+ */
 function getAvatarsHtml(contacts, view) {
+  if (view === 'detail') return getDetailAssigneesHtml(contacts);
   let avatarsHtml = '';
-  for (let i = 0; i < contacts.length; i++) {
-    const initials = getInitials(contacts[i].name);
-    const avatarColor = avatarColors[i % avatarColors.length];
-    if (view === 'detail') {
-      avatarsHtml += taskDetailAssigneeTemplate(initials, avatarColor, contacts[i].name);
-    } else {
-      avatarsHtml += taskAvatarTemplate(initials, avatarColor);
-    }
+  for (let i = 0; i < contacts.length && i < maxCardAvatars; i++) {
+    avatarsHtml += taskAvatarTemplate(getInitials(contacts[i].name), avatarColors[i % avatarColors.length]);
+  }
+  if (contacts.length > maxCardAvatars) {
+    avatarsHtml += taskAvatarTemplate('+' + (contacts.length - maxCardAvatars), 'avatarMore');
   }
   return avatarsHtml;
 }
 
-function getSubtasksHtml(subtasks) {
-  let subtasksHtml = '';
-  for (const subtask of subtasks) {
-    let checkedAttribute = '';
-    if (subtask.done) checkedAttribute = 'checked';
-    subtasksHtml += taskDetailSubtaskTemplate(subtask.title, checkedAttribute);
+
+/**
+ * Builds the list of all assigned contacts with avatar and name for the detail view.
+ * @param {Object[]} contacts - The assigned contacts.
+ * @returns {string} The assignee list HTML.
+ */
+function getDetailAssigneesHtml(contacts) {
+  let assigneesHtml = '';
+  for (let i = 0; i < contacts.length; i++) {
+    const avatarColor = avatarColors[i % avatarColors.length];
+    assigneesHtml += taskDetailAssigneeTemplate(getInitials(contacts[i].name), avatarColor, contacts[i].name);
   }
-  return subtasksHtml;
+  return assigneesHtml;
 }
 
+
+/**
+ * Builds the move menu options for the previous and the next column.
+ * @param {string} status - The current status of the task.
+ * @returns {string} The move options HTML.
+ */
 function getMoveOptionsHtml(status) {
   const index = boardColumns.findIndex(column => column.status === status);
   let optionsHtml = '';
@@ -387,24 +283,12 @@ function getMoveOptionsHtml(status) {
   return optionsHtml;
 }
 
-function getEditPrioritiesHtml(selectedPriority) {
-  let prioritiesHtml = '';
-  for (const priority in priorities) {
-    let checkedAttribute = '';
-    if (priority === selectedPriority) checkedAttribute = 'checked';
-    prioritiesHtml += taskEditPriorityTemplate(priority, checkedAttribute);
-  }
-  return prioritiesHtml;
-}
 
-function getEditSubtasksHtml(subtasks) {
-  let subtasksHtml = '';
-  for (const subtask of subtasks) {
-    subtasksHtml += taskEditSubtaskTemplate(subtask);
-  }
-  return subtasksHtml;
-}
-
+/**
+ * Builds the subtask progress bar of a task card.
+ * @param {Subtask[]} subtasks - The subtasks of the task.
+ * @returns {string} The progress HTML, or an empty string if the task has no subtasks.
+ */
 function getProgressHtml(subtasks) {
   if (subtasks.length === 0) return '';
   let doneCount = 0;
@@ -414,12 +298,22 @@ function getProgressHtml(subtasks) {
   return taskProgressTemplate(doneCount, subtasks.length);
 }
 
+
+/**
+ * Converts a due date from YYYY-MM-DD to DD/MM/YYYY.
+ * @param {string} dueDate - The due date in the format YYYY-MM-DD.
+ * @returns {string} The formatted date, or an empty string if no date is set.
+ */
 function formatDueDate(dueDate) {
   if (dueDate === '') return '';
   const dateParts = dueDate.split('-');
   return dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0];
 }
 
+
+/**
+ * Opens the add task dialog, renders and initializes the form and locks the page scroll.
+ */
 function openAddTaskDialog() {
   const addTaskDialog = document.getElementById('addTaskDialog');
   if (addTaskDialog.open) return;
@@ -430,6 +324,10 @@ function openAddTaskDialog() {
   lockPageScroll();
 }
 
+
+/**
+ * Closes the add task dialog if it is open.
+ */
 function closeAddTaskDialog() {
   const addTaskDialog = document.getElementById('addTaskDialog');
   if (addTaskDialog.open) addTaskDialog.close();
