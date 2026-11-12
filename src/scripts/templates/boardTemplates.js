@@ -174,7 +174,7 @@ function renderAddTaskDialog() {
       <div class="form-task-input">
         <section class="form-left">
           <div class="add-task-input-container">
-            <label for="title">Title</label>
+            <label for="title">Title <span class="required-asterisk">*</span></label>
             <input class="add-task-input" type="text" name="title" id="title" placeholder="Enter a title" required>
           </div>
           <div class="add-task-input-container">
@@ -182,7 +182,7 @@ function renderAddTaskDialog() {
             <textarea class="add-task-input" name="description" id="description" placeholder="Enter a description" required></textarea>
           </div>
           <div class="add-task-input-container">
-            <label for="dueDate">Due Date</label>
+            <label for="dueDate">Due Date <span class="required-asterisk">*</span></label>
             <input class="add-task-input add-task-date-input" type="date" name="dueDate" id="dueDate" required>
           </div>
         </section>
@@ -210,7 +210,7 @@ function renderAddTaskDialog() {
             </div>
           </div>
           <div class="add-task-input-container">
-            <label for="category">Category</label>
+            <label for="category">Category <span class="required-asterisk">*</span></label>
             <div class="custom-select">
               <select class="visually-hidden-select" name="category" id="categoryValue" required aria-hidden="true" tabindex="-1">
                 <option value="" disabled selected hidden>Category</option>

@@ -233,6 +233,10 @@ textarea {
     opacity: 0.5;
 }
 
+.required-asterisk {
+    color: var(--colorAvatarOrange);
+}
+
 @media (max-width:1260px) {
     .add-task-input,
     .custom-select {
