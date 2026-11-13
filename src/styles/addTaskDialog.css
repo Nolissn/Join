@@ -4,7 +4,7 @@
   width: 1100px;
   height: 800px;
   max-width: calc(100vw - 32px);
-  max-height: calc(100dvh - 32px);
+  max-height: calc(100vh - 32px);
   box-sizing: border-box;
   margin: auto;
   padding: 56px;
@@ -436,6 +436,14 @@
     justify-content: center;
     gap: 2px;
   }
+}
+
+.add-task-dialog .add-task-date-input {
+  color: var(--colorTextGrey);
+}
+
+.add-task-dialog .priority-label {
+  color: var(--colorBlack);
 }
 
 .add-task-dialog .add-task-date-input {
