@@ -231,13 +231,13 @@ textarea {
 
 .footer {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     padding-bottom: 16px;
 }
 
 .required {
-    align-content: center;
-    margin: 8px 0 0;
+    margin: 0;
 }
 
 .add-task-btn-container {
@@ -349,6 +349,10 @@ textarea {
 
     .priority-btn {
         width: 135px;
+    }
+
+    .footer {
+        display: contents;
     }
 
     .add-task-btn-container {

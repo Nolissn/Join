@@ -311,6 +311,10 @@
   align-items: center;
 }
 
+.add-task-dialog .required {
+  margin: 0;
+}
+
 .required-asterisk {
   color: var(--colorAvatarOrange);
 }
