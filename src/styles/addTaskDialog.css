@@ -413,7 +413,7 @@
     justify-content: flex-end;
     width: 100%;
     margin: 0;
-    padding: 16px max(24px, calc((100vw - 600px) / 2));
+    padding: 24px max(24px, calc((100vw - 600px) / 2));
     background-color: var(--colorWhite);
   }
 

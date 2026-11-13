@@ -198,6 +198,7 @@ textarea {
 
 .required {
     align-content: center;
+    margin: 8px 0 0;
 }
 
 .add-task-btn-container {
@@ -293,6 +294,7 @@ textarea {
         gap: 15px;
         width: 450px;
         margin-bottom: 16px;
+        padding-bottom: 100px;
     }
 
     .add-task-input,
@@ -311,6 +313,27 @@ textarea {
     }
 
     .add-task-btn-container {
+        position: fixed;
+        right: 0;
+        left: 232px;
+        bottom: 0;
+        box-sizing: border-box;
+        justify-content: flex-end;
+        width: calc(100% - 232px);
+        z-index: 20;
+        padding: 24px;
+        background-color: var(--colorBgPage);
+    }
+}
+
+@media (max-width:768px) {
+    form {
+        padding-bottom: 180px;
+    }
+
+    .add-task-btn-container {
+        left: 0;
+        bottom: 80px;
         width: 100%;
     }
 }
