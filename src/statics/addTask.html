@@ -17,6 +17,7 @@
     <script src="../scripts/templates/layoutTemplates.js" defer></script>
     <script src="../scripts/layout.js" defer></script>
     <script src="../scripts/sessionTimeout.js" defer></script>
+    <script src="../scripts/data/contactStorage.js" defer></script>
     <script src="../scripts/addTask.js" defer></script>
 </head>
 <body>
@@ -57,12 +58,7 @@
                         <div class="add-task-input-container">
                             <label for="assigned">Assigned To</label>
                             <div class="custom-select">
-                                <select class="visually-hidden-select" name="assigned" id="assignedValue" required aria-hidden="true" tabindex="-1">
-                                <option value="" disabled selected hidden>Assigned To</option>
-                                <option value="user1">User 1</option>
-                                <option value="user2">User 2</option>
-                                <option value="user3">User 3</option>
-                                </select>
+                                <select class="visually-hidden-select" name="assigned" id="assignedValue" required aria-hidden="true" tabindex="-1"></select>
                                 <button type="button" class="add-task-input custom-select-trigger" id="assigned" aria-haspopup="listbox" aria-expanded="false">Assigned To</button>
                                 <div class="custom-select-menu" role="listbox" aria-labelledby="assigned" hidden></div>
                             </div>

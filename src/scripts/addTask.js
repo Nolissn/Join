@@ -63,12 +63,25 @@ function getSelectedPriority() {
 
 /**
  * Returns the assigned contact selected in the form.
- * @param {FormData} formData - The data of the add task form.
  * @returns {Object[]} A list with the id and the name of the assigned contact.
  */
-function getTaskAssignees(formData) {
-    const assignedOption = addTaskForm.querySelector("#assignedValue").selectedOptions[0];
-    return [{ id: formData.get("assigned"), name: assignedOption.textContent }];
+function getTaskAssignees() {
+    return [...addTaskForm.querySelector("#assignedValue").selectedOptions].map(option => ({
+        id: option.value,
+        name: option.textContent
+    }));
+}
+
+/**
+ * Fills the assignee select with the contacts already loaded for the current session.
+ * @param {HTMLSelectElement} select - The assignee select.
+ */
+function populateAssignedContacts(select) {
+    select.multiple = true;
+    select.replaceChildren();
+    storedContacts.forEach(contact => {
+        select.add(new Option(contact.name, contact.id));
+    });
 }
 
 /**
@@ -91,7 +104,7 @@ function getTaskFromForm() {
         description: formData.get("description").trim(),
         dueDate: formData.get("dueDate"),
         priority: getSelectedPriority(),
-        assignedTo: getTaskAssignees(formData),
+        assignedTo: getTaskAssignees(),
         category: formData.get("category"),
         subtasks: getTaskSubtasks(formData),
         status: "todo"
@@ -216,10 +229,13 @@ function closeCustomSelect(context) {
  * @param {CustomSelectContext} context - The elements of the custom select.
  */
 function syncCustomSelectSelection(context) {
-    const selectedOption = context.select.options[context.select.selectedIndex];
-    context.trigger.textContent = selectedOption.textContent;
+    const selectedOptions = [...context.select.selectedOptions];
+    context.trigger.textContent = selectedOptions.length
+        ? selectedOptions.map(option => option.textContent).join(", ")
+        : context.select.id === "assignedValue" ? "Assigned To" : context.select.options[context.select.selectedIndex].textContent;
     context.menu.querySelectorAll('[role="option"]').forEach(option => {
-        option.setAttribute("aria-selected", String(option.dataset.value === context.select.value));
+        const isSelected = selectedOptions.some(selected => selected.value === option.dataset.value);
+        option.setAttribute("aria-selected", String(isSelected));
     });
 }
 
@@ -229,6 +245,13 @@ function syncCustomSelectSelection(context) {
  * @param {HTMLElement} option - The clicked menu option.
  */
 function handleCustomSelectOptionClick(context, option) {
+    if (context.select.multiple) {
+        const selectedOption = [...context.select.options].find(item => item.value === option.dataset.value);
+        selectedOption.selected = !selectedOption.selected;
+        context.select.dispatchEvent(new Event("change", { bubbles: true }));
+        option.focus();
+        return;
+    }
     context.select.value = option.dataset.value;
     context.select.dispatchEvent(new Event("change", { bubbles: true }));
     closeCustomSelect(context);
@@ -248,7 +271,17 @@ function createCustomSelectOption(option, context) {
     menuOption.setAttribute("aria-selected", "false");
     menuOption.tabIndex = -1;
     menuOption.dataset.value = option.value;
-    menuOption.textContent = option.textContent;
+    if (context.select.id === "assignedValue") {
+        const contact = storedContacts.find(item => item.id === option.value);
+        const avatar = document.createElement("span");
+        avatar.className = `custom-select-avatar ${contact?.color || ""}`;
+        avatar.textContent = getInitials(option.textContent);
+        avatar.setAttribute("aria-hidden", "true");
+        menuOption.append(avatar);
+    }
+    const label = document.createElement("span");
+    label.textContent = option.textContent;
+    menuOption.append(label);
     menuOption.addEventListener("click", handleCustomSelectOptionClick.bind(null, context, menuOption));
     return menuOption;
 }
@@ -382,6 +415,7 @@ function handleCustomSelectMenuKeydown(context, event) {
  */
 function initializeCustomSelect(container) {
     const context = getCustomSelectContext(container);
+    if (context.select.multiple) context.menu.setAttribute("aria-multiselectable", "true");
     populateCustomSelectMenu(context);
     context.trigger.addEventListener("click", () => toggleCustomSelect(context));
     context.trigger.addEventListener("keydown", handleCustomSelectTriggerKeydown.bind(null, context));
@@ -416,6 +450,7 @@ let addTaskForm;
  */
 function initializeAddTaskForm(form) {
     addTaskForm = form;
+    populateAssignedContacts(form.querySelector("#assignedValue"));
     form.querySelectorAll(".custom-select").forEach(initializeCustomSelect);
     form.addEventListener("submit", createTask);
     form.addEventListener("input", updateCreateTaskButton);
@@ -425,7 +460,9 @@ function initializeAddTaskForm(form) {
     updateCreateTaskButton();
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     const form = document.getElementById("addTaskForm");
-    if (form) initializeAddTaskForm(form);
+    if (!form) return;
+    await loadContacts();
+    initializeAddTaskForm(form);
 });

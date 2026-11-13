@@ -124,6 +124,8 @@
 
 .add-task-dialog .custom-select-trigger {
   text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   cursor: pointer;
 }
 
@@ -161,16 +163,53 @@
 }
 
 .add-task-dialog .custom-select-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   min-height: 40px;
   padding: 8px 14px;
   cursor: pointer;
 }
+
+.add-task-dialog .custom-select-avatar {
+  display: flex;
+  flex: 0 0 32px;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--colorWhite);
+  font-size: 12px;
+}
+
+.add-task-dialog .custom-select-avatar.red { background-color: red; }
+.add-task-dialog .custom-select-avatar.blue { background-color: blue; }
+.add-task-dialog .custom-select-avatar.green { background-color: green; }
+.add-task-dialog .custom-select-avatar.darfred { background-color: rgb(65, 0, 0); }
+.add-task-dialog .custom-select-avatar.orange { background-color: orange; }
+.add-task-dialog .custom-select-avatar.purple { background-color: purple; }
+.add-task-dialog .custom-select-avatar.pink { background-color: pink; }
+.add-task-dialog .custom-select-avatar.darkgreen { background-color: rgb(0, 63, 0); }
+.add-task-dialog .custom-select-avatar.turquoise { background-color: turquoise; }
+.add-task-dialog .custom-select-avatar.darkblue { background-color: rgb(0, 0, 118); }
 
 .add-task-dialog .custom-select-option:hover,
 .add-task-dialog .custom-select-option:focus,
 .add-task-dialog .custom-select-option[aria-selected="true"] {
   background-color: rgba(205, 205, 205, 0.4);
   outline: none;
+}
+
+.add-task-dialog .custom-select-option[aria-selected="true"]::after {
+  content: "";
+  flex: 0 0 8px;
+  width: 8px;
+  height: 12px;
+  margin-left: auto;
+  border-right: 2px solid var(--colorPrimary);
+  border-bottom: 2px solid var(--colorPrimary);
+  transform: rotate(45deg);
 }
 
 .add-task-dialog .priority-btn-container {
