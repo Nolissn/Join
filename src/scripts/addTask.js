@@ -222,21 +222,37 @@ function clearTaskForm() {
 function closeCustomSelect(context) {
     context.trigger.setAttribute("aria-expanded", "false");
     context.menu.hidden = true;
+    syncCustomSelectSelection(context);
 }
 
 /**
- * Shows the selected option of the hidden select in the trigger and marks it in the menu.
+ * Synchronizes menu selection and displays assigned-contact initials when the menu is closed.
  * @param {CustomSelectContext} context - The elements of the custom select.
  */
 function syncCustomSelectSelection(context) {
     const selectedOptions = [...context.select.selectedOptions];
-    context.trigger.textContent = selectedOptions.length
-        ? selectedOptions.map(option => option.textContent).join(", ")
-        : context.select.id === "assignedValue" ? "Assigned To" : context.select.options[context.select.selectedIndex].textContent;
+    const isAssignedSelect = context.select.id === "assignedValue";
+    context.trigger.textContent = isAssignedSelect
+        ? "Assigned To"
+        : context.select.options[context.select.selectedIndex].textContent;
     context.menu.querySelectorAll('[role="option"]').forEach(option => {
         const isSelected = selectedOptions.some(selected => selected.value === option.dataset.value);
         option.setAttribute("aria-selected", String(isSelected));
     });
+    if (isAssignedSelect) {
+        const selectedContacts = context.container.querySelector(".custom-select-selected-contacts");
+        selectedContacts.replaceChildren();
+        selectedOptions.forEach(option => {
+            const contact = storedContacts.find(item => item.id === option.value);
+            const avatar = document.createElement("span");
+            avatar.className = `custom-select-avatar ${contact?.color || ""}`;
+            avatar.textContent = getInitials(option.textContent);
+            avatar.setAttribute("role", "listitem");
+            avatar.setAttribute("aria-label", option.textContent);
+            selectedContacts.append(avatar);
+        });
+        selectedContacts.hidden = selectedOptions.length === 0 || !context.menu.hidden;
+    }
 }
 
 /**
@@ -338,6 +354,7 @@ function openCustomSelect(context, focusSelected = false) {
     closeOtherCustomSelects(context);
     context.menu.hidden = false;
     context.trigger.setAttribute("aria-expanded", "true");
+    syncCustomSelectSelection(context);
     if (focusSelected) focusSelectedCustomOption(context);
 }
 
