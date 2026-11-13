@@ -24,7 +24,7 @@ function boardColumnTemplate(column, tasksHtml) {
     <section class="boardColumn" data-status="${column.status}">
       <div class="columnHeader">
         <h2 class="columnTitle">${column.title}</h2>
-        <button class="columnAddButton" type="button"><img class="columnAddIcon" src="${iconPath}plus_box.svg" alt="Add task to ${column.title}"></button>
+        <button class="columnAddButton" type="button" onclick="openAddTaskDialog()"><img class="columnAddIcon" src="${iconPath}plus_box.svg" alt="Add task to ${column.title}"></button>
       </div>
       <div class="columnTasks">
         <p class="taskPlaceholder">No tasks ${column.title}</p>
