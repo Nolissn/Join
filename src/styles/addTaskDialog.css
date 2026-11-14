@@ -46,13 +46,15 @@
 }
 
 .close-dialog {
+  display: grid;
   border: 0;
   padding: 0;
-  height: 24px;
+  border-radius: 50%;
   background-color: transparent;
 }
 .close-dialog:hover {
   cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .add-task-dialog .form-task-input {

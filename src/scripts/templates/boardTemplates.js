@@ -198,10 +198,11 @@ function renderAddTaskDialog() {
           </div>
           <div class="add-task-input-container">
             <label for="assigned">Assigned To</label>
-            <div class="custom-select">
+            <div class="custom-select custom-select-assigned">
               <select class="visually-hidden-select" name="assigned" id="assignedValue" required aria-hidden="true" tabindex="-1"></select>
               <button type="button" class="add-task-input custom-select-trigger" id="assigned" aria-haspopup="listbox" aria-expanded="false">Assigned To</button>
               <div class="custom-select-menu" role="listbox" aria-labelledby="assigned" hidden></div>
+              <div class="custom-select-selected-contacts" role="list" aria-label="Assigned contacts" hidden></div>
             </div>
           </div>
           <div class="add-task-input-container">
