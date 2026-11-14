@@ -185,6 +185,17 @@
   font-size: 12px;
 }
 
+.add-task-dialog .custom-select-selected-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+.add-task-dialog .custom-select-selected-contacts[hidden] {
+  display: none;
+}
+
 .add-task-dialog .custom-select-avatar.red { background-color: red; }
 .add-task-dialog .custom-select-avatar.blue { background-color: blue; }
 .add-task-dialog .custom-select-avatar.green { background-color: green; }
