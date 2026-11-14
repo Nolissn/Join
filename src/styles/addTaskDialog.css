@@ -225,9 +225,17 @@
   border: 0;
   border-radius: 8px;
   background-color: var(--colorWhite);
-  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px;
+  box-shadow: 0 -2px 8px rgba(99, 99, 99, 0.3), 0 2px 8px rgba(99, 99, 99, 0.2);
   font-size: 19px;
   cursor: pointer;
+}
+
+.add-task-dialog .priority-btn:hover {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.add-task-dialog .add-task-btn:not(:disabled):hover {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .add-task-dialog .priority-btn-icon {
@@ -278,6 +286,11 @@
   background-color: var(--colorWhite);
 }
 
+.add-task-dialog .clear-task-btn:hover {
+  border: 2px solid var(--colorPrimaryDark);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
 .add-task-dialog .create-task-btn {
   min-width: 160px;
   border: 0;
@@ -287,10 +300,14 @@
 
 .add-task-dialog .create-task-btn:disabled {
   cursor: not-allowed;
-  opacity: 0.5;
 }
 
-.add-task-dialog .task-form-status[data-state="error"] {
+.add-task-dialog .create-task-btn:not(:disabled):hover {
+  background-color: var(--colorPrimaryGreyTone);
+}
+
+.add-task-dialog .task-form-status[data-state="error"],
+.add-task-dialog .task-form-status[data-state="warning"] {
   color: #b42318;
 }
 

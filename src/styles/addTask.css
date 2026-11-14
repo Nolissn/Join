@@ -223,15 +223,21 @@ textarea {
 .priority-btn {
     height: 55px;
     background-color: var(--colorWhite);
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    box-shadow: 0 -2px 8px rgba(99, 99, 99, 0.3), 0 2px 8px rgba(99, 99, 99, 0.2);
     border-radius: 8px;
     border: 0;
     width: 122px;
     font-size: 19px;
 }
 .priority-btn:hover,
-.add-task-btn:hover {
+.add-task-btn:not(:disabled):hover {
     cursor: pointer;
+}
+.priority-btn:hover {
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.add-task-btn:not(:disabled):hover {
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .priority-btn-icon {
@@ -289,6 +295,10 @@ textarea {
     border: 1px solid var(--colorPrimaryDark);
     padding-left: 16px;
 }
+.clear-task-btn:hover {
+    border: 2px solid var(--colorPrimaryDark);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
 
 .create-task-btn {
     width: 161px;
@@ -298,10 +308,21 @@ textarea {
     display: flex;
     justify-content: center;
 }
-
+.create-task-btn:hover {
+    background-color: var(--colorPrimaryGreyTone);
+}
 .create-task-btn:disabled {
     cursor: not-allowed;
-    opacity: 0.5;
+}
+.task-form-status[data-state="error"],
+.task-form-status[data-state="warning"] {
+    color: #b42318;
+}
+.task-form-status[data-state="success"] {
+    color: #067647;
+}
+.create-task-btn:not(:disabled):hover {
+    cursor: pointer;
 }
 
 .required-asterisk {

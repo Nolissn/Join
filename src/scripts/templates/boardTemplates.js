@@ -170,7 +170,7 @@ function renderAddTaskDialog() {
       <h1>Add Task</h1>
       <button class="close-dialog" onclick="closeAddTaskDialog()" type="button"><img src="../../assets/icons/cancel.svg" alt="Close"></button>
     </div>
-    <form id="addTaskForm">
+    <form id="addTaskForm" novalidate>
       <div class="form-task-input">
         <section class="form-left">
           <div class="add-task-input-container">
@@ -227,7 +227,7 @@ function renderAddTaskDialog() {
         <p class="required"><span class="required-asterisk">*</span> Required fields</p>
         <div class="add-task-btn-container">
           <button type="button" class="clear-task-btn add-task-btn" onclick="clearTaskForm()">Clear <img src="../../assets/icons/cancel.svg" alt="Clear"></button>
-          <button type="submit" class="create-task-btn add-task-btn" disabled>Create Task <img src="../../assets/icons/check.svg" alt="Create Task"></button>
+          <button type="submit" class="create-task-btn add-task-btn" disabled aria-disabled="true">Create Task <img src="../../assets/icons/check.svg" alt="Create Task"></button>
         </div>
       </div>
       <p class="task-form-status" id="taskFormStatus" role="status" aria-live="polite" hidden></p>

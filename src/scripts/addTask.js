@@ -42,14 +42,25 @@ function updatePriorityIcons() {
 let isSavingTask = false;
 
 /**
- * Enables the create task button only if the form is valid, all text fields are filled, a priority is selected and no task is being saved.
+ * Updates the create task button's disabled state and accessibility status.
  */
 function updateCreateTaskButton() {
     const createTaskButton = addTaskForm.querySelector(".create-task-btn");
+    createTaskButton.disabled = isSavingTask;
+    createTaskButton.setAttribute("aria-disabled", String(isSavingTask || !isTaskFormReady()));
+    const statusMessage = addTaskForm.querySelector("#taskFormStatus");
+    if (statusMessage.dataset.state === "warning") statusMessage.hidden = true;
+}
+
+/**
+ * Checks whether all required fields and the priority are set.
+ * @returns {boolean} Whether the task form is ready to submit.
+ */
+function isTaskFormReady() {
     const hasSelectedPriority = addTaskForm.querySelector(".priority-btn.btn-active") !== null;
     const hasTextContent = [...addTaskForm.querySelectorAll('input[type="text"], textarea')]
         .every(field => field.value.trim().length > 0);
-    createTaskButton.disabled = isSavingTask || !addTaskForm.checkValidity() || !hasTextContent || !hasSelectedPriority;
+    return addTaskForm.checkValidity() && hasTextContent && hasSelectedPriority;
 }
 
 /**
@@ -183,8 +194,12 @@ function finishTaskSave() {
  */
 async function createTask(event) {
     event.preventDefault();
-    if (!addTaskForm.reportValidity()) return;
     const statusMessage = addTaskForm.querySelector("#taskFormStatus");
+    if (isSavingTask) return;
+    if (!isTaskFormReady()) {
+        showTaskStatus(statusMessage, "warning", "Please complete all required fields before creating a task.");
+        return;
+    }
     startTaskSave(statusMessage);
     try {
         await persistTask();
