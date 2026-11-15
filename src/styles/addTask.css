@@ -64,6 +64,10 @@ button {
     padding-left: 16px;
 }
 
+#addTaskForm input[type="date"] {
+    cursor: pointer;
+}
+
 .custom-select {
     position: relative;
     width: 400px;
