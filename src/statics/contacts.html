@@ -33,8 +33,12 @@
                 <div id="contact_list" class="container-contact-list">
                     <!-- js elements will be inserted here -->
                 </div>
-                <button onclick="addNewContact()" class="button-responsive-contact-options"><img
-                        src="../../assets/icons/add_new_contact.svg" alt=""></button>
+                <button onclick="addNewContact()" id="button_responsive_add_new_contact"
+                    class="button-responsive-contact button-responsive-add"><img src="../../assets/icons/add_new_contact.svg"
+                        alt=""></button>
+                <button onclick="openContactOptionsResponsive()" id="button_responsive_contact_options"
+                    class="button-responsive-contact button-responsive-options d-none"><img src="../../assets/icons/contact_options.svg"
+                        alt=""></button>
             </section>
             <!-- Contact information -->
             <section class="section-contacts-information">
@@ -70,8 +74,6 @@
                         <p id="contact_phone">+1234567890</p>
                     </div>
                 </div>
-                <button class="button-responsive-contact-options"><img src="../../assets/icons/contact_options.svg"
-                        alt=""></button>
             </section>
 
             <!-- contact dialog -->
@@ -129,8 +131,8 @@
             <!-- transform Element -->
 
             <div class="contact-container-actions-responsive">
-                <button class="button-action-responsive"><img src="../../assets/icons/edit.svg" alt=""> Edit</button>
-                <button class="button-action-responsive"><img src="../../assets/icons/delete.svg" alt="">
+                <button onclick="editContact()" class="button-action-responsive"><img src="../../assets/icons/edit.svg" alt=""> Edit</button>
+                <button onclick="deleteContact()" class="button-action-responsive"><img src="../../assets/icons/delete.svg" alt="">
                     Delete</button>
             </div>
 
