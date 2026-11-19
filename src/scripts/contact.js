@@ -41,31 +41,42 @@ function selectContact(index) {
         document.getElementById("contact" + currentUser)?.classList.remove("contact-list-selected");
         document.getElementById("contact_initials").classList.remove(storedContacts[currentUser].color);
         document.querySelector(".contact-container-actions-responsive").classList.remove("contact-container-actions-responsive-show");
+        console.log("section one " + currentUser);
     }
     if (alreadySelected) {
         currentUser = null;
         document.getElementById("contact_information_container").classList.add("d-none");
         document.getElementById("button_responsive_add_new_contact").classList.remove("d-none");
         document.getElementById("button_responsive_contact_options").classList.add("d-none");
+        console.log("section two " + currentUser);
         return;
     }
     currentUser = index;
     document.getElementById("contact" + index).classList.add("contact-list-selected");
+    console.log("section three " + currentUser);
     showContactInformation();
     document.getElementById("button_responsive_add_new_contact").classList.add("d-none");
     document.getElementById("button_responsive_contact_options").classList.remove("d-none");
+    if (window.innerWidth <= 950) {
+        document.querySelector(".section-contacts-information").classList.add("d-flex");
+        document.querySelector(".section-contact-list").classList.add("d-none");
+        document.getElementById("button_responsive_contact_options").classList.remove("d-none");
+    }
+}
+
+function returnToContactList() {
+    if (window.innerWidth <= 950) {
+        document.querySelector(".section-contacts-information").classList.remove("d-flex");
+        document.querySelector(".section-contact-list").classList.remove("d-none");
+        document.getElementById("button_responsive_contact_options").classList.add("d-none");
+        document.getElementById("button_responsive_add_new_contact").classList.remove("d-none");
+    }
 }
 
 function openContactOptionsResponsive() {
     document.querySelector(".contact-container-actions-responsive").classList.toggle("contact-container-actions-responsive-show");
-    
+
 }
-
-
-
-
-
-
 
 function showContactInformation() {
     document.getElementById("contact_information_container").classList.remove("d-none");
@@ -126,9 +137,12 @@ function addContactSuccess() {
     currentUser = storedContacts.indexOf(newContact);
     renderContactList();
     document.getElementById("contact" + currentUser).classList.add("contact-list-selected");
-    openContactOptionsResponsive();
     closeDialog();
-    console.table(storedContacts);
+    document.getElementById("dialog_success_message").classList.add("dialog-success-message-show");
+    setTimeout(() => {
+        document.getElementById("dialog_success_message").classList.remove("dialog-success-message-show");
+        console.table(storedContacts);
+    }, 1000);
 }
 
 function checkDialogInputs() {
@@ -197,14 +211,27 @@ function deleteContact() {
         document.getElementById("button_responsive_add_new_contact").classList.remove("d-none");
         document.getElementById("button_responsive_contact_options").classList.add("d-none");
     }
+    if (window.innerWidth <= 950) {
+        document.querySelector(".section-contacts-information").classList.add("d-none");
+        document.querySelector(".section-contacts-information").classList.remove("d-flex");
+        document.querySelector(".section-contact-list").classList.remove("d-none");
+        document.querySelector(".contact-container-actions-responsive").classList.remove("contact-container-actions-responsive-show");
+        document.getElementById("button_responsive_add_new_contact").classList.remove("d-none");
+    }
 }
 
 function test() {
-    addNewContact();
-    document.getElementById("dialog_input_name").value = "Sebastian Opielka";
-    document.getElementById("dialog_input_email").value = "sebastian.opielka@example.com";
-    document.getElementById("dialog_input_phone").value = "+49 1258 934416";
-    createContact();
+    // addNewContact();
+    // document.getElementById("dialog_input_name").value = "Test Test";
+    // document.getElementById("dialog_input_email").value = "test.test@example.com";
+    // document.getElementById("dialog_input_phone").value = "+49 1258 934416";
+    // createContact();
+
+    document.getElementById("dialog_success_message").classList.add("dialog-success-message-show");
+    setTimeout(() => {
+        document.getElementById("dialog_success_message").classList.remove("dialog-success-message-show");
+        console.table(storedContacts);
+    }, 2000);
 }
 
 function showDialog() {
@@ -227,6 +254,8 @@ window.saveEditContact = saveEditContact;
 window.deleteContact = deleteContact;
 window.closeDialog = closeDialog;
 window.openContactOptionsResponsive = openContactOptionsResponsive;
+window.returnToContactList = returnToContactList;
+
 
 init();
 

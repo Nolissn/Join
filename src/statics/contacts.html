@@ -34,15 +34,13 @@
                     <!-- js elements will be inserted here -->
                 </div>
                 <button onclick="addNewContact()" id="button_responsive_add_new_contact"
-                    class="button-responsive-contact button-responsive-add"><img src="../../assets/icons/add_new_contact.svg"
-                        alt=""></button>
-                <button onclick="openContactOptionsResponsive()" id="button_responsive_contact_options"
-                    class="button-responsive-contact button-responsive-options d-none"><img src="../../assets/icons/contact_options.svg"
-                        alt=""></button>
+                    class="button-responsive-contact button-responsive-add"><img
+                        src="../../assets/icons/add_new_contact.svg" alt=""></button>
             </section>
             <!-- Contact information -->
             <section class="section-contacts-information">
-                <button class="button-responsive-return"><img src="../../assets/icons/arrow_left.svg" alt=""></button>
+                <button onclick="returnToContactList()" class="button-responsive-return"><img
+                        src="../../assets/icons/arrow_left.svg" alt=""></button>
                 <div class="container-contacts-header">
                     <h2 class="contacts-header-title">Contacts</h2>
                     <div class="contacts-header-seperator-container">
@@ -74,6 +72,13 @@
                         <p id="contact_phone">+1234567890</p>
                     </div>
                 </div>
+                <div class="container-success-message">
+                    <div id="dialog_success_message" class="dialog-success-message dialog-success-message-hide">Contact
+                        succesfully created</div>
+                </div>
+                <button onclick="openContactOptionsResponsive()" id="button_responsive_contact_options"
+                    class="button-responsive-contact button-responsive-options d-none"><img
+                        src="../../assets/icons/contact_options.svg" alt=""></button>
             </section>
 
             <!-- contact dialog -->
@@ -124,15 +129,15 @@
                         </form>
                     </section>
                 </div>
-
-                <!-- <div class="dialog-success-message">Contact succesfully created</div> -->
             </dialog>
 
             <!-- transform Element -->
 
             <div class="contact-container-actions-responsive">
-                <button onclick="editContact()" class="button-action-responsive"><img src="../../assets/icons/edit.svg" alt=""> Edit</button>
-                <button onclick="deleteContact()" class="button-action-responsive"><img src="../../assets/icons/delete.svg" alt="">
+                <button onclick="editContact()" class="button-action-responsive"><img src="../../assets/icons/edit.svg"
+                        alt=""> Edit</button>
+                <button onclick="deleteContact()" class="button-action-responsive"><img
+                        src="../../assets/icons/delete.svg" alt="">
                     Delete</button>
             </div>
 
