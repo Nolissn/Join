@@ -11,7 +11,7 @@ async function init() {
     await loadContacts();
     sortContacts();
     renderContactList();
-    test();
+    // test();
 }
 
 function sortContacts() {
@@ -35,31 +35,42 @@ function renderContactList() {
 }
 
 function selectContact(index) {
-    console.log("Selecting contact " + index);
     const alreadySelected = currentUser === index;
     if (currentUser !== null) {
-        document.getElementById("contact" + currentUser)?.classList.remove("contact-list-selected");
-        document.getElementById("contact_initials").classList.remove(storedContacts[currentUser].color);
-        document.querySelector(".contact-container-actions-responsive").classList.remove("contact-container-actions-responsive-show");
+        deselectContact();
     }
     if (alreadySelected) {
         currentUser = null;
-        document.getElementById("contact_information_container").classList.add("d-none");
-        document.getElementById("button_responsive_add_new_contact").classList.remove("d-none");
-        document.getElementById("button_responsive_contact_options").classList.add("d-none");
+        highlightSelectedContact();
         return;
     }
     currentUser = index;
     document.getElementById("contact" + index).classList.add("contact-list-selected");
     showContactInformation();
     document.getElementById("button_responsive_add_new_contact").classList.add("d-none");
-    document.getElementById("button_responsive_contact_options").classList.remove("d-none");
     if (window.innerWidth <= 1000) {
-        document.querySelector(".section-contacts-information").classList.add("d-flex");
-        document.querySelector(".section-contact-list").classList.add("d-none");
-        document.getElementById("button_responsive_contact_options").classList.remove("d-none");
+        highlightSelectedContactResponsive();
     }
 }
+
+function highlightSelectedContact() {
+    document.getElementById("contact_information_container").classList.add("d-none");
+    document.getElementById("button_responsive_add_new_contact").classList.remove("d-none");
+    document.getElementById("button_responsive_contact_options").classList.add("d-none");
+}
+
+function highlightSelectedContactResponsive() {
+    document.querySelector(".section-contacts-information").classList.add("d-flex");
+    document.querySelector(".section-contact-list").classList.add("d-none");
+    document.getElementById("button_responsive_contact_options").classList.remove("d-none");
+}
+
+function deselectContact() {
+    document.getElementById("contact" + currentUser)?.classList.remove("contact-list-selected");
+    document.getElementById("contact_initials").classList.remove(storedContacts[currentUser].color);
+    document.querySelector(".contact-container-actions-responsive").classList.remove("contact-container-actions-responsive-show");
+}
+
 
 function returnToContactList() {
     if (window.innerWidth <= 1000) {
@@ -77,7 +88,6 @@ function openContactOptionsResponsive() {
 
 function showContactInformation() {
     document.getElementById("contact_information_container").classList.remove("d-none");
-    // document.getElementById("contact_information_container").classList.add("d-flex");
     document.getElementById("contact_name").innerText = storedContacts[currentUser].name;
     document.getElementById("contact_email").innerText = storedContacts[currentUser].email;
     document.getElementById("contact_email").href = "mailto:" + storedContacts[currentUser].email;
@@ -136,17 +146,14 @@ function addContactSuccess() {
     renderContactList();
     document.getElementById("contact" + currentUser).classList.add("contact-list-selected");
     closeDialog();
-    console.log("Contact successfully added");
     if (window.innerWidth <= 1000) {
         for (let i = 0; i < storedContacts.length; i++) {
             if (i == storedContacts.indexOf(newContact)) {
-                console.log("New contact selected: ", newContact);
                 currentUser = i;
                 document.getElementById("section_contact_information_container").classList.add("d-flex");
                 document.querySelector(".section-contact-list").classList.add("d-none");
-                // document.getElementById("contact" + currentUser).classList.add("contact-list-selected");
+                document.getElementById("button_responsive_contact_options").classList.remove("d-none");
                 showContactInformation();
-                console.log(document.querySelector(".section-contact-list").classList);
             }
         }
     }
@@ -222,7 +229,7 @@ function deleteContact() {
         document.getElementById("button_responsive_add_new_contact").classList.remove("d-none");
         document.getElementById("button_responsive_contact_options").classList.add("d-none");
     }
-    if (window.innerWidth <= 950) {
+    if (window.innerWidth <= 1000) {
         document.querySelector(".section-contacts-information").classList.add("d-none");
         document.querySelector(".section-contacts-information").classList.remove("d-flex");
         document.querySelector(".section-contact-list").classList.remove("d-none");
