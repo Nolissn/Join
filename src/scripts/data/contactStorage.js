@@ -54,7 +54,8 @@ function setStoredContacts(contacts) {
 
 /**
  * Saves a contact in Firebase and refreshes the session storage.
- * A contact without id is created and added to the stored contacts, a contact with id is overwritten.
+ * A contact without id is created and added to the stored contacts.
+ * A contact with id is overwritten and its new name is updated in all tasks it is assigned to.
  * Shows a message if saving fails.
  * @param {Contact} contact - The contact to save.
  * @returns {Promise<boolean>} True if the contact was saved.
@@ -65,8 +66,10 @@ async function saveStoredContact(contact) {
   try {
     const contactsDbApi = await import('./contactsDbApi.js');
     contact.id = await contactsDbApi.saveContact(contactData, contact.id);
-    if (!storedContacts.includes(contact)) storedContacts.push(contact);
+    const isNewContact = !storedContacts.includes(contact);
+    if (isNewContact) storedContacts.push(contact);
     setStoredContacts(storedContacts);
+    if (!isNewContact) await updateContactInTasks(contact);
     return true;
   } catch {
     showToast('Contact could not be saved');
@@ -90,5 +93,46 @@ async function deleteStoredContact(contactId) {
     await contactsDbApi.deleteContact(contactId);
   } catch {
     showToast('Contact could not be deleted');
+  }
+}
+
+
+/**
+ * Replaces the name of a contact in the assigned contacts of a task.
+ * @param {Task} task - The task to check.
+ * @param {Contact} contact - The contact with the new name.
+ * @returns {boolean} True if the name was changed in the task.
+ */
+function renameContactInTask(task, contact) {
+  if (!Array.isArray(task.assignedTo)) return false;
+  let isChanged = false;
+  for (const assignee of task.assignedTo) {
+    if (assignee.id === contact.id && assignee.name !== contact.name) {
+      assignee.name = contact.name;
+      isChanged = true;
+    }
+  }
+  return isChanged;
+}
+
+
+/**
+ * Updates the name of a contact in all tasks it is assigned to.
+ * The changed tasks are marked as outdated, so the board loads them again from Firebase.
+ * Shows a message if the tasks could not be updated.
+ * @param {Contact} contact - The contact with the new name.
+ * @returns {Promise<void>}
+ */
+async function updateContactInTasks(contact) {
+  try {
+    const joinDbApi = await import('./joinDbApi.js');
+    for (const task of await joinDbApi.getTasks()) {
+      if (renameContactInTask(task, contact) === false) continue;
+      const taskId = task.id;
+      delete task.id;
+      await joinDbApi.updateTask(taskId, task);
+    }
+  } catch {
+    showToast('Tasks could not be updated');
   }
 }
