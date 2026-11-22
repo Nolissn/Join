@@ -332,9 +332,41 @@ function saveEditContact() {
 }
 
 /**
- * Deletes the selected contact and selects the next contact in the list.
+ * Asks for confirmation before the selected contact is deleted.
  */
 function deleteContact() {
+    if (currentUser === null || !storedContacts[currentUser]) return;
+    document.getElementById("confirm_delete_name").textContent = storedContacts[currentUser].name;
+    document.getElementById("dialog_confirm_delete").showModal();
+}
+
+/**
+ * Closes the delete confirmation and deletes the selected contact.
+ */
+function confirmDeleteContact() {
+    document.getElementById("dialog_confirm_delete").close();
+    deleteSelectedContact();
+}
+
+/**
+ * Closes the delete confirmation without deleting the contact.
+ */
+function cancelDeleteContact() {
+    document.getElementById("dialog_confirm_delete").close();
+}
+
+/**
+ * Closes the delete confirmation when the user clicks on the backdrop.
+ * @param {MouseEvent} event - The click event of the confirmation dialog.
+ */
+function handleConfirmDeleteBackdropClick(event) {
+    if (event.target === event.currentTarget) cancelDeleteContact();
+}
+
+/**
+ * Deletes the selected contact and selects the next contact in the list.
+ */
+function deleteSelectedContact() {
     if (currentUser === null || !storedContacts[currentUser]) {
         closeDialog();
         return;
@@ -426,6 +458,9 @@ window.openContactOptionsResponsive = openContactOptionsResponsive;
 window.returnToContactList = returnToContactList;
 document.querySelector(".container-dialog-changings").addEventListener("keydown", handleDialogEnterKey);
 document.querySelector(".container-dialog-inputs").addEventListener("input", resetContactInputErrors);
+document.getElementById("confirm_delete_cancel").addEventListener("click", cancelDeleteContact);
+document.getElementById("confirm_delete_submit").addEventListener("click", confirmDeleteContact);
+document.getElementById("dialog_confirm_delete").addEventListener("click", handleConfirmDeleteBackdropClick);
 
 init();
 

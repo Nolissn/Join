@@ -640,6 +640,79 @@ a {
     cursor: pointer;
 }
 
+.dialog-confirm-delete {
+    width: 440px;
+    max-width: calc(100vw - 32px);
+    margin: auto;
+    padding: 0;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.dialog-confirm-delete::backdrop {
+    background-color: rgba(0, 0, 0, 0.35);
+}
+
+.dialog-confirm-delete-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 40px;
+}
+
+.dialog-confirm-delete-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--colorPrimary);
+}
+
+.dialog-confirm-delete-text {
+    font-size: 20px;
+    line-height: 28px;
+}
+
+.dialog-confirm-delete-name {
+    font-weight: 700;
+}
+
+.dialog-confirm-delete-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+}
+
+.dialog-confirm-delete-cancel,
+.dialog-confirm-delete-submit {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.dialog-confirm-delete-cancel {
+    border: solid 1px var(--colorPrimary);
+    background-color: var(--colorWhite);
+    color: var(--colorPrimary);
+}
+
+.dialog-confirm-delete-cancel:hover {
+    border-color: var(--colorAccent);
+    color: var(--colorAccent);
+}
+
+.dialog-confirm-delete-submit {
+    border: solid 1px var(--colorPrimary);
+    background-color: var(--colorPrimary);
+    color: var(--colorWhite);
+}
+
+.dialog-confirm-delete-submit:hover {
+    border-color: var(--colorAccent);
+    background-color: var(--colorAccent);
+}
+
 .dialog-icon {
     height: 24px;
     width: 24px;
@@ -1037,6 +1110,21 @@ a {
 @media (max-width: 500px) {
     .contact-list-container-width {
         width: 100%;
+    }
+
+    .dialog-confirm-delete-content {
+        gap: 16px;
+        padding: 24px;
+    }
+
+    .dialog-confirm-delete-title {
+        font-size: 28px;
+    }
+
+    .dialog-confirm-delete-text,
+    .dialog-confirm-delete-cancel,
+    .dialog-confirm-delete-submit {
+        font-size: 16px;
     }
 }
 
