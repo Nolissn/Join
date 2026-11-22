@@ -477,6 +477,18 @@ function scheduleCustomSelectReset() {
 let addTaskForm;
 
 /**
+ * Closes the open custom selects of the add task form when the user clicks or focuses outside of them.
+ * @param {Event} event - The click or focusin event.
+ */
+function handleOutsideCustomSelectClick(event) {
+    if (!addTaskForm) return;
+    addTaskForm.querySelectorAll(".custom-select").forEach(function (container) {
+        const context = getCustomSelectContext(container);
+        if (!context.menu.hidden && !container.contains(event.target)) closeCustomSelect(context);
+    });
+}
+
+/**
  * Initializes the add task form: sets up the custom selects, registers the event listeners and updates the buttons.
  * @param {HTMLFormElement} form - The add task form.
  */
@@ -491,6 +503,9 @@ function initializeAddTaskForm(form) {
     updatePriorityIcons();
     updateCreateTaskButton();
 }
+
+document.addEventListener("click", handleOutsideCustomSelectClick);
+document.addEventListener("focusin", handleOutsideCustomSelectClick);
 
 document.addEventListener("DOMContentLoaded", async function () {
     const form = document.getElementById("addTaskForm");
