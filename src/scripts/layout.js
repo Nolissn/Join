@@ -145,6 +145,21 @@ function registerHelpBackButton() {
   });
 }
 
+/**
+ * Escapes HTML special characters, so the text can be inserted into HTML safely.
+ * @param {*} text - The text to escape.
+ * @returns {string} The escaped text.
+ */
+function makeTextSafe(text) {
+  return String(text)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+
 document.addEventListener('DOMContentLoaded', renderLayout);
 document.addEventListener('DOMContentLoaded', registerHelpBackButton);
 document.addEventListener('click', handleHeaderMenuClick);

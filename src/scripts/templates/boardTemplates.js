@@ -1,19 +1,4 @@
 /**
- * Escapes HTML special characters, so the text can be inserted into HTML safely.
- * @param {*} text - The text to escape.
- * @returns {string} The escaped text.
- */
-function makeTextSafe(text) {
-  return String(text)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
-}
-
-
-/**
  * Returns the HTML of a board column.
  * @param {{status: string, title: string}} column - The column data.
  * @param {string} tasksHtml - The HTML of the task cards in this column.
@@ -41,7 +26,7 @@ function boardColumnTemplate(column, tasksHtml) {
  */
 function taskCardTemplate(task) {
   return `
-    <article class="taskCard" data-task-id="${task.id}" draggable="true">
+    <article class="taskCard" data-task-id="${makeTextSafe(task.id)}" draggable="true">
       <div class="taskCardHeader">
         <span class="taskCategory ${categoryClasses[task.category]}">${makeTextSafe(task.category)}</span>
         <button class="taskMoveButton" type="button" data-action="toggleMove"><img src="${iconPath}move_task.svg" alt="Move task"></button>

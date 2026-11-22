@@ -333,7 +333,7 @@ function loadEditContactHub() {
  * Fills the dialog with the initials and the data of the selected contact.
  */
 function loadEditContactInformation() {
-    document.getElementById("dialog_initials").innerHTML = getInitials(storedContacts[currentUser].name);
+    document.getElementById("dialog_initials").textContent = getInitials(storedContacts[currentUser].name);
     document.getElementById("dialog_initials").classList.add(storedContacts[currentUser].color);
     document.getElementById("dialog_input_name").value = storedContacts[currentUser].name;
     document.getElementById("dialog_input_email").value = storedContacts[currentUser].email;
@@ -564,7 +564,7 @@ function registerContactDialogEvents() {
  */
 function getContactListAlphabetHtmlElement(letter) {
     return `<div class="container-contact-list-alphabet contact-list-container-width">
-                        <div class="contact-list-alphabet">${letter}</div>
+                        <div class="contact-list-alphabet">${makeTextSafe(letter)}</div>
                     </div>`;
 }
 
@@ -577,10 +577,10 @@ function getContactListAlphabetHtmlElement(letter) {
 function getContactListHtmlElement(contact, index) {
     return `<div class="contact-list-seperator contact-list-container-width"></div>
                     <button id="contact${index}" data-index="${index}" class="button-contact contact-list-container-width">
-                        <div class="contact-list-initials ${contact.color}">${contact.name.split(" ").map(n => n[0]).join("")}</div>
+                        <div class="contact-list-initials ${makeTextSafe(contact.color)}">${makeTextSafe(contact.name.split(" ").map(n => n[0]).join(""))}</div>
                         <div class="container-contact-list-info">
-                            <div class="contact-list-name">${contact.name}</div>
-                            <a>${contact.email}</a>
+                            <div class="contact-list-name">${makeTextSafe(contact.name)}</div>
+                            <a>${makeTextSafe(contact.email)}</a>
                         </div>
                     </button>`
 }

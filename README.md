@@ -203,7 +203,7 @@ Join/
 | `authentication.js` | Sign up and validation |
 | `pageGuard.js` | Redirect to the log in page if no user is logged in |
 | `sessionTimeout.js` | Inactivity timeout with warning |
-| `layout.js` | Sidebar, header, header menu, toast messages |
+| `layout.js` | Sidebar, header, header menu, toast messages, escaping of user input |
 | `summary.js` | Key metrics and greeting |
 | `board.js` | Board rendering, search, move menu |
 | `boardDragDrop.js` | Mouse drag and drop with auto scroll |
@@ -213,7 +213,7 @@ Join/
 | `addTask.js` | Add task form and custom dropdowns |
 | `contact.js` | Contacts page |
 | `templates/layoutTemplates.js` | HTML of sidebar, header and session timeout |
-| `templates/boardTemplates.js` | HTML of board, cards, dialogs and add task form, escaping of user input |
+| `templates/boardTemplates.js` | HTML of board, cards, dialogs and add task form |
 
 ### Stylesheet order
 
@@ -241,7 +241,7 @@ Implemented in the frontend:
 
 - Page guard and log out that clears the session
 - Only `id`, `name` and `email` of the user in `sessionStorage`
-- Escaping of user input on the board (XSS protection)
+- Escaping of user input on all pages (XSS protection)
 - Generic log in error messages
 - Session timeout after inactivity
 

@@ -31,7 +31,7 @@ function headerTemplate(iconPath, initials) {
     <p class="headerTitle">Kanban Project Management Tool</p>
     <div class="headerActions">
       <a class="headerHelp" href="help.html"><img class="headerHelpIcon" src="${iconPath}help.svg" alt="Help"></a>
-      <button class="headerAvatar" type="button">${initials}</button>
+      <button class="headerAvatar" type="button">${makeTextSafe(initials)}</button>
       <nav class="headerMenu">
         <a class="headerMenuLink headerMenuLinkMobile" href="help.html">Help</a>
         <a class="headerMenuLink" href="legalNotice.html">Legal Notice</a>
