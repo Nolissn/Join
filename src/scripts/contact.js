@@ -34,30 +34,40 @@ function renderContactList() {
 }
 
 function selectContact(index) {
-    console.log("Selecting contact " + index);
     const alreadySelected = currentUser === index;
     if (currentUser !== null) {
-        document.getElementById("contact" + currentUser)?.classList.remove("contact-list-selected");
-        document.getElementById("contact_initials").classList.remove(storedContacts[currentUser].color);
-        document.querySelector(".contact-container-actions-responsive").classList.remove("contact-container-actions-responsive-show");
+        deselectContact();
     }
     if (alreadySelected) {
         currentUser = null;
-        document.getElementById("contact_information_container").classList.add("d-none");
-        document.getElementById("button_responsive_add_new_contact").classList.remove("d-none");
-        document.getElementById("button_responsive_contact_options").classList.add("d-none");
+        highlightSelectedContact();
         return;
     }
     currentUser = index;
     document.getElementById("contact" + index).classList.add("contact-list-selected");
     showContactInformation();
     document.getElementById("button_responsive_add_new_contact").classList.add("d-none");
-    document.getElementById("button_responsive_contact_options").classList.remove("d-none");
     if (window.innerWidth <= 1000) {
-        document.querySelector(".section-contacts-information").classList.add("d-flex");
-        document.querySelector(".section-contact-list").classList.add("d-none");
-        document.getElementById("button_responsive_contact_options").classList.remove("d-none");
+        highlightSelectedContactResponsive();
     }
+}
+
+function highlightSelectedContact() {
+    document.getElementById("contact_information_container").classList.add("d-none");
+    document.getElementById("button_responsive_add_new_contact").classList.remove("d-none");
+    document.getElementById("button_responsive_contact_options").classList.add("d-none");
+}
+
+function highlightSelectedContactResponsive() {
+    document.querySelector(".section-contacts-information").classList.add("d-flex");
+    document.querySelector(".section-contact-list").classList.add("d-none");
+    document.getElementById("button_responsive_contact_options").classList.remove("d-none");
+}
+
+function deselectContact() {
+    document.getElementById("contact" + currentUser)?.classList.remove("contact-list-selected");
+    document.getElementById("contact_initials").classList.remove(storedContacts[currentUser].color);
+    document.querySelector(".contact-container-actions-responsive").classList.remove("contact-container-actions-responsive-show");
 }
 
 function returnToContactList() {
@@ -71,12 +81,10 @@ function returnToContactList() {
 
 function openContactOptionsResponsive() {
     document.querySelector(".contact-container-actions-responsive").classList.toggle("contact-container-actions-responsive-show");
-
 }
 
 function showContactInformation() {
     document.getElementById("contact_information_container").classList.remove("d-none");
-    // document.getElementById("contact_information_container").classList.add("d-flex");
     document.getElementById("contact_name").innerText = storedContacts[currentUser].name;
     document.getElementById("contact_email").innerText = storedContacts[currentUser].email;
     document.getElementById("contact_email").href = "mailto:" + storedContacts[currentUser].email;
@@ -128,17 +136,12 @@ function addContactSuccess() {
     renderContactList();
     document.getElementById("contact" + currentUser).classList.add("contact-list-selected");
     closeDialog();
-    console.log("Contact successfully added");
     if (window.innerWidth <= 1000) {
         for (let i = 0; i < storedContacts.length; i++) {
             if (i == storedContacts.indexOf(newContact)) {
-                console.log("New contact selected: ", newContact);
                 currentUser = i;
-                document.getElementById("section_contact_information_container").classList.add("d-flex");
-                document.querySelector(".section-contact-list").classList.add("d-none");
-                // document.getElementById("contact" + currentUser).classList.add("contact-list-selected");
+                showContactInformationResponsive();
                 showContactInformation();
-                console.log(document.querySelector(".section-contact-list").classList);
             }
         }
     }
@@ -146,6 +149,12 @@ function addContactSuccess() {
     setTimeout(() => {
         document.getElementById("dialog_success_message").classList.remove("dialog-success-message-show");
     }, 1000);
+}
+
+function showContactInformationResponsive() {
+    document.getElementById("section_contact_information_container").classList.add("d-flex");
+    document.querySelector(".section-contact-list").classList.add("d-none");
+    document.getElementById("button_responsive_contact_options").classList.remove("d-none");
 }
 
 function checkDialogInputs() {
@@ -164,19 +173,26 @@ function checkDialogInputs() {
 
 function editContact() {
     clearDialog();
+    loadEditContactHub();
+    loadEditContactInformation();
+    showDialog()
+}
+
+function loadEditContactHub() {
     document.getElementById("dialog_title").innerHTML = "Edit Contact";
     document.getElementById("dialog_slogan").classList.add("d-none");
     document.getElementById("dialog_underline").classList.remove("dialog-underline");
     document.getElementById("dialog_underline").classList.add("dialog-title-underline");
     document.getElementById("dialog_button_delete").classList.remove("d-none");
     document.getElementById("dialog_button_save").classList.remove("d-none");
+}
 
+function loadEditContactInformation() {
     document.getElementById("dialog_initials").innerHTML = getInitials(storedContacts[currentUser].name);
     document.getElementById("dialog_initials").classList.add(storedContacts[currentUser].color);
     document.getElementById("dialog_input_name").value = storedContacts[currentUser].name;
     document.getElementById("dialog_input_email").value = storedContacts[currentUser].email;
     document.getElementById("dialog_input_phone").value = storedContacts[currentUser].phone;
-    showDialog()
 }
 
 function saveEditContact() {
@@ -233,6 +249,24 @@ function closeDialog() {
     dialog.close();
 }
 
+function clearDialog() {
+    document.getElementById("dialog_input_name").value = "";
+    document.getElementById("dialog_input_email").value = "";
+    document.getElementById("dialog_input_phone").value = "";
+    document.getElementById("dialog_initials").className = "dialog-initials add-new-contact";
+    document.getElementById("dialog_initials").innerHTML = getDialogEmptyInitialsHtmlElement();
+    document.getElementById("dialog_button_cancel").classList.add("d-none");
+    document.getElementById("dialog_button_create").classList.add("d-none");
+    document.getElementById("dialog_button_delete").classList.add("d-none");
+    document.getElementById("dialog_button_save").classList.add("d-none");
+    document.getElementById("dialog_underline").classList.remove("dialog-title-underline");
+    document.getElementById("dialog_slogan").classList.remove("d-none");
+    document.getElementById("dialog_underline").classList.add("dialog-underline");
+    document.getElementById("dialog_input_name").removeAttribute("required");
+    document.getElementById("dialog_input_email").removeAttribute("required");
+    document.getElementById("dialog_input_phone").removeAttribute("required");
+}
+
 // Module laufen wegen des await in joinDbConfig.js erst nach onload, daher init() hier aufrufen.
 window.selectContact = selectContact;
 window.addNewContact = addNewContact;
@@ -273,26 +307,4 @@ function getContactListHtmlElement(contact, index) {
 
 function getDialogEmptyInitialsHtmlElement() {
     return `<img class="dialog-initials-create-icon" src="../../assets/icons/create_contact.svg" alt="">`;
-}
-
-function clearDialog() {
-    document.getElementById("dialog_input_name").value = "";
-    document.getElementById("dialog_input_email").value = "";
-    document.getElementById("dialog_input_phone").value = "";
-    document.getElementById("dialog_initials").className = "dialog-initials add-new-contact";
-    document.getElementById("dialog_initials").innerHTML = getDialogEmptyInitialsHtmlElement();
-    document.getElementById("dialog_button_cancel").classList.add("d-none");
-    document.getElementById("dialog_button_create").classList.add("d-none");
-    document.getElementById("dialog_button_delete").classList.add("d-none");
-    document.getElementById("dialog_button_save").classList.add("d-none");
-    document.getElementById("dialog_underline").classList.remove("dialog-title-underline");
-    document.getElementById("dialog_slogan").classList.remove("d-none");
-    document.getElementById("dialog_underline").classList.add("dialog-underline");
-    document.getElementById("dialog_input_name").removeAttribute("required");
-    document.getElementById("dialog_input_email").removeAttribute("required");
-    document.getElementById("dialog_input_phone").removeAttribute("required");
-}
-
-function clearInformation() {
-
 }
