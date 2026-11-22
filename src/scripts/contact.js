@@ -1,6 +1,3 @@
-import { db } from "./data/joinDbConfig.js";
-import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
-
 const userColor = ["red", "blue", "green", "darfred", "orange", "purple", "pink", "darkgreen", "turquoise", "darkblue"];
 const contactInputIds = ["dialog_input_name", "dialog_input_email", "dialog_input_phone"];
 const contactEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

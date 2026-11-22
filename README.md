@@ -169,7 +169,7 @@ All entries are removed at log out and when another user logs in. `localStorage`
 Join/
 ├── index.html              Log in page (entry point)
 ├── style.css               Base styles of the log in and sign up pages
-├── scripts.js              Shared helpers: password toggle, dialogs, loading screen
+├── scripts.js              Shared helpers: link buttons, password toggle, loading screen
 ├── docs/
 │   └── SECURITY.md         Security notice, known vulnerabilities, full-stack approach
 ├── assets/

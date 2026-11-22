@@ -1,5 +1,4 @@
 import { registerUser, getUserByEmail } from "./data/usersDbApi.js";
-import { createUser } from "./data/usersModel.js";
 import { saveTutorialTask } from "./data/joinDbApi.js";
 
 const signUpInputIds = [

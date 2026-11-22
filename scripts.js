@@ -1,5 +1,3 @@
-let tasks = [];
-
 /**
  * Initializes the page after the DOM has loaded: registers the link buttons and the password toggles.
  */
@@ -34,13 +32,6 @@ function registerPasswordToggles() {
   });
 }
 
-/**
- * Renders a list. Currently empty.
- * @param {Array} list - The list to render.
- */
-function render(list) {
-}
-
 document.addEventListener('DOMContentLoaded', init);
 
 /**
@@ -53,15 +44,6 @@ function togglePasswordVisibility(inputId, toggleButton) {
   const isHidden = input.type === "password";
   input.type = isHidden ? "text" : "password";
   toggleButton.setAttribute("aria-label", isHidden ? "Hide password" : "Show password");
-}
-
-/**
- * Closes the dialog with the given id.
- * @param {string} dialogId - The id of the dialog.
- */
-function closeDialog(dialogId) {
-  const dialog = document.getElementById(dialogId);
-    dialog.close();
 }
 
 const loadingScreenDelay = 1000;

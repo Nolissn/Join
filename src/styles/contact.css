@@ -26,11 +26,6 @@ a {
     background-color: var(--colorUnfocusedInputTag);
 }
 
-.actions-buttons {
-    transform: translateY(0%) !important;
-    transition: transform 0.3s ease-in-out;
-}
-
 .button-responsive-contact {
     background-color: var(--colorPrimary);
     height: 56px;
@@ -309,18 +304,6 @@ a {
     border: none;
     font-size: 16px;
     font-weight: 400;
-    cursor: pointer;
-}
-
-.button-delete {
-    background-color: var(--colorRed);
-    color: var(--colorWhite);
-    border: none;
-    border-radius: 10px;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
     cursor: pointer;
 }
 

@@ -53,7 +53,7 @@ function initBoardEvents() {
 
 
 /**
- * Registers the event listeners of the task detail dialog./Users/shoffi/Desktop/Develooper Akademie/Modul 10 - Gruppenarbeit/Join_Docs/Join Checkliste.docx /Users/shoffi/Desktop/Develooper Akademie/Modul 10 - Gruppenarbeit/Join_Docs/Join Checkliste.pdf
+ * Registers the event listeners of the task detail dialog.
  */
 function initTaskDialogEvents() {
   const taskDialog = document.getElementById('taskDialog');

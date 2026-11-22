@@ -27,4 +27,3 @@ Join is a **frontend learning project** (HTML, CSS, JavaScript), not a full-stac
 - Move `makeTextSafe` to a shared file and use it on all pages
 - Escape `data-task-id` in board templates
 - Add a Content Security Policy
-- Remove `ApiTests.js` from the release version
