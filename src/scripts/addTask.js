@@ -200,6 +200,15 @@ async function createTask(event) {
         showTaskStatus(statusMessage, "warning", "Please complete all required fields before creating a task.");
         return;
     }
+    await saveTaskFromForm(statusMessage);
+}
+
+/**
+ * Saves the task from the form and shows the result in the status message.
+ * @param {HTMLElement} statusMessage - The status message element.
+ * @returns {Promise<void>}
+ */
+async function saveTaskFromForm(statusMessage) {
     startTaskSave(statusMessage);
     try {
         await persistTask();
@@ -255,19 +264,38 @@ function syncCustomSelectSelection(context) {
         option.setAttribute("aria-selected", String(isSelected));
     });
     if (isAssignedSelect) {
-        const selectedContacts = context.container.querySelector(".custom-select-selected-contacts");
-        selectedContacts.replaceChildren();
-        selectedOptions.forEach(option => {
-            const contact = storedContacts.find(item => item.id === option.value);
-            const avatar = document.createElement("span");
-            avatar.className = `custom-select-avatar ${contact?.color || ""}`;
-            avatar.textContent = getInitials(option.textContent);
-            avatar.setAttribute("role", "listitem");
-            avatar.setAttribute("aria-label", option.textContent);
-            selectedContacts.append(avatar);
-        });
-        selectedContacts.hidden = selectedOptions.length === 0 || !context.menu.hidden;
+        renderSelectedContactAvatars(context, selectedOptions);
     }
+}
+
+/**
+ * Shows the initials of the assigned contacts below the assignee select while the menu is closed.
+ * @param {CustomSelectContext} context - The elements of the custom select.
+ * @param {HTMLOptionElement[]} selectedOptions - The selected options of the select.
+ */
+function renderSelectedContactAvatars(context, selectedOptions) {
+    const selectedContacts = context.container.querySelector(".custom-select-selected-contacts");
+    selectedContacts.replaceChildren();
+    selectedOptions.forEach(option => {
+        const avatar = createContactAvatar(option);
+        avatar.setAttribute("role", "listitem");
+        avatar.setAttribute("aria-label", option.textContent);
+        selectedContacts.append(avatar);
+    });
+    selectedContacts.hidden = selectedOptions.length === 0 || !context.menu.hidden;
+}
+
+/**
+ * Creates the initials avatar of a contact option in the color of the contact.
+ * @param {HTMLOptionElement} option - The option of the contact.
+ * @returns {HTMLElement} The avatar element.
+ */
+function createContactAvatar(option) {
+    const contact = storedContacts.find(item => item.id === option.value);
+    const avatar = document.createElement("span");
+    avatar.className = `custom-select-avatar ${contact?.color || ""}`;
+    avatar.textContent = getInitials(option.textContent);
+    return avatar;
 }
 
 /**
@@ -290,23 +318,30 @@ function handleCustomSelectOptionClick(context, option) {
 }
 
 /**
- * Creates a menu option for an option of the hidden select.
+ * Creates the empty element of a menu option with its role, selection state and value.
  * @param {HTMLOptionElement} option - The option of the select.
- * @param {CustomSelectContext} context - The elements of the custom select.
- * @returns {HTMLElement} The menu option.
+ * @returns {HTMLElement} The menu option element.
  */
-function createCustomSelectOption(option, context) {
+function createMenuOptionElement(option) {
     const menuOption = document.createElement("div");
     menuOption.className = "custom-select-option";
     menuOption.setAttribute("role", "option");
     menuOption.setAttribute("aria-selected", "false");
     menuOption.tabIndex = -1;
     menuOption.dataset.value = option.value;
+    return menuOption;
+}
+
+/**
+ * Creates a menu option for an option of the hidden select.
+ * @param {HTMLOptionElement} option - The option of the select.
+ * @param {CustomSelectContext} context - The elements of the custom select.
+ * @returns {HTMLElement} The menu option.
+ */
+function createCustomSelectOption(option, context) {
+    const menuOption = createMenuOptionElement(option);
     if (context.select.id === "assignedValue") {
-        const contact = storedContacts.find(item => item.id === option.value);
-        const avatar = document.createElement("span");
-        avatar.className = `custom-select-avatar ${contact?.color || ""}`;
-        avatar.textContent = getInitials(option.textContent);
+        const avatar = createContactAvatar(option);
         avatar.setAttribute("aria-hidden", "true");
         menuOption.append(avatar);
     }

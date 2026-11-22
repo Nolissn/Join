@@ -59,6 +59,14 @@ function selectContact(index) {
         highlightSelectedContact();
         return;
     }
+    showSelectedContact(index);
+}
+
+/**
+ * Marks the contact as selected in the list and shows its information.
+ * @param {number} index - The position of the contact in the stored contacts.
+ */
+function showSelectedContact(index) {
     currentUser = index;
     document.getElementById("contact" + index).classList.add("contact-list-selected");
     showContactInformation();
@@ -150,12 +158,7 @@ async function createContact() {
         return;
     } else {
         document.getElementById("dialog_button_create").disabled = true;
-        const isSaved = await saveStoredContact({
-            name: document.getElementById("dialog_input_name").value.trim(),
-            email: document.getElementById("dialog_input_email").value.trim(),
-            phone: document.getElementById("dialog_input_phone").value.trim(),
-            color: userColor[Math.floor(Math.random() * userColor.length)]
-        });
+        const isSaved = await saveStoredContact(getContactFromDialog());
         document.getElementById("dialog_button_create").disabled = false;
         if (isSaved === false) return;
         if (currentUser !== null) {
@@ -163,6 +166,19 @@ async function createContact() {
         }
     }
     addContactSuccess();
+}
+
+/**
+ * Returns a new contact with the values of the dialog inputs and a random color.
+ * @returns {Contact} The new contact without id.
+ */
+function getContactFromDialog() {
+    return {
+        name: document.getElementById("dialog_input_name").value.trim(),
+        email: document.getElementById("dialog_input_email").value.trim(),
+        phone: document.getElementById("dialog_input_phone").value.trim(),
+        color: userColor[Math.floor(Math.random() * userColor.length)]
+    };
 }
 
 /**
@@ -178,14 +194,29 @@ function addContactSuccess() {
     document.getElementById("contact" + currentUser).classList.add("contact-list-selected");
     closeDialog();
     if (window.innerWidth <= 1000) {
-        for (let i = 0; i < storedContacts.length; i++) {
-            if (i == storedContacts.indexOf(newContact)) {
-                currentUser = i;
-                showContactInformationResponsive();
-                showContactInformation();
-            }
+        showNewContactResponsive(newContact);
+    }
+    showContactSuccessMessage();
+}
+
+/**
+ * Shows the information of the new contact instead of the contact list on small screens.
+ * @param {Contact} newContact - The new contact.
+ */
+function showNewContactResponsive(newContact) {
+    for (let i = 0; i < storedContacts.length; i++) {
+        if (i == storedContacts.indexOf(newContact)) {
+            currentUser = i;
+            showContactInformationResponsive();
+            showContactInformation();
         }
     }
+}
+
+/**
+ * Shows the success message for one second.
+ */
+function showContactSuccessMessage() {
     document.getElementById("dialog_success_message").classList.add("dialog-success-message-show");
     setTimeout(() => {
         document.getElementById("dialog_success_message").classList.remove("dialog-success-message-show");
@@ -379,6 +410,13 @@ function deleteSelectedContact() {
     sortContacts();
     renderContactList();
     closeDialog();
+    showNextContactAfterDelete();
+}
+
+/**
+ * Selects the next contact after deleting, or shows the add contact button if no contact is left.
+ */
+function showNextContactAfterDelete() {
     if (storedContacts.length > 0) {
         document.getElementById("contact" + currentUser).classList.add("contact-list-selected");
         showContactInformation();
@@ -387,12 +425,19 @@ function deleteSelectedContact() {
         document.getElementById("button_responsive_contact_options").classList.add("d-none");
     }
     if (window.innerWidth <= 950) {
-        document.querySelector(".section-contacts-information").classList.add("d-none");
-        document.querySelector(".section-contacts-information").classList.remove("d-flex");
-        document.querySelector(".section-contact-list").classList.remove("d-none");
-        document.querySelector(".contact-container-actions-responsive").classList.remove("contact-container-actions-responsive-show");
-        document.getElementById("button_responsive_add_new_contact").classList.remove("d-none");
+        returnToContactListAfterDelete();
     }
+}
+
+/**
+ * Shows the contact list again after deleting on small screens.
+ */
+function returnToContactListAfterDelete() {
+    document.querySelector(".section-contacts-information").classList.add("d-none");
+    document.querySelector(".section-contacts-information").classList.remove("d-flex");
+    document.querySelector(".section-contact-list").classList.remove("d-none");
+    document.querySelector(".contact-container-actions-responsive").classList.remove("contact-container-actions-responsive-show");
+    document.getElementById("button_responsive_add_new_contact").classList.remove("d-none");
 }
 
 /**
