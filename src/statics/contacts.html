@@ -27,21 +27,14 @@
     <div class="pageColumn">
         <header class="header"></header>
         <main>
-            <!-- Contact list -->
             <section class="section-contact-list">
                 <button onclick="addNewContact()" class="button-add-new-contact contact-list-container-width">Add new
                     contact <img src="../../assets/icons/add_new_contact.svg" alt=""></button>
-                <div id="contact_list" class="container-contact-list">
-                    
-                    <!-- js elements will be inserted here -->
-
-                </div>
+                <div id="contact_list" class="container-contact-list"></div>
                 <button onclick="addNewContact()" id="button_responsive_add_new_contact"
                     class="button-responsive-contact button-responsive-add"><img
                         src="../../assets/icons/add_new_contact.svg" alt=""></button>
             </section>
-
-            <!-- Contact information -->
 
             <section id="section_contact_information_container" class="section-contacts-information">
                 <button onclick="returnToContactList()" class="button-responsive-return"><img
@@ -85,8 +78,6 @@
                     class="button-responsive-contact button-responsive-options d-none"><img
                         src="../../assets/icons/contact_options.svg" alt=""></button>
             </section>
-
-            <!-- contact dialog -->
 
             <dialog onclick="closeDialog()" id="dialog_contact" class="dialog-contact">
                 <div onclick="event.stopPropagation()" class=" dialog-center">
@@ -135,8 +126,6 @@
                     </section>
                 </div>
             </dialog>
-
-            <!-- transform Element -->
 
             <div class="contact-container-actions-responsive">
                 <button onclick="editContact()" class="button-action-responsive"><img src="../../assets/icons/edit.svg"
