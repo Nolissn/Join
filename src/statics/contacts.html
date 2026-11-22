@@ -99,14 +99,23 @@
                         <div class="box-dialog-initials">
                             <div id="dialog_initials" class="dialog-initials add-new-contact"></div>
                         </div>
-                        <form onsubmit="return false" class="container-dialog-changings">
+                        <form onsubmit="return false" class="container-dialog-changings" novalidate>
                             <div class="container-dialog-inputs">
-                                <input id="dialog_input_name" class="dialog-input dialog-input-person-icon" type="text"
-                                    placeholder="Enter Name">
-                                <input id="dialog_input_email" class="dialog-input dialog-input-email-icon" type="email"
-                                    placeholder="Enter email">
-                                <input id="dialog_input_phone" class="dialog-input dialog-input-phone-icon" type="tel"
-                                    placeholder="Enter phone number">
+                                <div class="dialog-input-container">
+                                    <input id="dialog_input_name" class="dialog-input dialog-input-person-icon" type="text"
+                                        placeholder="Enter Name">
+                                    <p id="dialog_input_name_error" class="dialog-error-text"></p>
+                                </div>
+                                <div class="dialog-input-container">
+                                    <input id="dialog_input_email" class="dialog-input dialog-input-email-icon" type="email"
+                                        placeholder="Enter email">
+                                    <p id="dialog_input_email_error" class="dialog-error-text"></p>
+                                </div>
+                                <div class="dialog-input-container">
+                                    <input id="dialog_input_phone" class="dialog-input dialog-input-phone-icon" type="tel"
+                                        placeholder="Enter phone number">
+                                    <p id="dialog_input_phone_error" class="dialog-error-text"></p>
+                                </div>
                             </div>
                             <div class="container-dialog-buttons">
                                 <button onclick="deleteContact()" type="button" id="dialog_button_delete"

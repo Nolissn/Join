@@ -532,6 +532,29 @@ a {
     border-radius: 10px;
 }
 
+.dialog-input-container {
+    position: relative;
+    display: flex;
+}
+
+.dialog-input-error,
+.dialog-input-error:focus {
+    border-color: var(--colorRed);
+}
+
+.dialog-error-text {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 4px;
+    padding-left: 16px;
+    color: var(--colorRed);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+}
+
 .dialog-input-person-icon {
     background: url(../../assets/icons/person.svg);
     background-size: 16px 16px;

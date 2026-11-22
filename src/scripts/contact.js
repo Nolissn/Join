@@ -2,6 +2,9 @@ import { db } from "./data/joinDbConfig.js";
 import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 const userColor = ["red", "blue", "green", "darfred", "orange", "purple", "pink", "darkgreen", "turquoise", "darkblue"];
+const contactInputIds = ["dialog_input_name", "dialog_input_email", "dialog_input_phone"];
+const contactEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const contactPhoneRegex = /^\+?[\d\s()\/-]{5,20}$/;
 
 let currentUser = null;
 
@@ -129,9 +132,6 @@ function showContactInformation() {
  */
 function addNewContact() {
     clearDialog();
-    document.getElementById("dialog_input_name").setAttribute("required", "required");
-    document.getElementById("dialog_input_email").setAttribute("required", "required");
-    document.getElementById("dialog_input_phone").setAttribute("required", "required");
     document.getElementById("dialog_button_cancel").classList.remove("d-none");
     document.getElementById("dialog_button_create").classList.remove("d-none");
     document.getElementById("button_responsive_add_new_contact").classList.remove("d-none");
@@ -142,19 +142,18 @@ function addNewContact() {
 
 /**
  * Creates a new contact from the dialog inputs and saves it in Firebase.
- * Does nothing except marking the inputs if a value is missing or invalid.
+ * Shows the errors below the inputs and saves nothing if a value is missing or invalid.
  * @returns {Promise<void>}
  */
 async function createContact() {
-    if (!document.getElementById("dialog_input_name").value.trim() || !document.getElementById("dialog_input_email").value.trim().includes("@") || !document.getElementById("dialog_input_phone").value.trim()) {
-        checkDialogInputs();
+    if (checkIfContactInputsAreValid() === false) {
         return;
     } else {
         document.getElementById("dialog_button_create").disabled = true;
         const isSaved = await saveStoredContact({
-            name: document.getElementById("dialog_input_name").value,
-            email: document.getElementById("dialog_input_email").value,
-            phone: document.getElementById("dialog_input_phone").value,
+            name: document.getElementById("dialog_input_name").value.trim(),
+            email: document.getElementById("dialog_input_email").value.trim(),
+            phone: document.getElementById("dialog_input_phone").value.trim(),
             color: userColor[Math.floor(Math.random() * userColor.length)]
         });
         document.getElementById("dialog_button_create").disabled = false;
@@ -203,20 +202,81 @@ function showContactInformationResponsive() {
 }
 
 /**
- * Clears the first dialog input that contains only spaces, so the required message is shown.
+ * Checks all inputs of the contact dialog and shows the errors below the invalid inputs.
+ * @returns {boolean} True if all inputs are valid.
  */
-function checkDialogInputs() {
-    if (!document.getElementById("dialog_input_name").value.trim()) {
-        document.getElementById("dialog_input_name").value = "";
-        return;
-    } else if (!document.getElementById("dialog_input_email").value.trim()) {
-        document.getElementById("dialog_input_email").value = "";
-        return;
-    } else if (!document.getElementById("dialog_input_phone").value.trim()) {
-        document.getElementById("dialog_input_phone").value = "";
-        return;
+function checkIfContactInputsAreValid() {
+    resetContactInputErrors();
+    const isNameValid = checkIfContactNameIsValid();
+    const isEmailValid = checkIfContactEmailIsValid();
+    const isPhoneValid = checkIfContactPhoneIsValid();
+    return isNameValid && isEmailValid && isPhoneValid;
+}
+
+/**
+ * Checks that the name is filled.
+ * @returns {boolean} True if the name is valid.
+ */
+function checkIfContactNameIsValid() {
+    if (document.getElementById("dialog_input_name").value.trim() === "") {
+        showContactInputError("dialog_input_name", "Please enter a name");
+        return false;
     }
-    return;
+    return true;
+}
+
+/**
+ * Checks that the email is filled and has a valid format.
+ * @returns {boolean} True if the email is valid.
+ */
+function checkIfContactEmailIsValid() {
+    const email = document.getElementById("dialog_input_email").value.trim();
+    if (email === "") {
+        showContactInputError("dialog_input_email", "Please enter an email");
+        return false;
+    }
+    if (contactEmailRegex.test(email) === false) {
+        showContactInputError("dialog_input_email", "Please enter a valid email");
+        return false;
+    }
+    return true;
+}
+
+/**
+ * Checks that the phone number is filled and contains only digits, spaces and the characters + ( ) / -.
+ * @returns {boolean} True if the phone number is valid.
+ */
+function checkIfContactPhoneIsValid() {
+    const phone = document.getElementById("dialog_input_phone").value.trim();
+    if (phone === "") {
+        showContactInputError("dialog_input_phone", "Please enter a phone number");
+        return false;
+    }
+    if (contactPhoneRegex.test(phone) === false) {
+        showContactInputError("dialog_input_phone", "Please enter a valid phone number");
+        return false;
+    }
+    return true;
+}
+
+/**
+ * Marks an input of the contact dialog as invalid and shows the error text below it.
+ * @param {string} inputId - The id of the invalid input.
+ * @param {string} text - The error text.
+ */
+function showContactInputError(inputId, text) {
+    document.getElementById(inputId).classList.add("dialog-input-error");
+    document.getElementById(inputId + "_error").textContent = text;
+}
+
+/**
+ * Removes the error marks and the error texts from the contact dialog.
+ */
+function resetContactInputErrors() {
+    for (const inputId of contactInputIds) {
+        document.getElementById(inputId).classList.remove("dialog-input-error");
+        document.getElementById(inputId + "_error").textContent = "";
+    }
 }
 
 /**
@@ -254,8 +314,10 @@ function loadEditContactInformation() {
 
 /**
  * Saves the changed data of the selected contact and shows it in the list.
+ * Shows the errors below the inputs and saves nothing if a value is missing or invalid.
  */
 function saveEditContact() {
+    if (checkIfContactInputsAreValid() === false) return;
     const selectedContact = storedContacts[currentUser];
     selectedContact.name = document.getElementById("dialog_input_name").value.trim();
     selectedContact.email = document.getElementById("dialog_input_email").value.trim();
@@ -335,7 +397,7 @@ function closeDialog() {
 }
 
 /**
- * Resets the inputs, the initials and the buttons of the contact dialog.
+ * Resets the inputs, the errors, the initials and the buttons of the contact dialog.
  */
 function clearDialog() {
     document.getElementById("dialog_input_name").value = "";
@@ -350,9 +412,7 @@ function clearDialog() {
     document.getElementById("dialog_underline").classList.remove("dialog-title-underline");
     document.getElementById("dialog_slogan").classList.remove("d-none");
     document.getElementById("dialog_underline").classList.add("dialog-underline");
-    document.getElementById("dialog_input_name").removeAttribute("required");
-    document.getElementById("dialog_input_email").removeAttribute("required");
-    document.getElementById("dialog_input_phone").removeAttribute("required");
+    resetContactInputErrors();
 }
 
 window.selectContact = selectContact;
@@ -365,6 +425,7 @@ window.closeDialog = closeDialog;
 window.openContactOptionsResponsive = openContactOptionsResponsive;
 window.returnToContactList = returnToContactList;
 document.querySelector(".container-dialog-changings").addEventListener("keydown", handleDialogEnterKey);
+document.querySelector(".container-dialog-inputs").addEventListener("input", resetContactInputErrors);
 
 init();
 
