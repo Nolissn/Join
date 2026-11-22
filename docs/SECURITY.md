@@ -26,6 +26,5 @@ Join is a **frontend learning project** (HTML, CSS, JavaScript), not a full-stac
 ### Open frontend tasks
 - Move `makeTextSafe` to a shared file and use it on all pages
 - Escape `data-task-id` in board templates
-- Replace remaining inline event handlers (`onclick`, `onload`, `onmousedown`) with `addEventListener`
-- Add a Content Security Policy once inline handlers are removed
+- Add a Content Security Policy
 - Remove `ApiTests.js` from the release version

@@ -68,6 +68,14 @@ button {
     cursor: pointer;
 }
 
+.add-task-date-input {
+    color: var(--colorTextGrey);
+}
+
+.priority-label {
+    color: var(--colorBlack);
+}
+
 .custom-select {
     position: relative;
     width: 400px;

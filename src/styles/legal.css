@@ -24,6 +24,10 @@ span {
     justify-content: space-between;
 }
 
+.help-title {
+    padding-bottom: 24px;
+}
+
 .steps-legal {
     display: flex;
     gap: 35px;

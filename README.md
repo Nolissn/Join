@@ -224,8 +224,8 @@ Every page loads `colors.css` → `fonts.css` → `standard.css` first, then its
 - No code comments; every function is documented with JSDoc
 - Functions have at most 14 lines (HTML templates excluded)
 - Functions and variables in English and camelCase
-- No inline CSS: styling is done with predefined classes that JavaScript adds or removes (exception: the drag position `--dragX` / `--dragY` while a card is dragged)
-- Events are registered with `addEventListener` (remaining inline handlers are listed as open tasks in [docs/SECURITY.md](docs/SECURITY.md))
+- No inline CSS: styling is done with predefined classes that JavaScript adds or removes (the drag position while a card is dragged on touch devices is set in an own style sheet for the id of the dragged card)
+- No inline event handlers: events are registered with `addEventListener`
 - Layout mainly with Flexbox
 - CSS custom properties only for colors (`colors.css`)
 

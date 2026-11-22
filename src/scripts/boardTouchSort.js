@@ -1,6 +1,8 @@
 const touchHoldDelay = 500;
 const touchMoveTolerance = 8;
 let touchSort = null;
+const dragGhostStyleSheet = new CSSStyleSheet();
+document.adoptedStyleSheets = document.adoptedStyleSheets.concat(dragGhostStyleSheet);
 
 
 /**
@@ -80,6 +82,7 @@ function canVibrate() {
 function createDragGhost(card) {
   const ghost = card.cloneNode(true);
   ghost.classList.add('taskCardGhost');
+  ghost.id = 'touchSortGhost';
   document.body.appendChild(ghost);
   return ghost;
 }
@@ -87,12 +90,14 @@ function createDragGhost(card) {
 
 /**
  * Moves the drag ghost to the touch position.
+ * The position is set as CSS rule for the id of the ghost in an own style sheet, not as inline style.
  * @param {number} touchX - The horizontal touch position in pixels.
  * @param {number} touchY - The vertical touch position in pixels.
  */
 function moveDragGhost(touchX, touchY) {
-  touchSort.ghost.style.setProperty('--dragX', (touchX - touchSort.offsetX) + 'px');
-  touchSort.ghost.style.setProperty('--dragY', (touchY - touchSort.offsetY) + 'px');
+  const dragX = (touchX - touchSort.offsetX) + 'px';
+  const dragY = (touchY - touchSort.offsetY) + 'px';
+  dragGhostStyleSheet.replaceSync('#touchSortGhost { --dragX: ' + dragX + '; --dragY: ' + dragY + '; }');
 }
 
 
@@ -169,6 +174,7 @@ function dropHeldCard(event) {
   event.preventDefault();
   cancelAnimationFrame(touchSort.frameId);
   touchSort.ghost.remove();
+  dragGhostStyleSheet.replaceSync('');
   touchSort.card.classList.remove('taskCardHeld');
   saveColumnOrder(touchSort.columnTasks);
 }

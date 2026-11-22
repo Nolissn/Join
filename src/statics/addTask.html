@@ -40,7 +40,7 @@
                         </div>
                         <div class="add-task-input-container">
                             <label for="dueDate">Due Date <span class="required-asterisk">*</span></label>
-                            <input class="add-task-input" type="date" name="dueDate" id="dueDate" style="color:var(--colorTextGrey)" required>
+                            <input class="add-task-input add-task-date-input" type="date" name="dueDate" id="dueDate" required>
                         </div>
                     </section>
 
@@ -48,7 +48,7 @@
 
                     <section class="form-right">
                         <div class="add-task-input-container">
-                            <label for="priority" style="color:var(--colorBlack)">Priority</label>
+                            <label class="priority-label" for="priority">Priority</label>
                             <div id="priority" class="priority-btn-container">
                                 <button type="button" class="priority-btn" id="priorityUrgent" data-priority="urgent">Urgent <img class="priority-btn-icon" src="../../assets/icons/urgent.svg" data-icon="urgent.svg" data-active-icon="urgend-white.svg" alt="Urgent"></button>
                                 <button type="button" class="priority-btn btn-active" id="priorityMedium" data-priority="medium">Medium <img class="priority-btn-icon" src="../../assets/icons/medium.svg" data-icon="medium_orange.svg" data-active-icon="medium.svg" alt="Medium"></button>
@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="footer">
-                    <p class="required"><span style="color: var(--colorAvatarOrange);">*</span>field is required</p>
+                    <p class="required"><span class="required-asterisk">*</span>field is required</p>
                     <div class="add-task-btn-container">
                         <button type="button" class="clear-task-btn add-task-btn">Clear <img src="../../assets/icons/cancel.svg" alt="Clear"></button>
                         <button type="submit" class="create-task-btn add-task-btn" disabled aria-disabled="true">Create Task <img src="../../assets/icons/check.svg" alt="Create Task"></button>
