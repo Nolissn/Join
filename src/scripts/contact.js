@@ -238,6 +238,22 @@ function deleteContact() {
     }
 }
 
+/**
+ * Confirms the contact dialog with the Enter key instead of submitting the form.
+ * Creates the contact in the add dialog and saves the changes in the edit dialog.
+ * @param {KeyboardEvent} event - The keydown event of the dialog form.
+ */
+function handleDialogEnterKey(event) {
+    if (event.key !== "Enter" || event.target.tagName !== "INPUT") return;
+    event.preventDefault();
+    const createButton = document.getElementById("dialog_button_create");
+    if (!createButton.classList.contains("d-none") && !createButton.disabled) {
+        createContact();
+    } else if (!document.getElementById("dialog_button_save").classList.contains("d-none")) {
+        saveEditContact();
+    }
+}
+
 function showDialog() {
     const dialog = document.getElementById("dialog_contact");
     dialog.showModal();
@@ -277,6 +293,7 @@ window.deleteContact = deleteContact;
 window.closeDialog = closeDialog;
 window.openContactOptionsResponsive = openContactOptionsResponsive;
 window.returnToContactList = returnToContactList;
+document.querySelector(".container-dialog-changings").addEventListener("keydown", handleDialogEnterKey);
 
 
 init();
