@@ -524,6 +524,20 @@ function handleOutsideCustomSelectClick(event) {
 }
 
 /**
+ * Registers the priority buttons and the clear button of the add task form.
+ * The data-priority attribute of a priority button names its priority.
+ * @param {HTMLFormElement} form - The add task form.
+ */
+function registerAddTaskButtons(form) {
+    form.querySelectorAll(".priority-btn").forEach(function (button) {
+        button.addEventListener("click", function () {
+            setPriority(button.dataset.priority);
+        });
+    });
+    form.querySelector(".clear-task-btn").addEventListener("click", clearTaskForm);
+}
+
+/**
  * Initializes the add task form: sets up the custom selects, registers the event listeners and updates the buttons.
  * @param {HTMLFormElement} form - The add task form.
  */
@@ -531,6 +545,7 @@ function initializeAddTaskForm(form) {
     addTaskForm = form;
     populateAssignedContacts(form.querySelector("#assignedValue"));
     form.querySelectorAll(".custom-select").forEach(initializeCustomSelect);
+    registerAddTaskButtons(form);
     form.addEventListener("submit", createTask);
     form.addEventListener("input", updateCreateTaskButton);
     form.addEventListener("change", updateCreateTaskButton);

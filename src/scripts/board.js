@@ -46,6 +46,7 @@ function initBoardEvents() {
   document.addEventListener('click', handleOutsideMoveClick);
   document.getElementById('findTask').addEventListener('input', renderBoard);
   document.querySelector('.boardSearchClear').addEventListener('click', clearSearch);
+  document.getElementById('addTaskButton').addEventListener('click', openAddTaskDialog);
   initTaskDialogEvents();
   initAddTaskDialogEvents();
 }
@@ -68,12 +69,13 @@ function initTaskDialogEvents() {
 
 /**
  * Registers the event listeners of the add task dialog.
- * A click on the backdrop closes the dialog.
+ * A click on the backdrop or on the close button closes the dialog.
  */
 function initAddTaskDialogEvents() {
   const addTaskDialog = document.getElementById('addTaskDialog');
   addTaskDialog.addEventListener('click', function (event) {
     if (event.target === addTaskDialog) closeAddTaskDialog();
+    if (event.target.closest('.close-dialog')) closeAddTaskDialog();
   });
   addTaskDialog.addEventListener('close', unlockPageScroll);
 }
@@ -176,10 +178,11 @@ function clearSearch() {
 
 
 /**
- * Handles clicks on the board: toggles the move menu, moves a task or opens the task detail.
+ * Handles clicks on the board: opens the add task dialog, toggles the move menu, moves a task or opens the task detail.
  * @param {MouseEvent} event - The click event.
  */
 function handleBoardClick(event) {
+  if (event.target.closest('.columnAddButton')) return openAddTaskDialog();
   const actionButton = event.target.closest('[data-action]');
   if (!actionButton && event.target.closest('.taskMoveMenu')) return;
   if (!actionButton) return openTaskDialog(event);

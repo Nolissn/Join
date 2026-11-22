@@ -492,15 +492,8 @@ function clearDialog() {
     resetContactInputErrors();
 }
 
-window.selectContact = selectContact;
-window.addNewContact = addNewContact;
-window.createContact = createContact;
-window.editContact = editContact;
-window.saveEditContact = saveEditContact;
-window.deleteContact = deleteContact;
-window.closeDialog = closeDialog;
-window.openContactOptionsResponsive = openContactOptionsResponsive;
-window.returnToContactList = returnToContactList;
+registerContactPageEvents();
+registerContactDialogEvents();
 document.querySelector(".container-dialog-changings").addEventListener("keydown", handleDialogEnterKey);
 document.querySelector(".container-dialog-inputs").addEventListener("input", resetContactInputErrors);
 document.getElementById("confirm_delete_cancel").addEventListener("click", cancelDeleteContact);
@@ -508,6 +501,64 @@ document.getElementById("confirm_delete_submit").addEventListener("click", confi
 document.getElementById("dialog_confirm_delete").addEventListener("click", handleConfirmDeleteBackdropClick);
 
 init();
+
+/**
+ * Selects the clicked contact of the contact list.
+ * @param {MouseEvent} event - The click event of the contact list.
+ */
+function handleContactListClick(event) {
+    const contactButton = event.target.closest(".button-contact");
+    if (contactButton === null) return;
+    selectContact(Number(contactButton.dataset.index));
+}
+
+/**
+ * Stops the click event, so a click inside the dialog does not close it.
+ * @param {MouseEvent} event - The click event.
+ */
+function stopEventPropagation(event) {
+    event.stopPropagation();
+}
+
+/**
+ * Prevents the dialog form from being submitted.
+ * @param {SubmitEvent} event - The submit event.
+ */
+function preventFormSubmit(event) {
+    event.preventDefault();
+}
+
+/**
+ * Registers the event listeners of the contact list, the contact information and the responsive buttons.
+ */
+function registerContactPageEvents() {
+    document.getElementById("contact_list").addEventListener("click", handleContactListClick);
+    document.querySelector(".button-add-new-contact").addEventListener("click", addNewContact);
+    document.getElementById("button_responsive_add_new_contact").addEventListener("click", addNewContact);
+    document.querySelector(".button-responsive-return").addEventListener("click", returnToContactList);
+    document.getElementById("button_edit_contact").addEventListener("click", editContact);
+    document.getElementById("button_delete_contact").addEventListener("click", deleteContact);
+    document.getElementById("button_responsive_contact_options").addEventListener("click", openContactOptionsResponsive);
+    document.getElementById("button_responsive_edit_contact").addEventListener("click", editContact);
+    document.getElementById("button_responsive_delete_contact").addEventListener("click", deleteContact);
+}
+
+/**
+ * Registers the event listeners of the contact dialog.
+ * A click on the backdrop closes the dialog, a click inside the dialog does not.
+ */
+function registerContactDialogEvents() {
+    const dialog = document.getElementById("dialog_contact");
+    dialog.addEventListener("click", closeDialog);
+    dialog.querySelector(".dialog-center").addEventListener("click", stopEventPropagation);
+    dialog.querySelector(".button-dialog-cancel-responsive").addEventListener("click", closeDialog);
+    dialog.querySelector(".button-dialog-close").addEventListener("click", closeDialog);
+    dialog.querySelector(".container-dialog-changings").addEventListener("submit", preventFormSubmit);
+    document.getElementById("dialog_button_delete").addEventListener("click", deleteContact);
+    document.getElementById("dialog_button_save").addEventListener("click", saveEditContact);
+    document.getElementById("dialog_button_cancel").addEventListener("click", closeDialog);
+    document.getElementById("dialog_button_create").addEventListener("click", createContact);
+}
 
 /**
  * Returns the HTML of a letter heading in the contact list.
@@ -528,7 +579,7 @@ function getContactListAlphabetHtmlElement(letter) {
  */
 function getContactListHtmlElement(contact, index) {
     return `<div class="contact-list-seperator contact-list-container-width"></div>
-                    <button id="contact${index}" onclick="selectContact(${index})" class="button-contact contact-list-container-width">
+                    <button id="contact${index}" data-index="${index}" class="button-contact contact-list-container-width">
                         <div class="contact-list-initials ${contact.color}">${contact.name.split(" ").map(n => n[0]).join("")}</div>
                         <div class="container-contact-list-info">
                             <div class="contact-list-name">${contact.name}</div>

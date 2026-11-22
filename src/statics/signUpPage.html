@@ -19,13 +19,13 @@
         class="header_auth_screen_icon_dark"
         src="../../assets/icons/join_icon_dark.svg"
         alt="Join logo"
-        onclick="location.href='../../index.html'"
+        data-href="../../index.html"
       />
     </header>
     <main class="main_content_container">
       <div class="auth_card sign_up_card">
         <div class="auth_screen_card_header_container">
-          <button onclick="location.href='../../index.html'" class="auth_screen_card_go_back_button" aria-label="Go back">
+          <button data-href="../../index.html" class="auth_screen_card_go_back_button" aria-label="Go back">
             <svg
               class="auth_screen_card_go_back_button_icon"
               viewBox="0 0 21 20"
@@ -47,7 +47,6 @@
             class="general_auth_card_input_style sign_up_card_input_name"
             type="text"
             id="nameSignUp"
-            oninput="resetSignUpErrors()"
             name="name"
             placeholder="Name"
             aria-label="Name"
@@ -56,7 +55,6 @@
             class="general_auth_card_input_style auth_card_input_email"
             type="text"
             id="emailSignUp"
-            oninput="resetSignUpErrors()"
             name="email"
             placeholder="Email"
             aria-label="Email"
@@ -66,7 +64,6 @@
               class="general_auth_card_input_style auth_card_input_password"
               type="password"
               id="passwordSignUp"
-              oninput="resetSignUpErrors()"
               name="password"
               placeholder="Password"
               aria-label="Password"
@@ -80,8 +77,7 @@
             <button
               type="button"
               class="auth_card_password_toggle"
-              onmousedown="event.preventDefault()"
-              onclick="togglePasswordVisibility('passwordSignUp', this)"
+              data-input-id="passwordSignUp"
               aria-label="Show password"
             >
               <svg class="auth_card_eye_closed_icon" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -103,7 +99,6 @@
               class="general_auth_card_input_style auth_card_input_password"
               type="password"
               id="confirmPasswordSignUp"
-              oninput="resetSignUpErrors()"
               name="confirm_password"
               placeholder="Confirm Password"
               aria-label="Confirm Password"
@@ -117,8 +112,7 @@
             <button
               type="button"
               class="auth_card_password_toggle"
-              onmousedown="event.preventDefault()"
-              onclick="togglePasswordVisibility('confirmPasswordSignUp', this)"
+              data-input-id="confirmPasswordSignUp"
               aria-label="Show password"
             >
               <svg class="auth_card_eye_closed_icon" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -142,12 +136,11 @@
             class="sign_up_card_accept_checkbox"
             type="checkbox"
             id="acceptPrivacyPolicy"
-            onchange="resetSignUpErrors()"
             name="accept_privacy_policy"
             aria-label="Accept privacy policy">
             <p class="sign_up_card_accept_text" id="signUpCardAcceptText">I accept the <a href="privacyPolicy.html" class="sign_up_card_accept_link">Privacy Policy</a></p>
         </div>
-        <button onclick="signUp()" class="auth_primary_button sign_up_card_sign_up_button">Sign up</button>
+        <button class="auth_primary_button sign_up_card_sign_up_button">Sign up</button>
       </div>
     </main>
     <footer class="footer_auth_screen">

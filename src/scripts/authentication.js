@@ -46,7 +46,6 @@ async function signUp() {
     showErrorText("An error occurred. Please check your internet connection and try again.");
   }
 }
-window.signUp = signUp;
 
 /**
  * Registers a new user if the email is not used yet and saves the tutorial task for the user.
@@ -294,4 +293,16 @@ function resetSignUpErrors() {
   }
   showErrorText("");
 }
-window.resetSignUpErrors = resetSignUpErrors;
+
+/**
+ * Registers the event listeners of the sign up form.
+ */
+function registerSignUpEvents() {
+  for (const inputId of signUpInputIds) {
+    document.getElementById(inputId).addEventListener("input", resetSignUpErrors);
+  }
+  document.getElementById("acceptPrivacyPolicy").addEventListener("change", resetSignUpErrors);
+  document.querySelector(".sign_up_card_sign_up_button").addEventListener("click", signUp);
+}
+
+registerSignUpEvents();

@@ -24,7 +24,7 @@ function boardColumnTemplate(column, tasksHtml) {
     <section class="boardColumn" data-status="${column.status}">
       <div class="columnHeader">
         <h2 class="columnTitle">${column.title}</h2>
-        <button class="columnAddButton" type="button" onclick="openAddTaskDialog()"><img class="columnAddIcon" src="${iconPath}plus_box.svg" alt="Add task to ${column.title}"></button>
+        <button class="columnAddButton" type="button"><img class="columnAddIcon" src="${iconPath}plus_box.svg" alt="Add task to ${column.title}"></button>
       </div>
       <div class="columnTasks">
         <p class="taskPlaceholder">No tasks ${column.title}</p>
@@ -168,7 +168,7 @@ function renderAddTaskDialog() {
   return `
     <div class="add-task-dialog-header">
       <h1>Add Task</h1>
-      <button class="close-dialog" onclick="closeAddTaskDialog()" type="button"><img src="../../assets/icons/cancel.svg" alt="Close"></button>
+      <button class="close-dialog" type="button"><img src="../../assets/icons/cancel.svg" alt="Close"></button>
     </div>
     <form id="addTaskForm" novalidate>
       <div class="form-task-input">
@@ -191,9 +191,9 @@ function renderAddTaskDialog() {
           <div class="add-task-input-container">
             <label class="priority-label" for="priority">Priority</label>
             <div id="priority" class="priority-btn-container">
-              <button type="button" class="priority-btn" id="priorityUrgent" onclick="setPriority('urgent')">Urgent <img class="priority-btn-icon" src="../../assets/icons/urgent.svg" data-icon="urgent.svg" data-active-icon="urgend-white.svg" alt="Urgent"></button>
-              <button type="button" class="priority-btn btn-active priority-medium" id="priorityMedium" onclick="setPriority('medium')">Medium <img class="priority-btn-icon" src="../../assets/icons/medium.svg" data-icon="medium_orange.svg" data-active-icon="medium.svg" alt="Medium"></button>
-              <button type="button" class="priority-btn" id="priorityLow" onclick="setPriority('low')">Low <img class="priority-btn-icon" src="../../assets/icons/low.svg" data-icon="low.svg" data-active-icon="urgend-white.svg" alt="Low"></button>
+              <button type="button" class="priority-btn" id="priorityUrgent" data-priority="urgent">Urgent <img class="priority-btn-icon" src="../../assets/icons/urgent.svg" data-icon="urgent.svg" data-active-icon="urgend-white.svg" alt="Urgent"></button>
+              <button type="button" class="priority-btn btn-active priority-medium" id="priorityMedium" data-priority="medium">Medium <img class="priority-btn-icon" src="../../assets/icons/medium.svg" data-icon="medium_orange.svg" data-active-icon="medium.svg" alt="Medium"></button>
+              <button type="button" class="priority-btn" id="priorityLow" data-priority="low">Low <img class="priority-btn-icon" src="../../assets/icons/low.svg" data-icon="low.svg" data-active-icon="urgend-white.svg" alt="Low"></button>
             </div>
           </div>
           <div class="add-task-input-container">
@@ -226,7 +226,7 @@ function renderAddTaskDialog() {
       <div class="footer">
         <p class="required"><span class="required-asterisk">*</span> Required fields</p>
         <div class="add-task-btn-container">
-          <button type="button" class="clear-task-btn add-task-btn" onclick="clearTaskForm()">Clear <img src="../../assets/icons/cancel.svg" alt="Clear"></button>
+          <button type="button" class="clear-task-btn add-task-btn">Clear <img src="../../assets/icons/cancel.svg" alt="Clear"></button>
           <button type="submit" class="create-task-btn add-task-btn" disabled aria-disabled="true">Create Task <img src="../../assets/icons/check.svg" alt="Create Task"></button>
         </div>
       </div>

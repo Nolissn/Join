@@ -1,9 +1,37 @@
 let tasks = [];
 
 /**
- * Initializes the page after the DOM has loaded. Currently empty.
+ * Initializes the page after the DOM has loaded: registers the link buttons and the password toggles.
  */
 function init() {
+  registerLinkButtons();
+  registerPasswordToggles();
+}
+
+/**
+ * Opens the page of the data-href attribute when an element with this attribute is clicked.
+ */
+function registerLinkButtons() {
+  document.querySelectorAll("[data-href]").forEach(function (element) {
+    element.addEventListener("click", function () {
+      location.href = element.dataset.href;
+    });
+  });
+}
+
+/**
+ * Registers the password toggle buttons. The data-input-id attribute names the password input.
+ * Pressing the button does not move the focus away from the input.
+ */
+function registerPasswordToggles() {
+  document.querySelectorAll(".auth_card_password_toggle").forEach(function (button) {
+    button.addEventListener("mousedown", function (event) {
+      event.preventDefault();
+    });
+    button.addEventListener("click", function () {
+      togglePasswordVisibility(button.dataset.inputId, button);
+    });
+  });
 }
 
 /**

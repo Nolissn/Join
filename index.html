@@ -19,11 +19,11 @@
         class="header_auth_screen_icon_dark"
         src="./assets/icons/join_icon_dark.svg"
         alt="Join logo"
-        onclick="location.href='index.html'"
+        data-href="index.html"
       />
       <div class="header_auth_screen_content_container">
         <p class="header_auth_screen_content_text">Not a Join user?</p>
-        <button onclick="location.href='src/statics/signUpPage.html'" class="auth_primary_button header_auth_screen_content_sign_up_button">Sign up</button>
+        <button data-href="src/statics/signUpPage.html" class="auth_primary_button header_auth_screen_content_sign_up_button">Sign up</button>
       </div>
     </header>
     <main class="main_content_container">
@@ -46,8 +46,7 @@
               <button
                 type="button"
                 class="auth_card_password_toggle"
-                onmousedown="event.preventDefault()"
-                onclick="togglePasswordVisibility('password', this)"
+                data-input-id="password"
                 aria-label="Show password"
               >
                 <svg class="auth_card_eye_closed_icon" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

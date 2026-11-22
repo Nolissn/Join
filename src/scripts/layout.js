@@ -134,5 +134,17 @@ function hideToast() {
   if (toast.matches(':popover-open')) toast.hidePopover();
 }
 
+/**
+ * Registers the back button of the help page, if the page has one.
+ */
+function registerHelpBackButton() {
+  const backButton = document.querySelector('.help-back-button');
+  if (backButton === null) return;
+  backButton.addEventListener('click', function () {
+    history.back();
+  });
+}
+
 document.addEventListener('DOMContentLoaded', renderLayout);
+document.addEventListener('DOMContentLoaded', registerHelpBackButton);
 document.addEventListener('click', handleHeaderMenuClick);
