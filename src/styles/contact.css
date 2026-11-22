@@ -713,18 +713,15 @@ a {
     .section-contacts-information {
         margin-left: 10px;
         margin-right: 10px;
+        min-width: inherit;
     }
 }
 
 @media (max-width: 1240px) {
 
     .section-contact-list {
-        min-width: 350px;
-        padding: 32px 10px;
-    }
-
-    .contact-list-container-width {
-        width: 311px;
+        min-width: 375px;
+        padding: 32px 0px;
     }
 
     .dialog-center {
@@ -739,12 +736,8 @@ a {
     }
 
     .dialog-success-message-show {
-        transform: translateX(0%) !important;
+        transform: translateX(10%) !important;
         transition: transform 0.3s ease-in-out;
-    }
-
-    .button-contact {
-        padding: 15px 0px;
     }
 }
 
@@ -781,7 +774,7 @@ a {
     }
 
     .dialog-success-message-show {
-        transform: translateX(10%) !important;
+        transform: translateX(20%) !important;
         transition: transform 0.3s ease-in-out;
     }
 }
@@ -853,13 +846,12 @@ a {
     }
 
     .dialog-success-message-show {
-        transform: translateX(20%) !important;
+        transform: translateX(30%) !important;
         transition: transform 0.3s ease-in-out;
     }
 }
 
-@media (max-width: 1000px) {
-
+@media (max-width: 1040px) {
     .contacts-header-title {
         font-size: 47px;
         font-weight: 700;
@@ -891,12 +883,46 @@ a {
     }
 
     .dialog-success-message-show {
-        transform: translateX(30%) !important;
+        transform: translateX(40%) !important;
         transition: transform 0.3s ease-in-out;
     }
 }
 
+@media (max-width: 1000px) {
+
+    .section-contacts-information {
+        display: none;
+    }
+
+    .section-contact-list {
+        min-width: 400px;
+        width: 100%;
+        padding: 32px 14px;
+    }
+
+    .contact-list-container-width {
+        width: 80%;
+    }
+
+    .dialog-success-message-show {
+        transform: translateX(0%) !important;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .button-responsive-return {
+        display: flex;
+    }
+}
+
 @media (max-width: 950px) {
+
+    .button-add-new-contact {
+        display: flex;
+    }
+
+    .button-responsive-options {
+        display: flex;
+    }
 
     .dialog-center {
         height: 760px;
@@ -959,39 +985,13 @@ a {
         justify-content: center;
     }
 
-    .section-contact-list {
-        min-width: 400px;
-        width: 100%;
-        padding: 32px 14px;
-    }
-
-    .contact-list-container-width {
-        width: 80%;
-    }
-
-    .button-add-new-contact {
-        display: flex;
-    }
-
-    .section-contacts-information {
-        display: none;
-    }
-
-    .button-responsive-return {
-        display: flex;
-    }
-
-    .button-responsive-options {
-        display: flex;
-    }
-
     .dialog-success-message-hide {
         transform: translateX(-50%) translateY(700%);
         transition: transform 0.3s ease-in-out;
     }
 
     .dialog-success-message-show {
-        transform: translateX(-50%) translateY(0%) !important;
+        transform: translateX(-20%) translateY(0%) !important;
         /* transform: translateY(-50%) !important; */
         transition: transform 0.3s ease-in-out;
     }
@@ -1005,7 +1005,6 @@ a {
 
     .dialog-success-message-show {
         transform: translateX(-30%) translateY(0%) !important;
-        /* transform: translateY(-50%) !important; */
         transition: transform 0.3s ease-in-out;
     }
 }
@@ -1021,16 +1020,21 @@ a {
     }
 
     .dialog-success-message-hide {
-        transform: translateX(-80%) translateY(700%);
+        transform: translateX(-50%) translateY(700%);
         transition: transform 0.3s ease-in-out;
     }
 
     .dialog-success-message-show {
-        transform: translateX(-50%) translateY(0%) !important;
-        /* transform: translateY(-50%) !important; */
+        transform: translateX(-50%) translateY(-50%) !important;
         transition: transform 0.3s ease-in-out;
     }
 
+}
+
+@media (max-width: 500px) {
+    .contact-list-container-width {
+        width: 100%;
+    }
 }
 
 @media (max-width: 430px) {
@@ -1058,6 +1062,19 @@ a {
 
     .contact-list-container-width {
         width: 100%;
+    }
+
+    .container-contact-list-alphabet {
+        padding: 17px 20px;
+    }
+
+    .button-contact {
+        padding: 15px 5px;
+        gap: 10px;
+    }
+
+    .contact-name {
+        font-size: 32px;
     }
 }
 
