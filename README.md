@@ -193,11 +193,12 @@ Join/
 | `data/joinDbConfig.js` | Firebase initialization (Firestore, anonymous sign-in) |
 | `data/joinDbApi.js` | Task API: save, load, update, delete, tutorial task |
 | `data/usersDbApi.js` | User API: register, find by email |
+| `data/contactsDbApi.js` | Contact API: load, save, delete |
 | `data/taskModel.js`, `data/usersModel.js`, `data/contactModel.js` | Data models |
 | `data/tutorialTask.js` | Tutorial task for new users |
 | `data/currentUser.js` | Logged-in user and session data |
 | `data/taskStorage.js` | Task cache and queue for Firestore writes |
-| `data/contactStorage.js` | Contact cache |
+| `data/contactStorage.js` | Contact cache and Firestore writes |
 | `login.js` | Log in and guest log in |
 | `authentication.js` | Sign up and validation |
 | `pageGuard.js` | Redirect to the log in page if no user is logged in |
