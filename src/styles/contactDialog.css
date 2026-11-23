@@ -1,0 +1,383 @@
+.dialog-success-message {
+    background-color: var(--colorGreen);
+    color: var(--colorWhite);
+    padding: 16px 32px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    position: fixed;
+    bottom: 150px;
+    left: 50%;
+}
+
+.dialog-success-message-hide {
+    transform: translateX(700%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.dialog-success-message-show {
+    transform: translateX(-10%) !important;
+    transition: transform 0.3s ease-in-out;
+}
+
+.dialog-contact {
+    background-color: rgba(255, 255, 255, 0.179);
+    min-height: 100%;
+    min-width: 100%;
+}
+
+.dialog-center {
+    height: 592px;
+    width: 1212px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.dialog-left-side {
+    background-color: var(--colorPrimary);
+    height: 100%;
+    width: 453px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: 30px 0px 0px 30px;
+    gap: 16px;
+    padding-bottom: 70px;
+}
+
+.button-dialog-cancel-responsive {
+    background-color: transparent;
+    height: 24px;
+    width: 24px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    position: absolute;
+    top: 34px;
+    right: 30px;
+    cursor: pointer;
+}
+
+.dialog-container-logo {
+    width: 371px;
+}
+
+.dialog-logo {
+    height: 66px;
+    width: 55px;
+}
+
+.dialog-container-left-text {
+    height: 129px;
+    width: 371px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.dialog-title {
+    color: var(--colorWhite);
+    height: 73px;
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.dialog-slogan {
+    color: var(--colorWhite);
+    height: 32px;
+    font-size: 27px;
+    font-weight: 400;
+}
+
+.dialog-underline {
+    background-color: var(--colorAccent);
+    min-height: 3px;
+    width: 90px;
+    border-radius: 3px;
+}
+
+.dialog-right-side {
+    background-color: var(--colorWhite);
+    height: 100%;
+    width: calc(100% - 453px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 76px;
+    padding-right: 32px;
+    border-radius: 0px 30px 30px 0px;
+    position: relative;
+    gap: 32px;
+}
+
+.button-dialog-close {
+    background-color: transparent;
+    height: 24px;
+    width: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    position: absolute;
+    top: 48px;
+    right: 32px;
+    cursor: pointer;
+}
+
+.dialog-initials-create-icon {
+    height: 42px;
+    width: 42px;
+}
+
+.box-dialog-initials {
+    min-height: 125px;
+    min-width: 125px;
+    margin-bottom: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0px 0px 4px 0px #00000066;
+}
+
+.dialog-initials {
+    color: var(--colorWhite);
+    height: 120px;
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 47px;
+    font-weight: 500;
+}
+
+.container-dialog-changings {
+    width: 422px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+}
+
+.container-dialog-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.dialog-input {
+    height: 50px;
+    width: 100%;
+    padding: 13px 21px;
+    font-size: 20px;
+    font-weight: 400;
+    border: 1px solid #6B6B6BB6;
+    border-radius: 10px;
+}
+
+.dialog-input-container {
+    position: relative;
+    display: flex;
+}
+
+.dialog-input-error,
+.dialog-input-error:focus {
+    border-color: var(--colorRed);
+}
+
+.dialog-error-text {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 4px;
+    padding-left: 16px;
+    color: var(--colorRed);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.dialog-input-person-icon {
+    background: url(../../assets/icons/person.svg);
+    background-size: 16px 16px;
+    background-position: calc(100% - 16px) center;
+    background-repeat: no-repeat;
+}
+
+.dialog-input-email-icon {
+    background: url(../../assets/icons/mail.svg);
+    background-size: 16px 16px;
+    background-position: calc(100% - 16px) center;
+    background-repeat: no-repeat;
+    padding-left: 30px;
+}
+
+.dialog-input-phone-icon {
+    background: url(../../assets/icons/input_phone.svg);
+    background-size: 18px 18px;
+    background-position: calc(100% - 16px) center;
+    background-repeat: no-repeat;
+    padding-left: 30px;
+}
+
+.container-dialog-buttons {
+    display: flex;
+    gap: 32px;
+}
+
+.dialog-button-delete {
+    background-color: var(--colorWhite);
+    color: var(--colorPrimary);
+    height: 55px;
+    width: 113px;
+    border: solid 1px var(--colorPrimary);
+    border-radius: 8px;
+    padding: 15px 24px;
+    display: flex;
+    gap: 4px;
+    font-size: 21px;
+    cursor: pointer;
+}
+
+.dialog-button-save {
+    background-color: var(--colorPrimary);
+    color: var(--colorWhite);
+    height: 57px;
+    width: 111px;
+    border: none;
+    border-radius: 8px;
+    padding: 15px 24px;
+    display: flex;
+    gap: 4px;
+    font-size: 21px;
+    cursor: pointer;
+}
+
+.dialog-button-cancel {
+    background-color: var(--colorWhite);
+    color: var(--colorPrimary);
+    height: 56px;
+    width: 126px;
+    border: solid 1px var(--colorPrimary);
+    border-radius: 8px;
+    padding: 15px 24px;
+    display: flex;
+    gap: 4px;
+    font-size: 21px;
+    cursor: pointer;
+}
+
+.dialog-button-create {
+    background-color: var(--colorPrimary);
+    color: var(--colorWhite);
+    height: 57px;
+    width: 214px;
+    border: none;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    font-size: 21px;
+    cursor: pointer;
+}
+
+.dialog-confirm-delete {
+    width: 440px;
+    max-width: calc(100vw - 32px);
+    margin: auto;
+    padding: 0;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.dialog-confirm-delete::backdrop {
+    background-color: rgba(0, 0, 0, 0.35);
+}
+
+.dialog-confirm-delete-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 40px;
+}
+
+.dialog-confirm-delete-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--colorPrimary);
+}
+
+.dialog-confirm-delete-text {
+    font-size: 20px;
+    line-height: 28px;
+}
+
+.dialog-confirm-delete-name {
+    font-weight: 700;
+}
+
+.dialog-confirm-delete-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+}
+
+.dialog-confirm-delete-cancel,
+.dialog-confirm-delete-submit {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.dialog-confirm-delete-cancel {
+    border: solid 1px var(--colorPrimary);
+    background-color: var(--colorWhite);
+    color: var(--colorPrimary);
+}
+
+.dialog-confirm-delete-cancel:hover {
+    border-color: var(--colorAccent);
+    color: var(--colorAccent);
+}
+
+.dialog-confirm-delete-submit {
+    border: solid 1px var(--colorPrimary);
+    background-color: var(--colorPrimary);
+    color: var(--colorWhite);
+}
+
+.dialog-confirm-delete-submit:hover {
+    border-color: var(--colorAccent);
+    background-color: var(--colorAccent);
+}
+
+.dialog-icon {
+    height: 24px;
+    width: 24px;
+}
+
+.dialog-success-message {
+    background-color: var(--colorPrimary);
+    color: var(--colorWhite);
+    height: 74px;
+    width: 326px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: 400;
+}

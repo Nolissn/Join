@@ -1,0 +1,219 @@
+@media (max-width: 1380px) {
+    .dialog-success-message-show {
+        transform: translateX(0%) !important;
+        transition: transform 0.3s ease-in-out;
+    }
+}
+
+@media (max-width: 1315px) {
+    .dialog-success-message-show {
+        transform: translateX(10%) !important;
+        transition: transform 0.3s ease-in-out;
+    }
+}
+
+@media (max-width: 1300px) {
+
+    .section-contacts-information {
+        margin-left: 10px;
+        margin-right: 10px;
+        min-width: inherit;
+    }
+}
+
+@media (max-width: 1240px) {
+
+    .section-contact-list {
+        min-width: 375px;
+        padding: 32px 0px;
+    }
+
+    .dialog-center {
+        width: calc(100% - 20px);
+        max-width: 1212px;
+    }
+
+    .dialog-right-side {
+        width: calc(100% - 453px);
+        padding-left: 10px;
+        gap: 10px;
+    }
+
+    .dialog-success-message-show {
+        transform: translateX(10%) !important;
+        transition: transform 0.3s ease-in-out;
+    }
+}
+
+@media (max-width: 1165px) {
+    .section-contacts-information {
+        min-width: inherit;
+        margin-top: 45px;
+        gap: 70px;
+    }
+}
+
+@media (max-width: 1145px) {
+    .container-contacts-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .contacts-header-seperator-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .contacts-header-seperator {
+        display: none;
+    }
+
+    .contacts-header-seperator-responsive {
+        display: block;
+    }
+
+    .dialog-right-side {
+        gap: 20px;
+    }
+
+    .dialog-success-message-show {
+        transform: translateX(20%) !important;
+        transition: transform 0.3s ease-in-out;
+    }
+}
+
+@media (max-width: 1080px) {
+    .dialog-center {
+        width: 110%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .dialog-left-side {
+        align-items: flex-start;
+        padding-left: 24px;
+        width: 326px;
+    }
+
+    .dialog-title {
+        font-size: 47px;
+    }
+
+    .dialog-slogan {
+        font-size: 20px;
+    }
+
+    .dialog-right-side {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 32px;
+    }
+
+    .container-dialog-changings {
+        min-width: 300px;
+        width: 100%;
+        max-width: 422px;
+    }
+
+    .dialog-input {
+        height: 41px;
+    }
+
+    .dialog-button-delete {
+        height: 51px;
+        width: 82px;
+        padding: 0px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .dialog-button-save {
+        height: 51px;
+        width: 99px;
+        padding: 0px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .dialog-button-cancel {
+        display: none;
+    }
+
+    .dialog-button-create {
+        height: 51px;
+        width: 202px;
+        padding: 0px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .dialog-success-message-show {
+        transform: translateX(30%) !important;
+        transition: transform 0.3s ease-in-out;
+    }
+}
+
+@media (max-width: 1040px) {
+    .contacts-header-title {
+        font-size: 47px;
+        font-weight: 700;
+    }
+
+    .contacts-header-slogan {
+        font-size: 20px;
+        font-weight: 400;
+    }
+
+    .contact-initials {
+        height: 80px;
+        width: 80px;
+        font-size: 27px;
+        font-weight: 400;
+    }
+
+    .box-contact-initials {
+        min-height: 85px;
+        min-width: 85px;
+    }
+
+    .container-contact-quick-select {
+        width: 100%;
+    }
+
+    .container-contact-buttons {
+        display: none;
+    }
+
+    .dialog-success-message-show {
+        transform: translateX(40%) !important;
+        transition: transform 0.3s ease-in-out;
+    }
+}
+
+@media (max-width: 1000px) {
+
+    .section-contacts-information {
+        display: none;
+    }
+
+    .section-contact-list {
+        min-width: 400px;
+        width: 100%;
+        padding: 32px 14px;
+    }
+
+    .contact-list-container-width {
+        width: 80%;
+    }
+
+    .dialog-success-message-show {
+        transform: translateX(0%) !important;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .button-responsive-return {
+        display: flex;
+    }
+}

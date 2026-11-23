@@ -1,7 +1,4 @@
 const userColor = ["red", "blue", "green", "darfred", "orange", "purple", "pink", "darkgreen", "turquoise", "darkblue"];
-const contactInputIds = ["dialog_input_name", "dialog_input_email", "dialog_input_phone"];
-const contactEmailRegex = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[a-zA-Z]{2,}$/;
-const contactPhoneRegex = /^\+?[\d\s()\/-]{5,20}$/;
 
 let currentUser = null;
 
@@ -133,19 +130,6 @@ function showContactInformation() {
 }
 
 /**
- * Opens the dialog to add a new contact.
- */
-function addNewContact() {
-    clearDialog();
-    document.getElementById("dialog_button_cancel").classList.remove("d-none");
-    document.getElementById("dialog_button_create").classList.remove("d-none");
-    document.getElementById("button_responsive_add_new_contact").classList.remove("d-none");
-    document.getElementById("button_responsive_contact_options").classList.add("d-none");
-    document.getElementById("dialog_initials").innerHTML = getDialogEmptyInitialsHtmlElement();
-    showDialog();
-}
-
-/**
  * Creates a new contact from the dialog inputs and saves it in Firebase.
  * Shows the errors below the inputs and saves nothing if a value is missing or invalid.
  * @returns {Promise<void>}
@@ -230,84 +214,6 @@ function showContactInformationResponsive() {
 }
 
 /**
- * Checks all inputs of the contact dialog and shows the errors below the invalid inputs.
- * @returns {boolean} True if all inputs are valid.
- */
-function checkIfContactInputsAreValid() {
-    resetContactInputErrors();
-    const isNameValid = checkIfContactNameIsValid();
-    const isEmailValid = checkIfContactEmailIsValid();
-    const isPhoneValid = checkIfContactPhoneIsValid();
-    return isNameValid && isEmailValid && isPhoneValid;
-}
-
-/**
- * Checks that the name is filled.
- * @returns {boolean} True if the name is valid.
- */
-function checkIfContactNameIsValid() {
-    if (document.getElementById("dialog_input_name").value.trim() === "") {
-        showContactInputError("dialog_input_name", "Please enter a name");
-        return false;
-    }
-    return true;
-}
-
-/**
- * Checks that the email is filled and has a valid format.
- * @returns {boolean} True if the email is valid.
- */
-function checkIfContactEmailIsValid() {
-    const email = document.getElementById("dialog_input_email").value.trim();
-    if (email === "") {
-        showContactInputError("dialog_input_email", "Please enter an email");
-        return false;
-    }
-    if (contactEmailRegex.test(email) === false) {
-        showContactInputError("dialog_input_email", "Please enter a valid email");
-        return false;
-    }
-    return true;
-}
-
-/**
- * Checks that the phone number is filled and contains only digits, spaces and the characters + ( ) / -.
- * @returns {boolean} True if the phone number is valid.
- */
-function checkIfContactPhoneIsValid() {
-    const phone = document.getElementById("dialog_input_phone").value.trim();
-    if (phone === "") {
-        showContactInputError("dialog_input_phone", "Please enter a phone number");
-        return false;
-    }
-    if (contactPhoneRegex.test(phone) === false) {
-        showContactInputError("dialog_input_phone", "Please enter a valid phone number");
-        return false;
-    }
-    return true;
-}
-
-/**
- * Marks an input of the contact dialog as invalid and shows the error text below it.
- * @param {string} inputId - The id of the invalid input.
- * @param {string} text - The error text.
- */
-function showContactInputError(inputId, text) {
-    document.getElementById(inputId).classList.add("dialog-input-error");
-    document.getElementById(inputId + "_error").textContent = text;
-}
-
-/**
- * Removes the error marks and the error texts from the contact dialog.
- */
-function resetContactInputErrors() {
-    for (const inputId of contactInputIds) {
-        document.getElementById(inputId).classList.remove("dialog-input-error");
-        document.getElementById(inputId + "_error").textContent = "";
-    }
-}
-
-/**
  * Opens the dialog to edit the selected contact.
  */
 function editContact() {
@@ -315,18 +221,6 @@ function editContact() {
     loadEditContactHub();
     loadEditContactInformation();
     showDialog()
-}
-
-/**
- * Changes the title and the buttons of the dialog for editing a contact.
- */
-function loadEditContactHub() {
-    document.getElementById("dialog_title").innerHTML = "Edit Contact";
-    document.getElementById("dialog_slogan").classList.add("d-none");
-    document.getElementById("dialog_underline").classList.remove("dialog-underline");
-    document.getElementById("dialog_underline").classList.add("dialog-title-underline");
-    document.getElementById("dialog_button_delete").classList.remove("d-none");
-    document.getElementById("dialog_button_save").classList.remove("d-none");
 }
 
 /**
@@ -374,21 +268,6 @@ function deleteContact() {
 function confirmDeleteContact() {
     document.getElementById("dialog_confirm_delete").close();
     deleteSelectedContact();
-}
-
-/**
- * Closes the delete confirmation without deleting the contact.
- */
-function cancelDeleteContact() {
-    document.getElementById("dialog_confirm_delete").close();
-}
-
-/**
- * Closes the delete confirmation when the user clicks on the backdrop.
- * @param {MouseEvent} event - The click event of the confirmation dialog.
- */
-function handleConfirmDeleteBackdropClick(event) {
-    if (event.target === event.currentTarget) cancelDeleteContact();
 }
 
 /**
@@ -453,42 +332,6 @@ function handleDialogEnterKey(event) {
     }
 }
 
-/**
- * Opens the contact dialog.
- */
-function showDialog() {
-    const dialog = document.getElementById("dialog_contact");
-    dialog.showModal();
-}
-
-/**
- * Clears and closes the contact dialog.
- */
-function closeDialog() {
-    const dialog = document.getElementById("dialog_contact");
-    clearDialog();
-    dialog.close();
-}
-
-/**
- * Resets the inputs, the errors, the initials and the buttons of the contact dialog.
- */
-function clearDialog() {
-    document.getElementById("dialog_input_name").value = "";
-    document.getElementById("dialog_input_email").value = "";
-    document.getElementById("dialog_input_phone").value = "";
-    document.getElementById("dialog_initials").className = "dialog-initials add-new-contact";
-    document.getElementById("dialog_initials").innerHTML = getDialogEmptyInitialsHtmlElement();
-    document.getElementById("dialog_button_cancel").classList.add("d-none");
-    document.getElementById("dialog_button_create").classList.add("d-none");
-    document.getElementById("dialog_button_delete").classList.add("d-none");
-    document.getElementById("dialog_button_save").classList.add("d-none");
-    document.getElementById("dialog_underline").classList.remove("dialog-title-underline");
-    document.getElementById("dialog_slogan").classList.remove("d-none");
-    document.getElementById("dialog_underline").classList.add("dialog-underline");
-    resetContactInputErrors();
-}
-
 registerContactPageEvents();
 registerContactDialogEvents();
 document.querySelector(".container-dialog-changings").addEventListener("keydown", handleDialogEnterKey);
@@ -507,22 +350,6 @@ function handleContactListClick(event) {
     const contactButton = event.target.closest(".button-contact");
     if (contactButton === null) return;
     selectContact(Number(contactButton.dataset.index));
-}
-
-/**
- * Stops the click event, so a click inside the dialog does not close it.
- * @param {MouseEvent} event - The click event.
- */
-function stopEventPropagation(event) {
-    event.stopPropagation();
-}
-
-/**
- * Prevents the dialog form from being submitted.
- * @param {SubmitEvent} event - The submit event.
- */
-function preventFormSubmit(event) {
-    event.preventDefault();
 }
 
 /**
@@ -555,40 +382,4 @@ function registerContactDialogEvents() {
     document.getElementById("dialog_button_save").addEventListener("click", saveEditContact);
     document.getElementById("dialog_button_cancel").addEventListener("click", closeDialog);
     document.getElementById("dialog_button_create").addEventListener("click", createContact);
-}
-
-/**
- * Returns the HTML of a letter heading in the contact list.
- * @param {string} letter - The first letter of the following contacts.
- * @returns {string} The HTML of the letter heading.
- */
-function getContactListAlphabetHtmlElement(letter) {
-    return `<div class="container-contact-list-alphabet contact-list-container-width">
-                        <div class="contact-list-alphabet">${makeTextSafe(letter)}</div>
-                    </div>`;
-}
-
-/**
- * Returns the HTML of a contact in the contact list.
- * @param {Contact} contact - The contact to show.
- * @param {number} index - The position of the contact in the stored contacts.
- * @returns {string} The HTML of the contact.
- */
-function getContactListHtmlElement(contact, index) {
-    return `<div class="contact-list-seperator contact-list-container-width"></div>
-                    <button id="contact${index}" data-index="${index}" class="button-contact contact-list-container-width">
-                        <div class="contact-list-initials ${makeTextSafe(contact.color)}">${makeTextSafe(contact.name.split(" ").map(n => n[0]).join(""))}</div>
-                        <div class="container-contact-list-info">
-                            <div class="contact-list-name">${makeTextSafe(contact.name)}</div>
-                            <a>${makeTextSafe(contact.email)}</a>
-                        </div>
-                    </button>`
-}
-
-/**
- * Returns the HTML of the placeholder icon for the initials in the add contact dialog.
- * @returns {string} The HTML of the icon.
- */
-function getDialogEmptyInitialsHtmlElement() {
-    return `<img class="dialog-initials-create-icon" src="../../assets/icons/create_contact.svg" alt="">`;
 }
