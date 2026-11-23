@@ -10,8 +10,7 @@ function readSessionContacts() {
     const savedText = sessionStorage.getItem(contactsKey);
     if (savedText === null) return null;
     return JSON.parse(savedText);
-  } catch (error) {
-    console.warn('Contacts could not be read:', error);
+  } catch {
     return null;
   }
 }
@@ -46,9 +45,7 @@ function setStoredContacts(contacts) {
   storedContacts = contacts;
   try {
     sessionStorage.setItem(contactsKey, JSON.stringify(storedContacts));
-  } catch (error) {
-    console.warn('Contacts could not be saved:', error);
-  }
+  } catch {}
 }
 
 

@@ -175,12 +175,10 @@ function showTaskSuccessDialog(successDialog) {
 }
 
 /**
- * Logs the error and shows the error message.
+ * Shows the error message after saving the task failed.
  * @param {HTMLElement} statusMessage - The status message element.
- * @param {Error} error - The error that occurred.
  */
-function handleTaskSaveError(statusMessage, error) {
-    console.error("Task could not be created:", error);
+function handleTaskSaveError(statusMessage) {
     showTaskStatus(statusMessage, "error", "Task could not be saved. Please try again.");
 }
 
@@ -218,8 +216,8 @@ async function saveTaskFromForm(statusMessage) {
     try {
         await persistTask();
         handleTaskSaveSuccess(statusMessage);
-    } catch (error) {
-        handleTaskSaveError(statusMessage, error);
+    } catch {
+        handleTaskSaveError(statusMessage);
     } finally {
         finishTaskSave();
     }
