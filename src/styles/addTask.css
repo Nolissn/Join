@@ -341,6 +341,46 @@ textarea {
     color: var(--colorAvatarOrange);
 }
 
+.task_success_dialog {
+    margin: auto;
+    border: none;
+    border-radius: 16px;
+    padding: 0;
+    width: clamp(250px, calc(57.576vw + 65.758px), 326px);
+    height: clamp(60px, calc(10.606vw + 26.061px), 74px);
+    background-color: var(--colorPrimary);
+    outline: none;
+}
+
+.task_success_dialog[open] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    animation: task_success_slide_in 0.5s ease-out;
+}
+
+@keyframes task_success_slide_in {
+    from {
+        transform: translateY(100vh);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.task_success_dialog_text {
+    color: var(--colorWhite);
+    font-size: clamp(16px, calc(3.03vw + 6.303px), 20px);
+    font-weight: 400;
+}
+
+.task_success_dialog_icon {
+    width: clamp(24px, calc(4.545vw + 9.455px), 30px);
+    height: clamp(24px, calc(4.545vw + 9.455px), 30px);
+    margin-left: clamp(16px, calc(19.697vw - 47.03px), 42px);
+}
+
 @media (max-width:1260px) {
     .add-task-input,
     .custom-select {

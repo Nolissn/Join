@@ -40,6 +40,7 @@ function updatePriorityIcons() {
 }
 
 let isSavingTask = false;
+const taskSuccessDuration = 3000;
 
 /**
  * Updates the create task button's disabled state and accessibility status.
@@ -163,12 +164,23 @@ function showTaskStatus(statusMessage, state, message) {
 }
 
 /**
- * Clears the form and shows the success message.
+ * Clears the form and shows the success dialog on the add task page, or the success message in the board dialog.
  * @param {HTMLElement} statusMessage - The status message element.
  */
 function handleTaskSaveSuccess(statusMessage) {
     clearTaskForm();
+    const successDialog = document.getElementById("taskSuccessDialog");
+    if (successDialog) return showTaskSuccessDialog(successDialog);
     showTaskStatus(statusMessage, "success", "Task created successfully.");
+}
+
+/**
+ * Shows the success dialog and redirects to the board after a short delay.
+ * @param {HTMLDialogElement} successDialog - The success dialog of the add task page.
+ */
+function showTaskSuccessDialog(successDialog) {
+    successDialog.showModal();
+    setTimeout(() => (location.href = "./board.html"), taskSuccessDuration);
 }
 
 /**
