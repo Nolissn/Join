@@ -1,6 +1,6 @@
 const userColor = ["red", "blue", "green", "darfred", "orange", "purple", "pink", "darkgreen", "turquoise", "darkblue"];
 const contactInputIds = ["dialog_input_name", "dialog_input_email", "dialog_input_phone"];
-const contactEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const contactEmailRegex = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[a-zA-Z]{2,}$/;
 const contactPhoneRegex = /^\+?[\d\s()\/-]{5,20}$/;
 
 let currentUser = null;
@@ -172,7 +172,7 @@ async function createContact() {
 function getContactFromDialog() {
     return {
         name: document.getElementById("dialog_input_name").value.trim(),
-        email: document.getElementById("dialog_input_email").value.trim(),
+        email: document.getElementById("dialog_input_email").value.trim().toLowerCase(),
         phone: document.getElementById("dialog_input_phone").value.trim(),
         color: userColor[Math.floor(Math.random() * userColor.length)]
     };
@@ -348,7 +348,7 @@ function saveEditContact() {
     if (checkIfContactInputsAreValid() === false) return;
     const selectedContact = storedContacts[currentUser];
     selectedContact.name = document.getElementById("dialog_input_name").value.trim();
-    selectedContact.email = document.getElementById("dialog_input_email").value.trim();
+    selectedContact.email = document.getElementById("dialog_input_email").value.trim().toLowerCase();
     selectedContact.phone = document.getElementById("dialog_input_phone").value.trim();
     saveStoredContact(selectedContact);
     closeDialog();
