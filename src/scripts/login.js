@@ -1,4 +1,4 @@
-const logInEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const logInEmailRegex = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[a-zA-Z]{2,}$/;
 const guestEmail = 'guest@guestmail.com';
 
 /**
