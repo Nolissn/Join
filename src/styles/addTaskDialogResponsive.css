@@ -1,0 +1,152 @@
+@media(max-width:1162px) {
+  .form-left {
+    margin-left: 60px;
+  }
+
+  .add-task-dialog-header {
+    margin-left: 60px;
+  }
+
+  .add-task-dialog {
+    width: 1040px;
+    padding: 56px 56px 56px 0;
+  }
+
+  .footer {
+    margin-left: 60px;
+  }
+}
+
+@media(max-width: 1100px) {
+  .add-task-dialog {
+    width: 980px;
+    height: 740px;
+    padding: 56px 56px 0 0;
+  }
+
+  .add-task-dialog-header {
+    padding-bottom: 25px;
+  }
+}
+
+@media(max-width: 990px) {
+  .add-task-dialog form {
+    gap: 60px;
+  }
+
+  .form-right > .add-task-input-container:nth-child(n + 2) {
+    align-items: flex-end;
+  }
+
+  .add-task-dialog .add-task-input,
+  .add-task-dialog .custom-select,
+  .add-task-dialog .subtask-input-wrapper,
+  .add-task-dialog .subtask-list {
+    width: 338px;
+  }
+
+  .add-task-dialog label {
+    width: 338px;
+  }
+  .add-task-dialog .add-task-input-container {
+    width: 338px;
+  }
+
+  .add-task-dialog {
+    height: 700px;
+  }
+}
+
+@media(max-width:880px) {
+  .add-task-dialog {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 24px;
+  }
+  .add-task-dialog .add-task-dialog-content {
+    align-items: center;
+  }
+  .add-task-dialog-header {
+    width: min(600px, 100%);
+    margin: 0;
+    padding-bottom: 32px;
+  }
+  .add-task-dialog form {
+    width: min(600px, 100%);
+    gap: 24px;
+    padding-bottom: 88px;
+  }
+  .add-task-dialog .form-task-input {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .seperator {
+    display: none;
+  }
+  .add-task-dialog section,
+  .add-task-dialog .form-right {
+    width: 100%;
+    align-items: stretch;
+    gap: 32px;
+  }
+
+  .add-task-dialog .add-task-input-container,
+  .add-task-dialog .add-task-input,
+  .add-task-dialog .custom-select,
+  .add-task-dialog .subtask-input-wrapper,
+  .add-task-dialog .subtask-list,
+  .add-task-dialog label {
+    width: 100%;
+  }
+
+  .add-task-dialog .priority-btn-container {
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .add-task-dialog .priority-btn {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .add-task-dialog .footer {
+    display: contents;
+  }
+
+  .add-task-dialog .add-task-btn-container {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    justify-content: flex-end;
+    width: 100%;
+    margin: 0;
+    padding: 24px max(24px, calc((100vw - 600px) / 2));
+    background-color: var(--colorWhite);
+  }
+
+  .form-left {
+    margin-left: 0;
+  }
+}
+
+@media(max-width:490px) {
+  .add-task-dialog h1 {
+    font-size: 50px;
+  }
+}
+
+@media(max-width:394px) {
+  .add-task-dialog .priority-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+  }
+}

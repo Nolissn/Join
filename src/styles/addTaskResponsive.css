@@ -1,0 +1,155 @@
+@media (max-width:1260px) {
+    .add-task-input,
+    .custom-select,
+    .subtask-input-wrapper,
+    .subtask-list {
+        width: 300px;
+    }
+
+    .priority-btn-container {
+        gap: 8px;
+    }
+
+    .priority-btn {
+        width: 96px;
+        font-size: 18px;
+    }
+
+    .priority-btn-icon {
+        height: 10px;
+        width: 16px;
+    }
+
+    .form-task-input {
+        gap: 26px;
+    }
+}
+
+@media (max-width:940px) {
+    h1 {
+        width: 450px;
+        padding-top: 48px;
+    }
+
+    .form-task-input {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .seperator {
+        display: none;
+    }
+
+    section {
+        gap: 40px;
+    }
+
+    main {
+        margin: 0;
+        max-width: none;
+        width: auto;
+        padding: 0 24px;
+        align-items: center;
+    }
+
+    form {
+        gap: 15px;
+        width: 450px;
+        margin-bottom: 16px;
+        padding-bottom: 100px;
+    }
+
+    .add-task-input,
+    .custom-select,
+    .subtask-input-wrapper,
+    .subtask-list {
+        width: 100%;
+    }
+
+    .priority-btn-container {
+        gap: 0;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .priority-btn {
+        width: 135px;
+    }
+
+    .footer {
+        display: contents;
+    }
+
+    .add-task-btn-container {
+        position: fixed;
+        right: 0;
+        left: 232px;
+        bottom: 0;
+        box-sizing: border-box;
+        justify-content: flex-end;
+        width: calc(100% - 232px);
+        z-index: 20;
+        padding: 24px;
+        background-color: var(--colorBgPage);
+    }
+}
+
+@media (max-width:768px) {
+    form {
+        padding-bottom: 180px;
+    }
+
+    .add-task-btn-container {
+        left: 0;
+        bottom: 80px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 520px) {
+    h1 {
+        width: 350px;
+        font-size: 50px;
+    }
+
+    form {
+        width: 350px;
+    }
+
+    .priority-btn {
+        width: 96px;
+    }
+
+    .add-task-btn-container {
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 414px) {
+    h1 {
+        width: 275px;
+        font-size: 40px;
+    }
+
+    form {
+        width: 275px;
+    }
+
+    .priority-btn {
+        padding: 0;
+        font-size: 16px;
+        font-weight: 600;
+        height: 45px;
+        width: 86px;
+    }
+
+    .priority-btn-icon  {
+        width: 14px;
+    }
+}
+
+@media (max-width: 340px) {
+    .add-task-btn {
+        font-size: 16px;
+    }
+}
