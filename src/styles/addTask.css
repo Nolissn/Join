@@ -536,3 +536,9 @@ textarea {
         width: 14px;
     }
 }
+
+@media (max-width: 340px) {
+    .add-task-btn {
+        font-size: 16px;
+    }
+}
