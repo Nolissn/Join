@@ -50,11 +50,10 @@ function logOut(event) {
 
 /**
  * Returns the initials of the logged-in user for the header avatar.
- * @returns {string} The initials, or "G" for a guest.
+ * @returns {string} The initials, or "GU" for the guest user.
  */
 function getCurrentUserInitials() {
-  if (currentUser === null) return 'G';
-  if (currentUser.isGuest === true) return 'G';
+  if (currentUser === null || currentUser.isGuest === true) return 'GU';
   return getInitials(currentUser.name);
 }
 
