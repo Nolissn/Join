@@ -64,10 +64,43 @@ function updateCreateTaskButton() {
  */
 function isTaskFormReady() {
     const hasTitle = addTaskForm.querySelector("#title").value.trim() !== "";
-    const hasDueDate = addTaskForm.querySelector("#dueDate").value !== "";
+    const dueDate = addTaskForm.querySelector("#dueDate").value;
+    const hasDueDate = dueDate !== "" && !isDueDateInPast(dueDate);
     const hasCategory = addTaskForm.querySelector("#categoryValue").value !== "";
     const hasSelectedPriority = addTaskForm.querySelector(".priority-btn.btn-active") !== null;
     return hasTitle && hasDueDate && hasCategory && hasSelectedPriority;
+}
+
+
+/**
+ * Returns the current local date in the format YYYY-MM-DD.
+ * @returns {string} The date of today.
+ */
+function getTodayDateString() {
+    const today = new Date();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${today.getFullYear()}-${month}-${day}`;
+}
+
+
+/**
+ * Checks whether a due date lies before today.
+ * @param {string} dueDate - The due date in the format YYYY-MM-DD.
+ * @returns {boolean} True if the due date is set and lies in the past.
+ */
+function isDueDateInPast(dueDate) {
+    return dueDate !== "" && dueDate < getTodayDateString();
+}
+
+
+/**
+ * Returns the warning for an incomplete add task form.
+ * @returns {string} The warning message.
+ */
+function getTaskFormWarning() {
+    if (isDueDateInPast(addTaskForm.querySelector("#dueDate").value)) return "The due date cannot be in the past.";
+    return "Please complete all required fields before creating a task.";
 }
 
 
@@ -121,7 +154,8 @@ function getTaskFromForm() {
         assignedTo: getTaskAssignees(),
         category: formData.get("category"),
         subtasks: collectTaskSubtasks(),
-        status: addTaskForm.dataset.status || "todo"
+        status: addTaskForm.dataset.status || "todo",
+        createdAt: getTodayDateString()
     };
 }
 
@@ -217,7 +251,7 @@ async function createTask(event) {
     const statusMessage = addTaskForm.querySelector("#taskFormStatus");
     if (isSavingTask) return;
     if (!isTaskFormReady()) {
-        showTaskStatus(statusMessage, "warning", "Please complete all required fields before creating a task.");
+        showTaskStatus(statusMessage, "warning", getTaskFormWarning());
         return;
     }
     await saveTaskFromForm(statusMessage);
@@ -278,6 +312,7 @@ function registerAddTaskButtons(form) {
  */
 function initializeAddTaskForm(form) {
     addTaskForm = form;
+    form.querySelector("#dueDate").min = getTodayDateString();
     populateAssignedContacts(form.querySelector("#assignedValue"));
     form.querySelectorAll(".custom-select").forEach(initializeCustomSelect);
     registerAddTaskButtons(form);

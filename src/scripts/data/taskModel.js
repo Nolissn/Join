@@ -16,4 +16,5 @@
  * @property {Subtask[]} subtasks - The subtasks of the task.
  * @property {string} status - "todo", "inProgress", "awaitFeedback" or "done".
  * @property {number} [order] - The position of the task in its column.
+ * @property {string} [createdAt] - The creation date in the format YYYY-MM-DD.
  */

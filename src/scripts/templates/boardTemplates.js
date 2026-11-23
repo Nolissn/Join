@@ -250,8 +250,9 @@ function taskEditTemplate(task) {
       </label>
       <label class="taskEditField">
         <span class="taskEditLabel">Due date</span>
-        <input class="taskEditInput" type="date" name="dueDate" value="${makeTextSafe(task.dueDate)}">
+        <input class="taskEditInput" type="date" name="dueDate" value="${makeTextSafe(task.dueDate)}" min="${makeTextSafe(getEditMinDueDate(task))}">
         <span class="taskEditError">This field is required</span>
+        <span class="taskEditErrorTooEarly">The date cannot be before ${formatDueDate(getEditMinDueDate(task))}</span>
       </label>
       <fieldset class="taskEditField taskEditFieldset">
         <legend class="taskEditLabel">Priority</legend>

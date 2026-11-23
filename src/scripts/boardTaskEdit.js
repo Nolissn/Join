@@ -87,21 +87,38 @@ async function saveTaskEdit(event) {
 function isTaskEditValid(form) {
   const isTitleValid = validateEditField(form.elements.title);
   const isDueDateValid = validateEditField(form.elements.dueDate);
-  const firstInvalidInput = form.querySelector('.taskEditFieldInvalid .taskEditInput');
+  const firstInvalidInput = form.querySelector('.taskEditFieldInvalid .taskEditInput, .taskEditFieldTooEarly .taskEditInput');
   if (firstInvalidInput) firstInvalidInput.focus();
   return isTitleValid && isDueDateValid;
 }
 
 
 /**
- * Checks whether a required field of the edit form is filled and shows or hides its error message.
+ * Returns the earliest due date that can be set while editing a task.
+ * Tasks without creation date allow the earlier date of their due date and today.
+ * @param {Task} task - The task to edit.
+ * @returns {string} The earliest allowed date in the format YYYY-MM-DD.
+ */
+function getEditMinDueDate(task) {
+  if (task.createdAt) return task.createdAt;
+  const today = getTodayDateString();
+  return task.dueDate && task.dueDate < today ? task.dueDate : today;
+}
+
+
+/**
+ * Checks whether a required field of the edit form is filled and not before its minimum date.
+ * Shows or hides the matching error message.
  * @param {HTMLInputElement} input - The required input.
- * @returns {boolean} True if the input is not empty.
+ * @returns {boolean} True if the input is valid.
  */
 function validateEditField(input) {
-  const isValid = input.value.trim() !== '';
-  input.closest('.taskEditField').classList.toggle('taskEditFieldInvalid', !isValid);
-  return isValid;
+  const isFilled = input.value.trim() !== '';
+  const isTooEarly = isFilled && input.min !== '' && input.value < input.min;
+  const field = input.closest('.taskEditField');
+  field.classList.toggle('taskEditFieldInvalid', !isFilled);
+  field.classList.toggle('taskEditFieldTooEarly', isTooEarly);
+  return isFilled && !isTooEarly;
 }
 
 
@@ -110,7 +127,7 @@ function validateEditField(input) {
  * @param {Event} event - The input event.
  */
 function handleEditInput(event) {
-  if (event.target.closest('.taskEditFieldInvalid')) validateEditField(event.target);
+  if (event.target.closest('.taskEditFieldInvalid, .taskEditFieldTooEarly')) validateEditField(event.target);
 }
 
 

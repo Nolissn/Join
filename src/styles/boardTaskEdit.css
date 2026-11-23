@@ -58,17 +58,21 @@
 }
 
 .taskEditFieldInvalid .taskEditInput,
-.taskEditFieldInvalid .taskEditInput:focus {
+.taskEditFieldInvalid .taskEditInput:focus,
+.taskEditFieldTooEarly .taskEditInput,
+.taskEditFieldTooEarly .taskEditInput:focus {
   border-color: var(--colorRed);
 }
 
-.taskEditError {
+.taskEditError,
+.taskEditErrorTooEarly {
   display: none;
   color: var(--colorRed);
   font-size: 14px;
 }
 
-.taskEditFieldInvalid .taskEditError {
+.taskEditFieldInvalid .taskEditError,
+.taskEditFieldTooEarly .taskEditErrorTooEarly {
   display: block;
 }
 
