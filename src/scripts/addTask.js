@@ -99,7 +99,8 @@ function populateAssignedContacts(select) {
 
 /**
  * Builds a new task from the values of the add task form.
- * @returns {Task} The new task with the status "todo".
+ * The status comes from the board column the form was opened from, otherwise it is "todo".
+ * @returns {Task} The new task.
  */
 function getTaskFromForm() {
     const formData = new FormData(addTaskForm);
@@ -111,7 +112,7 @@ function getTaskFromForm() {
         assignedTo: getTaskAssignees(),
         category: formData.get("category"),
         subtasks: collectTaskSubtasks(),
-        status: "todo"
+        status: addTaskForm.dataset.status || "todo"
     };
 }
 

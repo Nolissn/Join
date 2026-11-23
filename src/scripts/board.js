@@ -46,7 +46,7 @@ function initBoardEvents() {
   document.addEventListener('click', handleOutsideMoveClick);
   document.getElementById('findTask').addEventListener('input', renderBoard);
   document.querySelector('.boardSearchClear').addEventListener('click', clearSearch);
-  document.getElementById('addTaskButton').addEventListener('click', openAddTaskDialog);
+  document.getElementById('addTaskButton').addEventListener('click', () => openAddTaskDialog('todo'));
   initTaskDialogEvents();
   initAddTaskDialogEvents();
 }
@@ -182,7 +182,7 @@ function clearSearch() {
  * @param {MouseEvent} event - The click event.
  */
 function handleBoardClick(event) {
-  if (event.target.closest('.columnAddButton')) return openAddTaskDialog();
+  if (event.target.closest('.columnAddButton')) return openAddTaskDialog(event.target.closest('.boardColumn').dataset.status);
   const actionButton = event.target.closest('[data-action]');
   if (!actionButton && event.target.closest('.taskMoveMenu')) return;
   if (!actionButton) return openTaskDialog(event);
@@ -316,13 +316,17 @@ function formatDueDate(dueDate) {
 
 /**
  * Opens the add task dialog, renders and initializes the form and locks the page scroll.
+ * The status is saved on the form, so the new task is created in the column it was opened from.
+ * @param {string} status - The status of the new task, e.g. "todo" or "inProgress".
  */
-function openAddTaskDialog() {
+function openAddTaskDialog(status) {
   const addTaskDialog = document.getElementById('addTaskDialog');
   if (addTaskDialog.open) return;
   const content = addTaskDialog.querySelector('.add-task-dialog-content');
   content.innerHTML = renderAddTaskDialog();
-  initializeAddTaskForm(content.querySelector('#addTaskForm'));
+  const form = content.querySelector('#addTaskForm');
+  form.dataset.status = status;
+  initializeAddTaskForm(form);
   addTaskDialog.showModal();
   lockPageScroll();
 }
