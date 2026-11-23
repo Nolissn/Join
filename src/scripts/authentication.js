@@ -1,5 +1,6 @@
 import { registerUser, getUserByEmail } from "./data/usersDbApi.js";
 import { saveTutorialTask } from "./data/joinDbApi.js";
+import { saveOwnContact } from "./data/contactsDbApi.js";
 
 const signUpInputIds = [
   "nameSignUp",
@@ -47,7 +48,7 @@ async function signUp() {
 }
 
 /**
- * Registers a new user if the email is not used yet and saves the tutorial task for the user.
+ * Registers a new user if the email is not used yet and saves the tutorial task and the own contact for the user.
  * @param {{name: string, email: string, password: string}} userValues - The validated values without the password confirmation.
  * @returns {Promise<boolean>} True if the user was registered, false if the email is already in use.
  */
@@ -55,6 +56,7 @@ async function registerNewUser(userValues) {
   if ((await checkIfEmailIsAvailable(userValues.email)) === false) return false;
   const userId = await registerUser(userValues);
   await saveTutorialTask(userId);
+  await saveOwnContact(userId, userValues);
   return true;
 }
 

@@ -50,6 +50,24 @@ export async function saveContact(contactModel, contactId) {
 
 
 /**
+ * Saves the own contact of a newly registered user, so the user appears in the own contact list.
+ * The user is not logged in yet, so the user id is passed instead of using the current user.
+ * @param {string} userId - The id of the new user.
+ * @param {{name: string, email: string}} user - The name and the email of the new user.
+ * @returns {Promise<string|null>} The id of the created contact, or null if saving fails.
+ */
+export async function saveOwnContact(userId, user) {
+    try {
+        const ref = doc(collection(db, "users", userId, "contacts"));
+        await setDoc(ref, { name: user.name, email: user.email, phone: "", color: "darkblue" });
+        return ref.id;
+    } catch {
+        return null;
+    }
+}
+
+
+/**
  * Deletes a contact in Firestore.
  * @param {string} contactId - The id of the contact to delete.
  * @returns {Promise<void>}
