@@ -38,11 +38,8 @@ function renderSummaryGreeting(summaryElements) {
     summaryElements.greetingContainer.classList.add("summary-greeting-intro");
   }
 
-  if (currentUser && currentUser.isGuest !== true) {
-    renderCurrentUser(summaryElements);
-  } else {
-    renderGuest(summaryElements);
-  }
+  summaryElements.greetingElement.textContent = getDayTimeGreeting();
+  summaryElements.nameElement.textContent = getGreetingName();
 }
 
 
@@ -137,32 +134,25 @@ function isValidDate(value) {
 
 
 /**
- * Shows the greeting with the name of the logged-in user.
- * @param {SummaryElements} summaryElements - The elements of the greeting.
+ * Returns the greeting that matches the current time of day.
+ * @returns {string} The greeting for the morning, afternoon, evening or night.
  */
-function renderCurrentUser({ greetingElement, nameElement }) {
-  greetingElement.textContent = "Good Morning,";
-  nameElement.textContent = currentUser.name;
+function getDayTimeGreeting() {
+  const hour = new Date().getHours();
+  if (hour >= 5 && hour < 12) return "Good morning,";
+  if (hour >= 12 && hour < 18) return "Good afternoon,";
+  if (hour >= 18 && hour < 22) return "Good evening,";
+  return "Good night,";
 }
 
 
 /**
- * Shows a greeting for the guest that depends on the time of day.
- * @param {SummaryElements} summaryElements - The elements of the greeting.
+ * Returns the name for the greeting.
+ * @returns {string} The name of the logged-in user, or "Guest User" for the guest.
  */
-function renderGuest({ greetingElement, nameElement }) {
-  const time = new Date().getHours();
-  if (time >= 5 && time < 12) {
-    greetingElement.textContent = "Good Morning";
-  } else if (time >= 12 && time < 18) {
-    greetingElement.textContent = "Good Afternoon";
-  } else if (time >= 18 && time < 21) {
-    greetingElement.textContent = "Good Evening";
-  } else {
-    greetingElement.textContent = "Good Night";
-  }
-
-  nameElement.textContent = "";
+function getGreetingName() {
+  if (!currentUser || currentUser.isGuest === true) return "Guest User";
+  return currentUser.name;
 }
 
 
