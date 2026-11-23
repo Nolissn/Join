@@ -340,6 +340,149 @@
   color: var(--colorAvatarOrange);
 }
 
+.add-task-dialog .subtask-input-wrapper,
+.add-task-dialog .subtask-list {
+  width: 400px;
+}
+
+.add-task-dialog .subtask-input-wrapper {
+  position: relative;
+}
+
+.add-task-dialog .subtask-input-wrapper .subtask-input {
+  width: 100%;
+  padding-right: 88px;
+}
+
+.add-task-dialog .subtask-input:focus {
+  border-color: var(--colorPrimaryGreyTone);
+  outline: none;
+}
+
+.add-task-dialog .subtask-input-actions {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.add-task-dialog .subtask-input:placeholder-shown + .subtask-input-actions {
+  display: none;
+}
+
+.add-task-dialog .subtask-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: unset;
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 100ms ease-out;
+}
+
+.add-task-dialog .subtask-icon-btn:hover {
+  background-color: var(--colorBeige);
+}
+
+.add-task-dialog .subtask-divider {
+  flex: none;
+  width: 1px;
+  height: 24px;
+  background-color: var(--colorUnfocusedInputTag);
+}
+
+.add-task-dialog .subtask-list {
+  max-height: 136px;
+  margin-top: 4px;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.add-task-dialog .subtask-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 32px;
+  padding: 2px 8px 2px 16px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.add-task-dialog .subtask-item:hover {
+  background-color: var(--colorBeige);
+}
+
+.add-task-dialog .subtask-title {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.add-task-dialog .subtask-title::before {
+  content: "•";
+  margin-right: 8px;
+}
+
+.add-task-dialog .subtask-actions {
+  display: none;
+  flex: none;
+  align-items: center;
+  gap: 2px;
+}
+
+.add-task-dialog .subtask-item:hover .subtask-actions,
+.add-task-dialog .subtask-item-editing .subtask-actions {
+  display: flex;
+}
+
+.add-task-dialog .subtask-item .subtask-icon-btn {
+  width: 28px;
+  height: 28px;
+}
+
+.add-task-dialog .subtask-item .subtask-icon-btn:hover {
+  background-color: var(--colorWhite);
+}
+
+.add-task-dialog .subtask-item .subtask-divider {
+  height: 20px;
+}
+
+.add-task-dialog .subtask-item-editing,
+.add-task-dialog .subtask-item-editing:hover {
+  border-bottom: 1px solid var(--colorPrimaryGreyTone);
+  border-radius: 0;
+  background-color: var(--colorWhite);
+}
+
+.add-task-dialog .subtask-item-editing .subtask-icon-btn:hover {
+  background-color: var(--colorBeige);
+}
+
+.add-task-dialog .subtask-edit-input {
+  flex: 1;
+  min-width: 0;
+  border: unset;
+  outline: none;
+  background-color: transparent;
+  font: inherit;
+}
+
+@media (hover: none) {
+  .add-task-dialog .subtask-actions {
+    display: flex;
+  }
+}
+
 @media(max-width:1162px) {
   .form-left {
     margin-left: 60px;
@@ -381,7 +524,9 @@
   }
 
   .add-task-dialog .add-task-input,
-  .add-task-dialog .custom-select {
+  .add-task-dialog .custom-select,
+  .add-task-dialog .subtask-input-wrapper,
+  .add-task-dialog .subtask-list {
     width: 338px;
   }
 
@@ -437,6 +582,8 @@
   .add-task-dialog .add-task-input-container,
   .add-task-dialog .add-task-input,
   .add-task-dialog .custom-select,
+  .add-task-dialog .subtask-input-wrapper,
+  .add-task-dialog .subtask-list,
   .add-task-dialog label {
     width: 100%;
   }

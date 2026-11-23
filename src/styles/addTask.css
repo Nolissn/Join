@@ -82,6 +82,149 @@ button {
     cursor: pointer;
 }
 
+.subtask-input-wrapper,
+.subtask-list {
+    width: 400px;
+}
+
+.subtask-input-wrapper {
+    position: relative;
+}
+
+.subtask-input-wrapper .subtask-input {
+    width: 100%;
+    padding-right: 88px;
+}
+
+.subtask-input:focus {
+    border-color: var(--colorPrimaryGreyTone);
+    outline: none;
+}
+
+.subtask-input-actions {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.subtask-input:placeholder-shown + .subtask-input-actions {
+    display: none;
+}
+
+.subtask-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: unset;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 100ms ease-out;
+}
+
+.subtask-icon-btn:hover {
+    background-color: var(--colorBeige);
+}
+
+.subtask-divider {
+    flex: none;
+    width: 1px;
+    height: 24px;
+    background-color: var(--colorUnfocusedInputTag);
+}
+
+.subtask-list {
+    max-height: 136px;
+    margin-top: 4px;
+    padding: 0;
+    overflow-y: auto;
+    list-style: none;
+}
+
+.subtask-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-height: 32px;
+    padding: 2px 8px 2px 16px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.subtask-item:hover {
+    background-color: var(--colorBeige);
+}
+
+.subtask-title {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.subtask-title::before {
+    content: "•";
+    margin-right: 8px;
+}
+
+.subtask-actions {
+    display: none;
+    flex: none;
+    align-items: center;
+    gap: 2px;
+}
+
+.subtask-item:hover .subtask-actions,
+.subtask-item-editing .subtask-actions {
+    display: flex;
+}
+
+.subtask-item .subtask-icon-btn {
+    width: 28px;
+    height: 28px;
+}
+
+.subtask-item .subtask-icon-btn:hover {
+    background-color: var(--colorWhite);
+}
+
+.subtask-item .subtask-divider {
+    height: 20px;
+}
+
+.subtask-item-editing,
+.subtask-item-editing:hover {
+    border-bottom: 1px solid var(--colorPrimaryGreyTone);
+    border-radius: 0;
+    background-color: var(--colorWhite);
+}
+
+.subtask-item-editing .subtask-icon-btn:hover {
+    background-color: var(--colorBeige);
+}
+
+.subtask-edit-input {
+    flex: 1;
+    min-width: 0;
+    border: unset;
+    outline: none;
+    background-color: transparent;
+    font: inherit;
+}
+
+@media (hover: none) {
+    .subtask-actions {
+        display: flex;
+    }
+}
+
 .priority-label {
     color: var(--colorBlack);
 }
@@ -393,7 +536,9 @@ textarea {
 
 @media (max-width:1260px) {
     .add-task-input,
-    .custom-select {
+    .custom-select,
+    .subtask-input-wrapper,
+    .subtask-list {
         width: 300px;
     }
 
@@ -451,7 +596,9 @@ textarea {
     }
 
     .add-task-input,
-    .custom-select {
+    .custom-select,
+    .subtask-input-wrapper,
+    .subtask-list {
         width: 100%;
     }
 

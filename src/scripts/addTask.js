@@ -98,16 +98,6 @@ function populateAssignedContacts(select) {
 }
 
 /**
- * Returns the subtask entered in the form, or an empty list if the field is empty.
- * @param {FormData} formData - The data of the add task form.
- * @returns {Subtask[]} The entered subtask, or an empty list.
- */
-function getTaskSubtasks(formData) {
-    const title = formData.get("subtasks").trim();
-    return title === "" ? [] : [{ title, done: false }];
-}
-
-/**
  * Builds a new task from the values of the add task form.
  * @returns {Task} The new task with the status "todo".
  */
@@ -120,7 +110,7 @@ function getTaskFromForm() {
         priority: getSelectedPriority(),
         assignedTo: getTaskAssignees(),
         category: formData.get("category"),
-        subtasks: getTaskSubtasks(formData),
+        subtasks: collectTaskSubtasks(),
         status: "todo"
     };
 }
@@ -235,10 +225,11 @@ async function saveTaskFromForm(statusMessage) {
 }
 
 /**
- * Resets the form and selects the medium priority again.
+ * Resets the form, empties the subtask list and selects the medium priority again.
  */
 function clearTaskForm() {
     addTaskForm.reset();
+    resetSubtasks();
     clearPriorityButtons();
     addTaskForm.querySelector("#priorityMedium").classList.add("btn-active", "priority-medium");
     updatePriorityIcons();
@@ -560,6 +551,7 @@ function initializeAddTaskForm(form) {
     populateAssignedContacts(form.querySelector("#assignedValue"));
     form.querySelectorAll(".custom-select").forEach(initializeCustomSelect);
     registerAddTaskButtons(form);
+    initializeSubtasks(form);
     form.addEventListener("submit", createTask);
     form.addEventListener("input", updateCreateTaskButton);
     form.addEventListener("change", updateCreateTaskButton);

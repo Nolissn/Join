@@ -204,7 +204,15 @@ function renderAddTaskDialog() {
           </div>
           <div class="add-task-input-container">
             <label for="subtasks">Subtasks</label>
-            <input class="add-task-input" type="text" name="subtasks" id="subtasks" placeholder="Add new subtask">
+            <div class="subtask-input-wrapper">
+              <input class="add-task-input subtask-input" type="text" id="subtasks" placeholder="Add new subtask" autocomplete="off">
+              <div class="subtask-input-actions">
+                <button class="subtask-icon-btn" type="button" data-subtask-action="clear" aria-label="Clear subtask"><img src="${iconPath}close_dark.svg" alt=""></button>
+                <span class="subtask-divider"></span>
+                <button class="subtask-icon-btn" type="button" data-subtask-action="add" aria-label="Add subtask"><img src="${iconPath}check_dark.svg" alt=""></button>
+              </div>
+            </div>
+            <ul class="subtask-list"></ul>
           </div>
         </section>
       </div>
