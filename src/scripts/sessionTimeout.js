@@ -147,4 +147,5 @@ function logOutAfterTimeout() {
   location.replace('../../index.html');
 }
 
+
 document.addEventListener('DOMContentLoaded', initSessionTimeout);

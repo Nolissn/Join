@@ -9,6 +9,7 @@ function getContactListAlphabetHtmlElement(letter) {
                     </div>`;
 }
 
+
 /**
  * Returns the HTML of a contact in the contact list.
  * @param {Contact} contact - The contact to show.
@@ -25,6 +26,7 @@ function getContactListHtmlElement(contact, index) {
                         </div>
                     </button>`
 }
+
 
 /**
  * Returns the HTML of the placeholder icon for the initials in the add contact dialog.

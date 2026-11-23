@@ -7,6 +7,7 @@ function clearPriorityButtons() {
     });
 }
 
+
 /**
  * Selects a priority button, or deselects it if it was already active.
  * Updates the icons and the create task button afterwards.
@@ -22,6 +23,7 @@ function setPriority(priority) {
     updateCreateTaskButton();
 }
 
+
 /**
  * Shows the active or the default icon of a priority button.
  * @param {HTMLElement} button - The priority button.
@@ -32,12 +34,14 @@ function updatePriorityIcon(button) {
     icon.src = `../../assets/icons/${activeIcon || icon.dataset.icon}`;
 }
 
+
 /**
  * Updates the icons of all priority buttons.
  */
 function updatePriorityIcons() {
     document.querySelectorAll(".priority-btn").forEach(updatePriorityIcon);
 }
+
 
 let isSavingTask = false;
 const taskSuccessDuration = 3000;
@@ -53,6 +57,7 @@ function updateCreateTaskButton() {
     if (statusMessage.dataset.state === "warning") statusMessage.hidden = true;
 }
 
+
 /**
  * Checks whether the title, the due date, the category and the priority are set.
  * @returns {boolean} Whether the task form is ready to submit.
@@ -65,6 +70,7 @@ function isTaskFormReady() {
     return hasTitle && hasDueDate && hasCategory && hasSelectedPriority;
 }
 
+
 /**
  * Returns the priority of the active priority button.
  * @returns {string} "urgent", "medium" or "low".
@@ -73,6 +79,7 @@ function getSelectedPriority() {
     const selectedButton = addTaskForm.querySelector(".priority-btn.btn-active");
     return selectedButton.id.replace("priority", "").toLowerCase();
 }
+
 
 /**
  * Returns the assigned contact selected in the form.
@@ -85,6 +92,7 @@ function getTaskAssignees() {
     }));
 }
 
+
 /**
  * Fills the assignee select with the contacts already loaded for the current session.
  * @param {HTMLSelectElement} select - The assignee select.
@@ -96,6 +104,7 @@ function populateAssignedContacts(select) {
         select.add(new Option(contact.name, contact.id));
     });
 }
+
 
 /**
  * Builds a new task from the values of the add task form.
@@ -116,6 +125,7 @@ function getTaskFromForm() {
     };
 }
 
+
 /**
  * Marks the task as saving, hides the status message and disables the create task button.
  * @param {HTMLElement} statusMessage - The status message element.
@@ -125,6 +135,7 @@ function startTaskSave(statusMessage) {
     statusMessage.hidden = true;
     updateCreateTaskButton();
 }
+
 
 /**
  * Saves the task from the form in Firestore.
@@ -142,6 +153,7 @@ async function persistTask() {
     }
 }
 
+
 /**
  * Shows a status message below the form.
  * @param {HTMLElement} statusMessage - The status message element.
@@ -154,6 +166,7 @@ function showTaskStatus(statusMessage, state, message) {
     statusMessage.hidden = false;
 }
 
+
 /**
  * Clears the form and shows the success dialog on the add task page, or the success message in the board dialog.
  * @param {HTMLElement} statusMessage - The status message element.
@@ -165,6 +178,7 @@ function handleTaskSaveSuccess(statusMessage) {
     showTaskStatus(statusMessage, "success", "Task created successfully.");
 }
 
+
 /**
  * Shows the success dialog and redirects to the board after a short delay.
  * @param {HTMLDialogElement} successDialog - The success dialog of the add task page.
@@ -174,6 +188,7 @@ function showTaskSuccessDialog(successDialog) {
     setTimeout(() => (location.href = "./board.html"), taskSuccessDuration);
 }
 
+
 /**
  * Shows the error message after saving the task failed.
  * @param {HTMLElement} statusMessage - The status message element.
@@ -182,6 +197,7 @@ function handleTaskSaveError(statusMessage) {
     showTaskStatus(statusMessage, "error", "Task could not be saved. Please try again.");
 }
 
+
 /**
  * Ends the saving state and updates the create task button.
  */
@@ -189,6 +205,7 @@ function finishTaskSave() {
     isSavingTask = false;
     updateCreateTaskButton();
 }
+
 
 /**
  * Handles the submit of the add task form: validates the form, saves the task and shows the result.
@@ -205,6 +222,7 @@ async function createTask(event) {
     }
     await saveTaskFromForm(statusMessage);
 }
+
 
 /**
  * Saves the task from the form and shows the result in the status message.
@@ -223,6 +241,7 @@ async function saveTaskFromForm(statusMessage) {
     }
 }
 
+
 /**
  * Resets the form, empties the subtask list and selects the medium priority again.
  */
@@ -234,6 +253,7 @@ function clearTaskForm() {
     updatePriorityIcons();
     updateCreateTaskButton();
 }
+
 
 let addTaskForm;
 
@@ -250,6 +270,7 @@ function registerAddTaskButtons(form) {
     });
     form.querySelector(".clear-task-btn").addEventListener("click", clearTaskForm);
 }
+
 
 /**
  * Initializes the add task form: sets up the custom selects, registers the event listeners and updates the buttons.
@@ -268,6 +289,7 @@ function initializeAddTaskForm(form) {
     updatePriorityIcons();
     updateCreateTaskButton();
 }
+
 
 document.addEventListener("click", handleOutsideCustomSelectClick);
 document.addEventListener("focusin", handleOutsideCustomSelectClick);

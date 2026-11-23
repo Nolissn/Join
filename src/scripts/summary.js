@@ -27,6 +27,7 @@ async function initSummary() {
   renderTaskSummary();
 }
 
+
 /**
  * Renders the greeting for the logged-in user or the guest.
  * Plays the intro animation once after the login.
@@ -44,6 +45,7 @@ function renderSummaryGreeting(summaryElements) {
   }
 }
 
+
 /**
  * Returns the elements of the greeting.
  * @returns {SummaryElements|null} The elements, or null if one of them is missing.
@@ -55,6 +57,7 @@ function getSummaryElements() {
   if (greetingContainer === null || greetingElement === null || nameElement === null) return null;
   return { greetingContainer, greetingElement, nameElement };
 }
+
 
 /**
  * Counts the tasks per status and the urgent open tasks and shows the counts.
@@ -70,6 +73,7 @@ function renderTaskSummary() {
   getToDos(taskCounts);
 }
 
+
 /**
  * Shows the task counts and the upcoming deadline on the summary page.
  * @param {Object} taskCounts - The number of tasks per status and of urgent open tasks.
@@ -83,6 +87,7 @@ function getToDos(taskCounts) {
   document.getElementById("summaryAwaitFeedbackCount").textContent = taskCounts.awaitFeedback;
   document.getElementById("summaryUpcomingDeadline").textContent = getUpcomingDeadline();
 }
+
 
 /**
  * Returns the earliest due date of all tasks that are not done.
@@ -99,6 +104,7 @@ function getUpcomingDeadline() {
   return getDateTime(upcomingDates[0]);
 }
 
+
 /**
  * Formats a date as a long English date, e.g. "October 5, 2026".
  * @param {string} dateString - The date in the format YYYY-MM-DD.
@@ -114,6 +120,7 @@ function getDateTime(dateString) {
   }).format(new Date(Date.UTC(year, month - 1, day)));
 }
 
+
 /**
  * Checks whether a value is an existing date in the format YYYY-MM-DD.
  * @param {*} value - The value to check.
@@ -128,6 +135,7 @@ function isValidDate(value) {
     && date.getUTCDate() === day;
 }
 
+
 /**
  * Shows the greeting with the name of the logged-in user.
  * @param {SummaryElements} summaryElements - The elements of the greeting.
@@ -136,6 +144,7 @@ function renderCurrentUser({ greetingElement, nameElement }) {
   greetingElement.textContent = "Good Morning,";
   nameElement.textContent = currentUser.name;
 }
+
 
 /**
  * Shows a greeting for the guest that depends on the time of day.
@@ -155,5 +164,6 @@ function renderGuest({ greetingElement, nameElement }) {
 
   nameElement.textContent = "";
 }
+
 
 initSummary();

@@ -16,6 +16,7 @@ function closeCustomSelect(context) {
     syncCustomSelectSelection(context);
 }
 
+
 /**
  * Synchronizes menu selection and displays assigned-contact initials when the menu is closed.
  * @param {CustomSelectContext} context - The elements of the custom select.
@@ -35,6 +36,7 @@ function syncCustomSelectSelection(context) {
     }
 }
 
+
 /**
  * Shows the initials of the assigned contacts below the assignee select while the menu is closed.
  * @param {CustomSelectContext} context - The elements of the custom select.
@@ -52,6 +54,7 @@ function renderSelectedContactAvatars(context, selectedOptions) {
     selectedContacts.hidden = selectedOptions.length === 0 || !context.menu.hidden;
 }
 
+
 /**
  * Creates the initials avatar of a contact option in the color of the contact.
  * @param {HTMLOptionElement} option - The option of the contact.
@@ -64,6 +67,7 @@ function createContactAvatar(option) {
     avatar.textContent = getInitials(option.textContent);
     return avatar;
 }
+
 
 /**
  * Selects the clicked option, fires a change event, closes the menu and focuses the trigger.
@@ -84,6 +88,7 @@ function handleCustomSelectOptionClick(context, option) {
     context.trigger.focus();
 }
 
+
 /**
  * Creates the empty element of a menu option with its role, selection state and value.
  * @param {HTMLOptionElement} option - The option of the select.
@@ -98,6 +103,7 @@ function createMenuOptionElement(option) {
     menuOption.dataset.value = option.value;
     return menuOption;
 }
+
 
 /**
  * Creates a menu option for an option of the hidden select.
@@ -119,6 +125,7 @@ function createCustomSelectOption(option, context) {
     return menuOption;
 }
 
+
 /**
  * Fills the menu with all visible and enabled options of the select.
  * @param {CustomSelectContext} context - The elements of the custom select.
@@ -127,6 +134,7 @@ function populateCustomSelectMenu(context) {
     const options = [...context.select.options].filter(option => !option.hidden && !option.disabled);
     options.forEach(option => context.menu.append(createCustomSelectOption(option, context)));
 }
+
 
 /**
  * Closes all custom selects of the form except the given one.
@@ -137,6 +145,7 @@ function closeOtherCustomSelects(context) {
         if (container !== context.container) closeCustomSelect(getCustomSelectContext(container));
     });
 }
+
 
 /**
  * Collects the elements of a custom select.
@@ -152,6 +161,7 @@ function getCustomSelectContext(container) {
     };
 }
 
+
 /**
  * Focuses the selected option, or the first option if none is selected.
  * @param {CustomSelectContext} context - The elements of the custom select.
@@ -161,6 +171,7 @@ function focusSelectedCustomOption(context) {
     const firstOption = context.menu.querySelector('[role="option"]');
     (selected || firstOption).focus();
 }
+
 
 /**
  * Opens the menu of a custom select and closes all other menus.
@@ -175,6 +186,7 @@ function openCustomSelect(context, focusSelected = false) {
     if (focusSelected) focusSelectedCustomOption(context);
 }
 
+
 /**
  * Opens or closes the menu of a custom select.
  * @param {CustomSelectContext} context - The elements of the custom select.
@@ -183,6 +195,7 @@ function toggleCustomSelect(context) {
     if (context.menu.hidden) openCustomSelect(context);
     else closeCustomSelect(context);
 }
+
 
 /**
  * Opens the menu and focuses the selected option when ArrowDown, Enter or Space is pressed on the trigger.
@@ -194,6 +207,7 @@ function handleCustomSelectTriggerKeydown(context, event) {
     event.preventDefault();
     openCustomSelect(context, true);
 }
+
 
 /**
  * Calculates the index of the option to focus for a navigation key.
@@ -210,6 +224,7 @@ function getNextMenuOptionIndex(key, options, currentIndex) {
     return -1;
 }
 
+
 /**
  * Moves the focus to another option when a navigation key is pressed.
  * @param {CustomSelectContext} context - The elements of the custom select.
@@ -225,6 +240,7 @@ function focusNextCustomOption(context, event) {
     options[nextIndex].focus();
     return true;
 }
+
 
 /**
  * Handles keys in the open menu: navigates, selects with Enter or Space and closes with Escape.
@@ -243,6 +259,7 @@ function handleCustomSelectMenuKeydown(context, event) {
     }
 }
 
+
 /**
  * Builds the menu of a custom select and registers its event listeners.
  * @param {HTMLElement} container - The custom select container.
@@ -258,6 +275,7 @@ function initializeCustomSelect(container) {
     syncCustomSelectSelection(context);
 }
 
+
 /**
  * Shows the reset values in all custom selects and closes their menus.
  */
@@ -269,12 +287,14 @@ function resetCustomSelects() {
     });
 }
 
+
 /**
  * Resets the custom selects in the next animation frame, after the form reset is done.
  */
 function scheduleCustomSelectReset() {
     requestAnimationFrame(resetCustomSelects);
 }
+
 
 /**
  * Closes the open custom selects of the add task form when the user clicks or focuses outside of them.

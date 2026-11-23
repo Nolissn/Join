@@ -19,5 +19,6 @@ function handlePageShow(event) {
   }
 }
 
+
 guardPage();
 window.addEventListener('pageshow', handlePageShow);

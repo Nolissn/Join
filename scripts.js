@@ -6,6 +6,7 @@ function init() {
   registerPasswordToggles();
 }
 
+
 /**
  * Opens the page of the data-href attribute when an element with this attribute is clicked.
  */
@@ -16,6 +17,7 @@ function registerLinkButtons() {
     });
   });
 }
+
 
 /**
  * Registers the password toggle buttons. The data-input-id attribute names the password input.
@@ -32,6 +34,7 @@ function registerPasswordToggles() {
   });
 }
 
+
 document.addEventListener('DOMContentLoaded', init);
 
 /**
@@ -45,6 +48,7 @@ function togglePasswordVisibility(inputId, toggleButton) {
   input.type = isHidden ? "text" : "password";
   toggleButton.setAttribute("aria-label", isHidden ? "Hide password" : "Show password");
 }
+
 
 const loadingScreenDelay = 1000;
 const loadingScreenTimeout = 10000;
@@ -68,6 +72,7 @@ async function withLoadingScreen(asyncTask) {
     loadingScreen.close();
   }
 }
+
 
 /**
  * Returns a promise that is rejected after the loading timeout.

@@ -11,6 +11,7 @@ function addNewContact() {
     showDialog();
 }
 
+
 /**
  * Changes the title and the buttons of the dialog for editing a contact.
  */
@@ -23,12 +24,14 @@ function loadEditContactHub() {
     document.getElementById("dialog_button_save").classList.remove("d-none");
 }
 
+
 /**
  * Closes the delete confirmation without deleting the contact.
  */
 function cancelDeleteContact() {
     document.getElementById("dialog_confirm_delete").close();
 }
+
 
 /**
  * Closes the delete confirmation when the user clicks on the backdrop.
@@ -38,6 +41,7 @@ function handleConfirmDeleteBackdropClick(event) {
     if (event.target === event.currentTarget) cancelDeleteContact();
 }
 
+
 /**
  * Opens the contact dialog.
  */
@@ -45,6 +49,7 @@ function showDialog() {
     const dialog = document.getElementById("dialog_contact");
     dialog.showModal();
 }
+
 
 /**
  * Clears and closes the contact dialog.
@@ -54,6 +59,7 @@ function closeDialog() {
     clearDialog();
     dialog.close();
 }
+
 
 /**
  * Resets the inputs, the errors, the initials and the buttons of the contact dialog.
@@ -75,6 +81,7 @@ function clearDialog() {
     resetContactInputErrors();
 }
 
+
 /**
  * Stops the click event, so a click inside the dialog does not close it.
  * @param {MouseEvent} event - The click event.
@@ -82,6 +89,7 @@ function clearDialog() {
 function stopEventPropagation(event) {
     event.stopPropagation();
 }
+
 
 /**
  * Prevents the dialog form from being submitted.

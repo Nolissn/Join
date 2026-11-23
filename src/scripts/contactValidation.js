@@ -14,6 +14,7 @@ function checkIfContactInputsAreValid() {
     return isNameValid && isEmailValid && isPhoneValid;
 }
 
+
 /**
  * Checks that the name is filled.
  * @returns {boolean} True if the name is valid.
@@ -25,6 +26,7 @@ function checkIfContactNameIsValid() {
     }
     return true;
 }
+
 
 /**
  * Checks that the email is filled and has a valid format.
@@ -43,6 +45,7 @@ function checkIfContactEmailIsValid() {
     return true;
 }
 
+
 /**
  * Checks that the phone number is filled and contains only digits, spaces and the characters + ( ) / -.
  * @returns {boolean} True if the phone number is valid.
@@ -60,6 +63,7 @@ function checkIfContactPhoneIsValid() {
     return true;
 }
 
+
 /**
  * Marks an input of the contact dialog as invalid and shows the error text below it.
  * @param {string} inputId - The id of the invalid input.
@@ -69,6 +73,7 @@ function showContactInputError(inputId, text) {
     document.getElementById(inputId).classList.add("dialog-input-error");
     document.getElementById(inputId + "_error").textContent = text;
 }
+
 
 /**
  * Removes the error marks and the error texts from the contact dialog.

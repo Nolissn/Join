@@ -13,6 +13,7 @@ export async function registerUser(user) {
     return ref.id;
 }
 
+
 /**
  * Finds the user with the given email.
  * The query is always sent to the server, so no outdated cached data is used.

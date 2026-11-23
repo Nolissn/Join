@@ -134,6 +134,7 @@ function hideToast() {
   if (toast.matches(':popover-open')) toast.hidePopover();
 }
 
+
 /**
  * Registers the back button of the help page, if the page has one.
  */
@@ -144,6 +145,7 @@ function registerHelpBackButton() {
     history.back();
   });
 }
+
 
 /**
  * Escapes HTML special characters, so the text can be inserted into HTML safely.

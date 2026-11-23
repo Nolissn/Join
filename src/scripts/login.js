@@ -13,6 +13,7 @@ function initLogIn() {
   document.getElementById('password').addEventListener('keydown', handleLogInEnterKey);
 }
 
+
 /**
  * Starts the login when Enter is pressed in an input.
  * @param {KeyboardEvent} event - The keydown event.
@@ -23,6 +24,7 @@ function handleLogInEnterKey(event) {
     logIn();
   }
 }
+
 
 /**
  * Logs in with the entered email and password while the loading screen is shown.
@@ -41,6 +43,7 @@ async function logIn() {
   }
 }
 
+
 /**
  * Loads the user with the email from Firestore and checks the password.
  * @param {string} email - The email in lowercase.
@@ -53,6 +56,7 @@ async function logInWithEmail(email, password) {
   handleLogInResult(user, password);
 }
 
+
 /**
  * Checks the email and the password and shows the errors of both inputs.
  * @param {string} email - The entered email.
@@ -64,6 +68,7 @@ function checkIfLogInInputsAreValid(email, password) {
   const isPasswordFilled = checkIfLogInPasswordIsFilled(password);
   return isEmailValid && isPasswordFilled;
 }
+
 
 /**
  * Checks that the email is filled and has a valid format.
@@ -82,6 +87,7 @@ function checkIfLogInEmailIsValid(email) {
   return true;
 }
 
+
 /**
  * Checks that the password is filled.
  * @param {string} password - The entered password.
@@ -94,6 +100,7 @@ function checkIfLogInPasswordIsFilled(password) {
   }
   return true;
 }
+
 
 /**
  * Logs in the user and redirects to the summary page if the password matches. Shows an error otherwise.
@@ -110,6 +117,7 @@ function handleLogInResult(user, password) {
   location.href = 'src/statics/summary.html';
 }
 
+
 /**
  * Logs in as guest while the loading screen is shown.
  * @returns {Promise<void>}
@@ -122,6 +130,7 @@ async function guestLogIn() {
     showLogInError('password', 'An error occurred. Please check your internet connection and try again.');
   }
 }
+
 
 /**
  * Loads the guest user from Firestore, logs in as guest and redirects to the summary page.
@@ -138,6 +147,7 @@ async function logInAsGuest() {
   location.href = 'src/statics/summary.html';
 }
 
+
 /**
  * Marks an input as invalid and shows the error text below it.
  * @param {string} inputId - "email" or "password".
@@ -148,6 +158,7 @@ function showLogInError(inputId, text) {
   document.getElementById(inputId + 'ErrorText').textContent = text;
 }
 
+
 /**
  * Removes the error marks and the error texts from the login form.
  */
@@ -157,5 +168,6 @@ function resetLogInErrors() {
     document.getElementById(inputId + 'ErrorText').textContent = '';
   }
 }
+
 
 document.addEventListener('DOMContentLoaded', initLogIn);

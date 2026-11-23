@@ -340,4 +340,5 @@ function closeAddTaskDialog() {
   if (addTaskDialog.open) addTaskDialog.close();
 }
 
+
 document.addEventListener('DOMContentLoaded', initBoard);

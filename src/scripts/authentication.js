@@ -47,6 +47,7 @@ async function signUp() {
   }
 }
 
+
 /**
  * Registers a new user if the email is not used yet and saves the tutorial task and the own contact for the user.
  * @param {{name: string, email: string, password: string}} userValues - The validated values without the password confirmation.
@@ -60,6 +61,7 @@ async function registerNewUser(userValues) {
   return true;
 }
 
+
 /**
  * Shows the success dialog and redirects to the login page after a short delay.
  */
@@ -67,6 +69,7 @@ function showSignUpSuccessDialog() {
   document.getElementById("signUpSuccessDialog").showModal();
   setTimeout(() => (location.href = "../../index.html"), signUpSuccessDuration);
 }
+
 
 /**
  * Checks whether no user is registered with the email yet and shows an error otherwise.
@@ -82,6 +85,7 @@ async function checkIfEmailIsAvailable(email) {
   return true;
 }
 
+
 /**
  * Checks whether all inputs are filled, all values are valid and the privacy policy is accepted.
  * @param {SignUpValues} values - The values of the sign up form.
@@ -92,6 +96,7 @@ function checkIfSignUpFormIsValid(values) {
   if (checkIfInputsAreValid(values) === false) return false;
   return checkIfPrivacyPolicyIsAccepted();
 }
+
 
 /**
  * Checks whether the privacy policy checkbox is checked and shows an error otherwise.
@@ -105,6 +110,7 @@ function checkIfPrivacyPolicyIsAccepted() {
   }
   return true;
 }
+
 
 /**
  * Checks whether all sign up inputs are filled and marks the empty ones.
@@ -121,6 +127,7 @@ function checkIfAllInputsAreFilled() {
   return true;
 }
 
+
 /**
  * Reads the values of the sign up form.
  * The name and the email are trimmed, the email is converted to lowercase.
@@ -134,6 +141,7 @@ function getSignUpInputValues() {
     confirmPassword: document.getElementById(signUpInputIds[3]).value,
   };
 }
+
 
 /**
  * Checks the name, the email and the passwords of the sign up form.
@@ -149,6 +157,7 @@ function checkIfInputsAreValid(values) {
   return checkIfPasswordsAreValid(values);
 }
 
+
 /**
  * Checks the characters and the length of the name.
  * @param {string} name - The entered name.
@@ -159,6 +168,7 @@ function checkIfNameIsValid(name) {
   if (checkIfNameHasNoDoubleCharacters(name) === false) return false;
   return checkIfNameLengthIsValid(name);
 }
+
 
 /**
  * Checks that the name starts with a capital letter, contains only allowed characters and does not end with a special character.
@@ -181,6 +191,7 @@ function checkIfNameCharactersAreValid(name) {
   return true;
 }
 
+
 /**
  * Checks that the name contains no two spaces and no two special characters in a row.
  * @param {string} name - The entered name.
@@ -197,6 +208,7 @@ function checkIfNameHasNoDoubleCharacters(name) {
   }
   return true;
 }
+
 
 /**
  * Checks that the name is between 2 and 16 characters long.
@@ -217,6 +229,7 @@ function checkIfNameLengthIsValid(name) {
   return true;
 }
 
+
 /**
  * Checks that both passwords match, contain no spaces and are strong enough.
  * @param {SignUpValues} values - The values of the sign up form.
@@ -233,6 +246,7 @@ function checkIfPasswordsAreValid(values) {
   }
   return checkIfPasswordIsStrong(values.password);
 }
+
 
 /**
  * Checks that the password has at least 8 characters, uppercase and lowercase letters and a number.
@@ -255,6 +269,7 @@ function checkIfPasswordIsStrong(password) {
   return true;
 }
 
+
 /**
  * Checks whether the email has a valid format.
  * @param {string} email - The entered email.
@@ -263,6 +278,7 @@ function checkIfPasswordIsStrong(password) {
 function isEmailValid(email) {
   return emailRegex.test(email);
 }
+
 
 /**
  * Marks the inputs as invalid and shows the error text.
@@ -276,6 +292,7 @@ function showInputError(inputIds, text) {
   showErrorText(text);
 }
 
+
 /**
  * Shows a text in the error field of the sign up form.
  * @param {string} text - The error text, or an empty string to clear it.
@@ -284,6 +301,7 @@ function showErrorText(text) {
   const errorTextElement = document.getElementById("signUpErrorTextId");
   errorTextElement.textContent = text;
 }
+
 
 /**
  * Removes all error marks and the error text from the sign up form.
@@ -295,6 +313,7 @@ function resetSignUpErrors() {
   showErrorText("");
 }
 
+
 /**
  * Registers the event listeners of the sign up form.
  */
@@ -305,5 +324,6 @@ function registerSignUpEvents() {
   document.getElementById("acceptPrivacyPolicy").addEventListener("change", resetSignUpErrors);
   document.querySelector(".sign_up_card_sign_up_button").addEventListener("click", signUp);
 }
+
 
 registerSignUpEvents();
