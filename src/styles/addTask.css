@@ -69,7 +69,17 @@ button {
 }
 
 .add-task-date-input {
+    padding-right: 16px;
     color: var(--colorTextGrey);
+}
+
+.add-task-date-input::-webkit-calendar-picker-indicator {
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    background: url("../../assets/icons/calendar.svg") center / 24px no-repeat;
+    cursor: pointer;
 }
 
 .priority-label {

@@ -43,6 +43,15 @@
   font-size: 20px;
 }
 
+.taskEditInput::-webkit-calendar-picker-indicator {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  background: url("../../assets/icons/calendar.svg") center / 24px no-repeat;
+  cursor: pointer;
+}
+
 .taskEditInput:focus {
   border-color: var(--colorAccent);
   outline: none;
