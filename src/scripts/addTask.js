@@ -53,14 +53,15 @@ function updateCreateTaskButton() {
 }
 
 /**
- * Checks whether all required fields and the priority are set.
+ * Checks whether the title, the due date, the category and the priority are set.
  * @returns {boolean} Whether the task form is ready to submit.
  */
 function isTaskFormReady() {
+    const hasTitle = addTaskForm.querySelector("#title").value.trim() !== "";
+    const hasDueDate = addTaskForm.querySelector("#dueDate").value !== "";
+    const hasCategory = addTaskForm.querySelector("#categoryValue").value !== "";
     const hasSelectedPriority = addTaskForm.querySelector(".priority-btn.btn-active") !== null;
-    const hasTextContent = [...addTaskForm.querySelectorAll('input[type="text"], textarea')]
-        .every(field => field.value.trim().length > 0);
-    return addTaskForm.checkValidity() && hasTextContent && hasSelectedPriority;
+    return hasTitle && hasDueDate && hasCategory && hasSelectedPriority;
 }
 
 /**
@@ -96,12 +97,13 @@ function populateAssignedContacts(select) {
 }
 
 /**
- * Returns the subtask entered in the form.
+ * Returns the subtask entered in the form, or an empty list if the field is empty.
  * @param {FormData} formData - The data of the add task form.
- * @returns {Subtask[]} A list with the entered subtask.
+ * @returns {Subtask[]} The entered subtask, or an empty list.
  */
 function getTaskSubtasks(formData) {
-    return [{ title: formData.get("subtasks").trim(), done: false }];
+    const title = formData.get("subtasks").trim();
+    return title === "" ? [] : [{ title, done: false }];
 }
 
 /**
