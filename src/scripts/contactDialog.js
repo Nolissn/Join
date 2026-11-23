@@ -59,6 +59,7 @@ function closeDialog() {
  * Resets the inputs, the errors, the initials and the buttons of the contact dialog.
  */
 function clearDialog() {
+    document.getElementById("dialog_title").innerHTML = "Add contact";
     document.getElementById("dialog_input_name").value = "";
     document.getElementById("dialog_input_email").value = "";
     document.getElementById("dialog_input_phone").value = "";
