@@ -55,7 +55,7 @@ section {
     border-radius: clamp(20px, 2.1vw, 30px);
     border: 1px solid var(--colorUnfocusedInputTag);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-    transition: transform 180ms ease;
+    transition: transform 100ms ease;
 }
 .task-summary:hover {
     cursor: pointer;

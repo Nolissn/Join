@@ -266,7 +266,7 @@ button {
     border-right: 2px solid var(--colorBlack);
     border-bottom: 2px solid var(--colorBlack);
     transform: rotate(45deg);
-    transition: transform 150ms ease;
+    transition: transform 100ms ease;
 }
 
 .custom-select-trigger[aria-expanded="true"]::after {

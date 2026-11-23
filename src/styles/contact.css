@@ -76,12 +76,12 @@ a {
     position: fixed;
     bottom: 110px;
     right: 10px;
-    transition: transform 0.4s ease-in-out;
+    transition: transform 100ms ease-in-out;
     transform: translateX(150%);
 }
 
 .contact-container-actions-responsive-show {
-    transition: transform 0.4s ease-in-out;
+    transition: transform 100ms ease-in-out;
     transform: translateX(0%);
 }
 
