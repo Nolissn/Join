@@ -1,7 +1,7 @@
 main {
     width: fit-content;
-    max-width: calc(100% - 48px);
-    margin: 0 auto;
+    max-width: calc(100% - 128px);
+    margin: 0 0 0 64px;
     padding-top: 100px;
 
     display: flex;

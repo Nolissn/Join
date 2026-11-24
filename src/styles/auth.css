@@ -1,3 +1,7 @@
+.auth_page {
+  margin: 0 auto;
+}
+
 .header_auth_screen {
   width: 100%;
   max-width: 1440px;
