@@ -106,7 +106,7 @@ function deselectContact() {
 
 
 /**
- * Shows the contact list again instead of the contact information on small screens.
+ * Shows the contact list again instead of the contact information on small screens and deselects the contact.
  */
 function returnToContactList() {
     if (window.innerWidth <= 1000) {
@@ -114,7 +114,19 @@ function returnToContactList() {
         document.querySelector(".section-contact-list").classList.remove("d-none");
         document.getElementById("button_responsive_contact_options").classList.add("d-none");
         document.getElementById("button_responsive_add_new_contact").classList.remove("d-none");
+        clearContactSelection();
     }
+}
+
+
+/**
+ * Removes the selection of the currently selected contact, so no contact is selected anymore.
+ */
+function clearContactSelection() {
+    if (currentUser === null) return;
+    deselectContact();
+    currentUser = null;
+    highlightSelectedContact();
 }
 
 
