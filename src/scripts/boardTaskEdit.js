@@ -42,7 +42,9 @@ function addEditSubtask(form) {
   const title = input.value.trim();
   if (title === '') return;
   const subtaskHtml = taskEditSubtaskTemplate({ title: title, done: false });
-  form.querySelector('.taskEditSubtaskList').insertAdjacentHTML('beforeend', subtaskHtml);
+  const subtaskList = form.querySelector('.taskEditSubtaskList');
+  subtaskList.insertAdjacentHTML('beforeend', subtaskHtml);
+  subtaskList.scrollTop = subtaskList.scrollHeight;
   input.value = '';
   input.focus();
 }
