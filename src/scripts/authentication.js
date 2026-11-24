@@ -79,7 +79,7 @@ function showSignUpSuccessDialog() {
 async function checkIfEmailIsAvailable(email) {
   const existingUser = await getUserByEmail(email);
   if (existingUser !== null) {
-    showErrorText("Email is already in use");
+    showInputError(["emailSignUp"], "Email is already in use");
     return false;
   }
   return true;
@@ -120,11 +120,10 @@ function checkIfAllInputsAreFilled() {
   const emptyInputIds = signUpInputIds.filter(
     (inputId) => document.getElementById(inputId).value.trim() === ""
   );
-  if (emptyInputIds.length > 0) {
-    showInputError(emptyInputIds, "A field is empty. Please fill in all fields");
-    return false;
+  for (const inputId of emptyInputIds) {
+    showInputError([inputId], "This field is required");
   }
-  return true;
+  return emptyInputIds.length === 0;
 }
 
 
@@ -281,7 +280,7 @@ function isEmailValid(email) {
 
 
 /**
- * Marks the inputs as invalid and shows the error text.
+ * Marks the inputs as invalid and shows the error text below the last of them.
  * @param {string[]} inputIds - The ids of the invalid inputs.
  * @param {string} text - The error text.
  */
@@ -289,7 +288,8 @@ function showInputError(inputIds, text) {
   for (const inputId of inputIds) {
     document.getElementById(inputId).classList.add("auth_card_input_error");
   }
-  showErrorText(text);
+  const lastInputId = inputIds[inputIds.length - 1];
+  document.getElementById(`${lastInputId}Error`).textContent = text;
 }
 
 
@@ -309,6 +309,7 @@ function showErrorText(text) {
 function resetSignUpErrors() {
   for (const inputId of signUpInputIds) {
     document.getElementById(inputId).classList.remove("auth_card_input_error");
+    document.getElementById(`${inputId}Error`).textContent = "";
   }
   showErrorText("");
 }

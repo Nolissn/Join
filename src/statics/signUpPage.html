@@ -43,22 +43,28 @@
         </div>
         <hr class="auth_card_divider" />
         <form class="sign_up_card_form">
-          <input
-            class="general_auth_card_input_style sign_up_card_input_name"
-            type="text"
-            id="nameSignUp"
-            name="name"
-            placeholder="Name"
-            aria-label="Name"
-          />
-          <input
-            class="general_auth_card_input_style auth_card_input_email"
-            type="text"
-            id="emailSignUp"
-            name="email"
-            placeholder="Email"
-            aria-label="Email"
-          />
+          <div class="sign_up_card_field">
+            <input
+              class="general_auth_card_input_style sign_up_card_input_name"
+              type="text"
+              id="nameSignUp"
+              name="name"
+              placeholder="Name"
+              aria-label="Name"
+            />
+            <p id="nameSignUpError" class="sign_up_card_field_error"></p>
+          </div>
+          <div class="sign_up_card_field">
+            <input
+              class="general_auth_card_input_style auth_card_input_email"
+              type="text"
+              id="emailSignUp"
+              name="email"
+              placeholder="Email"
+              aria-label="Email"
+            />
+            <p id="emailSignUpError" class="sign_up_card_field_error"></p>
+          </div>
           <div class="auth_card_password_container">
             <input
               class="general_auth_card_input_style auth_card_input_password"
@@ -93,6 +99,7 @@
                 />
               </svg>
             </button>
+            <p id="passwordSignUpError" class="sign_up_card_field_error"></p>
           </div>
           <div class="auth_card_password_container">
             <input
@@ -128,9 +135,9 @@
                 />
               </svg>
             </button>
+            <p id="confirmPasswordSignUpError" class="sign_up_card_field_error"></p>
           </div>
         </form>
-        <p id="signUpErrorTextId" class="sign_up_card_error_text"></p>
         <div class="sign_up_card_accept_container">
           <input
             class="sign_up_card_accept_checkbox"
@@ -139,6 +146,7 @@
             name="accept_privacy_policy"
             aria-label="Accept privacy policy">
             <p class="sign_up_card_accept_text" id="signUpCardAcceptText">I accept the <a href="privacyPolicy.html" class="sign_up_card_accept_link">Privacy Policy</a></p>
+            <p id="signUpErrorTextId" class="sign_up_card_error_text"></p>
         </div>
         <button class="auth_primary_button sign_up_card_sign_up_button">Sign up</button>
       </div>

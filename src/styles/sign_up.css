@@ -49,6 +49,24 @@
   gap: 24px;
 }
 
+.sign_up_card_field {
+  position: relative;
+  display: flex;
+}
+
+.sign_up_card_field_error {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 2px;
+  padding-left: 16px;
+  color: var(--colorRed);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
 .sign_up_card_input_name {
   padding-right: 54px;
   background-image: url("../../assets/icons/person.svg");
@@ -58,9 +76,10 @@
 }
 
 .sign_up_card_accept_container {
+  position: relative;
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 38px;
   margin-bottom: 32px;
 }
 
