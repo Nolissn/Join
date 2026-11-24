@@ -94,6 +94,10 @@
 
 @media (max-width: 768px) {
 
+    main {
+        height: calc(100dvh - 160px);
+    }
+
     .button-add-new-contact {
         display: none;
     }
