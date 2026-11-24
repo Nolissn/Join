@@ -150,6 +150,7 @@ function createCustomSelectOption(option, context) {
         menuOption.append(avatar);
     }
     const label = document.createElement("span");
+    label.className = "custom-select-option-label";
     label.textContent = option.textContent;
     menuOption.append(label);
     menuOption.addEventListener("click", handleCustomSelectOptionClick.bind(null, context, menuOption));

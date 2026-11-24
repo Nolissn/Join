@@ -184,7 +184,9 @@
 .taskEditContactName {
   flex: 1;
   min-width: 0;
-  overflow-wrap: anywhere;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .taskEditContact:has(:checked) {
