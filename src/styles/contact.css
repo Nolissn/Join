@@ -18,6 +18,10 @@ a {
     display: flex !important;
 }
 
+.body-scroll-locked {
+    overflow: hidden;
+}
+
 .dialog-title-underline {
     margin-bottom: 36px;
 }

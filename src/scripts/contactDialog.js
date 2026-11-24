@@ -48,6 +48,24 @@ function handleConfirmDeleteBackdropClick(event) {
 function showDialog() {
     const dialog = document.getElementById("dialog_contact");
     dialog.showModal();
+    lockBodyScroll();
+}
+
+
+/**
+ * Prevents the page behind an open dialog from scrolling.
+ */
+function lockBodyScroll() {
+    document.body.classList.add("body-scroll-locked");
+}
+
+
+/**
+ * Allows the page to scroll again once no dialog is open anymore.
+ */
+function unlockBodyScroll() {
+    if (document.querySelector("dialog[open]") !== null) return;
+    document.body.classList.remove("body-scroll-locked");
 }
 
 

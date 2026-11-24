@@ -280,6 +280,7 @@ function deleteContact() {
     if (currentUser === null || !storedContacts[currentUser]) return;
     document.getElementById("confirm_delete_name").textContent = storedContacts[currentUser].name;
     document.getElementById("dialog_confirm_delete").showModal();
+    lockBodyScroll();
 }
 
 
@@ -402,6 +403,8 @@ function registerContactPageEvents() {
 function registerContactDialogEvents() {
     const dialog = document.getElementById("dialog_contact");
     dialog.addEventListener("click", closeDialog);
+    dialog.addEventListener("close", unlockBodyScroll);
+    document.getElementById("dialog_confirm_delete").addEventListener("close", unlockBodyScroll);
     dialog.querySelector(".dialog-center").addEventListener("click", stopEventPropagation);
     dialog.querySelector(".button-dialog-cancel-responsive").addEventListener("click", closeDialog);
     dialog.querySelector(".button-dialog-close").addEventListener("click", closeDialog);
