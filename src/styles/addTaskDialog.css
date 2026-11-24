@@ -186,9 +186,14 @@
 
 .add-task-dialog .custom-select-selected-contacts {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow: hidden;
   gap: 8px;
   padding-top: 8px;
+}
+
+.add-task-dialog .custom-select-avatar-more {
+  background-color: var(--colorPrimary);
 }
 
 .add-task-dialog .custom-select-selected-contacts[hidden] {

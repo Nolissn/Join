@@ -70,11 +70,13 @@ function addPendingSubtask() {
 
 
 /**
- * Adds the entered subtask, renders the list and keeps the focus in the input for the next subtask.
+ * Adds the entered subtask, renders the list, scrolls to the new subtask and keeps the focus in the input for the next subtask.
  */
 function addSubtaskFromInput() {
     addPendingSubtask();
     renderSubtaskList();
+    const list = addTaskForm.querySelector(".subtask-list");
+    list.scrollTop = list.scrollHeight;
     getSubtaskInput().focus();
 }
 

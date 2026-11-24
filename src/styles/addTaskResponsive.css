@@ -153,3 +153,16 @@
         font-size: 16px;
     }
 }
+
+@media (min-width: 941px) {
+    .subtask-container {
+        position: relative;
+    }
+
+    .subtask-list {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        max-height: 96px;
+    }
+}

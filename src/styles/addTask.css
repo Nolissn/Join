@@ -153,7 +153,8 @@ button {
 
 .custom-select-selected-contacts {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    overflow: hidden;
     gap: 8px;
     padding-top: 8px;
 }
@@ -184,6 +185,10 @@ button {
     border-radius: 50%;
     color: var(--colorWhite);
     font-size: 12px;
+}
+
+.custom-select-avatar-more {
+    background-color: var(--colorPrimary);
 }
 
 .custom-select-avatar.red { background-color: red; }

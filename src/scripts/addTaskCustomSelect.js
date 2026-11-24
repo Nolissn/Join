@@ -1,3 +1,5 @@
+const maxSelectedAvatars = 6;
+
 /**
  * @typedef {Object} CustomSelectContext
  * @property {HTMLElement} container - The custom select container.
@@ -39,19 +41,48 @@ function syncCustomSelectSelection(context) {
 
 /**
  * Shows the initials of the assigned contacts below the assignee select while the menu is closed.
+ * Shows at most the maximum number of avatars and a "+n" avatar for the remaining contacts, so the avatars stay in one row.
  * @param {CustomSelectContext} context - The elements of the custom select.
  * @param {HTMLOptionElement[]} selectedOptions - The selected options of the select.
  */
 function renderSelectedContactAvatars(context, selectedOptions) {
     const selectedContacts = context.container.querySelector(".custom-select-selected-contacts");
     selectedContacts.replaceChildren();
-    selectedOptions.forEach(option => {
-        const avatar = createContactAvatar(option);
-        avatar.setAttribute("role", "listitem");
-        avatar.setAttribute("aria-label", option.textContent);
-        selectedContacts.append(avatar);
+    selectedOptions.slice(0, maxSelectedAvatars).forEach(option => {
+        selectedContacts.append(createSelectedContactAvatar(option));
     });
+    appendMoreContactsAvatar(selectedContacts, selectedOptions.length);
     selectedContacts.hidden = selectedOptions.length === 0 || !context.menu.hidden;
+}
+
+
+/**
+ * Creates the avatar of an assigned contact as an item of the avatar list.
+ * @param {HTMLOptionElement} option - The option of the contact.
+ * @returns {HTMLElement} The avatar element.
+ */
+function createSelectedContactAvatar(option) {
+    const avatar = createContactAvatar(option);
+    avatar.setAttribute("role", "listitem");
+    avatar.setAttribute("aria-label", option.textContent);
+    return avatar;
+}
+
+
+/**
+ * Adds a "+n" avatar for the assigned contacts that exceed the maximum number of shown avatars.
+ * @param {HTMLElement} selectedContacts - The avatar list.
+ * @param {number} selectedCount - The number of assigned contacts.
+ */
+function appendMoreContactsAvatar(selectedContacts, selectedCount) {
+    if (selectedCount <= maxSelectedAvatars) return;
+    const hiddenCount = selectedCount - maxSelectedAvatars;
+    const moreAvatar = document.createElement("span");
+    moreAvatar.className = "custom-select-avatar custom-select-avatar-more";
+    moreAvatar.textContent = `+${hiddenCount}`;
+    moreAvatar.setAttribute("role", "listitem");
+    moreAvatar.setAttribute("aria-label", `${hiddenCount} more contacts`);
+    selectedContacts.append(moreAvatar);
 }
 
 
