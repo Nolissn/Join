@@ -1,6 +1,7 @@
 const contactInputIds = ["dialog_input_name", "dialog_input_email", "dialog_input_phone"];
 const contactEmailRegex = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[a-zA-Z]{2,}$/;
 const contactPhoneRegex = /^\+?[\d\s()\/-]{5,20}$/;
+const contactNameMaxLength = 50;
 
 /**
  * Checks all inputs of the contact dialog and shows the errors below the invalid inputs.
@@ -16,12 +17,17 @@ function checkIfContactInputsAreValid() {
 
 
 /**
- * Checks that the name is filled.
+ * Checks that the name is filled and not longer than the maximum length.
  * @returns {boolean} True if the name is valid.
  */
 function checkIfContactNameIsValid() {
-    if (document.getElementById("dialog_input_name").value.trim() === "") {
+    const name = document.getElementById("dialog_input_name").value.trim();
+    if (name === "") {
         showContactInputError("dialog_input_name", "Please enter a name");
+        return false;
+    }
+    if (name.length > contactNameMaxLength) {
+        showContactInputError("dialog_input_name", `The name can't be longer than ${contactNameMaxLength} characters`);
         return false;
     }
     return true;

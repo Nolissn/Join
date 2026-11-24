@@ -21,6 +21,7 @@ const uppercaseLetterRegex = /\p{Lu}/u;
 const lowercaseLetterRegex = /\p{Ll}/u;
 const digitRegex = /\d/;
 const signUpSuccessDuration = 3000;
+const nameMaxLength = 50;
 
 /**
  * @typedef {Object} SignUpValues
@@ -211,7 +212,7 @@ function checkIfNameHasNoDoubleCharacters(name) {
 
 
 /**
- * Checks that the name is between 2 and 16 characters long.
+ * Checks that the name is between 2 and 50 characters long.
  * Names with spaces or special characters need at least 3 characters.
  * @param {string} name - The entered name.
  * @returns {boolean} True if the length is valid.
@@ -222,8 +223,8 @@ function checkIfNameLengthIsValid(name) {
     showInputError(["nameSignUp"], `Your name needs to have at least ${minimumLength} characters`);
     return false;
   }
-  if (name.length > 16) {
-    showInputError(["nameSignUp"], "Your name can't be longer than 16 characters");
+  if (name.length > nameMaxLength) {
+    showInputError(["nameSignUp"], `Your name can't be longer than ${nameMaxLength} characters`);
     return false;
   }
   return true;
