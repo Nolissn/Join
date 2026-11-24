@@ -1,5 +1,6 @@
 import { db } from "./joinDbConfig.js";
 import { doc, setDoc, collection, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import { defaultContacts } from "./defaultContacts.js";
 
 
 /**
@@ -63,6 +64,23 @@ export async function saveOwnContact(userId, user) {
         return ref.id;
     } catch {
         return null;
+    }
+}
+
+
+/**
+ * Saves the default demo contacts of a newly registered user, so the user can assign tasks right away.
+ * The user is not logged in yet, so the user id is passed instead of using the current user.
+ * @param {string} userId - The id of the new user.
+ * @returns {Promise<boolean>} True if all default contacts were saved, false if saving fails.
+ */
+export async function saveDefaultContacts(userId) {
+    try {
+        const contactsCollection = collection(db, "users", userId, "contacts");
+        await Promise.all(defaultContacts.map((contact) => setDoc(doc(contactsCollection), { ...contact })));
+        return true;
+    } catch {
+        return false;
     }
 }
 
