@@ -57,6 +57,21 @@
   }
 }
 
+@media(min-width:881px) and (max-height:780px) {
+  .add-task-dialog {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  .add-task-dialog-header {
+    padding-bottom: 24px;
+  }
+
+  .add-task-dialog form {
+    gap: 24px;
+  }
+}
+
 @media(max-width:880px) {
   .add-task-dialog {
     width: 100vw;

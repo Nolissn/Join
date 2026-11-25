@@ -32,10 +32,11 @@
 }
 
 .add-task-dialog form {
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 100px;
+  gap: 24px;
 }
 
 .add-task-dialog-header {
