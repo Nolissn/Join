@@ -40,7 +40,8 @@ function syncCustomSelectSelection(context) {
 
 
 /**
- * Shows the initials of the assigned contacts below the assignee select while the menu is closed.
+ * Shows the initials of the assigned contacts below the assignee select.
+ * While the menu is open, the avatars are only made invisible.
  * Shows at most the maximum number of avatars and a "+n" avatar for the remaining contacts, so the avatars stay in one row.
  * @param {CustomSelectContext} context - The elements of the custom select.
  * @param {HTMLOptionElement[]} selectedOptions - The selected options of the select.
@@ -52,7 +53,8 @@ function renderSelectedContactAvatars(context, selectedOptions) {
         selectedContacts.append(createSelectedContactAvatar(option));
     });
     appendMoreContactsAvatar(selectedContacts, selectedOptions.length);
-    selectedContacts.hidden = selectedOptions.length === 0 || !context.menu.hidden;
+    selectedContacts.hidden = selectedOptions.length === 0;
+    selectedContacts.classList.toggle("custom-select-selected-contacts-covered", !context.menu.hidden);
 }
 
 

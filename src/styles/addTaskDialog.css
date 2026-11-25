@@ -210,6 +210,10 @@
 }
 
 .add-task-dialog .custom-select-selected-contacts {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
   display: flex;
   flex-wrap: nowrap;
   overflow: hidden;
@@ -221,8 +225,16 @@
   background-color: var(--colorPrimary);
 }
 
+.add-task-dialog .custom-select-selected-contacts-covered {
+  visibility: hidden;
+}
+
 .add-task-dialog .custom-select-selected-contacts[hidden] {
   display: none;
+}
+
+.add-task-dialog .add-task-input-container:has(.custom-select-selected-contacts:not([hidden])) ~ .add-task-input-container {
+  transform: translateY(40px);
 }
 .add-task-dialog .custom-select-avatar.red { background-color: red; }
 .add-task-dialog .custom-select-avatar.blue { background-color: blue; }
