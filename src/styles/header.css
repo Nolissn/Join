@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: space-between;
   height: 96px;
+  margin-right: min(0px, calc(1440px - 100cqw));
   padding: 0 40px 0 96px;
   background-color: var(--colorWhite);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
