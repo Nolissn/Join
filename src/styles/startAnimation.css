@@ -268,6 +268,12 @@
   animation: none;
 }
 
+@media (min-width: 769px) and (max-height: 760px) {
+  .start_animation_overlay {
+    --start_logo_top: calc(24px + (120.78px - var(--start_logo_width) * 122 / 101) / 2);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .start_animation_overlay {
     display: none;

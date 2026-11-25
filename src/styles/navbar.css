@@ -6,7 +6,7 @@
   flex-shrink: 0;
   width: 232px;
   height: 100dvh;
-  padding: 64px 0;
+  padding: clamp(24px, 7dvh, 64px) 0;
   background-color: var(--colorPrimary);
 }
 
@@ -17,15 +17,15 @@
 }
 
 .sidebarLogoImg {
-  width: 100px;
-  height: 122px;
+  width: auto;
+  height: clamp(72px, 13.5dvh, 122px);
 }
 
 .navMain {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-top: 112px;
+  margin-top: clamp(24px, 12.4dvh, 112px);
 }
 
 .navLink {

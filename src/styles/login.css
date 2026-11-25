@@ -148,3 +148,17 @@
     font-size: clamp(40px, calc(6.4815vw + 19.259px), 47px);
   }
 }
+
+@media (min-width: 769px) and (max-height: 760px) {
+  .log_in_card {
+    height: 400px;
+  }
+
+  .log_in_card_title {
+    margin-top: 24px;
+  }
+
+  .log_in_card_button_container {
+    margin-top: 40px;
+  }
+}
