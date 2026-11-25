@@ -260,6 +260,14 @@
   }
 }
 
+.start_animation_skipped .start_animation_overlay {
+  display: none;
+}
+
+.start_animation_skipped .header_auth_screen_icon_dark {
+  animation: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .start_animation_overlay {
     display: none;
