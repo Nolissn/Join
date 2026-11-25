@@ -79,9 +79,26 @@
 }
 
 .add-task-dialog .add-task-input-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.add-task-dialog .add-task-field-error {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 2px;
+  padding-left: 16px;
+  color: var(--colorRed);
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.add-task-dialog .add-task-input.add-task-input-invalid {
+  border-color: var(--colorRed);
 }
 
 .add-task-dialog label {

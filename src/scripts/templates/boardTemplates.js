@@ -161,6 +161,7 @@ function renderAddTaskDialog() {
           <div class="add-task-input-container">
             <label for="title">Title <span class="required-asterisk">*</span></label>
             <input class="add-task-input" type="text" name="title" id="title" placeholder="Enter a title" required>
+            <p class="add-task-field-error" id="titleError" aria-live="polite"></p>
           </div>
           <div class="add-task-input-container">
             <label for="description">Description</label>
@@ -169,6 +170,7 @@ function renderAddTaskDialog() {
           <div class="add-task-input-container">
             <label for="dueDate">Due Date <span class="required-asterisk">*</span></label>
             <input class="add-task-input add-task-date-input" type="date" name="dueDate" id="dueDate" required>
+            <p class="add-task-field-error" id="dueDateError" aria-live="polite"></p>
           </div>
         </section>
         <div class="seperator"></div>
@@ -180,6 +182,7 @@ function renderAddTaskDialog() {
               <button type="button" class="priority-btn btn-active priority-medium" id="priorityMedium" data-priority="medium">Medium <img class="priority-btn-icon" src="../../assets/icons/medium.svg" data-icon="medium_orange.svg" data-active-icon="medium.svg" alt="Medium"></button>
               <button type="button" class="priority-btn" id="priorityLow" data-priority="low">Low <img class="priority-btn-icon" src="../../assets/icons/low.svg" data-icon="low.svg" data-active-icon="urgend-white.svg" alt="Low"></button>
             </div>
+            <p class="add-task-field-error" id="priorityError" aria-live="polite"></p>
           </div>
           <div class="add-task-input-container">
             <label for="assigned">Assigned To</label>
@@ -201,6 +204,7 @@ function renderAddTaskDialog() {
               <button type="button" class="add-task-input custom-select-trigger" id="category" aria-haspopup="listbox" aria-expanded="false">Category</button>
               <div class="custom-select-menu" role="listbox" aria-labelledby="category" hidden></div>
             </div>
+            <p class="add-task-field-error" id="categoryError" aria-live="polite"></p>
           </div>
           <div class="add-task-input-container">
             <label for="subtasks">Subtasks</label>

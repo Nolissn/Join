@@ -53,8 +53,6 @@ function updateCreateTaskButton() {
     const createTaskButton = addTaskForm.querySelector(".create-task-btn");
     createTaskButton.disabled = isSavingTask;
     createTaskButton.setAttribute("aria-disabled", String(isSavingTask || !isTaskFormReady()));
-    const statusMessage = addTaskForm.querySelector("#taskFormStatus");
-    if (statusMessage.dataset.state === "warning") statusMessage.hidden = true;
 }
 
 
@@ -95,12 +93,62 @@ function isDueDateInPast(dueDate) {
 
 
 /**
- * Returns the warning for an incomplete add task form.
- * @returns {string} The warning message.
+ * Collects the error of every required field of the add task form.
+ * The keys are the ids of the fields, an empty text means the field is valid.
+ * @returns {Object<string, string>} The error text of each field.
  */
-function getTaskFormWarning() {
-    if (isDueDateInPast(addTaskForm.querySelector("#dueDate").value)) return "The due date cannot be in the past.";
-    return "Please complete all required fields before creating a task.";
+function getTaskFieldErrors() {
+    const dueDate = addTaskForm.querySelector("#dueDate").value;
+    return {
+        title: addTaskForm.querySelector("#title").value.trim() === "" ? "This field is required" : "",
+        dueDate: dueDate === "" ? "This field is required" : isDueDateInPast(dueDate) ? "Date can't be in the past" : "",
+        priority: addTaskForm.querySelector(".priority-btn.btn-active") === null ? "Please select a priority" : "",
+        category: addTaskForm.querySelector("#categoryValue").value === "" ? "Please select a category" : ""
+    };
+}
+
+
+/**
+ * Shows the errors of all required fields at once below the fields.
+ * @returns {boolean} True if all required fields are valid.
+ */
+function validateTaskForm() {
+    const fieldErrors = getTaskFieldErrors();
+    Object.entries(fieldErrors).forEach(([fieldId, errorText]) => showTaskFieldError(fieldId, errorText));
+    return Object.values(fieldErrors).every(errorText => errorText === "");
+}
+
+
+/**
+ * Shows or removes the error text below a field and marks the field as invalid.
+ * @param {string} fieldId - The id of the field.
+ * @param {string} errorText - The error text, or an empty string to remove the error.
+ */
+function showTaskFieldError(fieldId, errorText) {
+    addTaskForm.querySelector(`#${fieldId}Error`).textContent = errorText;
+    addTaskForm.querySelector(`#${fieldId}`).classList.toggle("add-task-input-invalid", errorText !== "");
+}
+
+
+/**
+ * Removes the errors of all fields of the add task form.
+ */
+function clearTaskFieldErrors() {
+    ["title", "dueDate", "priority", "category"].forEach(fieldId => showTaskFieldError(fieldId, ""));
+}
+
+
+/**
+ * Removes the error of a field as soon as the user clicks into it or focuses it.
+ * @param {HTMLFormElement} form - The add task form.
+ */
+function registerTaskFieldErrorEvents(form) {
+    form.querySelectorAll(".add-task-field-error").forEach(errorElement => {
+        const fieldId = errorElement.id.replace("Error", "");
+        const container = errorElement.closest(".add-task-input-container");
+        container.addEventListener("focusin", () => showTaskFieldError(fieldId, ""));
+        container.addEventListener("click", () => showTaskFieldError(fieldId, ""));
+    });
 }
 
 
@@ -250,10 +298,7 @@ async function createTask(event) {
     event.preventDefault();
     const statusMessage = addTaskForm.querySelector("#taskFormStatus");
     if (isSavingTask) return;
-    if (!isTaskFormReady()) {
-        showTaskStatus(statusMessage, "warning", getTaskFormWarning());
-        return;
-    }
+    if (!validateTaskForm()) return;
     await saveTaskFromForm(statusMessage);
 }
 
@@ -285,6 +330,7 @@ function clearTaskForm() {
     clearPriorityButtons();
     addTaskForm.querySelector("#priorityMedium").classList.add("btn-active", "priority-medium");
     updatePriorityIcons();
+    clearTaskFieldErrors();
     updateCreateTaskButton();
 }
 
@@ -317,6 +363,7 @@ function initializeAddTaskForm(form) {
     form.querySelectorAll(".custom-select").forEach(initializeCustomSelect);
     registerAddTaskButtons(form);
     initializeSubtasks(form);
+    registerTaskFieldErrorEvents(form);
     form.addEventListener("submit", createTask);
     form.addEventListener("input", updateCreateTaskButton);
     form.addEventListener("change", updateCreateTaskButton);
