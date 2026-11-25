@@ -72,7 +72,7 @@ function renderTaskSummary() {
 
 
 /**
- * Shows the task counts and the upcoming deadline on the summary page.
+ * Shows the task counts and the earliest deadline on the summary page.
  * @param {Object} taskCounts - The number of tasks per status and of urgent open tasks.
  */
 function getToDos(taskCounts) {
@@ -82,23 +82,44 @@ function getToDos(taskCounts) {
   document.getElementById("summaryBoardCount").textContent = storedTasks.length;
   document.getElementById("summaryInProgressCount").textContent = taskCounts.inProgress;
   document.getElementById("summaryAwaitFeedbackCount").textContent = taskCounts.awaitFeedback;
-  document.getElementById("summaryUpcomingDeadline").textContent = getUpcomingDeadline();
+  renderDeadline();
+}
+
+
+/**
+ * Shows the earliest deadline of the open tasks.
+ * The label says "Overdue Deadline" if the date is before today, otherwise "Upcoming Deadline".
+ */
+function renderDeadline() {
+  const deadline = getEarliestOpenDeadline();
+  const isOverdue = deadline !== null && deadline < getTodayDateString();
+  document.getElementById("summaryUpcomingDeadline").textContent = deadline === null ? "No deadline" : getDateTime(deadline);
+  document.getElementById("summaryDeadlineLabel").textContent = isOverdue ? "Overdue Deadline" : "Upcoming Deadline";
 }
 
 
 /**
  * Returns the earliest due date of all tasks that are not done.
- * @returns {string} The formatted date, or "No deadline" if no open task has a due date.
+ * @returns {string|null} The date in the format YYYY-MM-DD, or null if no open task has a due date.
  */
-function getUpcomingDeadline() {
-  const upcomingDates = storedTasks
+function getEarliestOpenDeadline() {
+  const openDates = storedTasks
     .filter((task) => task.status !== "done" && isValidDate(task.dueDate))
     .map((task) => task.dueDate)
     .sort();
+  return openDates.length === 0 ? null : openDates[0];
+}
 
-  if (upcomingDates.length === 0) return "No deadline";
 
-  return getDateTime(upcomingDates[0]);
+/**
+ * Returns the local date of today in the format YYYY-MM-DD.
+ * @returns {string} The date of today.
+ */
+function getTodayDateString() {
+  const today = new Date();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  return `${today.getFullYear()}-${month}-${day}`;
 }
 
 
