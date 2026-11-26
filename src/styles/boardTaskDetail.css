@@ -109,6 +109,13 @@
   list-style: none;
 }
 
+.taskDetailSubtaskList {
+  flex-shrink: 0;
+  max-height: 184px;
+  overflow-y: auto;
+  scrollbar-color: var(--colorGrey) transparent;
+}
+
 .taskDetailAssignee {
   display: flex;
   align-items: center;

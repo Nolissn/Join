@@ -112,7 +112,7 @@ function taskDetailTemplate(task) {
     </div>
     <div class="taskDetailSection">
       <span class="taskDetailLabel">Subtasks</span>
-      <ul class="taskDetailList" data-task-id="${makeTextSafe(task.id)}">${getSubtasksHtml(task.subtasks)}</ul>
+      <ul class="taskDetailList taskDetailSubtaskList" data-task-id="${makeTextSafe(task.id)}">${getSubtasksHtml(task.subtasks)}</ul>
     </div>
     <div class="taskDetailActions">
       <button class="taskDetailAction" type="button" data-action="delete" data-task-id="${makeTextSafe(task.id)}"><img src="${iconPath}delete.svg" alt="">Delete</button>
