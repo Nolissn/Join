@@ -45,9 +45,6 @@
     }
 
     main {
-        margin: 0;
-        max-width: none;
-        width: auto;
         padding: 0 24px;
         align-items: center;
     }
@@ -95,8 +92,8 @@
 }
 
 @media (max-width:768px) {
-    form {
-        padding-bottom: 180px;
+    main {
+        height: calc(100dvh - 160px);
     }
 
     .add-task-btn-container {

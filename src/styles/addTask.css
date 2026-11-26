@@ -1,8 +1,8 @@
 main {
-    width: fit-content;
-    max-width: calc(100% - 128px);
-    margin: 0 0 0 64px;
-    padding-top: 100px;
+    height: calc(100dvh - 96px);
+    overflow-y: auto;
+    scrollbar-color: var(--colorGrey) transparent;
+    padding: 100px 64px 0;
 
     display: flex;
     flex-direction: column;
