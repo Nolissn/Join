@@ -203,10 +203,6 @@
         width: 100%;
     }
 
-    .container-contact-buttons {
-        display: none;
-    }
-
     .dialog-success-message-show {
         transform: translateX(40%) !important;
         transition: transform 0.3s ease-in-out;
@@ -227,6 +223,14 @@
 
     .container-contacts-header {
         height: auto;
+    }
+
+    .container-contact-buttons {
+        display: none;
+    }
+
+    .button-responsive-options {
+        display: flex;
     }
 
     .contact-information-tocontact {

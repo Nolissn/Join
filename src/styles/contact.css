@@ -89,6 +89,16 @@ a {
     transform: translateX(0%);
 }
 
+.button-responsive-options {
+    padding: 0;
+    background-color: transparent;
+}
+
+.button-responsive-options img {
+    width: 100%;
+    height: 100%;
+}
+
 .button-responsive-options-hidden {
     visibility: hidden;
 }
