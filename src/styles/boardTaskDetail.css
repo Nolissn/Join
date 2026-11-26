@@ -80,6 +80,14 @@
   font-size: 20px;
 }
 
+.taskDetailDescription {
+  flex-shrink: 0;
+  max-height: 6em;
+  overflow-y: auto;
+  line-height: 1.2;
+  scrollbar-color: var(--colorGrey) transparent;
+}
+
 .taskDetailRow {
   display: flex;
   align-items: center;
