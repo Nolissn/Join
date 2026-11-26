@@ -61,6 +61,8 @@ function handleDialogAction(event, button) {
   if (action === 'edit') openTaskEdit(button.dataset.taskId);
   if (action === 'addSubtask') addEditSubtask(button.closest('.taskEditForm'));
   if (action === 'removeSubtask') button.closest('.taskEditSubtask').remove();
+  if (action === 'editSubtask') startEditSubtask(button.closest('.taskEditSubtask'));
+  if (action === 'saveSubtask') saveEditSubtask(button.closest('.taskEditSubtask'));
   if (action === 'toggleAssign') button.closest('.taskEditAssign').classList.toggle('taskEditAssignOpen');
 }
 

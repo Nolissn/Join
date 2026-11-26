@@ -61,6 +61,7 @@ function initTaskDialogEvents() {
   taskDialog.addEventListener('cancel', closeTaskDialog);
   taskDialog.addEventListener('submit', saveTaskEdit);
   taskDialog.addEventListener('keydown', handleEditKeydown);
+  taskDialog.addEventListener('dblclick', handleEditSubtaskDoubleClick);
   taskDialog.addEventListener('change', handleSubtaskToggle);
   taskDialog.addEventListener('change', handleAssignChange);
   taskDialog.addEventListener('input', handleEditInput);
