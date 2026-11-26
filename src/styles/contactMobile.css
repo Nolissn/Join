@@ -16,11 +16,20 @@
     }
 
     .dialog-center {
-        height: 760px;
+        height: auto;
+        max-height: calc(100dvh - 20px);
         min-width: 320px;
         width: calc(100% - 30px);
         max-width: 670px;
         flex-direction: column;
+        overflow-y: auto;
+        border-radius: 30px;
+        scrollbar-color: var(--colorGrey) transparent;
+    }
+
+    .dialog-left-side,
+    .dialog-right-side {
+        flex-shrink: 0;
     }
 
     .dialog-left-side {
@@ -49,7 +58,7 @@
     }
 
     .dialog-right-side {
-        height: 100%;
+        height: auto;
         width: 100%;
         flex-direction: column;
         padding-left: 0px;
