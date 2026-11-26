@@ -101,7 +101,7 @@ function highlightSelectedContactResponsive() {
 function deselectContact() {
     document.getElementById("contact" + currentUser)?.classList.remove("contact-list-selected");
     document.getElementById("contact_initials").classList.remove(storedContacts[currentUser].color);
-    document.querySelector(".contact-container-actions-responsive").classList.remove("contact-container-actions-responsive-show");
+    hideContactOptionsResponsive();
 }
 
 
@@ -131,10 +131,30 @@ function clearContactSelection() {
 
 
 /**
- * Opens or closes the edit and delete menu on small screens.
+ * Opens the edit and delete menu on small screens and hides the options button while the menu is open.
  */
 function openContactOptionsResponsive() {
-    document.querySelector(".contact-container-actions-responsive").classList.toggle("contact-container-actions-responsive-show");
+    document.querySelector(".contact-container-actions-responsive").classList.add("contact-container-actions-responsive-show");
+    document.getElementById("button_responsive_contact_options").classList.add("button-responsive-options-hidden");
+}
+
+
+/**
+ * Closes the edit and delete menu on small screens and shows the options button again.
+ */
+function hideContactOptionsResponsive() {
+    document.querySelector(".contact-container-actions-responsive").classList.remove("contact-container-actions-responsive-show");
+    document.getElementById("button_responsive_contact_options").classList.remove("button-responsive-options-hidden");
+}
+
+
+/**
+ * Closes the edit and delete menu on every click, except the click on the options button that opens it.
+ * @param {MouseEvent} event - The click event.
+ */
+function closeContactOptionsOnClick(event) {
+    if (event.target.closest("#button_responsive_contact_options")) return;
+    hideContactOptionsResponsive();
 }
 
 
@@ -404,6 +424,7 @@ function registerContactPageEvents() {
     document.getElementById("button_edit_contact").addEventListener("click", editContact);
     document.getElementById("button_delete_contact").addEventListener("click", deleteContact);
     document.getElementById("button_responsive_contact_options").addEventListener("click", openContactOptionsResponsive);
+    document.addEventListener("click", closeContactOptionsOnClick);
     document.getElementById("button_responsive_edit_contact").addEventListener("click", editContact);
     document.getElementById("button_responsive_delete_contact").addEventListener("click", deleteContact);
 }

@@ -89,6 +89,10 @@ a {
     transform: translateX(0%);
 }
 
+.button-responsive-options-hidden {
+    visibility: hidden;
+}
+
 .button-action-responsive {
     background-color: transparent;
     height: 40px;

@@ -105,7 +105,8 @@
         height: calc(100dvh - 160px);
     }
 
-    .button-responsive-contact {
+    .button-responsive-contact,
+    .contact-container-actions-responsive {
         bottom: 96px;
     }
 
