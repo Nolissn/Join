@@ -109,11 +109,19 @@
   list-style: none;
 }
 
+.taskDetailAssigneeList,
 .taskDetailSubtaskList {
   flex-shrink: 0;
-  max-height: 184px;
   overflow-y: auto;
   scrollbar-color: var(--colorGrey) transparent;
+}
+
+.taskDetailAssigneeList {
+  max-height: 224px;
+}
+
+.taskDetailSubtaskList {
+  max-height: 184px;
 }
 
 .taskDetailAssignee {

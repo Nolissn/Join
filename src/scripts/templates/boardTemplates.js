@@ -108,7 +108,7 @@ function taskDetailTemplate(task) {
     </div>
     <div class="taskDetailSection">
       <span class="taskDetailLabel">Assigned To:</span>
-      <ul class="taskDetailList">${getAvatarsHtml(task.assignedTo, 'detail')}</ul>
+      <ul class="taskDetailList taskDetailAssigneeList">${getAvatarsHtml(task.assignedTo, 'detail')}</ul>
     </div>
     <div class="taskDetailSection">
       <span class="taskDetailLabel">Subtasks</span>
