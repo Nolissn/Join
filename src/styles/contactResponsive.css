@@ -31,7 +31,7 @@
     }
 
     .dialog-center {
-        width: calc(100% - 20px);
+        width: calc(100% - 64px);
         max-width: 1212px;
     }
 
@@ -111,7 +111,7 @@
     }
 
     .dialog-center {
-        width: 110%;
+        width: calc(100% - 64px);
         display: flex;
         justify-content: center;
     }

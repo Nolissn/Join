@@ -27,8 +27,9 @@
 }
 
 .dialog-center {
-    height: 592px;
+    height: min(592px, calc(100dvh - 64px));
     width: 1212px;
+    max-width: calc(100% - 64px);
     position: fixed;
     display: flex;
     align-items: center;
