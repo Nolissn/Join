@@ -2,6 +2,11 @@ const contactInputIds = ["dialog_input_name", "dialog_input_email", "dialog_inpu
 const contactEmailRegex = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[a-zA-Z]{2,}$/;
 const contactPhoneRegex = /^\+?[\d\s()\/-]{5,20}$/;
 const contactNameMaxLength = 50;
+const contactInputValidators = {
+    dialog_input_name: checkIfContactNameIsValid,
+    dialog_input_email: checkIfContactEmailIsValid,
+    dialog_input_phone: checkIfContactPhoneIsValid,
+};
 
 /**
  * Checks all inputs of the contact dialog and shows the errors below the invalid inputs.
@@ -86,7 +91,51 @@ function showContactInputError(inputId, text) {
  */
 function resetContactInputErrors() {
     for (const inputId of contactInputIds) {
-        document.getElementById(inputId).classList.remove("dialog-input-error");
-        document.getElementById(inputId + "_error").textContent = "";
+        clearContactInputError(inputId);
+    }
+}
+
+
+/**
+ * Removes the error mark and the error text of one input of the contact dialog.
+ * @param {string} inputId - The id of the input.
+ */
+function clearContactInputError(inputId) {
+    document.getElementById(inputId).classList.remove("dialog-input-error");
+    document.getElementById(inputId + "_error").textContent = "";
+}
+
+
+/**
+ * Marks an input of the contact dialog as touched and removes its error while the user types.
+ * @param {Event} event - The input event.
+ */
+function handleContactInput(event) {
+    if (!contactInputIds.includes(event.target.id)) return;
+    event.target.dataset.touched = "true";
+    clearContactInputError(event.target.id);
+}
+
+
+/**
+ * Validates an input of the contact dialog as soon as it loses the focus.
+ * Untouched inputs and moving the focus to the close, cancel or delete button are skipped.
+ * @param {FocusEvent} event - The focusout event.
+ */
+function validateContactInputOnBlur(event) {
+    const input = event.target;
+    if (!contactInputIds.includes(input.id) || input.dataset.touched !== "true") return;
+    if (event.relatedTarget?.closest(".button-dialog-close, #dialog_button_cancel, #dialog_button_delete")) return;
+    clearContactInputError(input.id);
+    contactInputValidators[input.id]();
+}
+
+
+/**
+ * Forgets which inputs of the contact dialog the user has touched.
+ */
+function resetTouchedContactInputs() {
+    for (const inputId of contactInputIds) {
+        delete document.getElementById(inputId).dataset.touched;
     }
 }

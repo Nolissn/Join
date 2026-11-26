@@ -7,10 +7,39 @@ const guestEmail = 'guest@guestmail.com';
 function initLogIn() {
   document.querySelector('.log_in_card_log_in_button').addEventListener('click', logIn);
   document.querySelector('.log_in_card_guest_log_in_button').addEventListener('click', guestLogIn);
-  document.getElementById('email').addEventListener('input', resetLogInErrors);
-  document.getElementById('password').addEventListener('input', resetLogInErrors);
-  document.getElementById('email').addEventListener('keydown', handleLogInEnterKey);
-  document.getElementById('password').addEventListener('keydown', handleLogInEnterKey);
+  for (const inputId of ['email', 'password']) {
+    const input = document.getElementById(inputId);
+    input.addEventListener('input', () => handleLogInInput(input));
+    input.addEventListener('blur', () => validateLogInInputOnBlur(input));
+    input.addEventListener('keydown', handleLogInEnterKey);
+  }
+}
+
+
+/**
+ * Marks an input as touched and removes its error while the user types.
+ * The combined "incorrect" error marks both inputs, so it is removed from both.
+ * @param {HTMLInputElement} input - The input the user types in.
+ */
+function handleLogInInput(input) {
+  input.dataset.touched = 'true';
+  const passwordInput = document.getElementById('password');
+  const hasCombinedError = passwordInput.classList.contains('auth_card_input_error') && document.getElementById('passwordErrorText').textContent === '';
+  if (hasCombinedError) return resetLogInErrors();
+  clearLogInError(input.id);
+}
+
+
+/**
+ * Validates an input as soon as it loses the focus.
+ * An empty input the user never typed in is skipped, so tabbing through the form shows no errors.
+ * @param {HTMLInputElement} input - The input that lost the focus.
+ */
+function validateLogInInputOnBlur(input) {
+  if (input.value === '' && input.dataset.touched !== 'true') return;
+  clearLogInError(input.id);
+  if (input.id === 'email') checkIfLogInEmailIsValid(input.value.trim().toLowerCase());
+  else checkIfLogInPasswordIsFilled(input.value);
 }
 
 
@@ -164,9 +193,18 @@ function showLogInError(inputId, text) {
  */
 function resetLogInErrors() {
   for (const inputId of ['email', 'password']) {
-    document.getElementById(inputId).classList.remove('auth_card_input_error');
-    document.getElementById(inputId + 'ErrorText').textContent = '';
+    clearLogInError(inputId);
   }
+}
+
+
+/**
+ * Removes the error mark and the error text of one input of the login form.
+ * @param {string} inputId - "email" or "password".
+ */
+function clearLogInError(inputId) {
+  document.getElementById(inputId).classList.remove('auth_card_input_error');
+  document.getElementById(inputId + 'ErrorText').textContent = '';
 }
 
 

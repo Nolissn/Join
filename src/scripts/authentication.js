@@ -365,6 +365,34 @@ function clearInputError(inputId) {
 
 
 /**
+ * Validates an input as soon as it loses the focus.
+ * An empty input the user never typed in is skipped, so tabbing through the form shows no errors.
+ * @param {HTMLInputElement} input - The input that lost the focus.
+ */
+function validateSignUpInputOnBlur(input) {
+  if (input.value === "" && input.dataset.touched !== "true") return;
+  const values = getSignUpInputValues();
+  clearInputError(input.id);
+  if (input.id === "nameSignUp") checkIfNameIsValid(values.name);
+  if (input.id === "emailSignUp") checkIfEmailIsValid(values.email);
+  if (input.id === "passwordSignUp") validatePasswordInputsOnBlur(values);
+  if (input.id === "confirmPasswordSignUp") checkIfConfirmPasswordIsValid(values);
+}
+
+
+/**
+ * Validates the password and checks the confirmation again if it is already filled, because changing the password can fix or break the match.
+ * @param {SignUpValues} values - The values of the sign up form.
+ */
+function validatePasswordInputsOnBlur(values) {
+  checkIfPasswordIsValid(values.password);
+  if (values.confirmPassword === "") return;
+  clearInputError("confirmPasswordSignUp");
+  checkIfConfirmPasswordIsValid(values);
+}
+
+
+/**
  * Starts the sign up when Enter is pressed in an input or on the sign up button.
  * @param {KeyboardEvent} event - The keydown event.
  */
@@ -391,12 +419,14 @@ function handlePrivacyCheckboxEnterKey(event) {
 
 /**
  * Registers the event listeners of the sign up form.
- * Clicking into an input only removes the error of this input.
+ * Clicking into an input only removes the error of this input, leaving an input validates it.
  */
 function registerSignUpEvents() {
   for (const inputId of signUpInputIds) {
     const input = document.getElementById(inputId);
     input.addEventListener("focus", () => clearInputError(inputId));
+    input.addEventListener("input", () => (input.dataset.touched = "true"));
+    input.addEventListener("blur", () => validateSignUpInputOnBlur(input));
     input.addEventListener("keydown", handleSignUpEnterKey);
   }
   const privacyCheckbox = document.getElementById("acceptPrivacyPolicy");

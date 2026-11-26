@@ -374,7 +374,8 @@ function handleDialogEnterKey(event) {
 registerContactPageEvents();
 registerContactDialogEvents();
 document.querySelector(".container-dialog-changings").addEventListener("keydown", handleDialogEnterKey);
-document.querySelector(".container-dialog-inputs").addEventListener("input", resetContactInputErrors);
+document.querySelector(".container-dialog-inputs").addEventListener("input", handleContactInput);
+document.querySelector(".container-dialog-inputs").addEventListener("focusout", validateContactInputOnBlur);
 document.getElementById("confirm_delete_cancel").addEventListener("click", cancelDeleteContact);
 document.getElementById("confirm_delete_submit").addEventListener("click", confirmDeleteContact);
 document.getElementById("dialog_confirm_delete").addEventListener("click", handleConfirmDeleteBackdropClick);

@@ -64,6 +64,7 @@ function initTaskDialogEvents() {
   taskDialog.addEventListener('change', handleSubtaskToggle);
   taskDialog.addEventListener('change', handleAssignChange);
   taskDialog.addEventListener('input', handleEditInput);
+  taskDialog.addEventListener('focusout', handleEditBlur);
 }
 
 

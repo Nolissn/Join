@@ -138,8 +138,11 @@ function clearTaskFieldErrors() {
 }
 
 
+const taskFieldsValidatedOnBlur = ["title", "dueDate", "category"];
+
 /**
  * Removes the error of a field as soon as the user clicks into it or focuses it.
+ * Title, due date and category are validated again when the focus leaves them.
  * @param {HTMLFormElement} form - The add task form.
  */
 function registerTaskFieldErrorEvents(form) {
@@ -148,6 +151,45 @@ function registerTaskFieldErrorEvents(form) {
         const container = errorElement.closest(".add-task-input-container");
         container.addEventListener("focusin", () => showTaskFieldError(fieldId, ""));
         container.addEventListener("click", () => showTaskFieldError(fieldId, ""));
+        if (taskFieldsValidatedOnBlur.includes(fieldId)) registerTaskFieldBlurEvents(container, fieldId);
+    });
+}
+
+
+/**
+ * Marks a field as touched when the user types in it or opens its menu, and validates it when the focus leaves its container.
+ * @param {HTMLElement} container - The container of the field.
+ * @param {string} fieldId - The id of the field.
+ */
+function registerTaskFieldBlurEvents(container, fieldId) {
+    const markTouched = () => (container.dataset.touched = "true");
+    container.addEventListener("input", markTouched);
+    container.querySelector(".custom-select-trigger")?.addEventListener("click", markTouched);
+    container.addEventListener("focusout", event => validateTaskFieldOnBlur(event, container, fieldId));
+}
+
+
+/**
+ * Shows the error of a field when the focus leaves its container.
+ * Moving the focus inside the container, e.g. into the category menu, to the clear or close button, and untouched fields are skipped.
+ * @param {FocusEvent} event - The focusout event.
+ * @param {HTMLElement} container - The container of the field.
+ * @param {string} fieldId - The id of the field.
+ */
+function validateTaskFieldOnBlur(event, container, fieldId) {
+    if (container.contains(event.relatedTarget)) return;
+    if (event.relatedTarget?.closest(".clear-task-btn, .close-dialog")) return;
+    if (container.dataset.touched !== "true") return;
+    showTaskFieldError(fieldId, getTaskFieldErrors()[fieldId]);
+}
+
+
+/**
+ * Forgets which fields the user has touched, so an emptied form shows no errors while tabbing through it.
+ */
+function resetTouchedTaskFields() {
+    addTaskForm.querySelectorAll(".add-task-input-container[data-touched]").forEach(container => {
+        delete container.dataset.touched;
     });
 }
 
@@ -331,6 +373,7 @@ function clearTaskForm() {
     addTaskForm.querySelector("#priorityMedium").classList.add("btn-active", "priority-medium");
     updatePriorityIcons();
     clearTaskFieldErrors();
+    resetTouchedTaskFields();
     updateCreateTaskButton();
 }
 

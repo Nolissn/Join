@@ -125,11 +125,26 @@ function validateEditField(input) {
 
 
 /**
- * Validates an invalid field of the edit form again while the user corrects it.
+ * Marks the input as touched and validates an invalid field of the edit form again while the user corrects it.
  * @param {Event} event - The input event.
  */
 function handleEditInput(event) {
+  event.target.dataset.touched = 'true';
   if (event.target.closest('.taskEditFieldInvalid, .taskEditFieldTooEarly')) validateEditField(event.target);
+}
+
+
+/**
+ * Validates the title or the due date of the edit form as soon as it loses the focus.
+ * Untouched inputs and moving the focus to the close button are skipped.
+ * @param {FocusEvent} event - The focusout event.
+ */
+function handleEditBlur(event) {
+  const input = event.target;
+  if (!input.matches('.taskEditForm [name="title"], .taskEditForm [name="dueDate"]')) return;
+  if (input.dataset.touched !== 'true') return;
+  if (event.relatedTarget?.closest('.taskDetailClose')) return;
+  validateEditField(input);
 }
 
 

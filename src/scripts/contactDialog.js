@@ -97,6 +97,7 @@ function clearDialog() {
     document.getElementById("dialog_slogan").classList.remove("d-none");
     document.getElementById("dialog_underline").classList.add("dialog-underline");
     resetContactInputErrors();
+    resetTouchedContactInputs();
 }
 
 
