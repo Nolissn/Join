@@ -182,6 +182,12 @@
 .add-task-dialog .custom-select-menu[hidden] {
   display: none;
 }
+
+.add-task-dialog .custom-select-assigned .custom-select-menu {
+  max-height: 256px;
+  overflow-y: auto;
+}
+
 .add-task-dialog .custom-select-option {
   display: flex;
   align-items: center;
