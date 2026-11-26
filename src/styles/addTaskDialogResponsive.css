@@ -45,7 +45,8 @@
     width: 338px;
   }
 
-  .add-task-dialog label {
+  .add-task-dialog label,
+  .add-task-dialog .priority-label {
     width: 338px;
   }
   .add-task-dialog .add-task-input-container {
@@ -114,7 +115,8 @@
   .add-task-dialog .custom-select,
   .add-task-dialog .subtask-input-wrapper,
   .add-task-dialog .subtask-list,
-  .add-task-dialog label {
+  .add-task-dialog label,
+  .add-task-dialog .priority-label {
     width: 100%;
   }
 

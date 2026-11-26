@@ -108,6 +108,7 @@ function showSessionWarning(remainingTime) {
  * Hides the timeout warning.
  */
 function hideSessionWarning() {
+  if (isSessionWarningVisible === false) return;
   isSessionWarningVisible = false;
   document.getElementById('sessionWarning').classList.remove('sessionWarningVisible');
   document.getElementById('sessionOverlay').classList.remove('sessionOverlayVisible');
