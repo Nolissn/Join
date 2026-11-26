@@ -192,6 +192,11 @@ button {
     transform: translateY(40px);
 }
 
+.add-task-input-container:has(.custom-select-menu:not([hidden])) {
+    position: relative;
+    z-index: 3;
+}
+
 .add-task-input-container:has(.custom-select-assigned .custom-select-menu:not([hidden])) ~ .subtask-container {
     visibility: hidden;
 }
