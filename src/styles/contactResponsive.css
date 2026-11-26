@@ -41,6 +41,11 @@
         gap: 10px;
     }
 
+    .box-dialog-initials {
+        margin-right: auto;
+        margin-left: auto;
+    }
+
     .dialog-success-message-show {
         transform: translateX(10%) !important;
         transition: transform 0.3s ease-in-out;
