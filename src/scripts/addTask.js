@@ -422,6 +422,10 @@ document.addEventListener("focusin", handleOutsideCustomSelectClick);
 document.addEventListener("DOMContentLoaded", async function () {
     const form = document.getElementById("addTaskForm");
     if (!form) return;
+    const requestedStatus = new URLSearchParams(window.location.search).get("status");
+    if (["todo", "inProgress", "awaitFeedback", "done"].includes(requestedStatus)) {
+        form.dataset.status = requestedStatus;
+    }
     await loadContacts();
     initializeAddTaskForm(form);
 });

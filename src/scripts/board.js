@@ -74,6 +74,11 @@ function initTaskDialogEvents() {
  */
 function initAddTaskDialogEvents() {
   const addTaskDialog = document.getElementById('addTaskDialog');
+  window.matchMedia('(max-width: 880px)').addEventListener('change', function (event) {
+    if (!event.matches || !addTaskDialog.open) return;
+    const form = addTaskDialog.querySelector('#addTaskForm');
+    if (form) navigateToAddTaskPage(form.dataset.status || 'todo');
+  });
   addTaskDialog.addEventListener('click', function (event) {
     if (event.target === addTaskDialog) closeAddTaskDialog();
     if (event.target.closest('.close-dialog')) closeAddTaskDialog();
@@ -321,6 +326,10 @@ function formatDueDate(dueDate) {
  * @param {string} status - The status of the new task, e.g. "todo" or "inProgress".
  */
 function openAddTaskDialog(status) {
+  if (window.matchMedia('(max-width: 880px)').matches) {
+    navigateToAddTaskPage(status);
+    return;
+  }
   const addTaskDialog = document.getElementById('addTaskDialog');
   if (addTaskDialog.open) return;
   const content = addTaskDialog.querySelector('.add-task-dialog-content');
@@ -330,6 +339,12 @@ function openAddTaskDialog(status) {
   initializeAddTaskForm(form);
   addTaskDialog.showModal();
   lockPageScroll();
+}
+
+function navigateToAddTaskPage(status) {
+  const addTaskUrl = new URL('addTask.html', window.location.href);
+  addTaskUrl.searchParams.set('status', status);
+  window.location.href = addTaskUrl;
 }
 
 
