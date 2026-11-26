@@ -218,7 +218,6 @@
     background-size: 16px 16px;
     background-position: calc(100% - 16px) center;
     background-repeat: no-repeat;
-    padding-left: 30px;
 }
 
 .dialog-input-phone-icon {
@@ -226,7 +225,6 @@
     background-size: 18px 18px;
     background-position: calc(100% - 16px) center;
     background-repeat: no-repeat;
-    padding-left: 30px;
 }
 
 .container-dialog-buttons {
