@@ -57,9 +57,13 @@
 }
 
 .taskDetailTitle {
+  flex-shrink: 0;
+  max-height: 3.6em;
+  overflow-y: auto;
   font-size: 61px;
   font-weight: 700;
   line-height: 1.2;
+  scrollbar-color: var(--colorGrey) transparent;
 }
 
 .taskDetailTitle,
