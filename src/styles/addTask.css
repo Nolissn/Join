@@ -1,8 +1,10 @@
 main {
     height: calc(100dvh - 96px);
+    margin-right: min(0px, calc(1440px - 100cqw));
+    overflow-x: hidden;
     overflow-y: auto;
     scrollbar-color: var(--colorGrey) transparent;
-    padding: 100px 64px 0;
+    padding: 100px 64px 0 clamp(24px, calc(100cqw - 920px), 64px);
 
     display: flex;
     flex-direction: column;
@@ -192,12 +194,12 @@ button {
     transform: translateY(40px);
 }
 
-.add-task-input-container:has(.custom-select-menu:not([hidden])) {
-    position: relative;
 form:has(.custom-select-selected-contacts:not([hidden])) .footer {
     transform: translateY(40px);
 }
 
+.add-task-input-container:has(.custom-select-menu:not([hidden])) {
+    position: relative;
     z-index: 3;
 }
 
