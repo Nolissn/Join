@@ -85,6 +85,26 @@
 }
 
 @media (max-width: 1080px) {
+    .section-contact-list {
+        padding-top: 24px;
+        padding-bottom: 24px;
+    }
+
+    .container-contact-list-alphabet {
+        height: auto;
+        padding: 12px 28px;
+    }
+
+    .contact-list-seperator {
+        margin: 6px 0;
+    }
+
+    .button-contact {
+        height: auto;
+        padding: 12px 20px;
+        gap: 24px;
+    }
+
     .dialog-center {
         width: 110%;
         display: flex;
@@ -216,7 +236,7 @@
     .section-contact-list {
         min-width: 400px;
         width: 100%;
-        padding: 32px 14px;
+        padding: 24px 14px;
     }
 
     .contact-list-container-width {

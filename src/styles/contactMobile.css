@@ -119,6 +119,24 @@
         bottom: 96px;
     }
 
+    .section-contact-list {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .container-contact-list-alphabet {
+        padding: 10px 24px;
+    }
+
+    .contact-list-seperator {
+        margin: 5px 0;
+    }
+
+    .button-contact {
+        padding: 10px 16px;
+        gap: 16px;
+    }
+
     .button-add-new-contact {
         display: none;
     }
@@ -180,7 +198,7 @@
     .section-contact-list {
         min-width: 320px;
         width: 100%;
-        padding: 32px 14px;
+        padding: 16px 14px;
     }
 
     .contact-list-container-width {
@@ -188,11 +206,17 @@
     }
 
     .container-contact-list-alphabet {
-        padding: 17px 20px;
+        height: auto;
+        padding: 8px 20px;
+    }
+
+    .contact-list-seperator {
+        margin: 4px 0;
     }
 
     .button-contact {
-        padding: 15px 5px;
+        height: auto;
+        padding: 8px 5px;
         gap: 10px;
     }
 
@@ -219,6 +243,6 @@
     .section-contact-list {
         min-width: inherit;
         width: 100%;
-        padding: 32px 0px;
+        padding: 16px 0px;
     }
 }
