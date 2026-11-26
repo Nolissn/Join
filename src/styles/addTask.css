@@ -194,6 +194,10 @@ button {
 
 .add-task-input-container:has(.custom-select-menu:not([hidden])) {
     position: relative;
+form:has(.custom-select-selected-contacts:not([hidden])) .footer {
+    transform: translateY(40px);
+}
+
     z-index: 3;
 }
 
