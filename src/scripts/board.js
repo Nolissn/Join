@@ -59,6 +59,7 @@ function initTaskDialogEvents() {
   const taskDialog = document.getElementById('taskDialog');
   taskDialog.addEventListener('click', handleDialogClick);
   taskDialog.addEventListener('cancel', closeTaskDialog);
+  taskDialog.addEventListener('close', unlockPageScroll);
   taskDialog.addEventListener('submit', saveTaskEdit);
   taskDialog.addEventListener('keydown', handleEditKeydown);
   taskDialog.addEventListener('dblclick', handleEditSubtaskDoubleClick);
@@ -92,7 +93,7 @@ function initAddTaskDialogEvents() {
  * Prevents the page from scrolling while a dialog is open.
  */
 function lockPageScroll() {
-  document.body.classList.add('bodyScrollLocked');
+  document.documentElement.classList.add('pageScrollLocked');
 }
 
 
@@ -100,7 +101,7 @@ function lockPageScroll() {
  * Allows the page to scroll again after a dialog is closed.
  */
 function unlockPageScroll() {
-  document.body.classList.remove('bodyScrollLocked');
+  document.documentElement.classList.remove('pageScrollLocked');
 }
 
 

@@ -9,6 +9,7 @@ function openTaskDialog(event) {
   showTaskDetail(findStoredTask(taskCard.dataset.taskId));
   taskDialog.classList.add('taskDialogOpen');
   taskDialog.showModal();
+  lockPageScroll();
 }
 
 
