@@ -198,9 +198,15 @@
     .section-contacts-information {
         display: none;
         height: auto;
+        margin-top: 24px;
+        gap: 32px;
         overflow-y: auto;
-        padding-bottom: 80px;
+        padding-bottom: 24px;
         scrollbar-color: var(--colorGrey) transparent;
+    }
+
+    .container-contacts-header {
+        height: auto;
     }
 
     .contact-information-tocontact {
@@ -224,5 +230,8 @@
 
     .button-responsive-return {
         display: flex;
+        position: absolute;
+        top: 16px;
+        right: 0;
     }
 }
