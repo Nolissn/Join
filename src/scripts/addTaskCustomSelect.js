@@ -331,6 +331,19 @@ function scheduleCustomSelectReset() {
 
 
 /**
+ * Checks whether an event happened outside of a custom select.
+ * Focus that moves to an element containing the custom select, e.g. the dialog in Safari, does not count as outside.
+ * @param {Event} event - The click or focusin event.
+ * @param {HTMLElement} container - The custom select container.
+ * @returns {boolean} True if the event happened outside of the custom select.
+ */
+function isOutsideCustomSelect(event, container) {
+    if (container.contains(event.target)) return false;
+    return event.type !== "focusin" || !event.target.contains(container);
+}
+
+
+/**
  * Closes the open custom selects of the add task form when the user clicks or focuses outside of them.
  * @param {Event} event - The click or focusin event.
  */
@@ -338,6 +351,6 @@ function handleOutsideCustomSelectClick(event) {
     if (!addTaskForm) return;
     addTaskForm.querySelectorAll(".custom-select").forEach(function (container) {
         const context = getCustomSelectContext(container);
-        if (!context.menu.hidden && !container.contains(event.target)) closeCustomSelect(context);
+        if (!context.menu.hidden && isOutsideCustomSelect(event, container)) closeCustomSelect(context);
     });
 }
