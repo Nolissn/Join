@@ -27,8 +27,9 @@
 }
 
 .dialog-center {
-    height: 592px;
+    height: min(592px, calc(100dvh - 64px));
     width: 1212px;
+    max-width: calc(100% - 64px);
     position: fixed;
     display: flex;
     align-items: center;
@@ -176,7 +177,7 @@
 .dialog-input {
     height: 50px;
     width: 100%;
-    padding: 13px 21px;
+    padding: 13px 48px 13px 21px;
     font-size: 20px;
     font-weight: 400;
     border: 1px solid #6B6B6BB6;
@@ -218,7 +219,6 @@
     background-size: 16px 16px;
     background-position: calc(100% - 16px) center;
     background-repeat: no-repeat;
-    padding-left: 30px;
 }
 
 .dialog-input-phone-icon {
@@ -226,7 +226,6 @@
     background-size: 18px 18px;
     background-position: calc(100% - 16px) center;
     background-repeat: no-repeat;
-    padding-left: 30px;
 }
 
 .container-dialog-buttons {

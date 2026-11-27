@@ -31,7 +31,7 @@
     }
 
     .dialog-center {
-        width: calc(100% - 20px);
+        width: calc(100% - 64px);
         max-width: 1212px;
     }
 
@@ -39,6 +39,11 @@
         width: calc(100% - 453px);
         padding-left: 10px;
         gap: 10px;
+    }
+
+    .box-dialog-initials {
+        margin-right: auto;
+        margin-left: auto;
     }
 
     .dialog-success-message-show {
@@ -85,8 +90,28 @@
 }
 
 @media (max-width: 1080px) {
+    .section-contact-list {
+        padding-top: 24px;
+        padding-bottom: 24px;
+    }
+
+    .container-contact-list-alphabet {
+        height: auto;
+        padding: 12px 28px;
+    }
+
+    .contact-list-seperator {
+        margin: 6px 0;
+    }
+
+    .button-contact {
+        height: auto;
+        padding: 12px 20px;
+        gap: 24px;
+    }
+
     .dialog-center {
-        width: 110%;
+        width: calc(100% - 64px);
         display: flex;
         justify-content: center;
     }
@@ -106,6 +131,8 @@
     }
 
     .dialog-right-side {
+        flex: 1;
+        width: auto;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -183,10 +210,6 @@
         width: 100%;
     }
 
-    .container-contact-buttons {
-        display: none;
-    }
-
     .dialog-success-message-show {
         transform: translateX(40%) !important;
         transition: transform 0.3s ease-in-out;
@@ -197,12 +220,34 @@
 
     .section-contacts-information {
         display: none;
+        height: auto;
+        margin-top: 24px;
+        gap: 32px;
+        overflow-y: auto;
+        padding-bottom: 24px;
+        scrollbar-color: var(--colorGrey) transparent;
+    }
+
+    .container-contacts-header {
+        height: auto;
+    }
+
+    .container-contact-buttons {
+        display: none;
+    }
+
+    .button-responsive-options {
+        display: flex;
+    }
+
+    .contact-information-tocontact {
+        padding-right: 64px;
     }
 
     .section-contact-list {
         min-width: 400px;
         width: 100%;
-        padding: 32px 14px;
+        padding: 24px 14px;
     }
 
     .contact-list-container-width {
@@ -216,5 +261,8 @@
 
     .button-responsive-return {
         display: flex;
+        position: absolute;
+        top: 16px;
+        right: 0;
     }
 }

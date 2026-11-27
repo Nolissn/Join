@@ -204,8 +204,7 @@
   row-gap: 4px;
 }
 
-.taskEditSubtaskAdd,
-.taskEditSubtask {
+.taskEditSubtaskAdd {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -223,11 +222,11 @@
 
 .taskEditSubtask {
   flex-shrink: 0;
+  cursor: pointer;
 }
 
-.taskEditSubtaskInput {
-  height: 40px;
-  font-size: 16px;
+.taskEditSubtask.subtask-item-editing {
+  cursor: default;
 }
 
 .taskEditIconButton {

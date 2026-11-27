@@ -51,13 +51,59 @@ function addEditSubtask(form) {
 
 
 /**
- * Adds a subtask when Enter is pressed in the new subtask input.
+ * Adds a new subtask or saves the edited subtask when Enter is pressed, so the form is not submitted.
  * @param {KeyboardEvent} event - The keydown event.
  */
 function handleEditKeydown(event) {
-  if (event.key !== 'Enter' || !event.target.matches('.taskEditNewSubtask')) return;
-  event.preventDefault();
-  addEditSubtask(event.target.closest('.taskEditForm'));
+  if (event.key !== 'Enter') return;
+  if (event.target.matches('.taskEditNewSubtask')) {
+    event.preventDefault();
+    addEditSubtask(event.target.closest('.taskEditForm'));
+  }
+  if (event.target.matches('.taskEditSubtaskInput')) {
+    event.preventDefault();
+    saveEditSubtask(event.target.closest('.taskEditSubtask'));
+  }
+}
+
+
+/**
+ * Opens the edit mode of a subtask in the edit form on double click.
+ * @param {MouseEvent} event - The dblclick event.
+ */
+function handleEditSubtaskDoubleClick(event) {
+  const item = event.target.closest('.taskEditSubtask');
+  if (!item || item.classList.contains('subtask-item-editing')) return;
+  startEditSubtask(item);
+}
+
+
+/**
+ * Shows a subtask of the edit form in edit mode and places the cursor at the end of the text.
+ * A subtask that is still in edit mode is saved first.
+ * @param {HTMLLIElement} item - The subtask to edit.
+ */
+function startEditSubtask(item) {
+  const openItem = item.closest('.taskEditSubtaskList').querySelector('.subtask-item-editing');
+  if (openItem === item) return;
+  if (openItem) saveEditSubtask(openItem);
+  const title = item.querySelector('.taskEditSubtaskTitle').textContent;
+  item.classList.add('subtask-item-editing');
+  item.innerHTML = taskEditSubtaskEditTemplate(title);
+  const input = item.querySelector('.taskEditSubtaskInput');
+  input.focus();
+  input.setSelectionRange(input.value.length, input.value.length);
+}
+
+
+/**
+ * Takes over the edited title of a subtask in the edit form. An empty title removes the subtask.
+ * @param {HTMLLIElement} item - The subtask in edit mode.
+ */
+function saveEditSubtask(item) {
+  const title = item.querySelector('.taskEditSubtaskInput').value.trim();
+  if (title === '') return item.remove();
+  item.outerHTML = taskEditSubtaskTemplate({ title: title, done: item.dataset.done === 'true' });
 }
 
 
@@ -186,10 +232,22 @@ function getEditedAssignees(form) {
 function getEditedSubtasks(form) {
   const subtasks = [];
   for (const item of form.querySelectorAll('.taskEditSubtask')) {
-    const title = item.querySelector('.taskEditSubtaskInput').value.trim();
+    const title = getEditSubtaskTitle(item);
     if (title !== '') subtasks.push({ title: title, done: item.dataset.done === 'true' });
   }
   return subtasks;
+}
+
+
+/**
+ * Reads the title of a subtask in the edit form, also while it is in edit mode.
+ * @param {HTMLLIElement} item - The subtask.
+ * @returns {string} The trimmed title.
+ */
+function getEditSubtaskTitle(item) {
+  const input = item.querySelector('.taskEditSubtaskInput');
+  if (input) return input.value.trim();
+  return item.querySelector('.taskEditSubtaskTitle').textContent.trim();
 }
 
 

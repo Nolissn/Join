@@ -40,7 +40,8 @@ section {
     gap: 24px;
 }
 
-label {
+label,
+.priority-label {
     font-size: 20px;
     padding-bottom: 4px;
     color: var(--colorTextGrey);

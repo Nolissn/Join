@@ -108,11 +108,11 @@ function taskDetailTemplate(task) {
     </div>
     <div class="taskDetailSection">
       <span class="taskDetailLabel">Assigned To:</span>
-      <ul class="taskDetailList">${getAvatarsHtml(task.assignedTo, 'detail')}</ul>
+      <ul class="taskDetailList taskDetailAssigneeList">${getAvatarsHtml(task.assignedTo, 'detail')}</ul>
     </div>
     <div class="taskDetailSection">
       <span class="taskDetailLabel">Subtasks</span>
-      <ul class="taskDetailList" data-task-id="${makeTextSafe(task.id)}">${getSubtasksHtml(task.subtasks)}</ul>
+      <ul class="taskDetailList taskDetailSubtaskList" data-task-id="${makeTextSafe(task.id)}">${getSubtasksHtml(task.subtasks)}</ul>
     </div>
     <div class="taskDetailActions">
       <button class="taskDetailAction" type="button" data-action="delete" data-task-id="${makeTextSafe(task.id)}"><img src="${iconPath}delete.svg" alt="">Delete</button>
@@ -176,8 +176,8 @@ function renderAddTaskDialog() {
         <div class="seperator"></div>
         <section class="form-right">
           <div class="add-task-input-container">
-            <label class="priority-label" for="priority">Priority</label>
-            <div id="priority" class="priority-btn-container">
+            <span class="priority-label" id="priorityLabel">Priority</span>
+            <div id="priority" class="priority-btn-container" role="group" aria-labelledby="priorityLabel">
               <button type="button" class="priority-btn" id="priorityUrgent" data-priority="urgent">Urgent <img class="priority-btn-icon" src="../../assets/icons/urgent.svg" data-icon="urgent.svg" data-active-icon="urgend-white.svg" alt="Urgent"></button>
               <button type="button" class="priority-btn btn-active priority-medium" id="priorityMedium" data-priority="medium">Medium <img class="priority-btn-icon" src="../../assets/icons/medium.svg" data-icon="medium_orange.svg" data-active-icon="medium.svg" alt="Medium"></button>
               <button type="button" class="priority-btn" id="priorityLow" data-priority="low">Low <img class="priority-btn-icon" src="../../assets/icons/low.svg" data-icon="low.svg" data-active-icon="urgend-white.svg" alt="Low"></button>
@@ -325,8 +325,28 @@ function taskEditContactTemplate(contact, index, avatarColor, checkedAttribute) 
  */
 function taskEditSubtaskTemplate(subtask) {
   return `
-    <li class="taskEditSubtask" data-done="${subtask.done}">
-      <input class="taskEditInput taskEditSubtaskInput" type="text" value="${makeTextSafe(subtask.title)}" aria-label="Subtask">
-      <button class="taskEditIconButton" type="button" data-action="removeSubtask"><img src="${iconPath}delete.svg" alt="Remove subtask"></button>
+    <li class="subtask-item taskEditSubtask" data-done="${subtask.done}">
+      <span class="subtask-title taskEditSubtaskTitle">${makeTextSafe(subtask.title)}</span>
+      <div class="subtask-actions">
+        <button class="subtask-icon-btn" type="button" data-action="editSubtask" aria-label="Edit subtask"><img src="${iconPath}edit.svg" alt=""></button>
+        <span class="subtask-divider"></span>
+        <button class="subtask-icon-btn" type="button" data-action="removeSubtask" aria-label="Delete subtask"><img src="${iconPath}delete.svg" alt=""></button>
+      </div>
     </li>`;
+}
+
+
+/**
+ * Returns the inner HTML of a subtask in edit mode in the edit form.
+ * @param {string} title - The current title of the subtask.
+ * @returns {string} The inner HTML of the list item.
+ */
+function taskEditSubtaskEditTemplate(title) {
+  return `
+    <input class="subtask-edit-input taskEditSubtaskInput" type="text" value="${makeTextSafe(title)}" aria-label="Edit subtask">
+    <div class="subtask-actions">
+      <button class="subtask-icon-btn" type="button" data-action="removeSubtask" aria-label="Delete subtask"><img src="${iconPath}delete.svg" alt=""></button>
+      <span class="subtask-divider"></span>
+      <button class="subtask-icon-btn" type="button" data-action="saveSubtask" aria-label="Save subtask"><img src="${iconPath}check_dark.svg" alt=""></button>
+    </div>`;
 }

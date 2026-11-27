@@ -4,16 +4,21 @@
         display: flex;
     }
 
-    .button-responsive-options {
-        display: flex;
-    }
-
     .dialog-center {
-        height: 760px;
+        height: auto;
+        max-height: calc(100dvh - 20px);
         min-width: 320px;
         width: calc(100% - 30px);
         max-width: 670px;
         flex-direction: column;
+        overflow-y: auto;
+        border-radius: 30px;
+        scrollbar-color: var(--colorGrey) transparent;
+    }
+
+    .dialog-left-side,
+    .dialog-right-side {
+        flex: none;
     }
 
     .dialog-left-side {
@@ -42,7 +47,7 @@
     }
 
     .dialog-right-side {
-        height: 100%;
+        height: auto;
         width: 100%;
         flex-direction: column;
         padding-left: 0px;
@@ -96,6 +101,29 @@
 
     main {
         height: calc(100dvh - 160px);
+    }
+
+    .button-responsive-contact,
+    .contact-container-actions-responsive {
+        bottom: 96px;
+    }
+
+    .section-contact-list {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .container-contact-list-alphabet {
+        padding: 10px 24px;
+    }
+
+    .contact-list-seperator {
+        margin: 5px 0;
+    }
+
+    .button-contact {
+        padding: 10px 16px;
+        gap: 16px;
     }
 
     .button-add-new-contact {
@@ -159,7 +187,7 @@
     .section-contact-list {
         min-width: 320px;
         width: 100%;
-        padding: 32px 14px;
+        padding: 16px 14px;
     }
 
     .contact-list-container-width {
@@ -167,11 +195,17 @@
     }
 
     .container-contact-list-alphabet {
-        padding: 17px 20px;
+        height: auto;
+        padding: 8px 20px;
+    }
+
+    .contact-list-seperator {
+        margin: 4px 0;
     }
 
     .button-contact {
-        padding: 15px 5px;
+        height: auto;
+        padding: 8px 5px;
         gap: 10px;
     }
 
@@ -198,6 +232,6 @@
     .section-contact-list {
         min-width: inherit;
         width: 100%;
-        padding: 32px 0px;
+        padding: 16px 0px;
     }
 }
