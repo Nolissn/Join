@@ -130,6 +130,8 @@
 
 .add-task-dialog .custom-select {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 400px;
 }
 
@@ -145,6 +147,10 @@
 }
 
 .add-task-dialog .custom-select-trigger {
+  position: relative;
+  z-index: 1;
+  background-color: var(--colorWhite);
+  color: var(--colorTextGrey);
   text-align: left;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -154,16 +160,18 @@
 .add-task-dialog .custom-select-trigger::after {
   content: "";
   position: absolute;
-  top: 15px;
-  right: 16px;
-  width: 9px;
-  height: 9px;
+  top: 17px;
+  right: 18px;
+  width: 10px;
+  height: 10px;
   border-right: 2px solid var(--colorBlack);
   border-bottom: 2px solid var(--colorBlack);
   transform: rotate(45deg);
+  transition: transform 100ms ease;
 }
 
 .add-task-dialog .custom-select-trigger[aria-expanded="true"]::after {
+  top: 22px;
   transform: rotate(225deg);
 }
 
@@ -171,50 +179,19 @@
   position: absolute;
   top: calc(100% - 8px);
   left: 0;
-  z-index: 2;
+  z-index: 0;
   width: 100%;
-  padding-top: 8px;
+  max-height: 256px;
+  overflow-y: auto;
+  padding: 8px 0 0;
+  background-color: var(--colorWhite);
   border: 1px solid var(--colorGrey);
   border-radius: 8px;
-  background-color: var(--colorWhite);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
 }
 
 .add-task-dialog .custom-select-menu[hidden] {
   display: none;
-}
-
-.add-task-dialog .custom-select-assigned .custom-select-menu {
-  max-height: 256px;
-  overflow-y: auto;
-}
-
-.add-task-dialog .custom-select-option {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 40px;
-  padding: 8px 14px;
-  cursor: pointer;
-}
-
-.add-task-dialog .custom-select-option-label {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.add-task-dialog .custom-select-avatar {
-  display: flex;
-  flex: 0 0 32px;
-  align-items: center;
-  justify-content: center;
-  height: 32px;
-  border-radius: 50%;
-  color: var(--colorWhite);
-  font-size: 12px;
 }
 
 .add-task-dialog .custom-select-selected-contacts {
@@ -227,10 +204,6 @@
   overflow: hidden;
   gap: 8px;
   padding-top: 8px;
-}
-
-.add-task-dialog .custom-select-avatar-more {
-  background-color: var(--colorPrimary);
 }
 
 .add-task-dialog .custom-select-selected-contacts-covered {
@@ -253,6 +226,39 @@
   position: relative;
   z-index: 3;
 }
+
+.add-task-dialog .add-task-input-container:has(.custom-select-assigned .custom-select-menu:not([hidden])) ~ .subtask-container {
+  visibility: hidden;
+}
+
+.add-task-dialog .custom-select-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 40px;
+  padding: 8px 16px;
+  color: var(--colorBlack);
+  cursor: pointer;
+  border-radius: 8px;
+  margin: 1px 0;
+}
+
+.add-task-dialog .custom-select-avatar {
+  display: flex;
+  flex: 0 0 32px;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--colorWhite);
+  font-size: 12px;
+}
+
+.add-task-dialog .custom-select-avatar-more {
+  background-color: var(--colorPrimary);
+}
+
 .add-task-dialog .custom-select-avatar.red { background-color: red; }
 .add-task-dialog .custom-select-avatar.blue { background-color: blue; }
 .add-task-dialog .custom-select-avatar.green { background-color: green; }
@@ -264,21 +270,41 @@
 .add-task-dialog .custom-select-avatar.turquoise { background-color: turquoise; }
 .add-task-dialog .custom-select-avatar.darkblue { background-color: rgb(0, 0, 118); }
 
+.add-task-dialog .custom-select-option-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .add-task-dialog .custom-select-option:hover,
-.add-task-dialog .custom-select-option:focus,
-.add-task-dialog .custom-select-option[aria-selected="true"] {
+.add-task-dialog .custom-select-option:focus-visible {
   background-color: rgba(205, 205, 205, 0.4);
   outline: none;
 }
 
-.add-task-dialog .custom-select-option[aria-selected="true"]::after {
+.add-task-dialog .custom-select-option:focus {
+  outline: none;
+}
+
+.add-task-dialog .custom-select-option[aria-selected="true"] {
+  background-color: var(--colorPrimary);
+  color: var(--colorWhite);
+}
+
+.add-task-dialog .custom-select-option::after {
   content: "";
-  flex: 0 0 8px;
-  height: 12px;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
   margin-left: auto;
-  border-right: 2px solid var(--colorPrimary);
-  border-bottom: 2px solid var(--colorPrimary);
-  transform: rotate(45deg);
+  background: url("../../assets/icons/checkbox.svg") center / 24px no-repeat;
+}
+
+.add-task-dialog .custom-select-option[aria-selected="true"]::after {
+  background-image: url("../../assets/icons/checkbox_checked.svg");
+  filter: brightness(0) invert(1);
 }
 
 .add-task-dialog .priority-btn-container {

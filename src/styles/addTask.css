@@ -108,6 +108,8 @@ button {
 
 .custom-select {
     position: relative;
+    display: flex;
+    flex-direction: column;
     width: 400px;
 }
 
@@ -155,7 +157,7 @@ button {
     position: absolute;
     top: calc(100% - 8px);
     left: 0;
-    z-index: 2;
+    z-index: 0;
     width: 100%;
     max-height: 256px;
     overflow-y: auto;
@@ -164,7 +166,6 @@ button {
     border: 1px solid var(--colorGrey);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-    clip-path: inset(8px 0 0);
 }
 
 .custom-select-menu[hidden] {
@@ -256,8 +257,12 @@ form:has(.custom-select-selected-contacts:not([hidden])) .footer {
 }
 
 .custom-select-option:hover,
-.custom-select-option:focus {
+.custom-select-option:focus-visible {
     background-color: rgba(205, 205, 205, 0.4);
+    outline: none;
+}
+
+.custom-select-option:focus {
     outline: none;
 }
 
@@ -268,26 +273,16 @@ form:has(.custom-select-selected-contacts:not([hidden])) .footer {
 
 .custom-select-option::after {
     content: "";
-    display: flex;
-    flex: 0 0 18px;
-    align-items: center;
-    justify-content: center;
-    width: 18px;
-    height: 18px;
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
     margin-left: auto;
-    border: 2px solid var(--colorTextGrey);
-    border-radius: 3px;
-    box-sizing: border-box;
+    background: url("../../assets/icons/checkbox.svg") center / 24px no-repeat;
 }
 
 .custom-select-option[aria-selected="true"]::after {
-    content: "✓";
-    border-color: var(--colorWhite);
-    background-color: var(--colorWhite);
-    color: var(--colorPrimary);
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 1;
+    background-image: url("../../assets/icons/checkbox_checked.svg");
+    filter: brightness(0) invert(1);
 }
 
 textarea {
